@@ -30,6 +30,8 @@ async function buildGameSelector() {
         posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1172380/library_600x900.jpg' },
       { id: 'black_myth_wukong', name: '黑神话：悟空',                 year: 2024,
         posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_600x900.jpg' },
+      { id: 'max_payne_3',       name: 'Max Payne 3',                  year: 2012,
+        posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg' },
     ];
   }
   const list = document.getElementById('gsList');
@@ -64,7 +66,10 @@ async function switchGame(gameId) {
   buildTicks();
   buildPeaks();
   buildBossSaves();
+  buildEntryPoints();
+  buildOverview();
   buildChList();
+  buildProtagonistJourney();
   drawWave();
   updateDisplay(currentPct);
 }
@@ -250,38 +255,6 @@ function buildPeaks() {
   });
 }
 
-// ── CHAPTER LIST ──────────────────────────────────────────────
-function buildChList() {
-  const list = document.getElementById('chList');
-  list.innerHTML = '';
-  CHAPTERS.forEach(ch => {
-    const done    = currentPct > ch.progressEnd;
-    const current = currentPct >= ch.progressStart && currentPct <= ch.progressEnd;
-    const el = document.createElement('div');
-    el.className = 'ch-row' + (done ? ' done' : current ? ' active' : '');
-    el.onclick = () => setProgress(ch.progressStart + 2);
-
-    const bars = Array.from({length:5}, (_, j) => {
-      const h  = j < Math.round(ch.hypeScore / 2) ? Math.max(4, ch.hypeScore * 2) : 3;
-      const op = j < Math.round(ch.hypeScore / 2) ? 1 : 0.18;
-      return `<div class="hb" style="height:${h}px;opacity:${op}"></div>`;
-    }).join('');
-
-    el.innerHTML = `
-      <div class="ch-dot ${done?'done':current?'current':'pending'}"></div>
-      <div class="ch-info">
-        <div class="ch-name">${ch.name}</div>
-        <div class="ch-planet">🪐 ${ch.planet}</div>
-      </div>
-      <div class="ch-hype">${bars}</div>
-      <div class="ch-pct">${ch.progressStart}–${ch.progressEnd}%</div>
-    `;
-    el.addEventListener('mouseenter', e => showTT(e, ch.name, ch.keyEvent));
-    el.addEventListener('mouseleave', hideTT);
-    list.appendChild(el);
-  });
-}
-
 // ── DISPLAY UPDATE ────────────────────────────────────────────
 function updateDisplay(pct) {
   currentPct = pct;
@@ -304,6 +277,7 @@ function updateDisplay(pct) {
   }
 
   buildChList();
+  buildProtagonistJourney();
   drawWave();
 }
 
@@ -458,3 +432,118 @@ document.addEventListener('mousemove', e => {
   const tt = document.getElementById('tooltip');
   if (tt.style.display === 'block') positionTT(e);
 });
+
+// ── GAME OVERVIEW ─────────────────────────────────────────────
+function buildOverview() {
+  const section = document.getElementById('gameOverview');
+  if (!GAME || !GAME.overview) { section.style.display = 'none'; return; }
+  const ov = GAME.overview;
+  document.getElementById('overviewTagline').textContent = ov.tagline || '';
+  document.getElementById('overviewDesc').textContent    = ov.description || '';
+  const hl = document.getElementById('overviewHighlights');
+  hl.innerHTML = '';
+  if (ov.highlights) {
+    ov.highlights.forEach(h => {
+      const chip = document.createElement('div');
+      chip.className = 'ov-highlight';
+      chip.innerHTML = `<span class="ov-icon">${h.icon}</span><span>${h.text}</span>`;
+      hl.appendChild(chip);
+    });
+  }
+  section.style.display = 'block';
+}
+
+// ── ENTRY POINTS ──────────────────────────────────────────────
+function buildEntryPoints() {
+  const row = document.getElementById('entryRow');
+  row.innerHTML = '';
+  if (!GAME || !GAME.entryPoints) return;
+  GAME.entryPoints.forEach((ep, i) => {
+    const el = document.createElement('div');
+    el.className = 'entry-marker';
+    el.style.left = ep.progressPct + '%';
+    const labels = ['⭐ 起点', '⭐⭐ 进阶', '⭐⭐⭐ 高潮'];
+    el.innerHTML = `
+      <div class="entry-marker-icon">${labels[i] || '⭐'}</div>
+      <div class="entry-marker-label">${ep.label}</div>
+    `;
+    el.addEventListener('mouseenter', e => showTT(e, ep.label, ep.reason));
+    el.addEventListener('mouseleave', hideTT);
+    row.appendChild(el);
+  });
+}
+
+// ── PROTAGONIST JOURNEY ───────────────────────────────────────
+function buildProtagonistJourney() {
+  const card = document.getElementById('journeyCard');
+  const list = document.getElementById('journeyList');
+  if (!GAME || !GAME.protagonistJourney) { card.style.display = 'none'; return; }
+  list.innerHTML = '';
+  GAME.protagonistJourney.forEach(step => {
+    const done    = currentPct > step.progressPct;
+    const current = Math.abs(currentPct - step.progressPct) <= 8;
+    const el = document.createElement('div');
+    el.className = 'journey-step' + (done ? ' done' : current ? ' current' : '');
+    const unlockPills = (step.unlocks || []).map(u =>
+      `<span class="unlock-pill">${u}</span>`
+    ).join('');
+    el.innerHTML = `
+      <div class="journey-pct">${step.progressPct}%</div>
+      <div class="journey-line">
+        <div class="journey-dot"></div>
+      </div>
+      <div class="journey-content">
+        <div class="journey-event">${step.event}</div>
+        <div class="journey-desc">${step.description}</div>
+        <div class="journey-unlocks">${unlockPills}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => setProgress(step.progressPct));
+    list.appendChild(el);
+  });
+  card.style.display = 'block';
+}
+
+// ── CHAPTER LIST (enriched) ───────────────────────────────────
+function buildChList() {
+  const list = document.getElementById('chList');
+  list.innerHTML = '';
+  CHAPTERS.forEach(ch => {
+    const done    = currentPct > ch.progressEnd;
+    const current = currentPct >= ch.progressStart && currentPct <= ch.progressEnd;
+    const el = document.createElement('div');
+    el.className = 'ch-row' + (done ? ' done' : current ? ' active' : '');
+    el.onclick = () => setProgress(ch.progressStart + 2);
+
+    const bars = Array.from({length:5}, (_, j) => {
+      const h  = j < Math.round(ch.hypeScore / 2) ? Math.max(4, ch.hypeScore * 2) : 3;
+      const op = j < Math.round(ch.hypeScore / 2) ? 1 : 0.18;
+      return `<div class="hb" style="height:${h}px;opacity:${op}"></div>`;
+    }).join('');
+
+    // Build extra detail block if enriched data exists
+    let detail = '';
+    if (ch.plotDetail) {
+      detail = `
+        <div class="ch-detail">
+          <div class="ch-detail-plot">${ch.plotDetail}</div>
+          ${ch.playerGoals ? `<div class="ch-detail-goals"><b>🎯 目标：</b>${ch.playerGoals}</div>` : ''}
+          ${ch.newCharacters ? `<div class="ch-detail-chars"><b>👥 新登场：</b>${ch.newCharacters}</div>` : ''}
+        </div>`;
+    }
+
+    el.innerHTML = `
+      <div class="ch-dot ${done?'done':current?'current':'pending'}"></div>
+      <div class="ch-info">
+        <div class="ch-name">${ch.name}</div>
+        <div class="ch-planet">🪐 ${ch.planet}</div>
+        ${detail}
+      </div>
+      <div class="ch-hype">${bars}</div>
+      <div class="ch-pct">${ch.progressStart}–${ch.progressEnd}%</div>
+    `;
+    el.addEventListener('mouseenter', e => showTT(e, ch.name, ch.keyEvent));
+    el.addEventListener('mouseleave', hideTT);
+    list.appendChild(el);
+  });
+}

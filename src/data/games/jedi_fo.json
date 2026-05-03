@@ -8,6 +8,71 @@
   "totalHoursComplete": 31,
   "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1172380/library_hero.jpg",
   "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1172380/library_600x900.jpg",
+  "overview": {
+    "tagline": "绝地之道，从废墟中重生",
+    "description": "Star Wars Jedi: Fallen Order 是 Respawn Entertainment 出品的单人动作冒险游戏，故事发生在《西斯的复仇》之后的黑暗年代。你扮演 Cal Kestis——一个在帝国猎杀中隐姓埋名的幸存绝地学徒——被迫重燃原力，踏上一段试图重建绝地秩序的旅途。游戏以魂系战斗为灵感，以星战宇宙的丰富视觉语言为背景，将探索、解谜和剑战融为一体。Cal 的成长弧线是全游戏的情感核心：一个逃避过去、对自己力量充满恐惧的年轻人，如何一步步面对自己，成为真正的绝地武士。",
+    "highlights": [
+      { "icon": "⚡", "text": "光剑战斗的极致手感：招架、闪避、原力推拉节奏感出色" },
+      { "icon": "🌌", "text": "星战氛围满分：每个星球都有独特的视觉风格和叙事密度" },
+      { "icon": "🕵️", "text": "第二黑暗兄弟会——Trilla 是近年最有深度的星战反派之一" },
+      { "icon": "🔵", "text": "结局抉择震撼：Cal 那一刻的决定定义了整部作品的主题" }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "Bracca 废料星球的开场是近年最好的游戏开场之一，Cal 身份揭露和逃亡序列直接抓住人心，不要跳过。"
+    },
+    {
+      "progressPct": 35,
+      "label": "动作爽点入口",
+      "reason": "获得双刀之后战斗风格完全打开，招架-反击-原力连携已全部解锁，这是手感最好的入场时机。"
+    },
+    {
+      "progressPct": 65,
+      "label": "剧情高潮直入",
+      "reason": "Trilla 真实身份揭露后故事进入情感高密度区间，Cal 的成长危机、BD-1 的秘密、圣所的真正含义开始层层展开。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 0,
+      "event": "Bracca·身份暴露，逃亡开始",
+      "description": "Cal 在废料星球以工人身份苟活，一次本能反应暴露了他的原力能力，帝国的猎杀随即开始。",
+      "unlocks": ["原力慢（Force Slow）", "原力推（Force Push）", "光剑基础连段"]
+    },
+    {
+      "progressPct": 18,
+      "event": "Bogano·与 BD-1 相遇，使命确立",
+      "description": "遇见 BD-1，找到 Eno Cordova 的全息日志，Cal 第一次有了明确的使命：找到失落的绝地感应者名单。",
+      "unlocks": ["原力拉（Force Pull）", "壁跑强化", "BD-1 探索辅助"]
+    },
+    {
+      "progressPct": 35,
+      "event": "Dathomir 或 Zeffo·双刀与内心危机",
+      "description": "Cal 的光剑进化，战斗能力大幅提升。同时，Trilla 的压力和过去的创伤让 Cal 开始直面自己逃避已久的恐惧。",
+      "unlocks": ["双刀形态（Split Saber）", "原力闪避", "高级格挡反击"]
+    },
+    {
+      "progressPct": 55,
+      "event": "Kashyyyk 第二次·Saw 与盟友网络",
+      "description": "Cal 与抵抗军建立联系，意识到这场旅途不只是个人的成长，而是更大反抗叙事的一部分。",
+      "unlocks": ["原力偏转（Force Deflect）", "攀爬强化", "光剑自定义解锁"]
+    },
+    {
+      "progressPct": 70,
+      "event": "圣所·真相与崩溃",
+      "description": "BD-1 记忆完全解锁，Cordova 的真实决定揭晓。Cal 在最黑暗的时刻必须重新选择：继续还是放弃？",
+      "unlocks": ["原力满强化", "双手棍形态", "全原力技能解锁"]
+    },
+    {
+      "progressPct": 88,
+      "event": "最终决战·Cal 成为绝地",
+      "description": "对抗 Trilla、Vader、以及自己内心的恐惧。Cal 在这一刻真正完成了从学徒到绝地武士的转变。",
+      "unlocks": ["原力巅峰状态", "最终光剑形态", "结局抉择"]
+    }
+  ],
   "gameTheme": {
     "bg": "#07090f",
     "bgCard": "#0d1220",
@@ -21,13 +86,76 @@
     "instructions": "1. 下载并解压 zip 文件\n2. 进入对应 Boss 战文件夹\n3. 将文件重命名为 Backup01.sav 和 SaveGame01.sav\n4. 复制到存档路径\n5. 启动游戏 → 读取存档"
   },
   "chapters": [
-    { "id": 0, "name": "序章：逃离 Bracca",      "planet": "Bracca",           "progressStart": 0,  "progressEnd": 7,   "hypeScore": 7,  "keyEvent": "Cal 逃离星球，与 Cere & Greez 相遇" },
-    { "id": 1, "name": "第一章：Bogano 地窖",     "planet": "Bogano",           "progressStart": 7,  "progressEnd": 15,  "hypeScore": 5,  "keyEvent": "结识 BD-1，Cordova 全息信息揭示任务" },
-    { "id": 2, "name": "第二章：Zeffo Eilram 墓", "planet": "Zeffo",            "progressStart": 15, "progressEnd": 30,  "hypeScore": 6,  "keyEvent": "重拾原力推力，再遇第二姐妹" },
-    { "id": 3, "name": "第三章：解救乌基族",      "planet": "Kashyyyk",         "progressStart": 30, "progressEnd": 46,  "hypeScore": 7,  "keyEvent": "遇见 Saw Gerrera，攀登源树，击败第九姐妹" },
-    { "id": 4, "name": "第四章：Miktrull 墓穴",   "planet": "Dathomir / Zeffo", "progressStart": 46, "progressEnd": 62,  "hypeScore": 8,  "keyEvent": "夜姐妹登场，双刃光剑解锁，Cere 的秘密" },
-    { "id": 5, "name": "第五章：Ilum & Dathomir", "planet": "Ilum / Dathomir",  "progressStart": 62, "progressEnd": 80,  "hypeScore": 9,  "keyEvent": "打造新光剑，击败 Malicos，Merrin 加入" },
-    { "id": 6, "name": "第六章：审判者要塞",      "planet": "Nur",              "progressStart": 80, "progressEnd": 100, "hypeScore": 10, "keyEvent": "击败第二姐妹，Darth Vader 追杀，毁掉 Holocron" }
+    {
+      "id": 0, "name": "序章：逃离 Bracca",
+      "planet": "Bracca",
+      "progressStart": 0, "progressEnd": 7,
+      "hypeScore": 7,
+      "keyEvent": "Cal 逃离星球，与 Cere & Greez 相遇",
+      "plotDetail": "Cal Kestis 在废料星球 Bracca 以打捞工人身份苟活，帝国阴影下的幸存者之一。一次意外暴露了他的原力能力，帝国审判者随即追来。在混乱的逃亡中，Cal 遇见了前绝地武士 Cere Junda 和飞船船长 Greez——一段新的旅程就此强行开始。",
+      "playerGoals": "逃离帝国审判者的追捕 → 登上 Mantis 飞船离开 Bracca → 接受 Cere 的任务：重建绝地圣所",
+      "newCharacters": "Cal Kestis（主角，幸存绝地学徒）、BD-1（Cal 的忠实机器人搭档）、Cere Junda（前绝地武士，任务发起者）、Greez Dritus（飞船船长）、第二姐妹 Trilla（帝国审判者，主要反派）"
+    },
+    {
+      "id": 1, "name": "第一章：Bogano 地窖",
+      "planet": "Bogano",
+      "progressStart": 7, "progressEnd": 15,
+      "hypeScore": 5,
+      "keyEvent": "结识 BD-1，Cordova 全息信息揭示任务",
+      "plotDetail": "Bogano 是一颗古老而宁静的星球，表面是辽阔的草原，地下深处藏着前绝地大师 Eno Cordova 遗留的地窖。Cal 在这里与 BD-1 正式结成搭档，并通过 Cordova 的全息日志得知任务核心：一份隐藏在宇宙某处的原力感应者名单，那是重建绝地秩序的唯一希望。",
+      "playerGoals": "探索 Bogano 地窖，解读 Cordova 的全息日志 → 与 BD-1 建立联系 → 确定下一个目标星球",
+      "newCharacters": "Eno Cordova（已故绝地大师，以全息日志形式出现，任务关键人物）"
+    },
+    {
+      "id": 2, "name": "第二章：Zeffo Eilram 墓",
+      "planet": "Zeffo",
+      "progressStart": 15, "progressEnd": 30,
+      "hypeScore": 6,
+      "keyEvent": "重拾原力推力，再遇第二姐妹",
+      "plotDetail": "Zeffo 是一颗被帝国占领的考古星球，古代 Zeffo 人留下的风力神殿散落各处。Cal 深入 Eilram 墓穴重新习得原力推力，同时意识到帝国一直在跟踪他的行动路线。第二姐妹 Trilla 在这里真正展示了她的威胁——她不只是追杀者，她对绝地的仇恨背后藏着更深的故事。",
+      "playerGoals": "在帝国封锁下进入 Eilram 墓穴 → 解开古代 Zeffo 机关，重拾原力推力 → 与第二姐妹交手并脱身",
+      "newCharacters": "第二姐妹 Trilla（深度登场，仇恨绝地的审判者，与 Cere 的过去有联系）"
+    },
+    {
+      "id": 3, "name": "第三章：解救乌基族",
+      "planet": "Kashyyyk",
+      "progressStart": 30, "progressEnd": 46,
+      "hypeScore": 7,
+      "keyEvent": "遇见 Saw Gerrera，攀登源树，击败第九姐妹",
+      "plotDetail": "Kashyyyk 是乌基族（Wookiee）的家园，也是帝国奴役计划的重灾区。Cal 来到这片参天巨树与工业污染并存的星球，与传奇反叛军领袖 Saw Gerrera 短暂同行，攀登神圣源树，最终在树顶击败了残暴的第九姐妹。这一章拓展了星战宇宙的反叛军叙事，也让 Cal 第一次感受到比个人任务更宏观的斗争。",
+      "playerGoals": "接触 Saw Gerrera 的抵抗力量 → 攀登源树，解放被帝国奴役的乌基族 → 击败第九姐妹，保住生路",
+      "newCharacters": "Saw Gerrera（反叛军领袖，星战经典角色）、第九姐妹（帝国审判者，力量型对手）"
+    },
+    {
+      "id": 4, "name": "第四章：Miktrull 墓穴",
+      "planet": "Dathomir / Zeffo",
+      "progressStart": 46, "progressEnd": 62,
+      "hypeScore": 8,
+      "keyEvent": "夜姐妹登场，双刃光剑解锁，Cere 的秘密",
+      "plotDetail": "这一章在两颗截然不同的星球间切换：神秘黑暗的 Dathomir 和古老考古的 Zeffo。Dathomir 夜姐妹巫术文化的登场为游戏增添了前所未有的黑暗气质；而 Cere 长期回避的秘密在这章逐渐浮出——她曾经背叛过一个绝地，那个绝地就是 Trilla。Cal 的光剑在这章进化为双刃形态，战斗风格彻底改变。",
+      "playerGoals": "进入 Miktrull 墓穴取得第二枚球体 → 在 Dathomir 面对夜姐妹的黑暗原力 → 了解 Cere 与 Trilla 之间的痛苦过去",
+      "newCharacters": "Merrin（Dathomir 夜姐妹，起初为敌）、Taron Malicos（堕落的前绝地大师）、Cere 的过去（完整揭露）"
+    },
+    {
+      "id": 5, "name": "第五章：Ilum & Dathomir",
+      "planet": "Ilum / Dathomir",
+      "progressStart": 62, "progressEnd": 80,
+      "hypeScore": 9,
+      "keyEvent": "打造新光剑，击败 Malicos，Merrin 加入",
+      "plotDetail": "Ilum 是绝地圣地，Cal 在这里以凛冽的冰晶重新打造了属于自己的光剑——这是一个绝地成年礼的完成。随后回到 Dathomir，Cal 必须击败已完全堕落的 Malicos，并赢得 Merrin 的信任。她最终选择加入 Mantis 的旅程，为最后的决战带来关键力量。",
+      "playerGoals": "在 Ilum 圣地重塑光剑，完成属于自己的武器 → 在 Dathomir 决战堕落大师 Malicos → 说服 Merrin 放下仇恨，加入团队",
+      "newCharacters": "Merrin（转变为盟友，夜姐妹巫术战士）"
+    },
+    {
+      "id": 6, "name": "第六章：审判者要塞",
+      "planet": "Nur",
+      "progressStart": 80, "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "击败第二姐妹，Darth Vader 追杀，毁掉 Holocron",
+      "plotDetail": "审判者要塞深藏于 Nur 的海底——帝国残酷的绝地猎杀机器的核心所在。Cal 在这里面对 Trilla 的最终决战，而 Cere 终于在关键时刻补全了她对学徒的亏欠。当 Holocron 就在手中，Darth Vader 的出现改变了一切。Cal 做出了整部游戏最重要的抉择：销毁名单，让那些孩子永远不被帝国找到。这个决定的重量，是整个故事的精神总结。",
+      "playerGoals": "突入审判者要塞，击败第二姐妹 Trilla → 在 Darth Vader 的追杀下活命脱逃 → 面对最终抉择：使用还是销毁 Holocron",
+      "newCharacters": "Darth Vader（终极威胁登场，是对绝地力量天花板的现实展示）"
+    }
   ],
   "hypePeaks": [
     { "progressPct": 3,  "label": "逃离 Bracca",   "score": 7,  "color": "#f97316" },

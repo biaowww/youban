@@ -10,6 +10,65 @@
   "genre": "第三人称射击",
   "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_hero.jpg",
   "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg",
+  "overview": {
+    "tagline": "一个男人，一把枪，一段无路可退的旅程",
+    "description": "Max Payne 3 是 Rockstar Games 出品的第三人称射击游戏，也是这个系列最成熟、最沉重的篇章。Max Payne——一个被悲剧和酒精蹂躏多年的前纽约警探——来到圣保罗担任保镖，却意外卷入了一场涉及腐败政客、黑帮与人体器官贩卖的巨大阴谋。游戏以慢动作子弹时间为核心机制，以电影级叙事为灵魂，大量第一人称内心独白构成了这个故事最独特的气质：疲惫、犀利、黑色幽默之下是一个孤独男人试图在废墟中找到一点点意义。",
+    "highlights": [
+      { "icon": "🎬", "text": "电影级叙事：Max 的内心独白是整个游戏的灵魂" },
+      { "icon": "💊", "text": "子弹时间系统：慢动作枪战的极致爽感体验" },
+      { "icon": "🏟️", "text": "体育场大屠杀——游戏史上最震撼的剧情反转之一" },
+      { "icon": "✈️", "text": "机场终章：孤身闯机场，系列最高光的收尾时刻" }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "从头跟随 Max 来到巴西，感受从\"普通保镖工作\"逐渐滑向深渊的完整叙事弧线，游戏前期节奏轻松，是适应机制的最佳方式。"
+    },
+    {
+      "progressPct": 43,
+      "label": "剧情加速入口",
+      "reason": "Rodrigo 已死，Max 失去一切退路，故事正式进入高速道。从这里开始每一章都有剧情爆炸时刻，枪战难度也恰好进入中等区间。"
+    },
+    {
+      "progressPct": 84,
+      "label": "高潮直入——机场前夜",
+      "reason": "所有幕后黑手已揭晓，最后的清算开始。这两章是全游戏动作密度和情感张力双峰值，适合只想感受系列高光时刻的玩家。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 0,
+      "event": "圣保罗·落魄雇佣兵",
+      "description": "Max 来到巴西，酗酒、潦倒、试图重新开始。他只想做好分内的保镖工作，不再惹麻烦。",
+      "unlocks": ["子弹时间基础", "翻滚射击（Shootdodge）", "双枪模式"]
+    },
+    {
+      "progressPct": 22,
+      "event": "雇主遇害·无路可退",
+      "description": "Rodrigo 死后，Max 失去了工作、金钱和在巴西的立足点。他留下来，不是因为有计划，而是因为他已经没有别的地方可去。",
+      "unlocks": ["重武器（霰弹枪·突击步枪）", "痛苦镇痛剂系统强化", "近战处决"]
+    },
+    {
+      "progressPct": 50,
+      "event": "体育场·看清真相",
+      "description": "Max 目睹了国家机器的暴行。这不再是保镖任务，不再是单纯的复仇——这是一个男人决定站到腐败的对面。",
+      "unlocks": ["狙击步枪", "战术掩体意识", "子弹时间连续触发"]
+    },
+    {
+      "progressPct": 63,
+      "event": "Victor 真相·彻底孤立",
+      "description": "Max 明白了一切都是局，他是被利用的棋子。此刻他不再试图逃离，而是决定把所有人都清算一遍。",
+      "unlocks": ["重型甲胄穿透弹药", "多目标锁定模式"]
+    },
+    {
+      "progressPct": 84,
+      "event": "机场·最后的清算",
+      "description": "Max 孤身一人，对抗整个体制。没有支援，没有授权，只有愤怒和多年积累的射击本能。这是他在这个故事里最自由的时刻。",
+      "unlocks": ["全武器库开放", "最终子弹时间强化"]
+    }
+  ],
   "gameTheme": {
     "bg": "#0a0805",
     "bgCard": "#130f0a",
@@ -23,35 +82,50 @@
       "planet": "圣保罗·上流社会",
       "progressStart": 0, "progressEnd": 22,
       "hypeScore": 6,
-      "keyEvent": "Max 受雇保护 Rodrigo，在夜店派对上 Fabiana 遭到绑架，一切开始崩坏"
+      "keyEvent": "Max 受雇保护 Rodrigo，在夜店派对上 Fabiana 遭到绑架，一切开始崩坏",
+      "plotDetail": "Max 来到巴西，试图用一份保镖工作重新开始。圣保罗上流社会的浮华派对与他满身的沧桑形成强烈对比。工作第一晚，Rodrigo 的妻子 Fabiana 就在夜店遭到武装绑架。Max 来不及反应，绑架者 CS 帮首领 Serrano 已经消失在夜色中。这三章建立了游戏的情感基调：一个已经没有什么可失去的男人，却又开始有了失去的东西。",
+      "playerGoals": "在夜店枪战中保护 Rodrigo 家族 → 追踪 Fabiana 的下落 → 击败 Serrano，救援任务初步完成但付出代价",
+      "newCharacters": "Max Payne（主角，疲惫的前警探）、Rodrigo Branco（雇主，地产大亨）、Raul Passos（Max 的搭档）、Fabiana（Rodrigo 之妻，绑架受害者）、Serrano（CS 帮首领）"
     },
     {
       "id": 1, "name": "Ch.4–6：追踪与背叛",
       "planet": "圣保罗·贫民窟",
       "progressStart": 22, "progressEnd": 43,
       "hypeScore": 7,
-      "keyEvent": "Max 深入贫民窟，雇主 Rodrigo 遇害，Max 的处境急剧恶化"
+      "keyEvent": "Max 深入贫民窟，雇主 Rodrigo 遇害，Max 的处境急剧恶化",
+      "plotDetail": "贫民窟是圣保罗的另一面——狭窄的巷道、垂直叠层的贫困建筑，和随处可见的武装力量。Max 深入其中追踪绑架线索，却只换来更多的混乱。Rodrigo 遇害是这段故事的分水岭：Max 失去了工作、立足点，甚至失去了在这座城市继续存在的理由。但他还是留了下来。",
+      "playerGoals": "追踪 CS 帮到贫民窟据点 → 试图在混乱中保住 Rodrigo 的性命（但失败）→ 在孤立无援的状态下杀出重围",
+      "newCharacters": "贫民窟 CS 帮成员、Victor Branco（Rodrigo 的弟弟，首次登场，看似悲痛的受害者）"
     },
     {
       "id": 2, "name": "Ch.7–9：真相浮现",
       "planet": "圣保罗·体育场",
       "progressStart": 43, "progressEnd": 64,
       "hypeScore": 8,
-      "keyEvent": "体育场大屠杀揭示幕后黑手，Max 发现自己卷入了远比想象更深的阴谋"
+      "keyEvent": "体育场大屠杀揭示幕后黑手，Max 发现自己卷入了远比想象更深的阴谋",
+      "plotDetail": "体育场章节是全游戏最震撼的叙事时刻。Max 追踪人贩网络进入一座巨大的足球场，目睹了 UFE（精英警察）有组织地屠杀平民。这不是帮派暴力，而是国家暴力。Max 此前以为自己在追坏人，现在他发现：合法与非法的界限从未如此模糊。",
+      "playerGoals": "深入体育场揭露人贩组织 → 在 UFE 屠杀中存活 → 找到幕后指使的第一条真正线索",
+      "newCharacters": "UFE（联邦特种部队，本作最大反派势力）、Giovanna（Passos 的女友，关键角色）"
     },
     {
       "id": 3, "name": "Ch.10–12：幕后的阴谋",
       "planet": "圣保罗·港口·机场",
       "progressStart": 64, "progressEnd": 84,
       "hypeScore": 8,
-      "keyEvent": "Victor Branco 的腐败暴露，UFE 组织真面目浮出，Max 孤身对抗整个体制"
+      "keyEvent": "Victor Branco 的腐败暴露，UFE 组织真面目浮出，Max 孤身对抗整个体制",
+      "plotDetail": "这三章是谜底逐渐揭晓的过程。Victor Branco——那个全程以悲痛家属身份出现的男人——是整个腐败网络的核心策划者。他参与了哥哥的死，他为器官贩卖提供政治保护伞，他利用 UFE 清除异见。Max 在港口的集装箱迷宫和仓库间追踪真相，每一场枪战都让他离清算更近一步。",
+      "playerGoals": "追踪 Victor Branco 的幕后指示链 → 在港口激战中生存并收集证据 → 确认最终目标，准备最后的清算",
+      "newCharacters": "Becker（UFE 实际指挥官，最终Boss）、Victor Branco（真正的幕后黑手，全面登场）"
     },
     {
       "id": 4, "name": "Ch.13–14：最后的复仇",
       "planet": "圣保罗国际机场",
       "progressStart": 84, "progressEnd": 100,
       "hypeScore": 10,
-      "keyEvent": "Max 独闯机场，清算所有幕后黑手，以一己之力终结这场腐败游戏"
+      "keyEvent": "Max 独闯机场，清算所有幕后黑手，以一己之力终结这场腐败游戏",
+      "plotDetail": "Victor Branco 试图带着罪行和秘密逃离巴西。Max Payne，一个没有授权、没有支援、没有任何退路的中年男人，独自走入圣保罗国际机场。候机楼、登机口、停机坪、跑道——每一步都是对整个腐败体制的正面宣战。这不是英雄时刻，这是一个已经失去了一切的人，用最后的力气在这个世界上留下一个答案。",
+      "playerGoals": "穿越机场全区域连续战斗 → 击败 Becker → 追上 Victor Branco，完成最终清算",
+      "newCharacters": "无新角色——这是所有线索的终点，是已登场角色各自命运的收尾"
     }
   ],
   "hypePeaks": [
@@ -87,7 +161,7 @@
       "context": {
         "plot": "Max Payne 离开美国后潦倒失意，酗酒度日。他在老友 Raul Passos 的引荐下来到圣保罗，为巴西富豪 Rodrigo Branco 担任私人保镖。工作的第一个正式夜晚，Rodrigo 的妻子 Fabiana 在高档夜店遭到武装绑架。绑架者是 Comando Sombra（CS 帮）的头目 Serrano——一个在贫民窟崛起的武装犯罪首领。Max 来不及反应，Fabiana 就已经消失在圣保罗的夜色中。",
         "characters": "Max Payne：主角，前纽约警探，被悲剧和酒精蹂躏多年的孤独中年男人。他的内心独白是游戏叙事的核心——犀利、疲惫、带着黑色幽默。\n\nRaul Passos：Max 的搭档兼引荐人，职业雇佣军，冷静务实。\n\nFabiana Branco：Rodrigo 的年轻妻子，美丽而充满活力，她的绑架是整个故事的导火索。\n\nSerrano：CS 帮首领，表面是街头枭雄，实则是更大阴谋的一枚棋子。",
-        "gameplay": "Max Payne 3 没有传统意义上的生命值Boss战——Serrano 是一个场景型"最终敌人"，在近距离枪战中被击毙。核心机制：子弹时间（Bullet Time）+ 慢动作翻滚（Shootdodge）。这是全游戏的机制入门关，多使用子弹时间，习惯贴墙掩体和动态射击的节奏。"
+        "gameplay": "Max Payne 3 没有传统意义上的生命值Boss战——Serrano 是一个场景型\"最终敌人\"，在近距离枪战中被击毙。核心机制：子弹时间（Bullet Time）+ 慢动作翻滚（Shootdodge）。这是全游戏的机制入门关，多使用子弹时间，习惯贴墙掩体和动态射击的节奏。"
       }
     },
     {
