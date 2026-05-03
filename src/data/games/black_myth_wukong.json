@@ -1,0 +1,165 @@
+{
+  "id": "black_myth_wukong",
+  "name": "黑神话：悟空",
+  "nameEn": "Black Myth: Wukong",
+  "developer": "Game Science",
+  "year": 2024,
+  "steamAppId": 2358720,
+  "totalHoursMain": 25,
+  "totalHoursComplete": 55,
+  "genre": "动作角色扮演",
+  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_hero.jpg",
+  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_600x900.jpg",
+  "gameTheme": {
+    "bg": "#0c0a06",
+    "bgCard": "#161008",
+    "accent": "#d4a017",
+    "accent2": "#c0392b",
+    "text": "#f0e6d0"
+  },
+  "chapters": [
+    {
+      "id": 0, "name": "第一回：黑风山",
+      "planet": "黑风山·黑风洞",
+      "progressStart": 0, "progressEnd": 16,
+      "hypeScore": 7,
+      "keyEvent": "天命人初醒，破入黑风山，斩黑熊精，寻觅毗蓝婆"
+    },
+    {
+      "id": 1, "name": "第二回：黄风岭",
+      "planet": "黄风岭·风沙之境",
+      "progressStart": 16, "progressEnd": 32,
+      "hypeScore": 7,
+      "keyEvent": "穿越黄沙，败虎先锋，斩黄风大圣，得灵根线索"
+    },
+    {
+      "id": 2, "name": "第三回：小雷音寺",
+      "planet": "盘丝岭·小雷音寺",
+      "progressStart": 32, "progressEnd": 49,
+      "hypeScore": 8,
+      "keyEvent": "蜘蛛精迷局，金池长老之秘，斩黄眉，见菩提真身"
+    },
+    {
+      "id": 3, "name": "第四回：流沙河",
+      "planet": "流沙河·沙漠腹地",
+      "progressStart": 49, "progressEnd": 63,
+      "hypeScore": 8,
+      "keyEvent": "天命人真相初现，沙僧本质揭露，悟空记忆碎片浮现"
+    },
+    {
+      "id": 4, "name": "第五回：火焰山",
+      "planet": "火焰山·芭蕉洞",
+      "progressStart": 63, "progressEnd": 80,
+      "hypeScore": 9,
+      "keyEvent": "红孩儿再战，铁扇公主的抉择，牛魔王终极决战"
+    },
+    {
+      "id": 5, "name": "第六回：灵山",
+      "planet": "灵山·天庭",
+      "progressStart": 80, "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "六耳猕猴真相，天命人的宿命，悟空的轮回与解脱"
+    }
+  ],
+  "hypePeaks": [
+    { "progressPct": 7,  "label": "广智之死",    "score": 6,  "color": "#d4a017" },
+    { "progressPct": 14, "label": "黑熊精",      "score": 8,  "color": "#f97316" },
+    { "progressPct": 28, "label": "黄风大圣",    "score": 8,  "color": "#eab308" },
+    { "progressPct": 40, "label": "蜘蛛精",      "score": 7,  "color": "#a855f7" },
+    { "progressPct": 47, "label": "黄眉大王",    "score": 9,  "color": "#f97316" },
+    { "progressPct": 57, "label": "天命真相",    "score": 8,  "color": "#a855f7" },
+    { "progressPct": 70, "label": "红孩儿",      "score": 8,  "color": "#ef4444" },
+    { "progressPct": 77, "label": "牛魔王",      "score": 10, "color": "#ef4444" },
+    { "progressPct": 88, "label": "六耳猕猴",    "score": 10, "color": "#ef4444" },
+    { "progressPct": 96, "label": "真结局",      "score": 9,  "color": "#a855f7" }
+  ],
+  "achievements": [
+    { "steamId": "ACH_CH1_ENTER",   "name": "踏上征途",       "progressPct": 3  },
+    { "steamId": "ACH_BLACK_BEAR",  "name": "黑风山已无妖风", "progressPct": 14 },
+    { "steamId": "ACH_YELLOW_WIND", "name": "黄沙散尽",       "progressPct": 28 },
+    { "steamId": "ACH_SPIDER",      "name": "蛛丝断",         "progressPct": 40 },
+    { "steamId": "ACH_HUANGMEI",    "name": "小雷音已空",     "progressPct": 47 },
+    { "steamId": "ACH_CH4_CLEAR",   "name": "流沙已平",       "progressPct": 63 },
+    { "steamId": "ACH_BULL_KING",   "name": "火焰山熄",       "progressPct": 77 },
+    { "steamId": "ACH_MACAQUE",     "name": "真假已辨",       "progressPct": 88 },
+    { "steamId": "ACH_END_NORMAL",  "name": "踏破灵山",       "progressPct": 92 },
+    { "steamId": "ACH_END_TRUE",    "name": "天命所归",       "progressPct": 100 }
+  ],
+  "bossSaves": [
+    {
+      "id": "black_bear",
+      "name": "黑熊精 — 第一回终Boss",
+      "nameEn": "Black Bear Guai",
+      "folder": null,
+      "progressPct": 14,
+      "storyGap": 1,
+      "planet": "黑风山·熊洞",
+      "highlight": true,
+      "context": {
+        "plot": "天命人是一只被命运选中的猴子，踏入黑风山寻找一件与悟空过去有关的袈裟。黑熊精（黑熊妖王）是山中真正的霸主，他偷走袈裟后觉得自己有了佛法庇佑。在《西游记》原著中悟空请来毗蓝婆才降服他，而本作中天命人需要独自面对。战斗结束后，毗蓝婆的出现揭示了袈裟背后一段被时间尘封的因果——这是悟空故事真正开始的第一块拼图。",
+        "characters": "天命人：主角，觉醒的猴子，命中注定追寻悟空踪迹。全程无台词，情感通过战斗和环境叙事表达。\n\n黑熊精：威猛的黑熊妖王，外表凶残，内心有自己的骄傲与执念。战斗结束后他的命运充满深意。\n\n广智（前置Boss）：迷恋袈裟的老和尚，因执念堕落，是黑风山第一道关卡。",
+        "gameplay": "三阶段Boss战。阶段一常规黑熊近战；阶段二黑焰覆体，攻击带燃烧DOT；阶段三愤怒形态，体型变大、速度加快、AOE扩大。推荐棍势劈棍+变化术（化身）应对第三阶段。携带定身法术可打断他的大招读条。"
+      }
+    },
+    {
+      "id": "yellow_wind",
+      "name": "黄风大圣 — 第二回终Boss",
+      "nameEn": "Yellow Wind Sage",
+      "folder": null,
+      "progressPct": 28,
+      "storyGap": 2,
+      "planet": "黄风岭·风穴深处",
+      "highlight": true,
+      "context": {
+        "plot": "黄风岭是被黄沙永久笼罩的荒芜之地。黄风大圣（原为灵吉菩萨的飞鼠）在《西游记》中用三昧神风差点使悟空失明。本作中，这片黄沙不是天灾——是黄风大圣以自身力量封印了一个更古老的存在，他的恶背后藏着一种沉重的牺牲。天命人到来打破了这脆弱的平衡。击败他后，深藏于黄风岭的另一个真相才逐渐浮现。",
+        "characters": "虎先锋（前置Boss）：黄风大圣的先锋大将，他的故事揭示了黄风岭内部的妖族矛盾。\n\n黄风大圣：飞鼠大王，外表暴君，实为被时间磨碎的守护者。他的战斗台词是全游戏最动人的Boss对白之一。\n\n鼠将（隐线）：黄风大圣之弟，侧面人物，他的故事解释了黄风岭黄沙的真正来源。",
+        "gameplay": "三昧神风全程影响视野（屏幕沙雾效果）。三阶段：常规风系出招→召唤沙柱AOE→飞离地面空中俯冲。核心：阶段三不要追击飞在空中的他，等他落地俯冲后的硬直窗口输出。腰间金链是弱点，可打断部分施法。"
+      }
+    },
+    {
+      "id": "huangmei",
+      "name": "黄眉大王 — 小雷音寺",
+      "nameEn": "Yellow-brow (Huangmei Duwang)",
+      "folder": null,
+      "progressPct": 47,
+      "storyGap": 3,
+      "planet": "小雷音寺",
+      "highlight": true,
+      "context": {
+        "plot": "小雷音寺是假冒灵山的佛寺——外表庄严，内里全是谎言。黄眉大王是弥勒佛身边的扫塔力士，因偷了主人的法器（人种袋和金铙）下界为妖，自称如来，坐拥寺庙接受朝拜。他是游戏对宗教虚伪与权力崇拜最辛辣的讽刺。击败他后，藏于第三回深处关于菩提老祖的线索被解锁，暗示悟空最初的老师与天命人命运之间的隐秘联系。",
+        "characters": "黄眉大王：弥勒的扫塔力士，外表华贵庄严，实则是偷了主人宝贝的小跟班。他的笑容是游戏中最令人不安的存在。\n\n菩提老祖（隐线）：第三回深处的谜题核心，悟空的启蒙老师，也是天命人身份之谜的关键钥匙。",
+        "gameplay": "前半段难度峰值。三阶段：佛器攻击→金铙封印场（被卷入时快速挣脱按键）→人种袋召唤多个分身同场混战。金铙阶段最危险，一旦被封入需疯狂操作挣脱。火焰系克制他的部分护盾。保留变化术用于第三阶段分身混战期爆发。"
+      }
+    },
+    {
+      "id": "bull_king",
+      "name": "牛魔王 — 第五回史诗决战",
+      "nameEn": "Bull King",
+      "folder": null,
+      "progressPct": 77,
+      "storyGap": 4,
+      "planet": "火焰山·积雷山",
+      "highlight": true,
+      "context": {
+        "plot": "牛魔王是游戏体量最宏大、战斗最史诗的Boss。他曾是悟空结拜大哥中最强的一位，正直而豪迈。但在天庭糖衣炮弹（封官许爵）的腐蚀下，他逐渐迷失，抛弃了家庭与信念，最终成为一个为虚名而战的空壳。这场决战不是正义对邪恶，而是两个孤独强者的碰撞——一个迷失了的王，和一个正在寻找意义的天命人。他在战斗中的台词完整诉说了从志向凌云到自我消耗的堕落历程。",
+        "characters": "牛魔王：全游戏最具悲剧色彩的Boss。强大、孤独、迷茫。他的失败不是力量不够，而是他早已失去了战斗的意义。\n\n铁扇公主（战后）：她的选择是本章最令人动容的收尾，揭示了她对牛魔王感情的真实底色——爱恨交织，最终释然。\n\n红孩儿（前置Boss，70%处）：牛魔王之子，三昧真火攻击。先打红孩儿才能触发牛魔王决战。",
+        "gameplay": "四阶段史诗战斗，全游戏持续时间最长：阶段一真身牛魔+巨斧地震；阶段二愤怒形态速度大幅提升；阶段三变身巨型牛（原型），体型是天命人十倍，AOE覆盖大半战场；阶段四天兵天将协战，牛魔被压制但反扑更猛。全程备3个大葫芦（满血），阶段三绕到侧面攻击腿/腹弱点，阶段四先消灭小兵防止夹击。"
+      }
+    },
+    {
+      "id": "six_eared_macaque",
+      "name": "六耳猕猴 — 最终真相",
+      "nameEn": "Six-Eared Macaque",
+      "folder": null,
+      "progressPct": 88,
+      "storyGap": 5,
+      "planet": "灵山·真假之间",
+      "highlight": true,
+      "context": {
+        "plot": "这是整个游戏最震撼的剧情反转。六耳猕猴在游戏宇宙中承载着超出原著的深意。《西游记》真假美猴王是悟空内心矛盾的外化：自由与约束、本我与超我的决战。在黑神话的设定里，天命人一路追寻悟空踪迹、收集遗落的神通与记忆，最终在灵山前明白——他追寻的不只是一段历史，而是悟空完整的那半个自己。六耳猕猴，就是那个被压抑、被否定、被遗忘的自由本性。这场战斗是自我与另一个自我的终极决战。",
+        "characters": "六耳猕猴：悟空的镜像，拥有几乎相同的外貌、武器和能力。他是整个游戏精神内核的具象化——自由的本性，被压抑后的反弹。\n\n天命人（主角本质揭示）：走到这里，玩家明白：天命人从未是传统意义上的主角，他是悟空意志的延续，是轮回的一环。\n\n悟空（两种结局）：普通结局是顺应轮回，真结局是打破。你的选择决定了这个故事的意义。",
+        "gameplay": "全游戏最高难度Boss之一。六耳猕猴会完整复制天命人的技能——你用什么他也会用。三阶段：常规金箍棒连击→读取你的出招习惯并反制→最终形态释放所有习得神通。核心策略：改变你全程惯用的打法，他会学习你的攻击模式。多用他较少见过的技能。保留最强化身和法术用于第三阶段爆发。"
+      }
+    }
+  ]
+}

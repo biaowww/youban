@@ -1,0 +1,238 @@
+{
+  "id": "jedi_fo",
+  "name": "Star Wars Jedi: Fallen Order",
+  "developer": "Respawn Entertainment",
+  "year": 2019,
+  "steamAppId": 1172380,
+  "totalHoursMain": 17,
+  "totalHoursComplete": 31,
+  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1172380/library_hero.jpg",
+  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1172380/library_600x900.jpg",
+  "gameTheme": {
+    "bg": "#07090f",
+    "bgCard": "#0d1220",
+    "accent": "#00b4ff",
+    "accent2": "#ff6b20",
+    "text": "#e6d5b4"
+  },
+  "saveDownload": {
+    "url": "http://www.mediafire.com/file/obvapg7wvwuuk10/Jedi_Fallen_Order_Boss_Fight_Saves.zip/file",
+    "savePath": "C:/Users/{username}/Saved Games/Respawn/JediFallenOrder/",
+    "instructions": "1. 下载并解压 zip 文件\n2. 进入对应 Boss 战文件夹\n3. 将文件重命名为 Backup01.sav 和 SaveGame01.sav\n4. 复制到存档路径\n5. 启动游戏 → 读取存档"
+  },
+  "chapters": [
+    { "id": 0, "name": "序章：逃离 Bracca",      "planet": "Bracca",           "progressStart": 0,  "progressEnd": 7,   "hypeScore": 7,  "keyEvent": "Cal 逃离星球，与 Cere & Greez 相遇" },
+    { "id": 1, "name": "第一章：Bogano 地窖",     "planet": "Bogano",           "progressStart": 7,  "progressEnd": 15,  "hypeScore": 5,  "keyEvent": "结识 BD-1，Cordova 全息信息揭示任务" },
+    { "id": 2, "name": "第二章：Zeffo Eilram 墓", "planet": "Zeffo",            "progressStart": 15, "progressEnd": 30,  "hypeScore": 6,  "keyEvent": "重拾原力推力，再遇第二姐妹" },
+    { "id": 3, "name": "第三章：解救乌基族",      "planet": "Kashyyyk",         "progressStart": 30, "progressEnd": 46,  "hypeScore": 7,  "keyEvent": "遇见 Saw Gerrera，攀登源树，击败第九姐妹" },
+    { "id": 4, "name": "第四章：Miktrull 墓穴",   "planet": "Dathomir / Zeffo", "progressStart": 46, "progressEnd": 62,  "hypeScore": 8,  "keyEvent": "夜姐妹登场，双刃光剑解锁，Cere 的秘密" },
+    { "id": 5, "name": "第五章：Ilum & Dathomir", "planet": "Ilum / Dathomir",  "progressStart": 62, "progressEnd": 80,  "hypeScore": 9,  "keyEvent": "打造新光剑，击败 Malicos，Merrin 加入" },
+    { "id": 6, "name": "第六章：审判者要塞",      "planet": "Nur",              "progressStart": 80, "progressEnd": 100, "hypeScore": 10, "keyEvent": "击败第二姐妹，Darth Vader 追杀，毁掉 Holocron" }
+  ],
+  "hypePeaks": [
+    { "progressPct": 3,  "label": "逃离 Bracca",   "score": 7,  "color": "#f97316" },
+    { "progressPct": 13, "label": "第二姐妹初遇",  "score": 6,  "color": "#ef4444" },
+    { "progressPct": 27, "label": "Zeffo 对决",    "score": 7,  "color": "#ef4444" },
+    { "progressPct": 44, "label": "击败第九姐妹",  "score": 8,  "color": "#f97316" },
+    { "progressPct": 55, "label": "Cere 秘密揭露", "score": 8,  "color": "#a855f7" },
+    { "progressPct": 65, "label": "打造新光剑",    "score": 6,  "color": "#eab308" },
+    { "progressPct": 73, "label": "Malicos 终局",  "score": 8,  "color": "#a855f7" },
+    { "progressPct": 88, "label": "击败第二姐妹",  "score": 9,  "color": "#ef4444" },
+    { "progressPct": 93, "label": "Vader 追杀",    "score": 10, "color": "#ef4444" },
+    { "progressPct": 98, "label": "毁掉 Holocron", "score": 8,  "color": "#a855f7" }
+  ],
+  "achievements": [
+    { "steamId": "ACH_STORY_MANTIS",   "name": "The Mantis",               "progressPct": 10  },
+    { "steamId": "ACH_STORY_BOGANO",   "name": "A Long Time Ago",          "progressPct": 13  },
+    { "steamId": "ACH_STORY_EILRAM",   "name": "The Obstacle Is the Way",  "progressPct": 28  },
+    { "steamId": "ACH_STORY_WOOKIE",   "name": "Happy Go Wookiee",         "progressPct": 43  },
+    { "steamId": "ACH_STORY_NINTH",    "name": "Her Name Was Masana Tide", "progressPct": 44  },
+    { "steamId": "ACH_STORY_MIKTRULL", "name": "Everything Is Connected",  "progressPct": 57  },
+    { "steamId": "ACH_STORY_SABER",    "name": "For A More Civilized Age", "progressPct": 66  },
+    { "steamId": "ACH_STORY_TRILLA",   "name": "I Knew He Was No Good",    "progressPct": 78  },
+    { "steamId": "ACH_STORY_VAULT",    "name": "The Holocron Awaits",      "progressPct": 85  },
+    { "steamId": "ACH_STORY_END",      "name": "Trust Only In the Force",  "progressPct": 100 }
+  ],
+  "bossSaves": [
+    {
+      "id": "trilla_bogano",
+      "name": "第二姐妹 - Bogano 初遇",
+      "nameEn": "Second Sister - Bogano",
+      "folder": "Trilla fight bogano",
+      "progressPct": 13,
+      "storyGap": 1,
+      "planet": "Bogano",
+      "highlight": false,
+      "context": {
+        "plot": "Cal Kestis 是六十六号令（Order 66）的幸存帕达旺，隐姓埋名在废船场 Bracca 打工。一次救人时意外暴露原力，随即遭帝国追杀。前绝地骑士 Cere Junda 和飞行员 Greez 带他逃走，登上曼蒂斯号飞船。根据绝地大师 Eno Cordova 的线索，一行人前往 Bogano 古星寻找一枚全息晶体（Holocron），其中记载了全银河原力敏感儿童的名单。Cal 找到了 Cordova 的机器人 BD-1，正当他靠近地窖时，帝国第二姐妹赶到拦截。",
+        "characters": "Cal Kestis：主角，前帕达旺，师从 Jaro Tapal（六十六号令中牺牲）。被迫压抑原力多年，战斗能力尚未完全恢复。\n\nCere Junda：Cal 的新导师，前绝地骑士。曾在帝国的折磨下主动切断与原力的联系，内心满是愧疚。\n\nBD-1：Cal 的机器人搭档，携带 Cordova 遗留的全息记忆碎片，会在关键地点播放线索。\n\n第二姐妹（Trilla Suduri）：主要反派，帝国审讯官，擅用双向光剑。她的真实身份与 Cere 有极深的悲剧联系（后期揭晓）。",
+        "gameplay": "初期存档，Cal 能力极有限：光剑基础单刃，原力仅有 BD-1 辅助的时缓（Force Slow），真实原力推力尚未恢复。这场遭遇是剧情触发战——打到特定血量后自动过场，无需真正击败。重点练习格挡（Parry）的精准时机。"
+      }
+    },
+    {
+      "id": "atst_zeffo1",
+      "name": "AT-ST 第一战 - Zeffo",
+      "nameEn": "First AT-ST - Zeffo",
+      "folder": "First ATST fight",
+      "progressPct": 21,
+      "storyGap": 1,
+      "planet": "Zeffo",
+      "highlight": false,
+      "context": {
+        "plot": "Cal 离开 Bogano 前往 Zeffo，追踪 Cordova 的足迹寻找 Eilram 墓穴。Zeffo 是古老种族泽弗人的故乡，他们对原力的研究是绝地哲学的早期来源之一。帝国已占领这颗星球，大规模掘墓盗取古代文物。Cal 在前往墓穴途中遭遇了帝国 AT-ST 步行机甲的拦截。",
+        "characters": "Cal：开始逐步恢复原力，与 BD-1 的配合越来越熟练。\n\nCere（飞船通讯）：提供背景信息和指导，自身不使用原力。",
+        "gameplay": "Cal 已恢复原力推力（Force Push），可将敌人击飞或推入悬崖。AT-ST 膝关节是弱点——Force Push 推击膝盖使其倒地，随后攻击驾驶舱顶部。利用周围掩体规避炮击，保持移动。"
+      }
+    },
+    {
+      "id": "second_sister_zeffo",
+      "name": "第二姐妹 - Zeffo 对决",
+      "nameEn": "Second Sister - Zeffo",
+      "folder": "First second sister fight on zeffo",
+      "progressPct": 27,
+      "storyGap": 2,
+      "planet": "Zeffo",
+      "highlight": true,
+      "context": {
+        "plot": "Cal 完成 Eilram 墓穴探索，获得 Cordova 全息晶体的第一块线索。BD-1 播放的 Cordova 记忆碎片揭示了更多任务背景：Cordova 曾走遍银河追踪原力敏感儿童下落，最终将名单藏入 Bogano 地窖。第二姐妹在帝国营地附近设伏，这次她认真了——这场战斗比 Bogano 初遇激烈得多，是 Cal 第一次真正意义上的绝地决斗。",
+        "characters": "第二姐妹：开始展现更复杂的个性，不仅是杀手，还会心理施压。她掌握了关于 Cal 和 Cere 的某些秘密信息，蓄意利用。\n\nCal：原力推力解锁后第一次真正意义上的绝地决斗，开始明白逃跑只是推迟问题，不是解决问题。",
+        "gameplay": "Cal 拥有：光剑基础技能 + Force Push + Force Slow。第二姐妹会主动拉拽 Cal 的光剑并反击——看到她的抓取动作时立即闪避。成功弹反（Parry）可大幅削减其体力条，练习弹反节奏是关键。"
+      }
+    },
+    {
+      "id": "rooftop_kashyyyk",
+      "name": "屋顶突袭 - Kashyyyk",
+      "nameEn": "Rooftop Fight - Kashyyyk",
+      "folder": "Rooftop fight kashyyyk",
+      "progressPct": 35,
+      "storyGap": 2,
+      "planet": "Kashyyyk",
+      "highlight": false,
+      "context": {
+        "plot": "Cal 一行接到 Saw Gerrera 的信号，前往乌基族家园 Kashyyyk。帝国在此建立精炼厂，强迫乌基族做奴隶劳工。Cal 与反抗军联合行动，协助乌基族对抗帝国。乘坐电梯抵达高处后，帝国突击队和一架 AT-ST 在屋顶设下伏击。这是一场高空平台激战。",
+        "characters": "Saw Gerrera：极端的反帝国战士，手段激进（侠盗一号角色）。他掌握乌基族老酋长 Tarfful 的下落，后者曾与 Yoda 并肩作战，可能知道更多 Cordova 任务的线索。\n\nTarfful：乌基族老酋长，正被帝国秘密关押，是 Cal 来 Kashyyyk 的核心目的。",
+        "gameplay": "Cal 此时应已解锁墙面跑（Wall Run）。AT-ST 打法：Force Push 推倒膝盖后趁它恢复时消灭周围士兵，再补第二轮推击。注意脚下高台边缘，别被敌人推落。"
+      }
+    },
+    {
+      "id": "bounty_arena",
+      "name": "悬赏猎人竞技场",
+      "nameEn": "Bounty Hunter Arena",
+      "folder": "Bounty Hunter Arena Fight",
+      "progressPct": 41,
+      "storyGap": 1,
+      "planet": "未知星球",
+      "highlight": false,
+      "context": {
+        "plot": "Haxion Brood 是受犯罪头目 Sorc Tormo 雇佣的悬赏猎人组织，一直追踪 Cal。在某次探索中 Cal 遭到捕捉，被押送到 Sorc Tormo 的私人竞技场，在欢呼的观众面前充当娱乐工具。他必须打穿一波又一波的杀手和机甲才能逃脱。这条支线与主线关系不大，但战斗本身设计精彩、肾上腺素十足。",
+        "characters": "Sorc Tormo：贪婪的犯罪头目，把杀戮当作娱乐，非帝国官方势力。\n\nHaxion Brood 佣兵：涵盖多种类型——普通雇佣兵、机甲战士、远程狙击手，每波都有新的战术挑战。",
+        "gameplay": "连续多波混战：普通佣兵 - 机甲战士 - 精英佣兵。充分利用 Force Push 清场，保持持续移动不要站原地。这关是练习 Cal 综合连招的绝佳场合，尝试各种打法切换。"
+      }
+    },
+    {
+      "id": "ninth_sister",
+      "name": "第九姐妹 - 源树之巅",
+      "nameEn": "Ninth Sister - Origin Tree",
+      "folder": "Ninth Sister Fight",
+      "progressPct": 44,
+      "storyGap": 3,
+      "planet": "Kashyyyk",
+      "highlight": true,
+      "context": {
+        "plot": "Cal 攀登 Kashyyyk 源树（Origin Tree）顶端，寻找被帝国关押的乌基族老酋长 Tarfful。就在快到达顶部时，第九姐妹（Ninth Sister，另一位帝国审讯官，与第二姐妹完全不同的人物）从空中俯冲截住了 Cal。第九姐妹的任务是从 Cal 脑中强行读取所有绝地相关信息——审讯官拥有侵入他人心灵的原力能力。这是 Cal 迄今遭遇的最强战斗对手，也是他第一次真正以绝地身份单独迎战帝国审讯官的正面考验。",
+        "characters": "第九姐妹（Masana Tide）：身材高大的 Dowutin 种族，使用巨型双向光剑，力量型打法。曾经也是绝地骑士，被帝国俘虏折磨后沦为审讯官。\n\nTarfful（战斗后出现）：他给了 Cal 下一步旅程的关键线索，指引前往 Dathomir 和 Zeffo 的新区域。\n\nCal：这场胜利是成长弧线上的重要里程碑——他开始真正相信自己有能力守护他人。",
+        "gameplay": "中期重要 Boss 战，分两阶段。阶段一：她用双刃光剑攻击，重击有明显蓄力预警，看到红色闪光立即闪避（无法弹反）。阶段二（断手后）：变得更加狂暴，出招更快。利用树顶平台保持机动，精准弹反普通攻击积累破防（Stagger），破防后集中输出。"
+      }
+    },
+    {
+      "id": "gorgara",
+      "name": "Gorgara - Dathomir 峭壁巨兽",
+      "nameEn": "Gorgara - Dathomir",
+      "folder": "Gorgara Fight",
+      "progressPct": 50,
+      "storyGap": 2,
+      "planet": "Dathomir",
+      "highlight": false,
+      "context": {
+        "plot": "Cal 抵达 Dathomir——黑暗星球，夜姐妹（Nightsisters）的古老故土。夜姐妹是绿色魔法巫女战士，曾在克隆人战争中几乎被灭族（被葛里弗斯将军屠杀）。Cal 在 Dathomir 峭壁攀爬时，短暂遭遇了年轻的夜姐妹幸存者 Merrin——她对 Cal 充满敌意，因为有人告诉她是绝地骑士杀死了她的族人（这是谎言）。Gorgara 是 Dathomir 的巨型翼兽，将 Cal 视为入侵者，从黑暗中俯冲而来。",
+        "characters": "Merrin：后期重要队友，目前是敌对状态。年轻、孤独、充满仇恨，被欺骗多年。她与 Cal 的关系弧线是游戏最动人的情感线之一。\n\nTaron Malicos（即将登场）：一个自称绝地的神秘陌生人曾短暂帮助 Cal。实际上他是六十六号令后精神崩溃、堕入黑暗面的前绝地大师，一直在操控 Merrin 的仇恨为己所用。",
+        "gameplay": "独特的巨型 Boss 战：Cal 在悬崖峭壁上攀爬，同时攻击悬停空中的 Gorgara 的弱点（翅膀薄膜和爪部）。关键是利用 BD-1 提示的攻击窗口。更考验空间感和时机把握，而非单纯格挡。"
+      }
+    },
+    {
+      "id": "platform_ilum",
+      "name": "Ilum 新光剑初阵",
+      "nameEn": "Platform Fight - Ilum",
+      "folder": "Platform stormtroopers fight with new lightsaber",
+      "progressPct": 65,
+      "storyGap": 4,
+      "planet": "Ilum",
+      "highlight": false,
+      "context": {
+        "plot": "经历了 Zeffo、Kashyyyk、Dathomir 的重重艰辛后，Cere 终于吐露了她最深的秘密：六十六号令时，她被帝国俘虏，在无尽折磨下崩溃，亲口说出了自己帕达旺的藏身处——而那个被她出卖的帕达旺，后来成为了第二姐妹。这个真相深深震撼了整个团队的信任关系。Cal 随后只身前往神圣的 Ilum——曾是绝地最重要的圣地，帕达旺们在此打造人生中第一把光剑。如今帝国已将 Ilum 变成采矿场，大规模开采凯伯晶体。Cal 完成了迟来的成年礼：在冰封水晶洞穴中打造了新的光剑。刚走出洞穴，帝国士兵就在外面等候。",
+        "characters": "Cal：重要成长节点——打造光剑象征他正式接受自己绝地骑士的身份和使命。\n\nCere Junda：刚坦承了最深的罪与愧疚，正试图重建对原力的连接，她的成长弧线接近高潮。\n\n帝国：为何大规模开采 Ilum 的凯伯晶体？（为后续星战宇宙埋下重要伏笔——终极武器的原料来源）",
+        "gameplay": "Cal 打造了新光剑，可选择武器形态：单刃 / 双刃 / 双持（取决于技能树解锁进度）。技能树此时相当丰富，是中后期存档。双刃旋转攻击（Spin Attack）清理普通士兵效率极高——享受新武器的爽快感！"
+      }
+    },
+    {
+      "id": "double_atst_ilum",
+      "name": "双 AT-ST - 撤离 Ilum",
+      "nameEn": "Double AT-ST - Ilum",
+      "folder": "Ilum Double AT-ST Fight",
+      "progressPct": 68,
+      "storyGap": 4,
+      "planet": "Ilum",
+      "highlight": false,
+      "context": {
+        "plot": "Cal 在 Ilum 打造完新光剑，正准备撤离，帝国已封锁所有出口。在逃往曼蒂斯号飞船的路上，两架 AT-ST 同时拦截。这是对 Cal 新力量的第一次真实考验——带着全新的光剑和技能，他需要同时应对两台重型步行机甲。",
+        "characters": "与上一关（Ilum 新光剑初阵）相同，无新角色登场。纯粹的战斗挑战——也是整个游戏 AT-ST 战斗的终极版。",
+        "gameplay": "双 AT-ST 同时登场！核心策略：永远只让一台对准你，用地形遮挡另一台的炮击视线。Force Push 推倒一台膝盖，趁它起身时转向另一台。两台交替倒地，各个击破。新双刃光剑的旋转攻击可打断大多数普通攻击动作。绝不要站在两台机甲的交叉火力线上。"
+      }
+    },
+    {
+      "id": "taron_malicos",
+      "name": "Taron Malicos - 堕落的大师",
+      "nameEn": "Taron Malicos - Dathomir",
+      "folder": "Taron Malicos Fight",
+      "progressPct": 73,
+      "storyGap": 4,
+      "planet": "Dathomir",
+      "highlight": true,
+      "context": {
+        "plot": "这是全游戏情感最丰富的 Boss 战之一。Taron Malicos 曾是受人尊敬的绝地大师。六十六号令时他困在 Dathomir，目睹手下克隆士兵叛变、同僚被屠杀，信仰土崩瓦解。他在绝望中研究 Dathomir 黑暗原力，走火入魔。为了稳固统治地位，他欺骗了年轻夜姐妹幸存者 Merrin：谎称是绝地骑士杀死了她的族人（事实上是他自己的克隆士兵所为），借此操控她的仇恨和魔法。Cal 揭露了 Malicos 的谎言，Merrin 终于看清真相。她用夜姐妹魔法压制住 Malicos，让 Cal 正面决战这位堕落的大师。战斗结束后，Merrin 正式加入曼蒂斯号。",
+        "characters": "Taron Malicos：强大的前绝地大师，使用双刃光剑，擅长操控 Dathomir 岩石进行大范围攻击。他代表了一种深刻的警示：绝望和孤立如何将一个正义之人推向黑暗。\n\nMerrin（关键转变）：本场战斗中从敌人变为盟友。她的魔法能力（传送、结界、束缚）是战斗机制的重要部分，也是她日后成为团队核心成员的前提。\n\nCere：仍在船上，她与原力的重新连接越来越深——为最终章决战做出铺垫。",
+        "gameplay": "高难度两阶段 Boss 战。阶段一：他轮流使用远程岩石轰炸和近战光剑连击。岩石攻击前有明显举手预警，快速闪避。近战时专注弹反积累破防。阶段二（Merrin 介入后）：Merrin 的魔法会周期性将 Malicos 固定——这是集中输出的窗口，不要浪费！用重击和所有原力技能在固定期间最大化伤害。Cal 此时技能树接近完整，放开手脚发挥一切。"
+      }
+    },
+    {
+      "id": "fortress_arena",
+      "name": "审讯官要塞 - 竞技场",
+      "nameEn": "Inquisitor Fortress Arena - Nur",
+      "folder": "Inquisitor Fortress Arena fight",
+      "progressPct": 85,
+      "storyGap": 4,
+      "planet": "Nur",
+      "highlight": false,
+      "context": {
+        "plot": "Cal 携全员突袭位于海洋星球 Nur 的帝国审讯官要塞，目标是夺回全息晶体（Holocron）。要塞戒备森严，Cal 被捕后被投入内部训练竞技场——这里设计之初就是为了淘汰（杀死）任何试图闯入的入侵者。他必须在多波精英敌人的围攻中突出重围。Cere 走的是另一条路线，独自面对她与第二姐妹（昔日帕达旺）之间悬而未决的过去。",
+        "characters": "Cal、Cere、Greez、Merrin、BD-1：全员在场，各有各的战线。\n\n帝国精锐：驻扎着帝国最精锐的战士，包括净化兵（Purge Troopers，专门训练对抗绝地的特种部队）和持光剑的帝国哨兵。\n\nCere 的成长弧高潮：她即将面对自己一生中最艰难的选择——能否重新接受原力，并正视她与 Trilla 之间未了的宿命。",
+        "gameplay": "精英混战，Cal 处于全游戏最强状态，技能树接近满载。净化兵（Purge Troopers）：擅长格挡和反击，等他们出手后弹反，电棍攻击弹反后他们会被自己武器电晕。帝国哨兵：持光剑，会主动弹反你的攻击，注意节奏变化。Force Pull 把远程敌人拉近处理，避免腹背受敌。双刃旋转清场多个近身敌人时效率最高。"
+      }
+    },
+    {
+      "id": "trilla_final",
+      "name": "第二姐妹终局 + Vader 追杀",
+      "nameEn": "Second Sister Final + Vader Chase",
+      "folder": "Trilla Final Boss Fight",
+      "progressPct": 92,
+      "storyGap": 5,
+      "planet": "Nur",
+      "highlight": true,
+      "context": {
+        "plot": "游戏最高潮，也是整个故事的情感核心。Cal 终于在要塞深处找到第二姐妹（Trilla Suduri）。在战斗中，Cal 通过原力共感触碰到 Trilla 内心深处的记忆：她原本是 Cere 最珍视的帕达旺，两人感情深厚如母女。六十六号令后她被帝国抓获，经历了无尽折磨和漫长等待——而她等待的救援，始终没来。Cere 在极度痛苦下说出了她的藏身处。就在 Trilla 内心深处那个被压抑已久的真实自我短暂浮现的瞬间，Darth Vader 出现了。他用原力扼住 Trilla 的咽喉，在所有人面前冷酷地处决了她。然后，Vader 转向 Cal 一行。这位几乎不可战胜的黑暗领主追杀着众人穿越正在进水的要塞。Cal 只能拼命逃跑。最终众人狼狈逃脱。Cal 手握全息晶体，做出了最后的选择：摧毁晶体——不让任何人有机会用这份名单找到那些孩子。",
+        "characters": "Trilla Suduri（第二姐妹）：从反派到悲剧人物。她的一生是被时代、战争、信任的人碾碎的缩影。她的结局是全游戏最令人心碎的瞬间之一。\n\nCere Junda：面对她一生最沉重的罪与愧疚。她能否原谅自己？Trilla 是否有机会原谅她？这个问题在最后一刻被 Vader 永远封住了。\n\nDarth Vader：仅登场数分钟，却是整个游戏最令人难忘的存在。他不是传统意义上的最终 Boss——他是一场灾难，在昏暗走廊中几乎就是死亡的化身。\n\nCal Kestis：成长弧线完成。从一个躲藏的幸存者，成长为有担当的绝地骑士。他的担当不是力量，而是放弃力量——选择保护而非复仇。",
+        "gameplay": "分两段体验。【第二姐妹终战】：她速度和连招达到全游戏巅峰，大量使用原力闪现和混乱连击。专注弹反节奏，不要贪刀。等她喘息或读条时果断反击。精准弹反积累破防后用最强连招输出。【Vader 追逐关卡】：这不是战斗，是纯粹的逃跑。不要尝试攻击 Vader——他会将一切格挡或无视。持续向前跑，Vader 会用原力扭曲和封锁地形，BD-1 会高亮新的路径。用原力推和墙面跑通过新打开的路线。享受这段星战历史上最经典的 Vader 登场演出之一。"
+      }
+    }
+  ]
+}

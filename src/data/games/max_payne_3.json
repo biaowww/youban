@@ -1,0 +1,154 @@
+{
+  "id": "max_payne_3",
+  "name": "Max Payne 3",
+  "nameEn": "Max Payne 3",
+  "developer": "Rockstar Games",
+  "year": 2012,
+  "steamAppId": 204100,
+  "totalHoursMain": 10,
+  "totalHoursComplete": 16,
+  "genre": "第三人称射击",
+  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_hero.jpg",
+  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg",
+  "gameTheme": {
+    "bg": "#0a0805",
+    "bgCard": "#130f0a",
+    "accent": "#c8892a",
+    "accent2": "#e05c2a",
+    "text": "#e8ddd0"
+  },
+  "chapters": [
+    {
+      "id": 0, "name": "Ch.1–3：派对与绑架",
+      "planet": "圣保罗·上流社会",
+      "progressStart": 0, "progressEnd": 22,
+      "hypeScore": 6,
+      "keyEvent": "Max 受雇保护 Rodrigo，在夜店派对上 Fabiana 遭到绑架，一切开始崩坏"
+    },
+    {
+      "id": 1, "name": "Ch.4–6：追踪与背叛",
+      "planet": "圣保罗·贫民窟",
+      "progressStart": 22, "progressEnd": 43,
+      "hypeScore": 7,
+      "keyEvent": "Max 深入贫民窟，雇主 Rodrigo 遇害，Max 的处境急剧恶化"
+    },
+    {
+      "id": 2, "name": "Ch.7–9：真相浮现",
+      "planet": "圣保罗·体育场",
+      "progressStart": 43, "progressEnd": 64,
+      "hypeScore": 8,
+      "keyEvent": "体育场大屠杀揭示幕后黑手，Max 发现自己卷入了远比想象更深的阴谋"
+    },
+    {
+      "id": 3, "name": "Ch.10–12：幕后的阴谋",
+      "planet": "圣保罗·港口·机场",
+      "progressStart": 64, "progressEnd": 84,
+      "hypeScore": 8,
+      "keyEvent": "Victor Branco 的腐败暴露，UFE 组织真面目浮出，Max 孤身对抗整个体制"
+    },
+    {
+      "id": 4, "name": "Ch.13–14：最后的复仇",
+      "planet": "圣保罗国际机场",
+      "progressStart": 84, "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "Max 独闯机场，清算所有幕后黑手，以一己之力终结这场腐败游戏"
+    }
+  ],
+  "hypePeaks": [
+    { "progressPct": 15, "label": "Fabiana 被劫",    "score": 7,  "color": "#c8892a" },
+    { "progressPct": 22, "label": "Rodrigo 遇害",    "score": 7,  "color": "#ef4444" },
+    { "progressPct": 36, "label": "贫民窟突围",      "score": 7,  "color": "#f97316" },
+    { "progressPct": 50, "label": "体育场大屠杀",    "score": 9,  "color": "#ef4444" },
+    { "progressPct": 63, "label": "Victor 真面目",   "score": 8,  "color": "#a855f7" },
+    { "progressPct": 76, "label": "港口激战",        "score": 8,  "color": "#f97316" },
+    { "progressPct": 87, "label": "UFE 大本营",      "score": 8,  "color": "#ef4444" },
+    { "progressPct": 93, "label": "机场最终战",      "score": 10, "color": "#ef4444" },
+    { "progressPct": 98, "label": "Max 的告别",      "score": 7,  "color": "#a855f7" }
+  ],
+  "achievements": [
+    { "steamId": "ACH_CH3_CLEAR",    "name": "Just Another Friday Night",  "progressPct": 22 },
+    { "steamId": "ACH_CH6_CLEAR",    "name": "A Dame, A Dork, and A Drunk", "progressPct": 43 },
+    { "steamId": "ACH_STADIUM",      "name": "Ain't No Reprieve",           "progressPct": 57 },
+    { "steamId": "ACH_CH9_CLEAR",    "name": "Halfway Down the World",      "progressPct": 64 },
+    { "steamId": "ACH_CH11_CLEAR",   "name": "Sun Tan Oil",                 "progressPct": 79 },
+    { "steamId": "ACH_BECKER",       "name": "One Card Left to Play",       "progressPct": 93 },
+    { "steamId": "ACH_END",          "name": "Out the Window",              "progressPct": 100 }
+  ],
+  "bossSaves": [
+    {
+      "id": "serrano",
+      "name": "Serrano — 夜店枪战",
+      "nameEn": "Serrano – Club Desnuda",
+      "folder": null,
+      "progressPct": 15,
+      "storyGap": 1,
+      "planet": "圣保罗·Club Desnuda",
+      "highlight": false,
+      "context": {
+        "plot": "Max Payne 离开美国后潦倒失意，酗酒度日。他在老友 Raul Passos 的引荐下来到圣保罗，为巴西富豪 Rodrigo Branco 担任私人保镖。工作的第一个正式夜晚，Rodrigo 的妻子 Fabiana 在高档夜店遭到武装绑架。绑架者是 Comando Sombra（CS 帮）的头目 Serrano——一个在贫民窟崛起的武装犯罪首领。Max 来不及反应，Fabiana 就已经消失在圣保罗的夜色中。",
+        "characters": "Max Payne：主角，前纽约警探，被悲剧和酒精蹂躏多年的孤独中年男人。他的内心独白是游戏叙事的核心——犀利、疲惫、带着黑色幽默。\n\nRaul Passos：Max 的搭档兼引荐人，职业雇佣军，冷静务实。\n\nFabiana Branco：Rodrigo 的年轻妻子，美丽而充满活力，她的绑架是整个故事的导火索。\n\nSerrano：CS 帮首领，表面是街头枭雄，实则是更大阴谋的一枚棋子。",
+        "gameplay": "Max Payne 3 没有传统意义上的生命值Boss战——Serrano 是一个场景型"最终敌人"，在近距离枪战中被击毙。核心机制：子弹时间（Bullet Time）+ 慢动作翻滚（Shootdodge）。这是全游戏的机制入门关，多使用子弹时间，习惯贴墙掩体和动态射击的节奏。"
+      }
+    },
+    {
+      "id": "rodrigo_death",
+      "name": "救援失败 — Rodrigo 遇害",
+      "nameEn": "Rodrigo Killed – The Penthouse",
+      "folder": null,
+      "progressPct": 22,
+      "storyGap": 1,
+      "planet": "圣保罗·Rodrigo 公寓",
+      "highlight": true,
+      "context": {
+        "plot": "Max 经历了贫民窟和夜店的枪战，终于找到了 Fabiana 的下落，但救援计划一再出错。当他赶回 Rodrigo 的豪华公寓时，武装力量已经封锁了整栋大楼。Rodrigo 拒绝逃跑，试图独自对抗——Max 赶到时，只来得及见到他最后一面。雇主的死彻底改变了这个故事的性质：这不再是一个保镖的工作，而是一个男人在异国他乡的个人清算。",
+        "characters": "Rodrigo Branco：圣保罗的地产大亨，Max 的雇主。他不是反派，但他在最后关头展现出出人意料的尊严。他的死是 Max 在巴西故事的真正起点。\n\nVictor Branco（Rodrigo 的弟弟）：此时开始逐渐进入故事中心，随后的章节会逐渐揭示他的真实面目。",
+        "gameplay": "公寓大楼的垂直战斗——从顶层向下清场，在混乱的房间和走廊中对抗多波武装人员。核心技巧：利用子弹时间穿过门洞的瞬间——开门同时触发慢动作，先敌出枪。这一章开始引入更多敌人同时进攻的场景，学会控制战场节奏。"
+      }
+    },
+    {
+      "id": "stadium",
+      "name": "体育场大屠杀",
+      "nameEn": "Stadium Massacre",
+      "folder": null,
+      "progressPct": 50,
+      "storyGap": 3,
+      "planet": "圣保罗·Estádio do Galatians",
+      "highlight": true,
+      "context": {
+        "plot": "这是全游戏最令人震惊的剧情节点。Max 和 Passos 追踪人贩组织进入一座足球体育场，却亲眼目睹了一场有组织的屠杀：UFC（联邦特种部队，本应是精英警察）正在系统性地杀死被囚禁的平民。这不是犯罪团伙的暴行，而是披着合法外衣的国家暴力。Max 曾以为自己在追踪犯罪分子，此刻他明白：整个腐败网络比想象中更深，而他已经不可能全身而退。",
+        "characters": "Giovanna（Passos 的女友）：在体育场章节扮演关键角色，她的存在揭示了 Passos 的内心纠葛和他更深层的动机。\n\nUFE（联邦特种部队）：本应保护公民的精英警察组织，实则是本作最大的反派势力——他们与器官贩卖和政治腐败深度绑定。\n\nVictor Branco（线索深化）：体育场事件让 Max 开始怀疑，这背后是否有更高层的政治势力在撑腰。",
+        "gameplay": "体育场关卡是全游戏规模最宏大的战斗序列之一，包含多个连续的大型战斗区域：看台、球场、更衣室、地下通道。UFE 士兵装备精良、反应迅速，比前几章的帮派成员难对付得多。核心：全程保持移动，不要在同一个掩体后停留太久。子弹时间配合翻滚是穿越开阔地带的最佳方式。"
+      }
+    },
+    {
+      "id": "victor_reveal",
+      "name": "Victor Branco — 腐败揭露",
+      "nameEn": "Victor Branco Confrontation",
+      "folder": null,
+      "progressPct": 63,
+      "storyGap": 3,
+      "planet": "圣保罗·港口仓库",
+      "highlight": true,
+      "context": {
+        "plot": "在体育场和港口的层层追踪之后，真相终于完全浮出水面：Victor Branco，Rodrigo 的亲弟弟、看似最悲痛的亲属，实际上是整个腐败网络的核心策划者。他利用自己的政治地位为器官贩卖和 UFE 的暴行提供保护伞，甚至参与策划了哥哥 Rodrigo 的死亡——他的家族仅仅是一颗用来转移注意力的棋子。Max 终于明白了整件事从一开始就是一个针对他的局。",
+        "characters": "Victor Branco：全游戏最具欺骗性的反派。他全程以受害者身份出现，温文尔雅，看起来比任何人都更需要保护。真相大白的瞬间是整个游戏叙事最有力的一刻。\n\nPassos（立场分化）：在这个阶段，Passos 和 Max 之间的信任关系开始受到考验——他们的目标和手段是否还一致？",
+        "gameplay": "港口章节是全游戏节奏最紧张的关卡之一：狭窄的集装箱迷宫+开阔的码头区域交替出现，需要频繁在近战掩护和开阔地带之间切换战术。UFE 精锐配有护甲，需要多枪才能击倒。优先瞄准头部，或用爆炸物清场。"
+      }
+    },
+    {
+      "id": "airport_finale",
+      "name": "机场终战 — 最后的清算",
+      "nameEn": "Airport Finale – Becker",
+      "folder": null,
+      "progressPct": 93,
+      "storyGap": 4,
+      "planet": "圣保罗国际机场",
+      "highlight": true,
+      "context": {
+        "plot": "这是 Max Payne 3 的终极高潮，也是整个故事最具力量感的收尾。Victor Branco 试图登机出逃，带着他的罪行和秘密消失于世界某个角落。Max Payne，一个已经失去了一切、没有任何退路的中年男人，独自一人追入圣保罗国际机场。他不是警察，没有授权，没有支援，只有一把枪和多年来积累的愤怒。\n\n这段场景是整个 Max Payne 系列的精神注脚：当体制失败了，当法律无能为力了，当所有正当的途径都被腐败堵死了——一个孤独的男人，用子弹时间在混乱中刻写出属于自己的正义。",
+        "characters": "Max Payne：此刻的他已经放下了所有。这不是愤怒，不是复仇——是一种疲惫到极致的坚定。他知道这可能是他最后一次战斗，但他还是走了进去。\n\nBecker（最终目标）：Victor 的保镖头目，UFE 的实际指挥官。在层层枪战之后，与他的最终对决是本作最后一道关卡。\n\nVictor Branco（结局）：他最终会得到什么？游戏给出了一个意想不到却非常符合这个系列精神的答案。",
+        "gameplay": "全游戏最大规模的连续战斗区域：候机楼大厅→登机口→停机坪→飞机跑道。大量 UFE 精锐持续增援，全程高压。与 Becker 的最终对决是近距离的子弹时间枪战，他会频繁走位并使用掩体——跟随他的走位节奏，在他换弹时触发子弹时间进行精准狙杀。这场戏的电影感是全系列巅峰，享受它。"
+      }
+    }
+  ]
+}
