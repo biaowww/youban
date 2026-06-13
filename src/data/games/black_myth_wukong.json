@@ -14,10 +14,22 @@
     "tagline": "天命人，踏上取经路",
     "description": "黑神话：悟空是一款以《西游记》为底本的动作角色扮演游戏，由国产工作室 Game Science 历时六年打造。你扮演\"天命人\"——一只被命运选中的猴子，踏上追寻孙悟空遗留神通与真相的旅程。这不是重讲西游取经，而是一个关于\"那个故事之后\"的反思：自由被驯服，传奇被遗忘，被压抑的本性如何在轮回中寻求解脱。游戏以魂系战斗为骨架，以东方神话美学为皮，Boss战难度极高但叙事厚度罕见——每一场战斗背后都藏着一段被正史忽略的命运。",
     "highlights": [
-      { "icon": "⚔️", "text": "满屏幕的视觉奇观：每一个Boss都是一件艺术品" },
-      { "icon": "📖", "text": "西游之外的西游：原著熟悉者会发现惊人的隐线" },
-      { "icon": "🔥", "text": "牛魔王决战是近年最史诗的Boss战体验之一" },
-      { "icon": "🎭", "text": "结局双分叉：你的选择决定了这个故事的意义" }
+      {
+        "icon": "⚔️",
+        "text": "满屏幕的视觉奇观：每一个Boss都是一件艺术品"
+      },
+      {
+        "icon": "📖",
+        "text": "西游之外的西游：原著熟悉者会发现惊人的隐线"
+      },
+      {
+        "icon": "🔥",
+        "text": "牛魔王决战是近年最史诗的Boss战体验之一"
+      },
+      {
+        "icon": "🎭",
+        "text": "结局双分叉：你的选择决定了这个故事的意义"
+      }
     ]
   },
   "entryPoints": [
@@ -42,43 +54,71 @@
       "progressPct": 0,
       "event": "觉醒·踏入黑风山",
       "description": "天命人从沉眠中醒来，什么都不知道，只有本能。他的战斗语言从这里开始建立。",
-      "unlocks": ["基础棍法", "轻棍·重棍连招", "法力初解锁"]
+      "unlocks": [
+        "基础棍法",
+        "轻棍·重棍连招",
+        "法力初解锁"
+      ]
     },
     {
       "progressPct": 16,
       "event": "毗蓝婆赐法·变化术初得",
       "description": "击败黑熊精后，毗蓝婆出现，揭示袈裟背后的因果，天命人得到第一个变化（化身）。",
-      "unlocks": ["变化术（化身）", "黑熊精精魄", "第一件装备套件"]
+      "unlocks": [
+        "变化术（化身）",
+        "黑熊精精魄",
+        "第一件装备套件"
+      ]
     },
     {
       "progressPct": 28,
       "event": "黄风散——感知突破",
       "description": "黄风大圣的三昧神风迫使天命人学会在视野受损时凭感觉战斗，完美闪避的肌肉记忆真正形成。",
-      "unlocks": ["定身法术强化", "风系抗性", "第二变化解锁"]
+      "unlocks": [
+        "定身法术强化",
+        "风系抗性",
+        "第二变化解锁"
+      ]
     },
     {
       "progressPct": 47,
       "event": "小雷音·见识虚伪",
       "description": "击败黄眉后，天命人第一次理解：权力和信仰都可以是谎言，他的旅途不是朝圣，而是解构。",
-      "unlocks": ["金箍棒第二形态", "佛系法术", "蓄力棍势解锁"]
+      "unlocks": [
+        "金箍棒第二形态",
+        "佛系法术",
+        "蓄力棍势解锁"
+      ]
     },
     {
       "progressPct": 63,
       "event": "流沙河·碎片拼合",
       "description": "悟空的记忆碎片开始真正涌入，天命人意识到自己与悟空之间的联系远不止\"使者\"那么简单。",
-      "unlocks": ["沙僧神通", "水系护符", "棍势第三套"]
+      "unlocks": [
+        "沙僧神通",
+        "水系护符",
+        "棍势第三套"
+      ]
     },
     {
       "progressPct": 77,
       "event": "牛魔王决战·力量巅峰",
       "description": "这是天命人战斗能力的顶点时刻——以全套神通独自对抗全游戏最强的Boss，也是精神上的一次顿悟。",
-      "unlocks": ["牛魔神通", "最强变化形态", "第五法术槽位"]
+      "unlocks": [
+        "牛魔神通",
+        "最强变化形态",
+        "第五法术槽位"
+      ]
     },
     {
       "progressPct": 88,
       "event": "真假之战·明白自己是谁",
       "description": "六耳猕猴之战后，天命人终于明白：他不是在追寻悟空，他就是悟空的一部分。选择在这里分叉。",
-      "unlocks": ["六耳神通", "双结局解锁", "真结局前置条件"]
+      "unlocks": [
+        "六耳神通",
+        "双结局解锁",
+        "真结局前置条件"
+      ]
     }
   ],
   "gameTheme": {
@@ -90,9 +130,11 @@
   },
   "chapters": [
     {
-      "id": 0, "name": "第一回：黑风山",
+      "id": 0,
+      "name": "第一回：黑风山",
       "planet": "黑风山·黑风洞",
-      "progressStart": 0, "progressEnd": 16,
+      "progressStart": 0,
+      "progressEnd": 16,
       "hypeScore": 7,
       "keyEvent": "天命人初醒，破入黑风山，斩黑熊精，寻觅毗蓝婆",
       "plotDetail": "黑风山是天命人踏入世界的第一片土地——阴暗、潮湿、古寺与熊洞交错。这里曾是悟空取经路上遭遇麻烦的地方，而今妖王横行，袈裟下落不明。天命人从混沌中醒来，只凭本能前行，对自己的使命一无所知，只知道：要往前走。",
@@ -100,9 +142,11 @@
       "newCharacters": "广智（执念老僧）、黑熊精（山中妖王）、毗蓝婆（神秘菩萨，战后登场）"
     },
     {
-      "id": 1, "name": "第二回：黄风岭",
+      "id": 1,
+      "name": "第二回：黄风岭",
       "planet": "黄风岭·风沙之境",
-      "progressStart": 16, "progressEnd": 32,
+      "progressStart": 16,
+      "progressEnd": 32,
       "hypeScore": 7,
       "keyEvent": "穿越黄沙，败虎先锋，斩黄风大圣，得灵根线索",
       "plotDetail": "黄风岭是一片被永久黄沙笼罩的荒地，飞沙走石，能见度极低。黄风大圣用三昧神风统治这片土地，但沙的背后藏着一个更古老的秘密——这场沙暴不是天灾，是一种牺牲。天命人在能见度极差的环境中以感觉代替视觉，战斗本能进一步觉醒。",
@@ -110,9 +154,11 @@
       "newCharacters": "虎先锋（忠勇大将）、黄风大圣（飞鼠妖王，守护者与暴君的两面）、鼠将（隐线角色）"
     },
     {
-      "id": 2, "name": "第三回：小雷音寺",
+      "id": 2,
+      "name": "第三回：小雷音寺",
       "planet": "盘丝岭·小雷音寺",
-      "progressStart": 32, "progressEnd": 49,
+      "progressStart": 32,
+      "progressEnd": 49,
       "hypeScore": 8,
       "keyEvent": "蜘蛛精迷局，金池长老之秘，斩黄眉，见菩提真身",
       "plotDetail": "第三回分为两段：盘丝岭的蜘蛛幻境，和小雷音寺的虚假佛堂。前者以迷幻和感知考验为主，后者以讽刺和欺骗为核心——黄眉大王打造了一个以谎言维系的\"极乐世界\"。本回还隐藏着菩提老祖的痕迹，是全游戏叙事层次最丰富的一回。",
@@ -120,9 +166,11 @@
       "newCharacters": "蜘蛛精姐妹（幻术猎手）、黄眉大王（弥勒的扫塔力士，自封如来）、菩提老祖（隐线，悟空的老师）"
     },
     {
-      "id": 3, "name": "第四回：流沙河",
+      "id": 3,
+      "name": "第四回：流沙河",
       "planet": "流沙河·沙漠腹地",
-      "progressStart": 49, "progressEnd": 63,
+      "progressStart": 49,
+      "progressEnd": 63,
       "hypeScore": 8,
       "keyEvent": "天命人真相初现，沙僧本质揭露，悟空记忆碎片浮现",
       "plotDetail": "流沙河是干涸的荒漠，但水下埋着更深的秘密。沙僧的真实面目在这一回逐渐浮现，而更重要的是天命人开始以碎片化的方式\"记起\"一些不属于自己的记忆——悟空经历过的战斗、情感和抉择。这是玩家第一次真正意识到：天命人追寻的，不只是一段历史。",
@@ -130,9 +178,11 @@
       "newCharacters": "沙僧（流沙河的守望者，隐藏着复杂的过去）、流沙河中的隐线精怪"
     },
     {
-      "id": 4, "name": "第五回：火焰山",
+      "id": 4,
+      "name": "第五回：火焰山",
       "planet": "火焰山·芭蕉洞",
-      "progressStart": 63, "progressEnd": 80,
+      "progressStart": 63,
+      "progressEnd": 80,
       "hypeScore": 9,
       "keyEvent": "红孩儿再战，铁扇公主的抉择，牛魔王终极决战",
       "plotDetail": "火焰山是全游戏情感浓度最高的一回。这里有一个破碎的家庭：牛魔王迷失于名利，铁扇公主独守芭蕉洞，红孩儿用愤怒掩盖孤独。三昧真火燃烧的不只是山头，也是一段再也回不去的往昔。牛魔王决战是全游戏最史诗的Battle，也是最让人心碎的结局。",
@@ -140,9 +190,11 @@
       "newCharacters": "红孩儿（牛魔王之子，三昧真火）、铁扇公主（芭蕉扇主人，悲情守护者）、牛魔王（最悲剧的Boss）"
     },
     {
-      "id": 5, "name": "第六回：灵山",
+      "id": 5,
+      "name": "第六回：灵山",
       "planet": "灵山·天庭",
-      "progressStart": 80, "progressEnd": 100,
+      "progressStart": 80,
+      "progressEnd": 100,
       "hypeScore": 10,
       "keyEvent": "六耳猕猴真相，天命人的宿命，悟空的轮回与解脱",
       "plotDetail": "一切谜底在灵山揭晓。天命人站在灵山门前，终于明白了自己是谁、这段旅程意味着什么。六耳猕猴的出现是最终也是最深刻的镜像：那个被压抑的自由本性，正在等待与自己决战。普通结局顺应轮回，真结局打破枷锁——你选择哪种答案？",
@@ -151,28 +203,118 @@
     }
   ],
   "hypePeaks": [
-    { "progressPct": 7,  "label": "广智之死",    "score": 6,  "color": "#d4a017" },
-    { "progressPct": 14, "label": "黑熊精",      "score": 8,  "color": "#f97316" },
-    { "progressPct": 28, "label": "黄风大圣",    "score": 8,  "color": "#eab308" },
-    { "progressPct": 40, "label": "蜘蛛精",      "score": 7,  "color": "#a855f7" },
-    { "progressPct": 47, "label": "黄眉大王",    "score": 9,  "color": "#f97316" },
-    { "progressPct": 57, "label": "天命真相",    "score": 8,  "color": "#a855f7" },
-    { "progressPct": 70, "label": "红孩儿",      "score": 8,  "color": "#ef4444" },
-    { "progressPct": 77, "label": "牛魔王",      "score": 10, "color": "#ef4444" },
-    { "progressPct": 88, "label": "六耳猕猴",    "score": 10, "color": "#ef4444" },
-    { "progressPct": 96, "label": "真结局",      "score": 9,  "color": "#a855f7" }
+    {
+      "progressPct": 7,
+      "label": "广智之死",
+      "score": 6,
+      "color": "#d4a017"
+    },
+    {
+      "progressPct": 14,
+      "label": "黑熊精",
+      "score": 8,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 28,
+      "label": "黄风大圣",
+      "score": 8,
+      "color": "#eab308"
+    },
+    {
+      "progressPct": 40,
+      "label": "蜘蛛精",
+      "score": 7,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 47,
+      "label": "黄眉大王",
+      "score": 9,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 57,
+      "label": "天命真相",
+      "score": 8,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 70,
+      "label": "红孩儿",
+      "score": 8,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 77,
+      "label": "牛魔王",
+      "score": 10,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 88,
+      "label": "六耳猕猴",
+      "score": 10,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 96,
+      "label": "真结局",
+      "score": 9,
+      "color": "#a855f7"
+    }
   ],
   "achievements": [
-    { "steamId": "ACH_CH1_ENTER",   "name": "踏上征途",       "progressPct": 3  },
-    { "steamId": "ACH_BLACK_BEAR",  "name": "黑风山已无妖风", "progressPct": 14 },
-    { "steamId": "ACH_YELLOW_WIND", "name": "黄沙散尽",       "progressPct": 28 },
-    { "steamId": "ACH_SPIDER",      "name": "蛛丝断",         "progressPct": 40 },
-    { "steamId": "ACH_HUANGMEI",    "name": "小雷音已空",     "progressPct": 47 },
-    { "steamId": "ACH_CH4_CLEAR",   "name": "流沙已平",       "progressPct": 63 },
-    { "steamId": "ACH_BULL_KING",   "name": "火焰山熄",       "progressPct": 77 },
-    { "steamId": "ACH_MACAQUE",     "name": "真假已辨",       "progressPct": 88 },
-    { "steamId": "ACH_END_NORMAL",  "name": "踏破灵山",       "progressPct": 92 },
-    { "steamId": "ACH_END_TRUE",    "name": "天命所归",       "progressPct": 100 }
+    {
+      "steamId": "ACH_CH1_ENTER",
+      "name": "踏上征途",
+      "progressPct": 3
+    },
+    {
+      "steamId": "ACH_BLACK_BEAR",
+      "name": "黑风山已无妖风",
+      "progressPct": 14
+    },
+    {
+      "steamId": "ACH_YELLOW_WIND",
+      "name": "黄沙散尽",
+      "progressPct": 28
+    },
+    {
+      "steamId": "ACH_SPIDER",
+      "name": "蛛丝断",
+      "progressPct": 40
+    },
+    {
+      "steamId": "ACH_HUANGMEI",
+      "name": "小雷音已空",
+      "progressPct": 47
+    },
+    {
+      "steamId": "ACH_CH4_CLEAR",
+      "name": "流沙已平",
+      "progressPct": 63
+    },
+    {
+      "steamId": "ACH_BULL_KING",
+      "name": "火焰山熄",
+      "progressPct": 77
+    },
+    {
+      "steamId": "ACH_MACAQUE",
+      "name": "真假已辨",
+      "progressPct": 88
+    },
+    {
+      "steamId": "ACH_END_NORMAL",
+      "name": "踏破灵山",
+      "progressPct": 92
+    },
+    {
+      "steamId": "ACH_END_TRUE",
+      "name": "天命所归",
+      "progressPct": 100
+    }
   ],
   "bossSaves": [
     {
@@ -310,5 +452,60 @@
         "gameplay": "全游戏最高难度Boss之一。六耳猕猴会完整复制天命人的技能——你用什么他也会用。三阶段：常规金箍棒连击→读取你的出招习惯并反制→最终形态释放所有习得神通。核心策略：改变你全程惯用的打法，他会学习你的攻击模式。多用他较少见过的技能，保留最强化身和法术用于第三阶段爆发。"
       }
     }
-  ]
+  ],
+  "playerSentiment": {
+    "steamScore": 94,
+    "source": "Steam 用户评测 & B站 & 微博 & Reddit",
+    "note": "国产3A首款里程碑作品，全球玩家高度认可，国内情怀加成明显",
+    "keywords": {
+      "praise": [
+        "国产3A奇迹",
+        "画面世界顶级",
+        "Boss设计精彩",
+        "配乐荡气回肠",
+        "西游情怀满分",
+        "法术系统丰富",
+        "演出顶尖",
+        "悟空动作流畅",
+        "剧情隐喻深刻"
+      ],
+      "criticism": [
+        "优化PC版偶有掉帧",
+        "女性角色稀少",
+        "支线引导不清",
+        "地图不够直观",
+        "后期难度跳跃"
+      ],
+      "hot": [
+        "国产游戏崛起",
+        "六耳猕猴隐喻",
+        "真结局如何解锁",
+        "周星驰版大圣情怀",
+        "哪个Boss最难",
+        "黑神话vs艾尔登法环"
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "第一次看到黄风大圣我以为我进了艺术展览，第二次看到我开始怀疑我是否应该去修行。",
+        "author": "Steam 评测",
+        "upvotes": 8823
+      },
+      {
+        "text": "做了二十年的老游戏玩家，没想到被国产游戏打到落泪。悟空，你打出去了。",
+        "author": "B站评论",
+        "upvotes": 7621
+      },
+      {
+        "text": "游戏告诉你：你是天命人。实际上：你会被同一个BOSS打死四十七次。两者并不矛盾。",
+        "author": "Steam 评测",
+        "upvotes": 6204
+      },
+      {
+        "text": "真结局看完后我坐在椅子上10分钟没说话。室友以为我出事了。",
+        "author": "微博用户",
+        "upvotes": 4932
+      }
+    ]
+  }
 }

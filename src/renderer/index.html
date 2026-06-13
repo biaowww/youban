@@ -197,12 +197,29 @@
   </div>
 </div>
 
-<!-- Tooltip -->
-<div class="tooltip" id="tooltip">
-  <div class="tt-title" id="ttTitle"></div>
-  <div class="tt-body"  id="ttBody"></div>
+<!-- ======= PLAYER SENTIMENT ======= -->
+<div class="card" id="sentimentCard" style="display:none">
+  <div class="card-body">
+    <div class="section-title">玩家舆情</div>
+    <div class="sentiment-score-row">
+      <div class="sentiment-score-wrap">
+        <div class="sentiment-score-label">Steam 好评率</div>
+        <div class="sentiment-bar-track">
+          <div class="sentiment-bar-fill" id="sentimentBar" style="width:0%"></div>
+        </div>
+        <div class="sentiment-score-num" id="sentimentScore">—</div>
+      </div>
+      <div class="sentiment-meta">
+        <div class="sentiment-source" id="sentimentSource"></div>
+        <div class="sentiment-note"   id="sentimentNote"></div>
+      </div>
+    </div>
+    <div class="sentiment-testimonials" id="sentimentTestimonials"></div>
+    <div class="sentiment-kw-divider">
+      <span class="kw-divider-label">关键词速览</span>
+    </div>
+    <div class="sentiment-keywords" id="sentimentKeywords"></div>
+  </div>
 </div>
 
-<script src="renderer.js"></script>
-</body>
-</html>
+<!-- Tooltip --

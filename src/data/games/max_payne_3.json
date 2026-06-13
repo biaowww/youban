@@ -14,10 +14,22 @@
     "tagline": "一个男人，一把枪，一段无路可退的旅程",
     "description": "Max Payne 3 是 Rockstar Games 出品的第三人称射击游戏，也是这个系列最成熟、最沉重的篇章。Max Payne——一个被悲剧和酒精蹂躏多年的前纽约警探——来到圣保罗担任保镖，却意外卷入了一场涉及腐败政客、黑帮与人体器官贩卖的巨大阴谋。游戏以慢动作子弹时间为核心机制，以电影级叙事为灵魂，大量第一人称内心独白构成了这个故事最独特的气质：疲惫、犀利、黑色幽默之下是一个孤独男人试图在废墟中找到一点点意义。",
     "highlights": [
-      { "icon": "🎬", "text": "电影级叙事：Max 的内心独白是整个游戏的灵魂" },
-      { "icon": "💊", "text": "子弹时间系统：慢动作枪战的极致爽感体验" },
-      { "icon": "🏟️", "text": "体育场大屠杀——游戏史上最震撼的剧情反转之一" },
-      { "icon": "✈️", "text": "机场终章：孤身闯机场，系列最高光的收尾时刻" }
+      {
+        "icon": "🎬",
+        "text": "电影级叙事：Max 的内心独白是整个游戏的灵魂"
+      },
+      {
+        "icon": "💊",
+        "text": "子弹时间系统：慢动作枪战的极致爽感体验"
+      },
+      {
+        "icon": "🏟️",
+        "text": "体育场大屠杀——游戏史上最震撼的剧情反转之一"
+      },
+      {
+        "icon": "✈️",
+        "text": "机场终章：孤身闯机场，系列最高光的收尾时刻"
+      }
     ]
   },
   "entryPoints": [
@@ -42,31 +54,49 @@
       "progressPct": 0,
       "event": "圣保罗·落魄雇佣兵",
       "description": "Max 来到巴西，酗酒、潦倒、试图重新开始。他只想做好分内的保镖工作，不再惹麻烦。",
-      "unlocks": ["子弹时间基础", "翻滚射击（Shootdodge）", "双枪模式"]
+      "unlocks": [
+        "子弹时间基础",
+        "翻滚射击（Shootdodge）",
+        "双枪模式"
+      ]
     },
     {
       "progressPct": 22,
       "event": "雇主遇害·无路可退",
       "description": "Rodrigo 死后，Max 失去了工作、金钱和在巴西的立足点。他留下来，不是因为有计划，而是因为他已经没有别的地方可去。",
-      "unlocks": ["重武器（霰弹枪·突击步枪）", "痛苦镇痛剂系统强化", "近战处决"]
+      "unlocks": [
+        "重武器（霰弹枪·突击步枪）",
+        "痛苦镇痛剂系统强化",
+        "近战处决"
+      ]
     },
     {
       "progressPct": 50,
       "event": "体育场·看清真相",
       "description": "Max 目睹了国家机器的暴行。这不再是保镖任务，不再是单纯的复仇——这是一个男人决定站到腐败的对面。",
-      "unlocks": ["狙击步枪", "战术掩体意识", "子弹时间连续触发"]
+      "unlocks": [
+        "狙击步枪",
+        "战术掩体意识",
+        "子弹时间连续触发"
+      ]
     },
     {
       "progressPct": 63,
       "event": "Victor 真相·彻底孤立",
       "description": "Max 明白了一切都是局，他是被利用的棋子。此刻他不再试图逃离，而是决定把所有人都清算一遍。",
-      "unlocks": ["重型甲胄穿透弹药", "多目标锁定模式"]
+      "unlocks": [
+        "重型甲胄穿透弹药",
+        "多目标锁定模式"
+      ]
     },
     {
       "progressPct": 84,
       "event": "机场·最后的清算",
       "description": "Max 孤身一人，对抗整个体制。没有支援，没有授权，只有愤怒和多年积累的射击本能。这是他在这个故事里最自由的时刻。",
-      "unlocks": ["全武器库开放", "最终子弹时间强化"]
+      "unlocks": [
+        "全武器库开放",
+        "最终子弹时间强化"
+      ]
     }
   ],
   "gameTheme": {
@@ -78,9 +108,11 @@
   },
   "chapters": [
     {
-      "id": 0, "name": "Ch.1–3：派对与绑架",
+      "id": 0,
+      "name": "Ch.1–3：派对与绑架",
       "planet": "圣保罗·上流社会",
-      "progressStart": 0, "progressEnd": 22,
+      "progressStart": 0,
+      "progressEnd": 22,
       "hypeScore": 6,
       "keyEvent": "Max 受雇保护 Rodrigo，在夜店派对上 Fabiana 遭到绑架，一切开始崩坏",
       "plotDetail": "Max 来到巴西，试图用一份保镖工作重新开始。圣保罗上流社会的浮华派对与他满身的沧桑形成强烈对比。工作第一晚，Rodrigo 的妻子 Fabiana 就在夜店遭到武装绑架。Max 来不及反应，绑架者 CS 帮首领 Serrano 已经消失在夜色中。这三章建立了游戏的情感基调：一个已经没有什么可失去的男人，却又开始有了失去的东西。",
@@ -88,9 +120,11 @@
       "newCharacters": "Max Payne（主角，疲惫的前警探）、Rodrigo Branco（雇主，地产大亨）、Raul Passos（Max 的搭档）、Fabiana（Rodrigo 之妻，绑架受害者）、Serrano（CS 帮首领）"
     },
     {
-      "id": 1, "name": "Ch.4–6：追踪与背叛",
+      "id": 1,
+      "name": "Ch.4–6：追踪与背叛",
       "planet": "圣保罗·贫民窟",
-      "progressStart": 22, "progressEnd": 43,
+      "progressStart": 22,
+      "progressEnd": 43,
       "hypeScore": 7,
       "keyEvent": "Max 深入贫民窟，雇主 Rodrigo 遇害，Max 的处境急剧恶化",
       "plotDetail": "贫民窟是圣保罗的另一面——狭窄的巷道、垂直叠层的贫困建筑，和随处可见的武装力量。Max 深入其中追踪绑架线索，却只换来更多的混乱。Rodrigo 遇害是这段故事的分水岭：Max 失去了工作、立足点，甚至失去了在这座城市继续存在的理由。但他还是留了下来。",
@@ -98,9 +132,11 @@
       "newCharacters": "贫民窟 CS 帮成员、Victor Branco（Rodrigo 的弟弟，首次登场，看似悲痛的受害者）"
     },
     {
-      "id": 2, "name": "Ch.7–9：真相浮现",
+      "id": 2,
+      "name": "Ch.7–9：真相浮现",
       "planet": "圣保罗·体育场",
-      "progressStart": 43, "progressEnd": 64,
+      "progressStart": 43,
+      "progressEnd": 64,
       "hypeScore": 8,
       "keyEvent": "体育场大屠杀揭示幕后黑手，Max 发现自己卷入了远比想象更深的阴谋",
       "plotDetail": "体育场章节是全游戏最震撼的叙事时刻。Max 追踪人贩网络进入一座巨大的足球场，目睹了 UFE（精英警察）有组织地屠杀平民。这不是帮派暴力，而是国家暴力。Max 此前以为自己在追坏人，现在他发现：合法与非法的界限从未如此模糊。",
@@ -108,9 +144,11 @@
       "newCharacters": "UFE（联邦特种部队，本作最大反派势力）、Giovanna（Passos 的女友，关键角色）"
     },
     {
-      "id": 3, "name": "Ch.10–12：幕后的阴谋",
+      "id": 3,
+      "name": "Ch.10–12：幕后的阴谋",
       "planet": "圣保罗·港口·机场",
-      "progressStart": 64, "progressEnd": 84,
+      "progressStart": 64,
+      "progressEnd": 84,
       "hypeScore": 8,
       "keyEvent": "Victor Branco 的腐败暴露，UFE 组织真面目浮出，Max 孤身对抗整个体制",
       "plotDetail": "这三章是谜底逐渐揭晓的过程。Victor Branco——那个全程以悲痛家属身份出现的男人——是整个腐败网络的核心策划者。他参与了哥哥的死，他为器官贩卖提供政治保护伞，他利用 UFE 清除异见。Max 在港口的集装箱迷宫和仓库间追踪真相，每一场枪战都让他离清算更近一步。",
@@ -118,9 +156,11 @@
       "newCharacters": "Becker（UFE 实际指挥官，最终Boss）、Victor Branco（真正的幕后黑手，全面登场）"
     },
     {
-      "id": 4, "name": "Ch.13–14：最后的复仇",
+      "id": 4,
+      "name": "Ch.13–14：最后的复仇",
       "planet": "圣保罗国际机场",
-      "progressStart": 84, "progressEnd": 100,
+      "progressStart": 84,
+      "progressEnd": 100,
       "hypeScore": 10,
       "keyEvent": "Max 独闯机场，清算所有幕后黑手，以一己之力终结这场腐败游戏",
       "plotDetail": "Victor Branco 试图带着罪行和秘密逃离巴西。Max Payne，一个没有授权、没有支援、没有任何退路的中年男人，独自走入圣保罗国际机场。候机楼、登机口、停机坪、跑道——每一步都是对整个腐败体制的正面宣战。这不是英雄时刻，这是一个已经失去了一切的人，用最后的力气在这个世界上留下一个答案。",
@@ -129,24 +169,97 @@
     }
   ],
   "hypePeaks": [
-    { "progressPct": 15, "label": "Fabiana 被劫",    "score": 7,  "color": "#c8892a" },
-    { "progressPct": 22, "label": "Rodrigo 遇害",    "score": 7,  "color": "#ef4444" },
-    { "progressPct": 36, "label": "贫民窟突围",      "score": 7,  "color": "#f97316" },
-    { "progressPct": 50, "label": "体育场大屠杀",    "score": 9,  "color": "#ef4444" },
-    { "progressPct": 63, "label": "Victor 真面目",   "score": 8,  "color": "#a855f7" },
-    { "progressPct": 76, "label": "港口激战",        "score": 8,  "color": "#f97316" },
-    { "progressPct": 87, "label": "UFE 大本营",      "score": 8,  "color": "#ef4444" },
-    { "progressPct": 93, "label": "机场最终战",      "score": 10, "color": "#ef4444" },
-    { "progressPct": 98, "label": "Max 的告别",      "score": 7,  "color": "#a855f7" }
+    {
+      "progressPct": 15,
+      "label": "Fabiana 被劫",
+      "score": 7,
+      "color": "#c8892a"
+    },
+    {
+      "progressPct": 22,
+      "label": "Rodrigo 遇害",
+      "score": 7,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 36,
+      "label": "贫民窟突围",
+      "score": 7,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 50,
+      "label": "体育场大屠杀",
+      "score": 9,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 63,
+      "label": "Victor 真面目",
+      "score": 8,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 76,
+      "label": "港口激战",
+      "score": 8,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 87,
+      "label": "UFE 大本营",
+      "score": 8,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 93,
+      "label": "机场最终战",
+      "score": 10,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 98,
+      "label": "Max 的告别",
+      "score": 7,
+      "color": "#a855f7"
+    }
   ],
   "achievements": [
-    { "steamId": "ACH_CH3_CLEAR",    "name": "Just Another Friday Night",  "progressPct": 22 },
-    { "steamId": "ACH_CH6_CLEAR",    "name": "A Dame, A Dork, and A Drunk", "progressPct": 43 },
-    { "steamId": "ACH_STADIUM",      "name": "Ain't No Reprieve",           "progressPct": 57 },
-    { "steamId": "ACH_CH9_CLEAR",    "name": "Halfway Down the World",      "progressPct": 64 },
-    { "steamId": "ACH_CH11_CLEAR",   "name": "Sun Tan Oil",                 "progressPct": 79 },
-    { "steamId": "ACH_BECKER",       "name": "One Card Left to Play",       "progressPct": 93 },
-    { "steamId": "ACH_END",          "name": "Out the Window",              "progressPct": 100 }
+    {
+      "steamId": "ACH_CH3_CLEAR",
+      "name": "Just Another Friday Night",
+      "progressPct": 22
+    },
+    {
+      "steamId": "ACH_CH6_CLEAR",
+      "name": "A Dame, A Dork, and A Drunk",
+      "progressPct": 43
+    },
+    {
+      "steamId": "ACH_STADIUM",
+      "name": "Ain't No Reprieve",
+      "progressPct": 57
+    },
+    {
+      "steamId": "ACH_CH9_CLEAR",
+      "name": "Halfway Down the World",
+      "progressPct": 64
+    },
+    {
+      "steamId": "ACH_CH11_CLEAR",
+      "name": "Sun Tan Oil",
+      "progressPct": 79
+    },
+    {
+      "steamId": "ACH_BECKER",
+      "name": "One Card Left to Play",
+      "progressPct": 93
+    },
+    {
+      "steamId": "ACH_END",
+      "name": "Out the Window",
+      "progressPct": 100
+    }
   ],
   "bossSaves": [
     {
@@ -224,5 +337,58 @@
         "gameplay": "全游戏最大规模的连续战斗区域：候机楼大厅→登机口→停机坪→飞机跑道。大量 UFE 精锐持续增援，全程高压。与 Becker 的最终对决是近距离的子弹时间枪战，他会频繁走位并使用掩体——跟随他的走位节奏，在他换弹时触发子弹时间进行精准狙杀。这场戏的电影感是全系列巅峰，享受它。"
       }
     }
-  ]
+  ],
+  "playerSentiment": {
+    "steamScore": 85,
+    "source": "Steam 用户评测 & Metacritic & Reddit",
+    "note": "首发备受好评，随年代沉淀评价愈发正面，子弹时间系统被视为同类天花板",
+    "keywords": {
+      "praise": [
+        "子弹时间神作",
+        "动作镜头电影感",
+        "Max人物塑造极深",
+        "配乐极具氛围",
+        "圣保罗世界观独特",
+        "Rockstar叙事水准",
+        "枪感顶尖",
+        "结局大快人心"
+      ],
+      "criticism": [
+        "过场太长不可跳过",
+        "Max太惨了受不了",
+        "线性流程重复感",
+        "章节间节奏不均",
+        "多人模式已死"
+      ],
+      "hot": [
+        "秃头Max还是长发Max",
+        "巴西场景太压抑",
+        "这是最好的Max Payne吗",
+        "过场动画跳不过真的烦",
+        "值得重温的神作"
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "Max Payne 3是一部关于中年危机的杰作，恰好套着枪战游戏的壳。",
+        "author": "Steam 评测",
+        "upvotes": 3421
+      },
+      {
+        "text": "子弹时间慢动作里看见Max那张沧桑的脸，我突然觉得人生很难。",
+        "author": "Reddit r/maxpayne",
+        "upvotes": 2876
+      },
+      {
+        "text": "过场动画不能跳过——Rockstar的自信，和我的愤怒，旗鼓相当。",
+        "author": "Steam 评测",
+        "upvotes": 5103
+      },
+      {
+        "text": "圣保罗机场最后那段，Max一个人干掉整个军队。电影级的落幕，我鼓掌了。",
+        "author": "Metacritic 用户评测",
+        "upvotes": 1984
+      }
+    ]
+  }
 }

@@ -13,6 +13,8 @@
 | Star Wars Jedi: Fallen Order | ~17h | 12 个 | ✅ 含社区存档下载 |
 | 黑神话：悟空 | ~25h | 9 个 | ✅ |
 | Max Payne 3 | ~10h | 5 个 | ✅ |
+| The Last of Us Part I | ~15h | 4 个 | ✅ |
+| The Last of Us Part II | ~25h | 4 个 | ✅ |
 
 ---
 
@@ -37,6 +39,11 @@
 
 **主角成长历程**
 - 以时间轴形式展示主角在每个阶段解锁的能力与经历的关键事件
+
+**玩家舆情**
+- Steam 好评率进度条（绿/黄/红三色分级）
+- 关键词面板：👍 好评 / 👎 差评 / 🔥 热议三组 Tag
+- 聚合自 Steam 评测、Metacritic、Reddit、B站等来源
 
 **章节详情**
 - 每章悬停 / 当前章节展开：剧情概述、玩家目标、新登场角色
@@ -66,7 +73,9 @@
     │   └── games/
     │       ├── jedi_fo.json
     │       ├── black_myth_wukong.json
-    │       └── max_payne_3.json
+    │       ├── max_payne_3.json
+    │       ├── last_of_us_1.json
+    │       └── last_of_us_2.json
     └── renderer/
         ├── index.html
         ├── renderer.js

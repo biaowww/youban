@@ -32,6 +32,10 @@ async function buildGameSelector() {
         posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_600x900.jpg' },
       { id: 'max_payne_3',       name: 'Max Payne 3',                  year: 2012,
         posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg' },
+      { id: 'last_of_us_1',     name: 'The Last of Us Part I',        year: 2023,
+        posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1888930/library_600x900.jpg' },
+      { id: 'last_of_us_2',     name: 'The Last of Us Part II',       year: 2025,
+        posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1230140/library_600x900.jpg' },
     ];
   }
   const list = document.getElementById('gsList');
@@ -70,6 +74,7 @@ async function switchGame(gameId) {
   buildOverview();
   buildChList();
   buildProtagonistJourney();
+  buildPlayerSentiment();
   drawWave();
   updateDisplay(currentPct);
 }
@@ -547,3 +552,45 @@ function buildChList() {
     list.appendChild(el);
   });
 }
+
+// ── PLAYER SENTIMENT ─────────────────────────────────────────
+function buildPlayerSentiment() {
+  const card = document.getElementById('sentimentCard');
+  if (!GAME || !GAME.playerSentiment) { card.style.display = 'none'; return; }
+  const ps = GAME.playerSentiment;
+
+  // Score bar
+  const score = ps.steamScore || 0;
+  const barEl = document.getElementById('sentimentBar');
+  document.getElementById('sentimentScore').textContent  = score + '%';
+  barEl.style.width  = score + '%';
+  barEl.className    = 'sentiment-bar-fill' +
+    (score >= 80 ? ' positive' : score >= 60 ? ' mixed' : ' negative');
+  document.getElementById('sentimentSource').textContent = ps.source || '';
+  document.getElementById('sentimentNote').textContent   = ps.note   || '';
+
+  // ── Testimonials ──────────────────────────────────────────
+  const tmArea = document.getElementById('sentimentTestimonials');
+  tmArea.innerHTML = '';
+  const quotes = (ps.testimonials || []).slice(0, 3); // show top 3
+  quotes.forEach(q => {
+    const el = document.createElement('div');
+    el.className = 'tm-card';
+    el.innerHTML = `
+      <div class="tm-quote">${q.text}</div>
+      <div class="tm-meta">
+        <span class="tm-author">${q.author}</span>
+        <span class="tm-upvotes">👍 ${q.upvotes >= 1000
+          ? (q.upvotes / 1000).toFixed(1) + 'k'
+          : q.upvotes}</span>
+      </div>`;
+    tmArea.appendChild(el);
+  });
+
+  // ── Keyword tags ──────────────────────────────────────────
+  const groups = [
+    { key: 'praise',    label: '👍 好评',   cls: 'kw-praise'   },
+    { key: 'criticism', label: '👎 差评',   cls: 'kw-criticism' },
+    { key: 'hot',       label: '🔥 热议',   cls: 'kw-hot'      },
+  ];
+  const kwArea = document.getElementById
