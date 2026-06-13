@@ -1,13 +1,13 @@
 {
   "id": "last_of_us_2",
-  "name": "The Last of Us Part II",
+  "name": "The Last of Us Part II Remastered",
   "developer": "Naughty Dog",
   "year": 2025,
   "genre": "动作冒险",
-  "steamAppId": 1230140,
+  "steamAppId": 2531310,
   "totalHoursMain": 25,
-  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1230140/library_600x900.jpg",
-  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1230140/library_hero.jpg",
+  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/2531310/library_hero.jpg",
+  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/2531310/library_hero.jpg",
   "gameTheme": {
     "bg": "#0b1008",
     "bgCard": "#111a0d",

@@ -34,8 +34,8 @@ async function buildGameSelector() {
         posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg' },
       { id: 'last_of_us_1',     name: 'The Last of Us Part I',        year: 2023,
         posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1888930/library_600x900.jpg' },
-      { id: 'last_of_us_2',     name: 'The Last of Us Part II',       year: 2025,
-        posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1230140/library_600x900.jpg' },
+      { id: 'last_of_us_2',     name: 'The Last of Us Part II Remastered', year: 2025,
+        posterUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/2531310/library_hero.jpg' },
     ];
   }
   const list = document.getElementById('gsList');
@@ -593,4 +593,25 @@ function buildPlayerSentiment() {
     { key: 'criticism', label: '👎 差评',   cls: 'kw-criticism' },
     { key: 'hot',       label: '🔥 热议',   cls: 'kw-hot'      },
   ];
-  const kwArea = document.getElementById
+  const kwArea = document.getElementById('sentimentKeywords');
+  kwArea.innerHTML = '';
+  groups.forEach(g => {
+    const words = (ps.keywords || {})[g.key] || [];
+    if (!words.length) return;
+    const section = document.createElement('div');
+    section.className = 'kw-section';
+    section.innerHTML = `<div class="kw-label">${g.label}</div>`;
+    const row = document.createElement('div');
+    row.className = 'kw-row';
+    words.forEach(w => {
+      const chip = document.createElement('span');
+      chip.className = `kw-chip ${g.cls}`;
+      chip.textContent = w;
+      row.appendChild(chip);
+    });
+    section.appendChild(row);
+    kwArea.appendChild(section);
+  });
+
+  card.style.display = 'block';
+}
