@@ -62,6 +62,9 @@
 <script src="vendor/react.min.js"></script>
 <script src="vendor/react-dom.min.js"></script>
 
+<!-- 数据适配层（普通脚本，不经 build:ui；须在 dist/app.js 之前） -->
+<script src="adapt.js"></script>
+
 <!-- 预编译产物（由 src/renderer/*.jsx 经 npm run build:ui 生成；运行时无需 Babel） -->
 <script src="dist/components.js"></script>
 <script src="dist/screens.js"></script>

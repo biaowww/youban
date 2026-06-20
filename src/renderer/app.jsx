@@ -5,85 +5,8 @@
    - 复用 design 的 React 组件（components.jsx / screens.jsx）
    ============================================================ */
 /* hooks（useState/useEffect）由 components.js 全局声明，预编译为普通脚本时直接复用 */
-/* ───────── 数据源：Tauri(invoke) 优先，回退 Electron(gameAPI) ───────── */
-async function loadRawGames() {
-  const t = window.__TAURI__;
-  const invoke = t && (t.core && t.core.invoke ? t.core.invoke : t.invoke);
-  if (invoke) {
-    const list = await invoke("get_game_list");
-    return Promise.all((list || []).map(g => invoke("get_game_data", { id: g.id })));
-  }
-  if (window.gameAPI) {
-    const list = await window.gameAPI.getGameList();
-    return Promise.all((list || []).map(g => window.gameAPI.getGameData(g.id)));
-  }
-  if (Array.isArray(window.__YB_RAW__)) {
-    return window.__YB_RAW__; // 浏览器预览回退（preview.html 注入）
-  }
-  throw new Error("无可用数据源（Tauri / gameAPI / __YB_RAW__ 均不可用）");
-}
-
-/* ───────── 适配器：src JSON → 视图模型 ───────── */
-function adaptGame(g) {
-  const t = g.gameTheme || {};
-  const ov = g.overview || {};
-  const ps = g.playerSentiment || {};
-  const kw = ps.keywords || {};
-  const sd = g.saveDownload;
-  return {
-    id: g.id,
-    titleMain: g.titleMain || g.name,
-    titleSub: g.titleSub || '',
-    short: g.short || g.name,
-    developer: g.developer,
-    year: g.year,
-    genre: g.genre || '',
-    hoursMain: g.totalHoursMain,
-    currentPct: g.currentPct == null ? 0 : g.currentPct,
-    poster: g.posterUrl,
-    banner: g.bannerUrl,
-    theme: {
-      bg: t.bg, card: t.bgCard || t.card, accent: t.accent, accent2: t.accent2, text: t.text,
-    },
-    tagline: ov.tagline || '',
-    desc: ov.description || '',
-    highlights: ov.highlights || [],
-    chapters: (g.chapters || []).map(c => ({
-      name: c.name, planet: c.planet,
-      start: c.progressStart, end: c.progressEnd,
-      hype: c.hypeScore, key: c.keyEvent,
-      plot: c.plotDetail, goals: c.playerGoals, chars: c.newCharacters,
-    })),
-    bosses: (g.bossSaves || []).map(b => ({
-      id: b.id, name: b.name, nameEn: b.nameEn || '',
-      pct: b.progressPct, planet: b.planet,
-      gap: b.storyGap || 0, hi: !!b.highlight,
-      plot: (b.context || {}).plot, chars: (b.context || {}).characters, fight: (b.context || {}).gameplay,
-      folder: b.folder,
-    })),
-    hype: (g.hypePeaks || []).map(p => ({
-      pct: p.progressPct, label: p.label, score: p.score, color: p.color,
-    })),
-    entries: (g.entryPoints || []).map(e => ({
-      pct: e.progressPct, label: e.label, reason: e.reason,
-    })),
-    journey: (g.protagonistJourney || []).map(j => ({
-      pct: j.progressPct, event: j.event, desc: j.description, unlocks: j.unlocks || [],
-    })),
-    sentiment: {
-      score: ps.steamScore || 0, source: ps.source || '', note: ps.note || '',
-      praise: kw.praise || [], criticism: kw.criticism || [], hot: kw.hot || [],
-      quotes: (ps.testimonials || []).map(q => ({ text: q.text, author: q.author, up: q.upvotes })),
-    },
-    ach: (g.achievements || []).map(a => ({ id: a.steamId, name: a.name, pct: a.progressPct })),
-    achNote: '已读取 Steam 成就，进度已同步至最近解锁节点',
-    save: sd ? {
-      steps: (sd.instructions || '').split('\n').map(s => s.replace(/^\d+\.\s*/, '')).filter(Boolean),
-      path: sd.savePath || '',
-      url: sd.url || '',
-    } : null,
-  };
-}
+/* 数据层 adaptGame / loadRawGames 已抽到 renderer/adapt.js（普通脚本，先于 dist/app.js 引入），
+   这里直接复用全局 adaptGame / loadRawGames。改游戏 JSON 字段名时去 adapt.js 同步。 */
 
 /* ───────── 游戏内顶栏 ───────── */
 function GameTopBar({ game, onBack, onSwitch, theme, setTheme }) {
@@ -216,7 +139,7 @@ function Root() {
   );
 }
 
-Object.assign(window, { adaptGame, loadRawGames, YBApp, GameTopBar, GameSwitchSheet, Root });
+Object.assign(window, { YBApp, GameTopBar, GameSwitchSheet, Root });
 if (!window.__YB_NO_AUTOMOUNT__) {
   ReactDOM.createRoot(document.getElementById('root')).render(<Root />);
 }
