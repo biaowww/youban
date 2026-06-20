@@ -1,0 +1,77 @@
+{
+  "_note": "Mock Steam GetPlayerAchievements fixtures（确定性、离线）。steamId 代表不同档案情形。",
+  "steamIds": {
+    "partial": "76561190000000001",
+    "full": "76561190000000002",
+    "private": "76561190000000003",
+    "none": "76561190000000004"
+  },
+  "owned": {
+    "76561190000000001": [
+      {
+        "appId": 1172380,
+        "name": "Star Wars Jedi: Fallen Order",
+        "playtimeForeverMin": 1020
+      },
+      {
+        "appId": 2358720,
+        "name": "黑神话：悟空",
+        "playtimeForeverMin": 1860
+      }
+    ],
+    "76561190000000002": [
+      {
+        "appId": 1172380,
+        "name": "Star Wars Jedi: Fallen Order",
+        "playtimeForeverMin": 1020
+      },
+      {
+        "appId": 2358720,
+        "name": "黑神话：悟空",
+        "playtimeForeverMin": 1860
+      }
+    ],
+    "76561190000000003": [
+      {
+        "appId": 1172380,
+        "name": "Star Wars Jedi: Fallen Order",
+        "playtimeForeverMin": 1020
+      },
+      {
+        "appId": 2358720,
+        "name": "黑神话：悟空",
+        "playtimeForeverMin": 1860
+      }
+    ],
+    "76561190000000004": [
+      {
+        "appId": 1172380,
+        "name": "Star Wars Jedi: Fallen Order",
+        "playtimeForeverMin": 1020
+      },
+      {
+        "appId": 2358720,
+        "name": "黑神话：悟空",
+        "playtimeForeverMin": 1860
+      }
+    ]
+  },
+  "achievements": {
+    "76561190000000001": {
+      "1172380": "jedi_fo.partial.json",
+      "2358720": "black_myth_wukong.partial.json"
+    },
+    "76561190000000002": {
+      "1172380": "jedi_fo.full.json",
+      "2358720": "black_myth_wukong.full.json"
+    },
+    "76561190000000003": {
+      "1172380": "jedi_fo.private.json",
+      "2358720": "black_myth_wukong.private.json"
+    },
+    "76561190000000004": {
+      "1172380": "jedi_fo.none.json",
+      "2358720": "black_myth_wukong.none.json"
+    }
+  }
+}

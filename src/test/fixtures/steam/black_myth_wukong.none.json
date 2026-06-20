@@ -1,0 +1,59 @@
+{
+  "playerstats": {
+    "steamID": "76561190000000004",
+    "gameName": "黑神话：悟空",
+    "achievements": [
+      {
+        "apiname": "ACH_CH1_ENTER",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_BLACK_BEAR",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_YELLOW_WIND",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_SPIDER",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_HUANGMEI",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_CH4_CLEAR",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_BULL_KING",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_MACAQUE",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_END_NORMAL",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_END_TRUE",
+        "achieved": 0,
+        "unlocktime": 0
+      }
+    ],
+    "success": true
+  }
+}

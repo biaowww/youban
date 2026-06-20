@@ -1,0 +1,59 @@
+{
+  "playerstats": {
+    "steamID": "76561190000000004",
+    "gameName": "Star Wars Jedi: Fallen Order",
+    "achievements": [
+      {
+        "apiname": "ACH_STORY_MANTIS",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_BOGANO",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_EILRAM",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_WOOKIE",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_NINTH",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_MIKTRULL",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_SABER",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_TRILLA",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_VAULT",
+        "achieved": 0,
+        "unlocktime": 0
+      },
+      {
+        "apiname": "ACH_STORY_END",
+        "achieved": 0,
+        "unlocktime": 0
+      }
+    ],
+    "success": true
+  }
+}
