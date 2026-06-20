@@ -52,7 +52,7 @@ ipcMain.handle('get-game-data', (_event, gameId) => {
     const raw = fs.readFileSync(filePath, 'utf-8');
     return JSON.parse(raw);
   } catch (err) {
-    throw new Error(`Cannot load game data for "${gameId}": ${err.message}`);
+    throw new Error(`Cannot load game data for "${gameId}": ${err.message}`, { cause: err });
   }
 });
 

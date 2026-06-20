@@ -7,12 +7,20 @@
     "start": "electron .",
     "build:ui": "node build-ui.js",
     "build": "electron-builder --win --x64",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "validate:games": "node scripts/validate-games.js"
   },
   "devDependencies": {
     "@babel/standalone": "^7.29.0",
+    "@eslint/js": "^10.0.1",
     "@tauri-apps/cli": "^2",
     "electron": "^41.3.0",
-    "electron-builder": "^26.8.1"
+    "electron-builder": "^26.8.1",
+    "eslint": "^10.5.0",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "vitest": "^4.1.9"
   }
 }
