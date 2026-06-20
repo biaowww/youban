@@ -1,0 +1,107 @@
+/* ============================================================
+   游伴 YouBan · PC 桌面端（Tauri 窗口）
+   复用移动端的语义令牌与组件（.yb-app 提供 --bg/--surface/--txt/--accent…）
+   ============================================================ */
+
+.desk-window {
+  width: 1240px; height: 800px; border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column;
+  background: var(--g-bg);
+  box-shadow: 0 50px 110px -24px rgba(0,0,0,.7), 0 0 0 1px rgba(0,0,0,.5);
+}
+/* 桌面根：复用 .yb-app 的语义变量，但去掉手机外形 */
+.yb-app.yb-desk {
+  width: 100%; height: auto; flex: 1; min-height: 0;
+  border-radius: 0; box-shadow: none; overflow: hidden;
+}
+
+/* ── 标题栏 ── */
+.desk-titlebar {
+  height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 14px;
+  padding: 0 8px 0 16px;
+  background: color-mix(in oklab, var(--g-bg) 80%, #000 20%);
+  border-bottom: 1px solid var(--hairline);
+}
+.yb-app.light .desk-titlebar { background: color-mix(in oklab, #fff 70%, var(--g-bg)); }
+.desk-brand { display: flex; align-items: center; gap: 9px; }
+.desk-brand img { width: 22px; height: 22px; }
+.desk-brand b { font-size: 13.5px; font-weight: 700; letter-spacing: -.01em; }
+.desk-brand .div { width: 1px; height: 16px; background: var(--hairline); margin: 0 4px; }
+.desk-brand .gname { font-size: 12.5px; color: var(--txt-2); font-weight: 500; }
+.desk-tb-spacer { flex: 1; }
+.desk-winbtns { display: flex; gap: 2px; margin-left: 6px; }
+.desk-winbtn { width: 38px; height: 30px; border: 0; background: none; color: var(--txt-2); cursor: pointer; display: grid; place-items: center; border-radius: 6px; }
+.desk-winbtn:hover { background: var(--chip); }
+.desk-winbtn.close:hover { background: #e23b3b; color: #fff; }
+
+/* ── 主网格 ── */
+.desk-grid { display: grid; grid-template-columns: 232px 1fr 366px; height: 100%; min-height: 0; }
+.desk-col { min-height: 0; display: flex; flex-direction: column; }
+.desk-col.mid { border-left: 1px solid var(--hairline); border-right: 1px solid var(--hairline); }
+.desk-scroll { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--hairline) transparent; }
+.desk-scroll::-webkit-scrollbar { width: 8px; }
+.desk-scroll::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 99px; }
+
+/* ── 左：游戏库 ── */
+.desk-side-h { padding: 16px 16px 8px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--txt-3); font-weight: 700; }
+.desk-game { display: flex; align-items: center; gap: 11px; padding: 9px 12px; margin: 0 8px 3px; border-radius: 11px; cursor: pointer; border: 1px solid transparent; transition: background .2s; }
+.desk-game:hover { background: var(--chip); }
+.desk-game.on { background: color-mix(in oklab, var(--accent) 12%, transparent); border-color: color-mix(in oklab, var(--accent) 32%, transparent); }
+.desk-game img { width: 38px; height: 51px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: var(--surface-2); }
+.desk-game .gi { flex: 1; min-width: 0; }
+.desk-game .gi .nm { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.desk-game .gi .pb { margin-top: 6px; height: 3px; border-radius: 99px; background: var(--chip); overflow: hidden; }
+.desk-game .gi .pb > i { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+.desk-game .gi .pc { font-size: 10.5px; color: var(--txt-3); margin-top: 5px; font-family: var(--font-mono); }
+.desk-profile { flex-shrink: 0; border-top: 1px solid var(--hairline); padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.desk-profile:hover { background: var(--chip); }
+.desk-profile .av { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--surface-2); border: 1px solid var(--hairline); }
+.desk-profile .av img { width: 100%; height: 100%; object-fit: cover; }
+.desk-profile .pm { flex: 1; min-width: 0; }
+.desk-profile .pm .n { font-size: 13px; font-weight: 600; }
+.desk-profile .pm .s { font-size: 11px; color: var(--txt-3); margin-top: 2px; }
+
+/* ── 中：进度主区 ── */
+.desk-hero { position: relative; height: 188px; flex-shrink: 0; overflow: hidden; }
+.desk-hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
+.desk-hero .sc { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, color-mix(in oklab, var(--g-bg) 70%, transparent) 78%, var(--bg) 100%); }
+.desk-hero .meta { position: absolute; left: 24px; bottom: 16px; right: 130px; }
+.desk-hero .gname { font-size: 27px; font-weight: 700; letter-spacing: -.015em; line-height: 1.06; text-shadow: 0 2px 18px rgba(0,0,0,.5); color: #fff; }
+.desk-hero .gsub { font-size: 13px; color: rgba(255,255,255,.82); margin-top: 6px; }
+.desk-hero .pct { position: absolute; right: 24px; bottom: 16px; text-align: right; }
+.desk-hero .pct b { font-family: var(--font-mono); font-size: 40px; font-weight: 700; color: var(--g-accent); line-height: 1; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
+.desk-hero .pct b i { font-size: 18px; font-style: normal; }
+.desk-hero .pct span { display: block; font-size: 10px; letter-spacing: .14em; color: rgba(255,255,255,.7); margin-top: 4px; }
+
+.desk-main-body { padding: 18px 24px 28px; }
+.desk-prog-h { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+.desk-prog-h .lbl { font-size: 14px; font-weight: 700; }
+.desk-prog-h .now { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+.desk-stat-row { display: flex; gap: 12px; margin: 20px 0 24px; }
+.desk-stat-row .stat { flex: 1; }
+
+/* ── 右：详情 / 舆情 / 历程 ── */
+.desk-aside-tabs { display: flex; gap: 4px; padding: 14px 16px; border-bottom: 1px solid var(--hairline); flex-shrink: 0; }
+.desk-atab { flex: 1; padding: 8px; border-radius: 9px; border: 0; background: none; cursor: pointer; font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--txt-2); transition: .2s; }
+.desk-atab:hover { background: var(--chip); }
+.desk-atab.on { background: var(--accent); color: var(--accent-ink); }
+.yb-app.light .desk-atab.on { color: #fff; }
+.desk-aside-body { padding: 18px 16px 28px; }
+
+.desk-detail-back { display: inline-flex; align-items: center; gap: 5px; background: none; border: 0; cursor: pointer; color: var(--accent); font-family: var(--font-sans); font-size: 13px; font-weight: 600; padding: 14px 16px 6px; }
+.desk-dsec { margin-bottom: 18px; padding: 0 16px; }
+.desk-dsec h4 { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 9px; }
+.desk-dsec p { font-size: 13px; line-height: 1.7; color: var(--txt); white-space: pre-line; margin: 0; }
+.desk-detail-head { padding: 4px 16px 8px; }
+.desk-detail-head .planet { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); }
+.desk-detail-head h3 { font-size: 19px; font-weight: 700; margin: 7px 0 3px; line-height: 1.15; }
+.desk-detail-head .en { font-size: 12px; color: var(--txt-3); font-style: italic; font-family: var(--font-serif); }
+
+/* 舞台：PC 模式两栏 + 桌面端缩放 */
+.stage-pc { grid-template-columns: 290px minmax(0, 1fr) !important; }
+.stage-pc .phone-col { width: 100%; min-width: 0; }
+
+/* 桌面端「我的」弹窗 */
+.desk-modal-scrim { position: fixed; inset: 0; z-index: 200; background: rgba(6,5,4,.6); backdrop-filter: blur(3px); display: grid; place-items: center; }
+.desk-modal { position: relative; width: 440px; height: 680px; border-radius: 18px; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,.6); }
+.desk-modal.yb-app { width: 440px; height: 680px; }

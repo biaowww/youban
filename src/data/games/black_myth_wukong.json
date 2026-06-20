@@ -1,13 +1,17 @@
 {
   "id": "black_myth_wukong",
   "name": "黑神话：悟空",
+  "titleMain": "黑神话：悟空",
+  "titleSub": "Black Myth: Wukong",
+  "short": "黑神话",
+  "genre": "动作角色扮演",
+  "currentPct": 61,
   "nameEn": "Black Myth: Wukong",
   "developer": "Game Science",
   "year": 2024,
   "steamAppId": 2358720,
   "totalHoursMain": 25,
   "totalHoursComplete": 55,
-  "genre": "动作角色扮演",
   "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_hero.jpg",
   "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_600x900.jpg",
   "overview": {

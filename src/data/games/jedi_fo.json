@@ -1,6 +1,11 @@
 {
   "id": "jedi_fo",
   "name": "Star Wars Jedi: Fallen Order",
+  "titleMain": "Star Wars Jedi: Fallen Order",
+  "titleSub": "星球大战 绝地：陨落的武士团",
+  "short": "Fallen Order",
+  "genre": "动作冒险 · 魂类",
+  "currentPct": 38,
   "developer": "Respawn Entertainment",
   "year": 2019,
   "steamAppId": 1172380,

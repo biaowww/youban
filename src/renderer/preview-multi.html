@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>游伴 YouBan · 多端预览（App / PC / 小程序）</title>
+
+<link rel="stylesheet" href="tokens/fonts.css" />
+<link rel="stylesheet" href="tokens/colors.css" />
+<link rel="stylesheet" href="tokens/typography.css" />
+<link rel="stylesheet" href="tokens/spacing.css" />
+<link rel="stylesheet" href="tokens/effects.css" />
+<link rel="stylesheet" href="app.css" />
+<link rel="stylesheet" href="screens.css" />
+<link rel="stylesheet" href="desktop.css" />
+
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 700px at 18% -10%, #20180f 0%, transparent 55%),
+      radial-gradient(1000px 800px at 110% 120%, #16140d 0%, transparent 55%),
+      #0a0907;
+    font-family: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', sans-serif;
+    color: #e8e0d0; min-height: 100vh; padding: 20px;
+  }
+
+  /* 平台切换条 */
+  .pv-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .pv-toggle {
+    position: sticky; top: 12px; z-index: 50;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;
+    padding: 8px; border-radius: 14px;
+    background: rgba(13,11,9,.72); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .pv-btn {
+    padding: 9px 18px; border-radius: 9px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.02);
+    color: #b0a090; font-size: 13.5px; font-weight: 600; font-family: inherit;
+  }
+  .pv-btn.on { background: #C4A35A; border-color: #C4A35A; color: #0b0a08; }
+  .pv-cap { margin-left: 6px; font-size: 11.5px; color: #6a6050; letter-spacing: .04em; }
+
+  .pv-stage { width: 100%; display: flex; justify-content: center; }
+  .pv-stage.pv-pc { max-width: 1320px; }
+  .pv-stage.pv-pc > div { width: 100%; }
+
+  /* 个人页全屏覆盖 */
+  .profile-overlay { position: absolute; inset: 0; z-index: 110; background: var(--bg); display: flex; flex-direction: column; }
+  .profile-overlay .yb-scroll { flex: 1; }
+
+  /* 小程序变体（来自设计原型内联样式） */
+  .yb-app.mp { --font-sans: -apple-system,'PingFang SC','Microsoft YaHei',sans-serif; --font-serif: -apple-system,'PingFang SC',serif; --font-mono: 'SF Mono','PingFang SC',monospace; }
+  .yb-app.mp .banner { height: 230px; }
+  .yb-app.mp .ov-tagline { display: none; }
+  .yb-app.mp .card, .yb-app.mp .input-card, .yb-app.mp .entry-card, .yb-app.mp .stat, .yb-app.mp .quote, .yb-app.mp .next-card, .yb-app.mp .set-row, .yb-app.mp .plat-row { border-radius: 8px; }
+
+  /* 启动加载 */
+  .boot { width: 402px; height: 874px; border-radius: 46px; background: #0d0b09; border: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; justify-content: center; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7); }
+  .boot-card { display: flex; flex-direction: column; align-items: center; gap: 12px; color: #b0a090; font-size: 14px; }
+  .boot-spin { width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid rgba(196,163,90,.25); border-top-color: #C4A35A; animation: bootspin .8s linear infinite; }
+  @keyframes bootspin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="root">
+  <div class="pv-wrap"><div class="boot"><div class="boot-card"><span class="boot-spin"></span>加载中…</div></div></div>
+</div>
+
+<script src="vendor/react.min.js"></script>
+<script src="vendor/react-dom.min.js"></script>
+<script src="mock-data.js"></script>
+<script src="dist/components.js"></script>
+<script src="dist/screens.js"></script>
+<script src="dist/desktop.js"></script>
+<script>window.__YB_NO_AUTOMOUNT__ = true;</script>
+<script src="dist/app.js"></script>
+<script src="dist/preview-multi.js"></script>
+</body>
+</html>

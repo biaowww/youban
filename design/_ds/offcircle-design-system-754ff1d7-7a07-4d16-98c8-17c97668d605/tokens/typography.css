@@ -1,0 +1,60 @@
+/* ============================================================
+   Off-Circle — Typography tokens
+   Serif-for-soul / sans-for-system duality.
+   Display: Cormorant Garamond + Noto Serif SC (思源宋体)
+   UI/body: Space Grotesk + Noto Sans SC (思源黑体)
+   Numerals: Space Mono
+   ============================================================ */
+:root {
+  /* ── Families (CJK fallbacks chained after Latin) ───────── */
+  --font-display: 'Cormorant Garamond', 'Noto Serif SC', Georgia, 'STSong', 'Songti SC', serif;
+  --font-epic:    'Cinzel', 'Noto Serif SC', Georgia, serif;      /* inscriptional caps */
+  --font-sans:    'Space Grotesk', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  --font-mono:    'Space Mono', 'Noto Sans SC', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* ── Type scale (px, fluid headings handled per-use) ────── */
+  --fs-display-2xl: 88px;   /* hero, world-title */
+  --fs-display-xl:  64px;   /* page hero (空裂：源起) */
+  --fs-display-lg:  48px;
+  --fs-display-md:  42px;   /* section titles */
+  --fs-display-sm:  32px;
+  --fs-title-lg:    24px;
+  --fs-title-md:    20px;
+  --fs-body-lg:     17px;
+  --fs-body:        15px;   /* default body */
+  --fs-body-sm:     14px;
+  --fs-caption:     13px;
+  --fs-overline:    11px;   /* eyebrow / category labels */
+
+  /* ── Weights ────────────────────────────── @kind font ─── */
+  --fw-light:     300;  /* @kind font */
+  --fw-regular:   400;  /* @kind font */
+  --fw-medium:    500;  /* @kind font */
+  --fw-semibold:  600;  /* @kind font */
+  --fw-bold:      700;  /* @kind font */
+  --fw-black:     900;  /* @kind font */
+
+  /* ── Line heights ─────────────────────────── @kind font ── */
+  --lh-tight:    1.1;  /* @kind font */
+  --lh-snug:     1.2;  /* @kind font */
+  --lh-heading:  1.3;  /* @kind font */
+  --lh-body:     1.7;  /* @kind font */
+  --lh-relaxed:  1.8;  /* @kind font */
+
+  /* ── Letter spacing ───────────────────────── @kind font ── */
+  --ls-tightest: -0.02em;  /* @kind font */
+  --ls-tight:    -0.01em;  /* @kind font */
+  --ls-normal:   0;        /* @kind font */
+  --ls-wide:     0.05em;   /* @kind font */
+  --ls-wider:    0.15em;   /* @kind font */
+  --ls-widest:   0.25em;   /* @kind font */
+
+  /* ════════════════════════════════════════════════════════
+     SEMANTIC TYPE ALIASES
+     ════════════════════════════════════════════════════════ */
+  --type-hero-family:    var(--font-display);
+  --type-heading-family: var(--font-display);
+  --type-body-family:    var(--font-sans);
+  --type-label-family:   var(--font-sans);
+  --type-stat-family:    var(--font-mono);
+}

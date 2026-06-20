@@ -1,0 +1,51 @@
+/* ============================================================
+   Off-Circle — base element styles & helpers
+   Lightweight resets + the canonical body treatment so any
+   surface that links styles.css inherits the brand ground.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  background-color: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings default to the lore serif */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-tight);
+  font-weight: var(--fw-bold);
+  margin: 0;
+}
+
+a { color: var(--link); text-decoration: none; transition: color var(--dur-fast); }
+a:hover { color: var(--link-hover); }
+
+::selection { background: rgba(196, 163, 90, 0.30); color: var(--bone-50); }
+
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+/* ── Brand utility helpers (optional, prefixed oc-) ───────── */
+.oc-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-overline);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.oc-stat { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.oc-bg-texture {
+  background-color: var(--bg-base);
+  background-image: url('./assets/bg-texture.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}

@@ -1,0 +1,410 @@
+{
+  "id": "last_of_us_1",
+  "name": "The Last of Us Part I",
+  "developer": "Naughty Dog",
+  "year": 2023,
+  "genre": "动作冒险",
+  "steamAppId": 1888930,
+  "totalHoursMain": 15,
+  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1888930/library_600x900.jpg",
+  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1888930/library_hero.jpg",
+  "gameTheme": {
+    "bg": "#160e06",
+    "bgCard": "#1e1408",
+    "accent": "#b8820d",
+    "accent2": "#5c3600",
+    "text": "#e0cfa0"
+  },
+  "overview": {
+    "tagline": "末日之后，人性才是真正的荒野",
+    "description": "真菌大流行摧毁人类文明二十年后，冷酷走私客乔尔受命护送免疫少女艾莉横跨废土美国。这不只是一场求生之旅——而是一段让你在游戏结束后久久凝视天花板的父女羁绊。《美国末日》重制版以全新画质重塑了这部现代游戏史上最重要的叙事之作。",
+    "highlights": [
+      {
+        "icon": "🎭",
+        "text": "BAFTA 年度最佳游戏"
+      },
+      {
+        "icon": "🍄",
+        "text": "真菌感染·克利克人·僵尸"
+      },
+      {
+        "icon": "💔",
+        "text": "乔尔与艾莉的父女羁绊"
+      },
+      {
+        "icon": "⚡",
+        "text": "物资匮乏·偷袭与迂回战斗"
+      }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "序章·萨拉之夜",
+      "reason": "灾难爆发第一夜的情感震撼是整部游戏的情感基石，必须亲历"
+    },
+    {
+      "progressPct": 35,
+      "label": "匹兹堡·亨利与萨姆",
+      "reason": "乔尔艾莉配合逐渐默契，兄弟情副线同步展开，战斗+剧情节奏最稳"
+    },
+    {
+      "progressPct": 70,
+      "label": "冬季·艾莉独角戏",
+      "reason": "全游戏最黑暗也最震撼的章节，艾莉独自面对大卫的真相，彻底颠覆玩家视角"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 3,
+      "event": "灾难爆发之夜，萨拉离世",
+      "description": "乔尔在感染爆发的混乱中失去女儿萨拉，从此将内心封锁，成为冷酷的走私客。",
+      "unlocks": [
+        "乔尔·核心动机建立",
+        "末日世界观揭示"
+      ]
+    },
+    {
+      "progressPct": 15,
+      "event": "接受护送任务，泰丝牺牲",
+      "description": "老友泰丝以生命为代价守住了艾莉的秘密，乔尔被迫独自肩负护送任务。",
+      "unlocks": [
+        "与艾莉同行",
+        "免疫谜题埋下伏笔"
+      ]
+    },
+    {
+      "progressPct": 22,
+      "event": "比尔的镇子，战胜膨胀者",
+      "description": "在比尔的废镇取得交通工具，乔尔第一次允许艾莉在危险中证明自己的价值。",
+      "unlocks": [
+        "艾莉战斗协同解锁",
+        "获得载具"
+      ]
+    },
+    {
+      "progressPct": 48,
+      "event": "亨利与萨姆——被感染的孩子",
+      "description": "亨利兄弟与乔尔艾莉短暂并肩，但萨姆的感染以悲剧结束，乔尔再次压下情感。",
+      "unlocks": [
+        "信任代价主题",
+        "艾莉情感成长"
+      ]
+    },
+    {
+      "progressPct": 62,
+      "event": "大学遭袭，乔尔身受重伤",
+      "description": "大学任务以乔尔重伤告终，艾莉第一次真正需要反过来保护他。角色关系完成逆转。",
+      "unlocks": [
+        "艾莉成为临时主角",
+        "角色动态逆转"
+      ]
+    },
+    {
+      "progressPct": 85,
+      "event": "艾莉击败大卫，最深的黑暗",
+      "description": "艾莉独自面对食人领袖大卫并亲手结束，这一刻她失去了最后的纯真。乔尔的呼唤将她从边缘拉回。",
+      "unlocks": [
+        "艾莉人格蜕变完成",
+        "乔尔真情流露"
+      ]
+    },
+    {
+      "progressPct": 97,
+      "event": "医院·乔尔的抉择",
+      "description": "乔尔为救艾莉摧毁了萤火虫制造疫苗的唯一机会，然后对艾莉撒了谎。这个谎言将是续作一切的根源。",
+      "unlocks": [
+        "结局道德争议",
+        "Part II 伏笔完全埋下"
+      ]
+    }
+  ],
+  "hypePeaks": [
+    {
+      "progressPct": 4,
+      "label": "萨拉之死",
+      "score": 10,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 14,
+      "label": "泰丝牺牲",
+      "score": 7,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 22,
+      "label": "膨胀者·比尔",
+      "score": 7,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 38,
+      "label": "匹兹堡桥逃亡",
+      "score": 8,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 48,
+      "label": "萨姆感染之夜",
+      "score": 9,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 62,
+      "label": "乔尔重伤坠落",
+      "score": 8,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 75,
+      "label": "大卫真面目揭露",
+      "score": 8,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 85,
+      "label": "艾莉杀死大卫",
+      "score": 10,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 97,
+      "label": "乔尔的抉择·谎言",
+      "score": 10,
+      "color": "#ef4444"
+    }
+  ],
+  "bossSaves": [
+    {
+      "id": "bloater_bill",
+      "name": "膨胀者 — 比尔的学校体育馆",
+      "planet": "林肯镇",
+      "progressPct": 22,
+      "storyGap": 2,
+      "highlight": true,
+      "context": {
+        "plot": "乔尔与艾莉在比尔帮助下试图取得车辆零件，路过废弃高中时触发了感染者巢穴。膨胀者（Bloater）是游戏首个真正意义上的\"Boss级\"感染者，真菌几乎完全覆盖其身体，刀枪难入。",
+        "characters": "膨胀者：完全真菌化的末期感染者，可投掷真菌孢子爆弹并抓住人类直接断颈。其装甲需要特殊手段击破。比尔：悲观主义的末日幸存者，守护着自己划定的\"领地\"，独自活了二十年。",
+        "gameplay": "优先用燃烧瓶或汽油弹烧掉装甲块，再用猎枪近距离爆头。全程保持移动，绝对不能被它抓住——秒杀。准备好弓箭爆头清掉周围的普通感染者，不要被围住。",
+        "save": "本关卡无社区存档包。建议在进入体育馆前手动存档，可重复挑战熟悉战斗机制。"
+      }
+    },
+    {
+      "id": "bloater_pittsburgh",
+      "name": "膨胀者 — 匹兹堡下水道",
+      "planet": "匹兹堡",
+      "progressPct": 40,
+      "storyGap": 3,
+      "highlight": false,
+      "context": {
+        "plot": "乔尔、艾莉与亨利兄弟在匹兹堡地下水道中试图逃出生天，下水道深处封锁着另一个膨胀者。这一关节奏更紧张——逃跑是选项，但有时必须正面应对。",
+        "characters": "亨利：为保护弟弟萨姆不惜一切的哥哥，曾有过难以启齿的过去。萨姆：童年在末日中被剥夺的少年，与艾莉产生了深厚的友谊，却命运多舛。",
+        "gameplay": "合理分配燃烧瓶与弓箭，利用狭窄通道引导膨胀者。有时跑过它不战斗是更优解——保存弹药给后续更难的战斗。",
+        "save": "本关卡无社区存档包。进下水道前自动存档，在菜单手动另存一格以便重试。"
+      }
+    },
+    {
+      "id": "david_fight",
+      "name": "大卫 — 冬季小屋决战",
+      "planet": "科罗拉多山区",
+      "progressPct": 85,
+      "storyGap": 4,
+      "highlight": true,
+      "context": {
+        "plot": "全游戏最黑暗的时刻。艾莉独自被大卫追杀于燃烧的餐厅之中。大卫表面是末日宗教领袖，实际上是食人幸存者团伙的头目，对艾莉图谋不轨。艾莉必须在黑烟弥漫的空间中击败他——或者更确切地说，终结他。",
+        "characters": "大卫：游戏最令人不寒而栗的人类反派。他的危险不来自武器，而来自语言和操控。被艾莉击败后，她的内心也留下了无法磨灭的创伤。艾莉：这一幕是她成年礼，代价是永远失去某种纯真。",
+        "gameplay": "这是纯艾莉视角的潜行+决斗关卡。利用浓烟遮挡视线进行偷袭。保持移动，用砍刀近战。大卫有近战攻击会抓住艾莉——疯狂按提示键挣脱。不要让他靠近超过两次。",
+        "save": "本关卡无社区存档包。餐厅门口会自动存档，确保不要覆盖之前的进度。"
+      }
+    },
+    {
+      "id": "hospital_ending",
+      "name": "医院突袭 — 乔尔的最终抉择",
+      "planet": "盐湖城萤火虫医院",
+      "progressPct": 96,
+      "storyGap": 5,
+      "highlight": true,
+      "context": {
+        "plot": "乔尔只身闯入萤火虫医院，击败大批守卫，在手术室最后关头救下即将被摘除脑部的艾莉。最后，他枪杀了萤火虫领袖玛琳——世界治愈疫苗的唯一机会就此断绝。他对艾莉谎称萤火虫放弃了研究。这个谎言，埋下了《Part II》所有悲剧的种子。",
+        "characters": "玛琳：萤火虫领袖，艾莉亡母的老友。乔尔：在这一刻彻底从\"走私客\"变成了\"父亲\"——用全人类的未来换回了一个人。艾莉：此刻还不知道真相，对于那个谎言，她最终会去追问。",
+        "gameplay": "医院守卫战：利用掩体弹反，弹药充足。最终与玛琳的对话是纯叙事，无需战斗。请放慢脚步，充分体验最后的过场动画——这是游戏史上争议最大、也最令人心碎的结局之一。",
+        "save": "本关卡无社区存档包。到达医院会自动存档，建议事先手动另存一格，方便重温最终抉择。"
+      }
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "name": "序章·萨拉之夜",
+      "planet": "德克萨斯州奥斯汀",
+      "progressStart": 0,
+      "progressEnd": 5,
+      "hypeScore": 10,
+      "keyEvent": "真菌爆发第一夜，乔尔失去女儿萨拉",
+      "plotDetail": "游戏从乔尔女儿萨拉的视角开始——邻居们的异常举动、深夜的逃亡、公路上的混乱，最终以萨拉在乔尔怀中死去告终。这段序章以最快速度建立起乔尔最深的伤痛，也是理解他后续一切行为的关键。",
+      "playerGoals": "体验叙事，无特定目标——跟着萨拉走，感受世界崩塌",
+      "newCharacters": "乔尔（主角）、萨拉（女儿）、托米（乔尔弟弟）"
+    },
+    {
+      "id": 1,
+      "name": "检疫区·波士顿",
+      "planet": "马萨诸塞州波士顿",
+      "progressStart": 5,
+      "progressEnd": 18,
+      "hypeScore": 7,
+      "keyEvent": "乔尔与泰丝接下护送任务，泰丝感染后自我牺牲",
+      "plotDetail": "二十年后，乔尔是波士顿检疫区的走私客。萤火虫给他们一辆车作为报酬——代价是把艾莉送出城。泰丝感染后选择引爆炸药阻断追兵，以死守住任务的开始。",
+      "playerGoals": "逃离检疫区，在FEDRA哨兵间穿行，到达约定地点",
+      "newCharacters": "艾莉（主角）、泰丝（乔尔搭档）、玛琳（萤火虫领袖）"
+    },
+    {
+      "id": 2,
+      "name": "城郊与比尔的小镇",
+      "planet": "林肯镇·马萨诸塞",
+      "progressStart": 18,
+      "progressEnd": 34,
+      "hypeScore": 7,
+      "keyEvent": "在比尔处取得车辆，击败体育馆膨胀者",
+      "plotDetail": "寻找车辆零件的旅程让乔尔和艾莉穿越废弃小镇，遭遇膨胀者。比尔——一个在孤独中构建了完整防御体系的幸存者——展现了末日中人类另一种选择：彻底封闭自我。",
+      "playerGoals": "找到可用车辆，躲避感染者，向西行进",
+      "newCharacters": "比尔（独行幸存者）、弗兰克（比尔的遗憾）"
+    },
+    {
+      "id": 3,
+      "name": "匹兹堡·亨利与萨姆",
+      "planet": "宾夕法尼亚州匹兹堡",
+      "progressStart": 34,
+      "progressEnd": 52,
+      "hypeScore": 8,
+      "keyEvent": "邂逅兄弟亨利与萨姆，萨姆感染后以悲剧告终",
+      "plotDetail": "匹兹堡被人类幸存者团伙\"猎手\"控制，更危险的反而是活人。乔尔与艾莉结识亨利与萨姆兄弟，四人短暂结伴。最后萨姆向艾莉坦白自己被咬，次日清晨他完全感染，亨利被迫射杀弟弟后自尽。",
+      "playerGoals": "穿越猎手控制区，通过下水道，与兄弟二人合作逃脱",
+      "newCharacters": "亨利（哥哥·保护者）、萨姆（弟弟·艾莉的朋友）"
+    },
+    {
+      "id": 4,
+      "name": "大坝·汤米·大学",
+      "planet": "怀俄明州杰克逊 / 科罗拉多大学",
+      "progressStart": 52,
+      "progressEnd": 68,
+      "hypeScore": 7,
+      "keyEvent": "与弟弟汤米重逢，大学中乔尔被长矛穿刺重伤",
+      "plotDetail": "乔尔找到隐居在怀俄明水电大坝的弟弟汤米，一度想将艾莉转交给他。艾莉拒绝被抛弃后，两人继续同行前往科罗拉多大学寻找萤火虫。然而大学已被废弃，撤退途中乔尔从高处坠落，被铁杆刺穿腹部。",
+      "playerGoals": "找到汤米，前往大学，在乔尔重伤后帮艾莉撤退",
+      "newCharacters": "汤米（乔尔弟弟）、玛丽亚（汤米妻子）"
+    },
+    {
+      "id": 5,
+      "name": "冬季·艾莉独自求生",
+      "planet": "科罗拉多山区",
+      "progressStart": 68,
+      "progressEnd": 90,
+      "hypeScore": 10,
+      "keyEvent": "艾莉独自猎鹿为乔尔觅食，被大卫俘虏，在燃烧餐厅中击败他",
+      "plotDetail": "乔尔重伤昏迷，艾莉独自在雪地中打猎。她被大卫和他的人马俘获——表面上大卫是宗教领袖，实则是食人团伙头目。艾莉趁机逃脱，在燃烧的餐厅中以砍刀结束了大卫的生命。乔尔呼唤她的声音将她从崩溃边缘拉回。",
+      "playerGoals": "为乔尔寻找抗生素，从大卫处逃脱，在餐厅中生存",
+      "newCharacters": "大卫（最令人不安的人类反派）、詹姆斯（大卫副手）"
+    },
+    {
+      "id": 6,
+      "name": "春天·最后的旅程",
+      "planet": "犹他州盐湖城",
+      "progressStart": 90,
+      "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "乔尔闯入萤火虫医院，枪杀玛琳，救下艾莉，编下那个改变一切的谎言",
+      "plotDetail": "二人终于到达盐湖城萤火虫总部。乔尔得知手术将摘除艾莉的脑部，愤而杀出血路救她。他枪杀了选择放弃的玛琳，逃出医院。清醒后的艾莉追问真相，乔尔说：\"萤火虫放弃了。\"——这个谎言，是《美国末日》续作全部故事的起点。",
+      "playerGoals": "找到萤火虫基地，突破医院守卫，做出乔尔的最终抉择",
+      "newCharacters": "玛琳（萤火虫领袖，再见）"
+    }
+  ],
+  "achievements": [
+    {
+      "steamId": "ACH_TLOU1_PROLOGUE",
+      "progressPct": 5
+    },
+    {
+      "steamId": "ACH_TLOU1_BOSTON",
+      "progressPct": 18
+    },
+    {
+      "steamId": "ACH_TLOU1_LINCOLN",
+      "progressPct": 34
+    },
+    {
+      "steamId": "ACH_TLOU1_PITTSBURGH",
+      "progressPct": 52
+    },
+    {
+      "steamId": "ACH_TLOU1_TOMMY",
+      "progressPct": 60
+    },
+    {
+      "steamId": "ACH_TLOU1_UNIVERSITY",
+      "progressPct": 68
+    },
+    {
+      "steamId": "ACH_TLOU1_WINTER",
+      "progressPct": 90
+    },
+    {
+      "steamId": "ACH_TLOU1_SPRING",
+      "progressPct": 100
+    }
+  ],
+  "playerSentiment": {
+    "steamScore": 71,
+    "source": "Steam 用户评测 & Metacritic & Reddit",
+    "note": "PC 版因技术问题首周口碑受损，后续优化后稳定在褒贬不一",
+    "keywords": {
+      "praise": [
+        "剧情史诗级",
+        "乔尔艾莉感情线",
+        "配乐令人落泪",
+        "艾莉独角戏封神",
+        "结局久久回味",
+        "大卫反派极品",
+        "画面重制惊艳",
+        "叙事教科书"
+      ],
+      "criticism": [
+        "PC移植优化差",
+        "主机独占太久",
+        "价格偏高",
+        "重复性较强",
+        "线性流程",
+        "DRM保护苛刻"
+      ],
+      "hot": [
+        "乔尔的谎言对吗",
+        "结局是正确选择吗",
+        "父爱还是自私",
+        "原版vs重制版值吗",
+        "萨拉序章催泪弹"
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "序章5分钟我就哭了。然后游戏才真正开始。这不公平。",
+        "author": "Steam 评测",
+        "upvotes": 9241
+      },
+      {
+        "text": "乔尔的结局选择：如果你觉得他错了，等你有孩子再说。",
+        "author": "Reddit r/thelastofus",
+        "upvotes": 7832
+      },
+      {
+        "text": "大卫那关我关掉游戏去喝了杯水，缓了10分钟，才敢继续。",
+        "author": "Steam 评测",
+        "upvotes": 4503
+      },
+      {
+        "text": "通关后我对着黑屏坐了很久。我只是不想它结束。",
+        "author": "Metacritic 用户评测",
+        "upvotes": 6127
+      }
+    ]
+  }
+}

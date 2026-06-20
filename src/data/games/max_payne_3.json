@@ -1,13 +1,17 @@
 {
   "id": "max_payne_3",
   "name": "Max Payne 3",
+  "titleMain": "Max Payne 3",
+  "titleSub": "马克思·佩恩 3",
+  "short": "Max Payne 3",
+  "genre": "第三人称射击",
+  "currentPct": 0,
   "nameEn": "Max Payne 3",
   "developer": "Rockstar Games",
   "year": 2012,
   "steamAppId": 204100,
   "totalHoursMain": 10,
   "totalHoursComplete": 16,
-  "genre": "第三人称射击",
   "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_hero.jpg",
   "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg",
   "overview": {

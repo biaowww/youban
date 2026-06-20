@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>游伴 YouBan · 高保真原型</title>
+
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/fonts.css" />
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/colors.css" />
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/typography.css" />
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/spacing.css" />
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/effects.css" />
+<link rel="stylesheet" href="lib/app.css" />
+<link rel="stylesheet" href="lib/screens.css" />
+<link rel="stylesheet" href="lib/desktop.css" />
+
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 700px at 18% -10%, #20180f 0%, transparent 55%),
+      radial-gradient(1000px 800px at 110% 120%, #16140d 0%, transparent 55%),
+      #0a0907;
+    font-family: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', sans-serif;
+    color: #e8e0d0; min-height: 100vh;
+  }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .04; z-index: 0; background: url('assets/bg-texture.png'); background-size: 480px; }
+  .stage { position: relative; z-index: 1; min-height: 100vh; display: grid; grid-template-columns: 290px auto 1fr; gap: 36px; align-items: start; padding: 40px 44px; }
+  @media (max-width: 1180px) { .stage { grid-template-columns: 1fr; justify-items: center; } .rail, .spec { width: 100%; max-width: 460px; } }
+
+  .rail { position: sticky; top: 40px; display: flex; flex-direction: column; gap: 18px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 46px; height: 46px; border-radius: 12px; }
+  .brand h1 { font-size: 19px; margin: 0; letter-spacing: -.01em; }
+  .brand .tg { font-size: 11px; color: #8a8070; letter-spacing: .2em; text-transform: uppercase; margin-top: 2px; }
+
+  .panel { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 16px; }
+  .panel h3 { margin: 0 0 12px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #C4A35A; font-weight: 700; }
+  .gswitch { display: flex; flex-direction: column; gap: 8px; }
+  .gsw { display: flex; align-items: center; gap: 11px; padding: 8px; border-radius: 11px; cursor: pointer; border: 1px solid transparent; transition: .2s; background: none; color: inherit; text-align: left; width: 100%; }
+  .gsw:hover { background: rgba(255,255,255,.03); }
+  .gsw.on { border-color: rgba(196,163,90,.4); background: rgba(196,163,90,.07); }
+  .gsw img { width: 34px; height: 45px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #1a1812; }
+  .gsw .nm { font-size: 13px; font-weight: 600; line-height: 1.2; }
+  .gsw .mt { font-size: 11px; color: #8a8070; font-family: 'Space Mono', monospace; margin-top: 3px; }
+
+  .seg-row { display: flex; gap: 6px; }
+  .toggle { flex: 1; padding: 9px 6px; border-radius: 9px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.02); color: #b0a090; font-size: 12px; font-weight: 600; cursor: pointer; transition: .2s; }
+  .toggle.on { background: var(--gold-500); border-color: var(--gold-500); color: #0b0a08; }
+  .ctl-label { font-size: 11px; color: #8a8070; margin: 0 0 7px; letter-spacing: .08em; }
+  .ctl-row + .ctl-row { margin-top: 14px; }
+
+  .reason p { font-size: 12.5px; line-height: 1.65; color: #b0a090; margin: 0 0 10px; }
+  .reason b { color: #e8e0d0; font-weight: 600; }
+  .reason .k { color: #C4A35A; font-family: 'Space Mono', monospace; font-size: 11.5px; }
+
+  .phone-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .phone-cap { font-size: 12px; color: #6a6050; font-family: 'Space Mono', monospace; letter-spacing: .05em; }
+
+  .spec { position: sticky; top: 40px; max-height: calc(100vh - 80px); overflow-y: auto; scrollbar-width: thin; }
+  .spec.hide { display: none; }
+  .spec .sh { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; }
+  .spec .sh .d { width: 7px; height: 7px; border-radius: 50%; background: #C4A35A; }
+  .spec .sh h2 { font-size: 15px; margin: 0; }
+  .spec .sh .scr { margin-left: auto; font-size: 11px; font-family: 'Space Mono', monospace; color: #6a6050; }
+  .spec-block { margin-bottom: 16px; }
+  .spec-block .bt { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: #C4A35A; margin-bottom: 9px; font-weight: 700; }
+  .spec-row { display: flex; gap: 10px; font-size: 12.5px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.05); line-height: 1.45; }
+  .spec-row .l { color: #8a8070; flex-shrink: 0; min-width: 84px; }
+  .spec-row .v { color: #d8cdb8; }
+  .sw { display: inline-block; width: 11px; height: 11px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; border: 1px solid rgba(255,255,255,.2); }
+
+  /* 个人页全屏覆盖 */
+  .profile-overlay { position: absolute; inset: 0; z-index: 110; background: var(--bg); display: flex; flex-direction: column; }
+  .profile-overlay .yb-scroll { flex: 1; }
+  /* 小程序提示条 */
+  .yb-app.mp { --font-sans: -apple-system,'PingFang SC','Microsoft YaHei',sans-serif; --font-serif: -apple-system,'PingFang SC',serif; --font-mono: 'SF Mono','PingFang SC',monospace; }
+  .yb-app.mp .banner { height: 230px; }
+  .yb-app.mp .ov-tagline { display: none; }
+  .yb-app.mp .card, .yb-app.mp .input-card, .yb-app.mp .entry-card, .yb-app.mp .stat, .yb-app.mp .quote, .yb-app.mp .next-card, .yb-app.mp .set-row, .yb-app.mp .plat-row { border-radius: 8px; }
+  .mp-note { flex-shrink: 0; margin: 0; padding: 9px 18px; text-align: center; font-size: 11px; line-height: 1.4; background: color-mix(in oklab, #07c160 13%, transparent); border-top: 1px solid color-mix(in oklab,#07c160 30%, transparent); color: #8fe3b4; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="lib/data.js"></script>
+<script type="text/babel" src="lib/components.jsx"></script>
+<script type="text/babel" src="lib/screens.jsx"></script>
+<script type="text/babel" src="lib/desktop.jsx"></script>
+
+<script type="text/babel">
+const { useState } = React;
+const GAMES = window.YB.games;
+
+function GameTopBar({ game, onBack, onSwitch, theme, setTheme }) {
+  return (
+    <div className="gtopbar">
+      <button className="gt-btn" onClick={onBack}><Icon name="back" size={16} />游戏库</button>
+      <button className="gt-btn" onClick={onSwitch}><span className="gt-name">{game.short}<Icon name="chevd" size={14} /></span></button>
+      <ThemeToggle theme={theme} setTheme={setTheme} game={game} />
+    </div>
+  );
+}
+
+function GameSwitchSheet({ games, gi, onPick, onClose }) {
+  return (
+    <>
+      <div className="scrim show" onClick={onClose} />
+      <div className="drawer themed show" style={{ maxHeight: '72%' }}>
+        <div className="drawer-grip" />
+        <div className="drawer-head"><h3 style={{ fontSize: 18 }}>切换游戏</h3></div>
+        <div className="gsheet-list">
+          {games.map((g, i) => (
+            <div key={g.id} className={'gsheet-row' + (i === gi ? ' on' : '')} onClick={() => onPick(i)}>
+              <img src={g.poster} alt="" onError={e => e.target.style.opacity = .2} />
+              <div style={{ flex: 1 }}><div className="nm">{g.short}</div><div className="mt">{g.currentPct}% · {g.hoursMain}h · {g.titleSub}</div></div>
+              {i === gi && <Icon name="check" size={18} style={{ color: 'var(--accent)' }} />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function YBApp({ gi, view, setView, tab, setTab, value, setValue, theme, setTheme, mp, enter, stage, setStage }) {
+  const game = GAMES[gi];
+  const [boss, setBoss] = useState(null);
+  const [entry, setEntry] = useState(null);
+  const [switcher, setSwitcher] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [connect, setConnect] = useState(null);
+  const th = game.theme;
+  const vars = { '--g-bg': th.bg, '--g-card': th.card, '--g-accent': th.accent, '--g-accent2': th.accent2, '--g-text': th.text };
+  const brand = stage !== 'app';
+  const cls = 'yb-app' + (theme === 'light' && !brand ? ' light' : '') + (mp ? ' mp' : '');
+
+  if (brand) {
+    return (
+      <div className={cls} style={vars}>
+        <div className="yb-island" />
+        <StatusBar />
+        {stage === 'splash'
+          ? <SplashScreen onEnter={() => setStage('login')} />
+          : <LoginScreen onLogin={() => setStage('app')} />}
+        <div className="yb-home" />
+      </div>
+    );
+  }
+
+  let screen;
+  if (tab === 'journey') screen = <JourneyScreen game={game} value={value} setValue={setValue} />;
+  else if (tab === 'senti') screen = <SentimentScreen game={game} />;
+  else screen = <ProgressScreen game={game} value={value} setValue={setValue} openBoss={setBoss} openEntry={setEntry} />;
+
+  return (
+    <div className={cls} style={vars}>
+      <div className="yb-island" />
+      <StatusBar />
+      {view === 'library' ? (
+        <div className="yb-viewport">
+          <LibraryScreen games={GAMES} gi={gi} enter={enter} onProfile={() => setProfile(true)} />
+          {mp && <div className="mp-note">微信小程序精简版 · 系统字体 · Canvas 波形降级为刻度条 · 数据云端预渲染</div>}
+        </div>
+      ) : (
+        <>
+          <GameTopBar game={game} onBack={() => setView('library')} onSwitch={() => setSwitcher(true)} theme={theme} setTheme={setTheme} />
+          <div className="yb-viewport">
+            {screen}
+            {mp && tab === 'progress' && <div className="mp-note">微信小程序精简版 · 系统字体 · Canvas 波形降级为刻度条</div>}
+            <TabBar tab={tab} setTab={setTab} />
+          </div>
+          <BossDrawer game={game} boss={boss} onClose={() => setBoss(null)} />
+          <EntryDetail game={game} entry={entry} onClose={() => setEntry(null)} onStart={setValue} />
+          {switcher && <GameSwitchSheet games={GAMES} gi={gi} onPick={(i) => { enter(i, true); setSwitcher(false); }} onClose={() => setSwitcher(false)} />}
+        </>
+      )}
+      {profile && <div className="profile-overlay"><MeScreen games={GAMES} onClose={() => setProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={(p) => setConnect(p)} /></div>}
+      {connect && <PlatformConnect platform={connect} onClose={() => setConnect(null)} onDone={() => setConnect(null)} />}
+      <div className="yb-home" />
+    </div>
+  );
+}
+
+/* ───────── 规格面板 ───────── */
+const SPECS = {
+  library: { scr: 'HOME', title: '游戏库（层级最高）', blocks: [
+    { bt: '层级', rows: [['游戏库', '应用入口 · 无底部 Tab'], ['进入游戏', '→ 该游戏的 进度/历程/舆情'], ['我的', '库头像 → 全屏覆盖']] },
+    { bt: '组件', rows: [['lib-hero', '继续游玩大图 · 斜向扫光'], ['poster', 'aspect 3/4 · 进度条'], ['add-tile', '连接平台虚线位']] },
+    { bt: '交互', rows: [['点封面', '进入游戏companion'], ['点头像', '打开「我的」']] },
+  ]},
+  progress: { scr: '进度', title: '进度主卡', blocks: [
+    { bt: '组件', rows: [['ProgressInput', '手动选章节 / Steam 成就 / 截图识别'], ['Overview', 'tagline + 简介 + 高亮'], ['HypeProgress', 'SVG 波形 + 峰值点 + 刻度 + Boss + 拖拽'], ['chap 手风琴', 'plot/目标/新登场'], ['entry-card', '入场点（界面 5）']] },
+    { bt: 'data 字段', rows: [['进度输入', 'chapters / ach[]'], ['波形', 'hype[].pct/score/color'], ['Boss', 'bosses[].pct/hi/gap'], ['简介', 'overview.desc/highlights']] },
+    { bt: '交互', rows: [['拖动/点击', '更新 value · 吸附峰值'], ['点 Boss ⚔', '底部抽屉滑出'], ['点章节', '展开详情 → 跳预览']] },
+  ]},
+  journey: { scr: '历程', title: '主角成长历程', blocks: [
+    { bt: '组件', rows: [['jstep 时间轴', 'pct + 事件 + 描述 + 解锁'], ['junlocks', '能力解锁 Tag']] },
+    { bt: 'data 字段', rows: [['journey[]', 'pct/event/desc/unlocks[]']] },
+    { bt: '状态', rows: [['done', 'value > pct'], ['current', '|value-pct| ≤ 8'], ['点节点', '跳至该 pct']] },
+  ]},
+  senti: { scr: '舆情', title: '玩家舆情', blocks: [
+    { bt: '组件', rows: [['ScoreRing', 'SVG 环 · 三色分级'], ['quote ×3', '金色左边线引用'], ['kw-group', '好评/热议/差评 Tag']] },
+    { bt: '分级', rows: [['≥85', '好评如潮 · 玉绿'], ['70–84', '多半好评 · 金'], ['40–69', '褒贬不一'], ['<40', '多半差评 · 红']] },
+    { bt: 'data', rows: [['score', 'sentiment.score'], ['引用', 'quotes[]'], ['关键词', 'praise/hot/criticism']] },
+  ]},
+};
+
+function SpecPanel({ view, tab, game }) {
+  const key = view === 'library' ? 'library' : tab;
+  const s = SPECS[key] || SPECS.progress;
+  return (
+    <div>
+      <div className="sh"><span className="d" /><h2>{s.title}</h2><span className="scr">{s.scr}</span></div>
+      <div className="spec-block">
+        <div className="bt">当前主题色 · {game.short}</div>
+        {[['--g-bg', game.theme.bg], ['--g-accent', game.theme.accent], ['--g-accent2', game.theme.accent2], ['--g-text', game.theme.text]].map(([k, v]) => (
+          <div className="spec-row" key={k}><span className="l">{k}</span><span className="v" style={{ fontFamily: 'Space Mono, monospace', fontSize: 11.5 }}><span className="sw" style={{ background: v }} />{v}</span></div>
+        ))}
+      </div>
+      {s.blocks.map((b, i) => (
+        <div className="spec-block" key={i}>
+          <div className="bt">{b.bt}</div>
+          {b.rows.map((r, j) => <div className="spec-row" key={j}><span className="l">{r[0]}</span><span className="v">{r[1]}</span></div>)}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Page() {
+  const [gi, setGi] = useState(0);
+  const [view, setView] = useState('library');
+  const [tab, setTab] = useState('progress');
+  const [value, setValue] = useState(GAMES[0].currentPct);
+  const [theme, setTheme] = useState('light');
+  const [platform, setPlatform] = useState('app');
+  const mp = platform === 'mp';
+  const pc = platform === 'pc';
+  const [spec, setSpec] = useState(true);
+  const [stage, setStage] = useState('app');
+
+  const enter = (i, keepTab) => { setGi(i); setValue(GAMES[i].currentPct); setView('game'); if (!keepTab) setTab('progress'); };
+  const game = GAMES[gi];
+  const [deskProfile, setDeskProfile] = useState(false);
+
+  return (
+    <div className={'stage' + (pc ? ' stage-pc' : '')}>
+      <div className="rail">
+        <div className="brand">
+          <img src="assets/youban-mark.svg" alt="游伴" />
+          <div><h1>游伴 YouBan</h1><div className="tg">Game Companion</div></div>
+        </div>
+
+        <div className="panel">
+          <h3>游戏 · 主题随之切换</h3>
+          <div className="gswitch">
+            {GAMES.map((g, i) => (
+              <button key={g.id} className={'gsw' + (i === gi ? ' on' : '')} onClick={() => enter(i)}>
+                <img src={g.poster} alt="" onError={e => e.target.style.opacity = .25} />
+                <div><div className="nm">{g.short}</div><div className="mt">{g.currentPct}% · {g.hoursMain}h</div></div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="panel">
+          <h3>呈现</h3>
+          <div className="ctl-row"><p className="ctl-label">外观主题（默认浅色）</p>
+            <div className="seg-row">
+              <button className={'toggle' + (theme === 'light' ? ' on' : '')} onClick={() => setTheme('light')}>浅色</button>
+              <button className={'toggle' + (theme === 'game' ? ' on' : '')} onClick={() => setTheme('game')}>{game.short} 主题</button>
+            </div>
+          </div>
+          <div className="ctl-row"><p className="ctl-label">平台变体</p>
+            <div className="seg-row">
+              <button className={'toggle' + (platform === 'app' ? ' on' : '')} onClick={() => setPlatform('app')}>App</button>
+              <button className={'toggle' + (platform === 'pc' ? ' on' : '')} onClick={() => setPlatform('pc')}>PC 桌面</button>
+              <button className={'toggle' + (platform === 'mp' ? ' on' : '')} onClick={() => setPlatform('mp')}>小程序</button>
+            </div>
+          </div>
+          <div className="ctl-row"><p className="ctl-label">界面流程（未开发页面）</p>
+            <div className="seg-row">
+              <button className={'toggle' + (stage === 'splash' ? ' on' : '')} onClick={() => setStage('splash')}>开屏</button>
+              <button className={'toggle' + (stage === 'login' ? ' on' : '')} onClick={() => setStage('login')}>登录</button>
+              <button className={'toggle' + (stage === 'app' ? ' on' : '')} onClick={() => setStage('app')}>主应用</button>
+            </div>
+          </div>
+          <div className="ctl-row"><p className="ctl-label">右侧标注规格</p>
+            <div className="seg-row">
+              <button className={'toggle' + (spec ? ' on' : '')} onClick={() => setSpec(true)}>显示</button>
+              <button className={'toggle' + (!spec ? ' on' : '')} onClick={() => setSpec(false)}>隐藏</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="panel reason">
+          <h3>设计说明</h3>
+          <p><b>层级</b>　游戏库为最高层级入口；进入某游戏后底部 Tab 仅含 <span className="k">进度 / 历程 / 舆情</span>，「我的」收进库头像。</p>
+          <p><b>主题</b>　默认<span className="k">浅色</span>；顶栏开关一键切到所选游戏的沉浸主题色。</p>
+          <p><b>功能</b>　进度输入（手动/Steam/截图）· 简介 · Hype 波形 · 章节手风琴 · 成长历程 · Boss 存档 · 舆情。</p>
+          <p><b>本地化</b>　全简中 · 标题「原名 + 译名」· 平台真实 Logo · 小程序降级变体。</p>
+        </div>
+      </div>
+
+      <div className="phone-col">
+        {pc ? (
+          <ScaledFrame designW={1240} designH={800}>
+            <DesktopApp games={GAMES} gi={gi} enter={enter} value={value} setValue={setValue} theme={theme} setTheme={setTheme} onProfile={() => setDeskProfile(true)} />
+          </ScaledFrame>
+        ) : (
+          <YBApp gi={gi} view={view} setView={setView} tab={tab} setTab={setTab} value={value} setValue={setValue} theme={theme} setTheme={setTheme} mp={mp} enter={enter} stage={stage} setStage={setStage} />
+        )}
+        <div className="phone-cap">{pc ? '1240 × 800 · PC 桌面 (Tauri)' : '402 × 874'} · {stage !== 'app' && !pc ? (stage === 'splash' ? '开屏页' : '登录页') : (theme === 'light' ? '浅色' : game.short + ' 主题色')}{mp ? ' · 微信小程序' : ''} · {view === 'library' && !pc ? '游戏库' : game.short}</div>
+        {pc && deskProfile && (
+          <div className="desk-modal-scrim" onClick={() => setDeskProfile(false)}>
+            <div className={'desk-modal yb-app' + (theme === 'light' ? ' light' : '')} style={{ '--g-bg': game.theme.bg, '--g-card': game.theme.card, '--g-accent': game.theme.accent, '--g-accent2': game.theme.accent2, '--g-text': game.theme.text }} onClick={e => e.stopPropagation()}>
+              <MeScreen games={GAMES} onClose={() => setDeskProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={() => {}} />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {!pc && <div className={'spec' + (spec ? '' : ' hide')}><SpecPanel view={view} tab={tab} game={game} /></div>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Page />);
+</script>
+</body>
+</html>

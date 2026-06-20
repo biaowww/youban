@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>游伴 YouBan · 设计系统 & 组件库</title>
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/fonts.css" />
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/colors.css" />
+<link rel="stylesheet" href="lib/app.css" />
+<link rel="stylesheet" href="lib/screens.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: radial-gradient(1200px 700px at 20% -10%, #20180f 0, transparent 55%), #0a0907;
+    color: #e8e0d0; font-family: 'Space Grotesk','Noto Sans SC','PingFang SC',sans-serif;
+    min-height: 100vh; padding: 48px 28px 120px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+  .head .lg { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg,#E8C547,#C4A35A); display: grid; place-items: center; color: #0b0a08; font-weight: 800; font-size: 23px; box-shadow: 0 0 28px rgba(196,163,90,.35); }
+  .head img.lg { background: none; box-shadow: 0 0 28px rgba(196,163,90,.22); }
+  .head h1 { font-size: 28px; margin: 0; letter-spacing: -.01em; }
+  .head .sub { color: #8a8070; font-size: 13px; margin-top: 4px; letter-spacing: .04em; }
+  .head .gpick { display: flex; gap: 8px; }
+  .gp { display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; border-radius: 11px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.02); color: #b0a090; cursor: pointer; font-size: 12.5px; font-weight: 600; }
+  .gp img { width: 26px; height: 34px; object-fit: cover; border-radius: 5px; }
+  .gp.on { border-color: rgba(196,163,90,.5); background: rgba(196,163,90,.08); color: #e8e0d0; }
+
+  section { margin-bottom: 40px; }
+  .sec-title { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .sec-title .n { font-family: 'Space Mono', monospace; font-size: 12px; color: #C4A35A; }
+  .sec-title h2 { font-size: 18px; margin: 0; }
+  .sec-title .ln { flex: 1; height: 1px; background: rgba(255,255,255,.08); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 14px; }
+  .cellfull { grid-column: 1 / -1; }
+  .cell { background: rgba(255,255,255,.022); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px; }
+  .cell .lab { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #8a8070; margin-bottom: 14px; display: flex; justify-content: space-between; }
+  .cell .lab .cls { font-family: 'Space Mono', monospace; color: #6a6050; text-transform: none; letter-spacing: 0; }
+  .specimen { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  /* 颜色 */
+  .pal { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+  .pal .sw { height: 74px; display: flex; flex-direction: column; justify-content: flex-end; padding: 9px; }
+  .pal .sw .vn { font-size: 10px; opacity: .7; font-family: 'Space Grotesk'; }
+  .pal .sw .hx { font-family: 'Space Mono', monospace; font-size: 11px; }
+  .theme-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .theme-row .nm { width: 110px; flex-shrink: 0; font-size: 13px; font-weight: 600; }
+  .theme-row .nm small { display: block; color: #8a8070; font-family: 'Space Mono', monospace; font-size: 10.5px; font-weight: 400; margin-top: 2px; }
+  .brand-sw { display: flex; gap: 10px; }
+  .brand-sw .b { border-radius: 10px; border: 1px solid rgba(255,255,255,.1); padding: 11px 13px; min-width: 120px; }
+  .brand-sw .b i { display: block; width: 100%; height: 30px; border-radius: 6px; margin-bottom: 9px; }
+  .brand-sw .b .k { font-size: 11px; color: #b0a090; }
+  .brand-sw .b .h { font-family: 'Space Mono', monospace; font-size: 11px; color: #8a8070; }
+
+  /* 字体 */
+  .type-row { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .type-row:last-child { border: 0; }
+  .type-row .meta { font-family: 'Space Mono', monospace; font-size: 11px; color: #8a8070; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap"><div id="root"></div></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="lib/data.js"></script>
+<script type="text/babel" src="lib/components.jsx"></script>
+
+<script type="text/babel">
+const { useState } = React;
+const GAMES = window.YB.games;
+
+function Cell({ lab, cls, full, children }) {
+  return <div className={'cell' + (full ? ' cellfull' : '')}>
+    <div className="lab"><span>{lab}</span>{cls && <span className="cls">{cls}</span>}</div>
+    <div className="specimen">{children}</div>
+  </div>;
+}
+function Sec({ n, title, children }) {
+  return <section><div className="sec-title"><span className="n">{n}</span><h2>{title}</h2><span className="ln" /></div>{children}</section>;
+}
+
+function Ctx({ game, children, style }) {
+  const t = game.theme;
+  return <div className="yb-app ctx" style={{ '--g-bg': t.bg, '--g-card': t.card, '--g-accent': t.accent, '--g-accent2': t.accent2, '--g-text': t.text, ...style }}>{children}</div>;
+}
+
+function HypeDemo({ game }) {
+  const [v, setV] = useState(game.currentPct || 38);
+  React.useEffect(() => setV(game.currentPct || 38), [game.id]);
+  return <Ctx game={game} style={{ width: '100%' }}><HypeProgress game={game} value={v} onChange={setV} onBoss={() => {}} idBase={'demo-' + game.id} /></Ctx>;
+}
+function SegDemo() {
+  const [t, setT] = useState('plot');
+  const tabs = [['plot', '剧情'], ['chars', '人物'], ['fight', '战斗'], ['save', '存档建议']];
+  return <div className="seg" style={{ width: '100%' }}>{tabs.map(([k, n]) => <button key={k} className={t === k ? 'on' : ''} onClick={() => setT(k)}>{n}</button>)}</div>;
+}
+function TabDemo() {
+  const [t, setT] = useState('progress');
+  return <div style={{ width: '100%', position: 'relative' }}><TabBar tab={t} setTab={setT} /></div>;
+}
+
+function App() {
+  const [gi, setGi] = useState(0);
+  const game = GAMES[gi];
+  return (
+    <div>
+      <div className="head">
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+          <img className="lg" src="assets/youban-mark.svg" alt="游伴" />
+          <div><h1>游伴 YouBan · 设计系统</h1><div className="sub">组件库 · 颜色令牌 · 字体 — 交付 Claude Code 开发参考</div></div>
+        </div>
+        <div className="gpick">
+          {GAMES.map((g, i) => <button key={g.id} className={'gp' + (i === gi ? ' on' : '')} onClick={() => setGi(i)}>
+            <img src={g.poster} alt="" onError={e => e.target.style.opacity = .2} />{g.short}</button>)}
+        </div>
+      </div>
+
+      {/* 品牌 */}
+      <Sec n="00" title="品牌 · Logo & 资源">
+        <div className="grid">
+          <Cell lab="App 图标 / 标记" cls="assets/youban-mark.svg">
+            <div className="specimen" style={{ gap: 18, alignItems: 'center' }}>
+              <Logo size={72} /><Logo size={40} /><Logo size={26} />
+            </div>
+          </Cell>
+          <Cell lab="横向锁版">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Logo size={42} />
+              <div><div style={{ fontSize: 20, fontWeight: 700 }}>游伴 YouBan</div><div style={{ fontSize: 11, color: '#8a8070', letterSpacing: '.18em' }}>GAME COMPANION</div></div>
+            </div>
+          </Cell>
+          <Cell full lab="标记含义">
+            <div style={{ fontSize: 13, lineHeight: 1.75, color: '#b0a090' }}>
+              <b style={{ color: '#e8e0d0' }}>开口的旅程之环</b> = 游戏完整流程（致敬 Off-Circle 的 OC 缺口）· <b style={{ color: '#e8e0d0' }}>环顶高亮节点</b> = 玩家当前进度「你在这里」· <b style={{ color: '#e8e0d0' }}>环心圆点</b> = 同行陪伴的「伴」。金色为唯一品牌锚点。
+            </div>
+          </Cell>
+          <Cell full lab="平台 / 头像 · 真实 Logo（Simple Icons · DiceBear CDN）">
+            <div className="specimen" style={{ gap: 26, alignItems: 'flex-end' }}>
+              {[['steam', 'Steam', '#9bc1d6'], ['playstation', 'PlayStation', '#4f8fde'], ['epicgames', 'Epic', '#e8e0d0'], ['wegame', 'WeGame', '#ea5413']].map(([id, n, c]) => (
+                <div key={id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+                  <PlatformLogo id={id} color={c} size={30} /><span style={{ fontSize: 10.5, color: '#8a8070' }}>{n}</span>
+                </div>
+              ))}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+                <img src="https://api.dicebear.com/9.x/bottts/svg?seed=youban&backgroundColor=transparent" width="34" height="34" alt="" style={{ borderRadius: '50%', border: '1px solid rgba(255,255,255,.12)' }} />
+                <span style={{ fontSize: 10.5, color: '#8a8070' }}>玩家头像</span>
+              </div>
+            </div>
+          </Cell>
+        </div>
+      </Sec>
+
+      {/* 颜色 */}
+      <Sec n="01" title="颜色 · 双层令牌系统">
+        <div className="grid">
+          <Cell full lab="品牌锚点 · 全局常量" cls="--gold / --ink">
+            <div className="brand-sw">
+              <div className="b"><i style={{ background: '#C4A35A' }} /><div className="k">brand gold</div><div className="h">--gold · #C4A35A</div></div>
+              <div className="b"><i style={{ background: '#E8C547' }} /><div className="k">gold highlight</div><div className="h">--gold-hi · #E8C547</div></div>
+              <div className="b"><i style={{ background: '#0b0a08' }} /><div className="k">ink ground</div><div className="h">--ink · #0b0a08</div></div>
+              <div className="b"><i style={{ background: '#f3ecdd' }} /><div className="k">bone text</div><div className="h">--txt · #f3ecdd</div></div>
+            </div>
+          </Cell>
+          <Cell full lab={'每款游戏独立主题 · ' + game.short} cls="--g-bg / --g-card / --g-accent / --g-accent2 / --g-text">
+            <div style={{ width: '100%' }}>
+              {GAMES.map(g => (
+                <div className="theme-row" key={g.id}>
+                  <div className="nm">{g.short}<small>{g.id}</small></div>
+                  <div className="pal" style={{ flex: 1 }}>
+                    {[['bg', g.theme.bg], ['card', g.theme.card], ['accent', g.theme.accent], ['accent2', g.theme.accent2], ['text', g.theme.text]].map(([k, v]) => (
+                      <div className="sw" key={k} style={{ background: v, color: (k === 'text') ? '#0b0a08' : '#f3ecdd' }}>
+                        <span className="vn">--g-{k}</span><span className="hx">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div style={{ fontSize: 12, color: '#8a8070', marginTop: 6, lineHeight: 1.6 }}>
+                语义层由游戏主题派生：<span style={{ fontFamily: 'Space Mono, monospace', color: '#b0a090' }}>--surface = color-mix(--g-card 78%, #000)</span>；浅色模式覆盖 <span style={{ fontFamily: 'Space Mono, monospace', color: '#b0a090' }}>--bg / --surface / --txt</span>。
+              </div>
+            </div>
+          </Cell>
+        </div>
+      </Sec>
+
+      {/* 字体 */}
+      <Sec n="02" title="字体 · 衬线藏魂 / 无衬线立骨">
+        <div className="grid">
+          <Cell full lab="Type Ramp">
+            <div style={{ width: '100%' }}>
+              <div className="type-row"><div className="meta">--font-serif · Cormorant Garamond + 思源宋体 · 标语/世界名</div><div className="serif" style={{ fontSize: 30, fontStyle: 'italic', color: '#e8e0d0' }}>「 {game.tagline} 」</div></div>
+              <div className="type-row"><div className="meta">--font-sans · Space Grotesk + 思源黑体 · 标题</div><div style={{ fontSize: 24, fontWeight: 700 }}>{game.titleMain}</div></div>
+              <div className="type-row"><div className="meta">--font-sans · 正文 15/1.7</div><div style={{ fontSize: 15, lineHeight: 1.7, color: '#c9bca6' }}>当前进度 → 下一高潮 → 章节上下文 → 玩家舆情，信息逐层下沉。</div></div>
+              <div className="type-row"><div className="meta">--font-mono · Space Mono · 数字/进度/时长</div><div className="mono" style={{ fontSize: 22, fontWeight: 700, color: '#C4A35A' }}>38% · 17h · ★ 9/10</div></div>
+            </div>
+          </Cell>
+        </div>
+      </Sec>
+
+      {/* 组件库 */}
+      <Sec n="03" title="组件库">
+        <div className="grid">
+          <Cell full lab="Hype 进度控件（核心） · 拖动 / 点击 Boss" cls="<HypeProgress />">
+            <HypeDemo game={game} />
+          </Cell>
+
+          <Cell lab="按钮" cls=".btn-primary / .btn-ghost">
+            <Ctx game={game}><div className="specimen">
+              <button className="btn btn-primary">开始陪伴</button>
+              <button className="btn btn-ghost">了解更多</button>
+            </div></Ctx>
+          </Cell>
+
+          <Cell lab="标签 / Chip" cls=".tag .accent/.praise/.crit/.hot">
+            <Ctx game={game}><div className="specimen">
+              <span className="tag accent">accent</span><span className="tag praise">好评</span>
+              <span className="tag crit">差评</span><span className="tag hot">热议</span><span className="tag mono">17h</span>
+            </div></Ctx>
+          </Cell>
+
+          <Cell full lab="段控（抽屉 4 Tab）" cls=".seg"><Ctx game={game} style={{ width: '100%' }}><SegDemo /></Ctx></Cell>
+
+          <Cell lab="线性进度条" cls=".track">
+            <Ctx game={game} style={{ width: '100%' }}><div className="track" style={{ width: '100%' }}><i style={{ width: '62%' }} /></div></Ctx>
+          </Cell>
+
+          <Cell lab="Steam 好评率环 · 三色分级" cls="<ScoreRing />">
+            <Ctx game={game}><ScoreRing score={game.sentiment.score} /></Ctx>
+          </Cell>
+
+          <Cell lab="Boss 标记 · 三态" cls=".boss-mk .hi/.passed">
+            <Ctx game={game}><div className="specimen" style={{ gap: 16 }}>
+              <div className="boss-mk" style={{ position: 'static', transform: 'none' }}><Icon name="sword" size={12} /></div>
+              <div className="boss-mk hi" style={{ position: 'static', transform: 'none' }}><Icon name="sword" size={12} /></div>
+              <div className="boss-mk passed" style={{ position: 'static', transform: 'none' }}><Icon name="sword" size={12} /></div>
+            </div></Ctx>
+          </Cell>
+
+          <Cell lab="数据卡" cls=".stat">
+            <Ctx game={game} style={{ width: '100%' }}><div className="specimen" style={{ width: '100%' }}>
+              <div className="stat" style={{ flex: 1 }}><div className="k">当前进度</div><div className="v accent">38<small>%</small></div></div>
+              <div className="stat" style={{ flex: 1 }}><div className="k">剩余主线</div><div className="v">11<small>h</small></div></div>
+            </div></Ctx>
+          </Cell>
+
+          <Cell full lab="下一高潮卡 / 章节行" cls=".next-card / .chap">
+            <Ctx game={game} style={{ width: '100%' }}><div style={{ width: '100%' }}>
+              <div className="next-card"><div className="ic"><Icon name="flame" size={20} /></div>
+                <div className="txt"><div className="a">下一个高潮节点</div><div className="b">{game.hype[3].label}</div><div className="c">张力 {game.hype[3].score}/10</div></div>
+                <div className="d mono">{game.hype[3].pct}%</div></div>
+              <div className="chap cur" style={{ marginTop: 10 }}><div className="dot" />
+                <div className="info"><div className="nm">{game.chapters[1].name}</div><div className="mt">{game.chapters[1].planet} · 张力 {game.chapters[1].hype}/10</div>
+                  <div className="hypebar">{Array.from({ length: 10 }).map((_, k) => <i key={k} style={k < game.chapters[1].hype ? { background: 'var(--accent)', opacity: .6 } : null} />)}</div></div>
+                <div className="rng">{game.chapters[1].start}–{game.chapters[1].end}%</div></div>
+            </div></Ctx>
+          </Cell>
+
+          <Cell full lab="入场点卡片（界面 5）" cls=".entry-card">
+            <Ctx game={game} style={{ width: '100%' }}>
+              <div className="entry-card" style={{ width: '100%' }}>
+                <div className="go"><Icon name="chev" size={18} /></div>
+                <div className="top"><div className="hrs"><b>{remainHours(game, game.entries[1].pct)}</b><span>小时</span></div>
+                  <div className="lead"><div className="a">推荐起点 · 02</div><div className="b">{game.entries[1].label}</div><div className="at mono">从 {game.entries[1].pct}% 进入</div></div></div>
+                <div className="reason">{game.entries[1].reason}</div>
+              </div>
+            </Ctx>
+          </Cell>
+
+          <Cell full lab="引用卡（舆情）" cls=".quote">
+            <Ctx game={game} style={{ width: '100%' }}>
+              <div className="quote" style={{ width: '100%' }}><p>{game.sentiment.quotes[0].text}</p>
+                <div className="ft"><span className="au">{game.sentiment.quotes[0].author}</span><span className="up"><Icon name="up" size={13} />{game.sentiment.quotes[0].up.toLocaleString()}</span></div></div>
+            </Ctx>
+          </Cell>
+
+          <Cell full lab="成长历程时间轴" cls=".jstep">
+            <Ctx game={game} style={{ width: '100%' }}>
+              <div className="journey" style={{ padding: 0 }}>
+                {game.journey.slice(0, 2).map((s, i) => (
+                  <div key={i} className={'jstep' + (i === 0 ? ' done' : ' cur')}>
+                    <div className="jrail"><div className="jdot" />{i < 1 && <div className="jline" />}</div>
+                    <div className="jcontent"><div className="jpct mono">{s.pct}%</div><div className="jevent">{s.event}</div><div className="jdesc">{s.desc}</div>
+                      <div className="junlocks">{s.unlocks.map((u, k) => <span key={k} className="tag accent">{u}</span>)}</div></div>
+                  </div>
+                ))}
+              </div>
+            </Ctx>
+          </Cell>
+
+          <Cell full lab="底部 Tab 导航" cls="<TabBar />">
+            <Ctx game={game} style={{ width: '100%', background: 'var(--g-bg)', borderRadius: 14, overflow: 'hidden' }}><TabDemo /></Ctx>
+          </Cell>
+        </div>
+      </Sec>
+
+      <div style={{ textAlign: 'center', color: '#6a6050', fontSize: 12, fontFamily: 'Space Mono, monospace', marginTop: 40 }}>
+        游伴 YouBan · Off-Circle Studio — 主原型见 <a href="游伴 YouBan.html" style={{ color: '#C4A35A' }}>游伴 YouBan.html</a>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

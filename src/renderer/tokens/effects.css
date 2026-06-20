@@ -1,0 +1,43 @@
+/* ============================================================
+   Off-Circle — Effects: shadows, glows, blur, overlays, motion
+   Atmosphere over flash. Soft depth, gold glow as the one
+   "magical" affordance, fog scrims over imagery.
+   ============================================================ */
+:root {
+  /* ── Shadows (warm-tinted, never neutral grey) ──────────── */
+  --shadow-sm:   0 2px 6px rgba(8, 6, 4, 0.35);
+  --shadow-md:   0 4px 16px rgba(8, 6, 4, 0.45);
+  --shadow-lg:   0 12px 40px rgba(8, 6, 4, 0.55);
+  --shadow-card: 0 4px 4px rgba(11, 14, 24, 0.20);   /* from Figma header */
+  --shadow-inset-line: inset 0 0 0 1px rgba(0, 0, 0, 0.10);
+
+  /* ── Gold glow — the single "breach light" affordance ───── */
+  --glow-gold-sm: 0 0 12px rgba(196, 163, 90, 0.35);
+  --glow-gold-md: 0 0 24px rgba(196, 163, 90, 0.45);
+  --glow-gold-lg: 0 0 48px rgba(232, 197, 71, 0.40);
+  --glow-jade:    0 0 24px rgba(74, 129, 105, 0.40);
+
+  /* ── Blur (glassmorphic nav / overlays) ─────────────────── */
+  --blur-sm: blur(8px); /* @kind other */
+  --blur-md: blur(16px); /* @kind other */
+
+  /* ── Scrims & protection gradients over concept art ─────── */
+  --scrim-flat:    rgba(13, 11, 9, 0.70); /* @kind other */
+  --scrim-radial:  radial-gradient(ellipse at 50% 50%, rgba(13,11,9,0) 0%, rgba(13,11,9,0.5) 100%); /* @kind other */
+  --scrim-bottom:  linear-gradient(180deg, rgba(13,11,9,0) 0%, rgba(13,11,9,0.85) 100%); /* @kind other */
+  --scrim-top:     linear-gradient(180deg, rgba(13,11,9,0.85) 0%, rgba(13,11,9,0) 100%); /* @kind other */
+
+  /* ── Brand gradients (used sparingly — deepen, don't decorate) */
+  --grad-deepen:   linear-gradient(180deg, #0D0B09 0%, #15110D 100%); /* @kind other */
+  --grad-gold:     linear-gradient(135deg, #E8C547 0%, #C4A35A 60%, #9A7E3E 100%); /* @kind other */
+  --grad-breach:   radial-gradient(circle at 50% 40%, rgba(240,220,160,0.18) 0%, rgba(196,163,90,0.04) 35%, transparent 65%); /* @kind other */
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --ease-soft:   ease-in-out; /* @kind other */
+  --dur-fast:    0.2s; /* @kind other */
+  --dur-base:    0.3s; /* @kind other */
+  --dur-slow:    0.8s; /* @kind other */
+  --dur-ambient: 5s; /* @kind other */
+}

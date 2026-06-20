@@ -1,0 +1,44 @@
+/* ============================================================
+   Off-Circle — Spacing, radius, layout tokens
+   8px base rhythm; minimal radii (the brand reads sharp & severe).
+   ============================================================ */
+:root {
+  /* ── Spacing scale (8px base) ───────────────────────────── */
+  --space-0:   0;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-20:  80px;   /* section vertical padding */
+  --space-24:  96px;
+  --space-32:  128px;
+
+  /* ── Radius (intentionally small — sharp, architectural) ── */
+  --radius-none: 0;
+  --radius-xs:   2px;   /* job cards, inputs */
+  --radius-sm:   3px;   /* buttons */
+  --radius-md:   4px;   /* lang toggle, tags */
+  --radius-lg:   8px;
+  --radius-pill: 999px; /* dots, avatars */
+  --radius-full: 50%;
+
+  /* ── Border widths ──────────────────────────────────────── */
+  --bw-hairline: 1px;
+  --bw-medium:   2px;   /* outlined CTA, accent rules */
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  --nav-height:    60px;
+  --container-sm:  600px;
+  --container-md:  860px;
+  --container-lg:  900px;
+  --container-xl:  1200px;
+  --container-max: 1440px;
+  --gutter:        40px;
+  --gutter-mobile: 20px;
+}

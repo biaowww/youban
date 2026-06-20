@@ -6,8 +6,10 @@ const isDev = process.argv.includes('--dev');
 
 function createWindow() {
   const win = new BrowserWindow({
-    width:  420,
-    height: 780,
+    width:  472,
+    height: 940,
+    minWidth:  440,
+    minHeight: 720,
     resizable: true,
     frame: true,
     icon: path.join(__dirname, '..', 'logo.png'),
@@ -16,8 +18,8 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
     },
-    title: '游伴',
-    backgroundColor: '#0d0d0f',
+    title: '游伴 YouBan',
+    backgroundColor: '#0a0907',
   });
 
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));

@@ -1,0 +1,18 @@
+/* ============================================================
+   Off-Circle — Webfonts
+   Recommended pairing (no licensed brand font yet — see README).
+   Served from Google Fonts; full CJK coverage via Noto.
+   ============================================================ */
+
+/* Display / lore serif — EN */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+/* Epic inscriptional caps — optional display alt */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&display=swap');
+/* UI / body geometric grotesque — EN */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+/* Stats / numerals mono */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+/* Display / lore serif — 中文 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap');
+/* UI / body — 中文 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');

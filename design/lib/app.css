@@ -1,0 +1,246 @@
+/* ============================================================
+   游伴 YouBan · 应用样式底座
+   品牌锚点：Offcircle 墨黑地 + 金色（仅作品牌点缀）
+   每款游戏注入 --g-bg / --g-card / --g-accent / --g-accent2 / --g-text
+   ============================================================ */
+
+:root {
+  /* Offcircle 品牌常量（App 内仅少量点缀） */
+  --gold: #C4A35A;
+  --gold-hi: #E8C547;
+  --ink: #0b0a08;
+
+  /* 字体 */
+  --font-sans: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', Georgia, serif;
+  --font-mono: 'Space Mono', 'Noto Sans SC', ui-monospace, Menlo, monospace;
+}
+
+/* ───────── App 根：消费每款游戏的主题变量 ───────── */
+.yb-app {
+  /* fallback theme — 会被各游戏 inline style 覆盖 */
+  --g-bg: #07090f;
+  --g-card: #0d1220;
+  --g-accent: #39b6ff;
+  --g-accent2: #ff6b20;
+  --g-text: #e6d5b4;
+
+  /* 语义层（深色，默认） */
+  --bg: var(--g-bg);
+  --surface: color-mix(in oklab, var(--g-card) 78%, #000 22%);
+  --surface-2: color-mix(in oklab, var(--g-card) 92%, #fff 8%);
+  --hairline: rgba(255,255,255,0.08);
+  --hairline-soft: rgba(255,255,255,0.05);
+  --txt: #f3ecdd;
+  --txt-2: color-mix(in oklab, var(--g-text) 62%, #8a8070 38%);
+  --txt-3: rgba(255,255,255,0.42);
+  --accent: var(--g-accent);
+  --accent-ink: #0b0a08;
+  --chip: rgba(255,255,255,0.06);
+
+  position: relative;
+  width: 402px; height: 874px;
+  background-color: var(--bg);
+  color: var(--txt);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  border-radius: 46px;
+  box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,0,0,0.6);
+  transition: background-color .5s cubic-bezier(.16,1,.3,1);
+  isolation: isolate;
+}
+.yb-app, .yb-app * { box-sizing: border-box; }
+
+/* ───────── 浅色模式 ───────── */
+.yb-app.light {
+  --bg: #f3efe6;
+  --surface: #ffffff;
+  --surface-2: #faf7f0;
+  --hairline: rgba(20,16,10,0.09);
+  --hairline-soft: rgba(20,16,10,0.05);
+  --txt: #1c1813;
+  --txt-2: #6a6052;
+  --txt-3: rgba(28,24,19,0.45);
+  --chip: rgba(20,16,10,0.05);
+  color: var(--txt);
+}
+
+/* ───────── 自定义状态栏 / 灵动岛 / Home 指示 ───────── */
+.yb-island {
+  position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
+  width: 116px; height: 34px; border-radius: 20px; background: #000; z-index: 90;
+}
+.yb-status {
+  position: absolute; top: 0; left: 0; right: 0; height: 54px; z-index: 80;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 30px 0; pointer-events: none;
+  font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+  letter-spacing: .02em; color: var(--txt);
+}
+.yb-app.light .yb-status { color: #1c1813; }
+.yb-status .ico { display: flex; gap: 6px; align-items: center; }
+.yb-home {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  width: 132px; height: 5px; border-radius: 99px; z-index: 95;
+  background: rgba(255,255,255,0.5);
+}
+.yb-app.light .yb-home { background: rgba(0,0,0,0.28); }
+
+/* ───────── 视口与滚动 ───────── */
+.yb-viewport {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+}
+.yb-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.yb-scroll::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ───────── 底部 Tab 导航 ───────── */
+.yb-tabbar {
+  position: relative; z-index: 70; flex-shrink: 0;
+  height: 84px; padding: 8px 14px 22px;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: color-mix(in oklab, var(--g-bg) 62%, transparent);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-top: 1px solid var(--hairline-soft);
+}
+.yb-app.light .yb-tabbar { background: color-mix(in oklab, #fff 70%, transparent); }
+.yb-tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  background: none; border: 0; cursor: pointer; padding: 6px 0;
+  color: var(--txt-3); font-family: var(--font-sans);
+  font-size: 10.5px; letter-spacing: .04em; font-weight: 600;
+  transition: color .25s var(--ease, ease);
+}
+.yb-tab svg { width: 23px; height: 23px; stroke-width: 1.7; }
+.yb-tab.on { color: var(--accent); }
+.yb-tab.on svg { filter: drop-shadow(0 0 8px color-mix(in oklab, var(--accent) 60%, transparent)); }
+
+/* ───────── 通用文字工具 ───────── */
+.eyebrow {
+  font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; font-family: var(--font-sans);
+}
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.serif { font-family: var(--font-serif); }
+
+/* ───────── 卡片 ───────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  transition: transform .3s var(--ease, cubic-bezier(.16,1,.3,1)), border-color .3s, background .3s;
+}
+.card.interactive { cursor: pointer; }
+.card.interactive:active { transform: scale(.985); }
+
+/* ───────── 标签 / Chip ───────── */
+.tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 11px; border-radius: 8px;
+  font-size: 12.5px; font-weight: 600; line-height: 1;
+  background: var(--chip); color: var(--txt-2);
+  border: 1px solid var(--hairline-soft); white-space: nowrap;
+}
+.tag.mono { font-family: var(--font-mono); }
+.tag.praise { color: #9fe0b8; background: color-mix(in oklab, #4a8169 18%, transparent); border-color: color-mix(in oklab, #4a8169 35%, transparent); }
+.tag.crit   { color: #e8b0a4; background: color-mix(in oklab, #C25A4A 16%, transparent); border-color: color-mix(in oklab, #C25A4A 32%, transparent); }
+.tag.hot    { color: #f0d28a; background: color-mix(in oklab, var(--gold) 16%, transparent); border-color: color-mix(in oklab, var(--gold) 34%, transparent); }
+.tag.accent { color: var(--accent); background: color-mix(in oklab, var(--accent) 14%, transparent); border-color: color-mix(in oklab, var(--accent) 34%, transparent); }
+
+/* ───────── 按钮 ───────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-sans); font-weight: 700; font-size: 14.5px;
+  border-radius: 12px; cursor: pointer; border: 1px solid transparent;
+  padding: 13px 18px; transition: filter .2s, transform .15s, background .2s;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--txt); border-color: var(--hairline); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ───────── 段控 Segmented（抽屉 4 Tab） ───────── */
+.seg {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  background: var(--chip); border-radius: 12px; padding: 4px; gap: 2px;
+  border: 1px solid var(--hairline-soft);
+}
+.seg button {
+  border: 0; background: none; cursor: pointer; padding: 9px 4px; border-radius: 9px;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--txt-2);
+  transition: color .25s, background .25s; position: relative;
+}
+.seg button.on { color: var(--accent-ink); background: var(--accent); }
+.yb-app.light .seg button.on { color: #fff; }
+
+/* ───────── 进度条（线性，基础款，组件库展示用） ───────── */
+.track { position: relative; height: 6px; border-radius: 99px; background: rgba(255,255,255,0.1); overflow: hidden; }
+.yb-app.light .track { background: rgba(20,16,10,0.1); }
+.track > i { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: var(--accent); }
+
+/* ───────── 浮层 / 抽屉 ───────── */
+.scrim {
+  position: absolute; inset: 0; z-index: 100;
+  background: rgba(6,5,4,0.62); backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity .4s var(--ease, ease);
+}
+.scrim.show { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 101;
+  max-height: 88%; display: flex; flex-direction: column;
+  border-top: 1px solid color-mix(in oklab, var(--accent) 30%, var(--hairline));
+  border-radius: 26px 26px 46px 46px;
+  transform: translateY(102%); transition: transform .46s var(--ease, cubic-bezier(.16,1,.3,1));
+  box-shadow: 0 -30px 60px rgba(0,0,0,0.5);
+}
+/* 内容抽屉（Boss/入场点）：始终深色底，内文恒为浅色，避免浅色模式撞色 */
+.drawer:not(.themed) {
+  background: color-mix(in oklab, var(--g-card) 85%, #000 15%);
+  color: #f3ecdd;
+  --txt: #f3ecdd; --txt-2: #b3a892; --txt-3: rgba(255,255,255,0.45);
+  --hairline: rgba(255,255,255,0.09); --hairline-soft: rgba(255,255,255,0.06);
+  --chip: rgba(255,255,255,0.06); --surface: rgba(255,255,255,0.03);
+}
+/* 功能抽屉（切换游戏等）：跟随页面主题 */
+.drawer.themed {
+  background: var(--surface-2); color: var(--txt);
+}
+.drawer.show { transform: translateY(0); }
+.drawer-grip { width: 38px; height: 4px; border-radius: 99px; background: rgba(255,255,255,0.25); margin: 12px auto 4px; }
+.drawer.themed .drawer-grip { background: var(--txt-3); }
+
+/* ───────── 主题开关（topbar 药丸） ───────── */
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 5px;
+  border-radius: 99px; border: 1px solid var(--hairline); background: var(--chip);
+  cursor: pointer; color: var(--txt-2); font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  transition: .25s; white-space: nowrap;
+}
+.theme-toggle.on { border-color: color-mix(in oklab, var(--accent) 45%, transparent); color: var(--accent); }
+.theme-toggle .tt-knob {
+  width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+  background: var(--surface-2); color: var(--txt-2); transition: .25s;
+}
+.theme-toggle.on .tt-knob { background: var(--accent); color: var(--accent-ink); }
+
+/* ───────── iOS 风开关 ───────── */
+.switch { width: 46px; height: 27px; border-radius: 99px; background: rgba(127,127,127,.3); position: relative; flex-shrink: 0; transition: background .25s; }
+.switch.on { background: var(--accent); }
+.switch > i { position: absolute; top: 3px; left: 3px; width: 21px; height: 21px; border-radius: 50%; background: #fff; transition: transform .25s var(--ease, cubic-bezier(.16,1,.3,1)); box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.switch.on > i { transform: translateX(19px); }
+
+/* 主题上下文（用于设计系统页渲染脱壳组件） */
+.yb-app.ctx { position: static; width: auto; height: auto; border-radius: 0; box-shadow: none; overflow: visible; background: transparent; }
+
+/* 通用动画 */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up { animation: fadeUp .5s var(--ease, cubic-bezier(.16,1,.3,1)) both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+}

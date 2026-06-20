@@ -1,0 +1,96 @@
+/* ============================================================
+   Off-Circle — Color tokens
+   Aesthetic: misty oriental-fantasy. Warm ink ground, bone fog,
+   aged-gold "breach light", jade-green (roof tile) secondary.
+   Base values sampled from concept art + live site.
+   ============================================================ */
+:root {
+  /* ── Void / ink ramp (warm near-black ground) ───────────── */
+  --ink-950: #0A0806;   /* deepest void */
+  --ink-900: #0D0B09;   /* site background base */
+  --ink-850: #12100C;
+  --ink-800: #18110B;   /* Figma surface base */
+  --ink-700: #221A12;
+  --ink-600: #2E241A;   /* raised surface */
+  --ink-500: #463728;   /* hairline / divider on dark */
+  --ink-400: #6A5642;
+
+  /* ── Bone / parchment ramp (warm neutrals + text) ───────── */
+  --bone-50:  #F4ECDD;  /* brightest parchment */
+  --bone-100: #E8E0D0;  /* primary text on dark */
+  --bone-200: #C9BCA6;
+  --bone-300: #B0A090;  /* secondary text / muted */
+  --bone-400: #8A8070;  /* tertiary text */
+  --bone-500: #6A6050;  /* footnote / disabled */
+  --bone-600: #4A4438;
+
+  /* ── Gold ramp (aged gold — primary "breach light") ─────── */
+  --gold-200: #F0DCA0;
+  --gold-300: #E8C547;  /* bright highlight */
+  --gold-400: #D4AF37;  /* CTA / focus gold */
+  --gold-500: #C4A35A;  /* PRIMARY brand gold */
+  --gold-600: #9A7E3E;
+  --gold-700: #6E5A2C;
+
+  /* ── Jade ramp (celadon roof-tile — secondary accent) ───── */
+  --jade-300: #9FC9B4;
+  --jade-400: #6FA98C;
+  --jade-500: #4A8169;  /* secondary brand jade */
+  --jade-600: #335C4B;
+  --jade-700: #213B31;
+
+  /* ── Misted sky (cool atmospheric, sparing use) ─────────── */
+  --mist-300: #B7C5C4;
+  --mist-500: #7E9596;
+  --mist-700: #46585A;
+
+  /* ── Pure ───────────────────────────────────────────────── */
+  --pure-white: #FFFFFF;
+  --pure-black: #000000;
+
+  /* ── Status (kept warm/atmospheric, not neon) ───────────── */
+  --status-positive: #6FA98C;  /* jade */
+  --status-caution:  #D4AF37;  /* gold */
+  --status-danger:   #C25A4A;  /* ember red — sparing */
+  --status-info:     #7E9596;  /* mist */
+
+  /* ════════════════════════════════════════════════════════
+     SEMANTIC ALIASES — reach for these in components
+     ════════════════════════════════════════════════════════ */
+  /* Surfaces */
+  --bg-base:        var(--ink-900);
+  --bg-deep:        var(--ink-950);
+  --surface-1:      var(--ink-850);
+  --surface-2:      var(--ink-700);
+  --surface-raised: var(--ink-600);
+  --surface-glass:  rgba(13, 11, 9, 0.72);   /* navbar / overlays w/ blur */
+  --surface-veil:   rgba(13, 11, 9, 0.70);   /* image-overlay scrim */
+  --surface-fill:   rgba(255, 255, 255, 0.02);
+  --surface-fill-hover: rgba(255, 255, 255, 0.04);
+
+  /* Text */
+  --text-primary:   var(--bone-100);
+  --text-heading:   var(--pure-white);
+  --text-secondary: var(--bone-300);
+  --text-muted:     var(--bone-400);
+  --text-footnote:  var(--bone-500);
+  --text-accent:    var(--gold-500);
+  --text-on-gold:   var(--ink-900);
+
+  /* Brand */
+  --brand-gold:     var(--gold-500);
+  --brand-gold-hi:  var(--gold-300);
+  --brand-jade:     var(--jade-500);
+
+  /* Lines & borders */
+  --border-hairline: rgba(255, 255, 255, 0.05);
+  --border-subtle:   rgba(255, 255, 255, 0.08);
+  --border-strong:   rgba(255, 255, 255, 0.20);
+  --border-gold:     var(--gold-500);
+  --border-jade:     var(--jade-500);
+
+  /* Interaction */
+  --focus-ring:     var(--gold-400);
+  --link:           var(--gold-500);
+  --link-hover:     var(--gold-300);
+}

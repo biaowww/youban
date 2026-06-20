@@ -1,13 +1,17 @@
 {
   "name": "youban",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "游伴 — 快速体验超长 3A 游戏",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win --x64"
+    "build:ui": "node build-ui.js",
+    "build": "electron-builder --win --x64",
+    "tauri": "tauri"
   },
   "devDependencies": {
+    "@babel/standalone": "^7.29.0",
+    "@tauri-apps/cli": "^2",
     "electron": "^41.3.0",
     "electron-builder": "^26.8.1"
   }

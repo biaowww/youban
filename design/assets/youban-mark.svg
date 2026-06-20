@@ -1,0 +1,21 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="游伴 YouBan">
+  <defs>
+    <linearGradient id="yb-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15120c"></stop>
+      <stop offset="1" stop-color="#0a0907"></stop>
+    </linearGradient>
+    <linearGradient id="yb-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E8C547"></stop>
+      <stop offset="1" stop-color="#C4A35A"></stop>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="96" height="96" rx="24" fill="url(#yb-bg)" stroke="rgba(196,163,90,0.22)"></rect>
+  
+  <circle cx="50" cy="50" r="27" fill="none" stroke="rgba(196,163,90,0.16)" stroke-width="6"></circle>
+  <path d="M50 23 A27 27 0 1 0 73.4 36.5" fill="none" stroke="url(#yb-gold)" stroke-width="6" stroke-linecap="round"></path>
+  
+  <circle cx="50" cy="23" r="7.5" fill="url(#yb-gold)"></circle>
+  <circle cx="50" cy="23" r="3" fill="#15120c"></circle>
+  
+  <circle cx="50" cy="50" r="5.5" fill="#C4A35A" opacity="0.92"></circle>
+</svg>
