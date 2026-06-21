@@ -44,7 +44,7 @@ function download(url, dest, redirects = 0) {
 }
 
 function localName(id, kind, url) {
-  const ext = (url.match(/\.(jpg|jpeg|png|webp)(\?|$)/i) || [, 'jpg'])[1].toLowerCase();
+  const ext = (url.match(/\.(jpg|jpeg|png|webp)(\?|$)/i) || ['', 'jpg'])[1].toLowerCase();
   return `${id}-${kind}.${ext}`;
 }
 

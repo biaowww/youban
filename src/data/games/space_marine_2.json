@@ -1,0 +1,396 @@
+{
+  "id": "space_marine_2",
+  "name": "Warhammer 40,000: Space Marine 2",
+  "titleMain": "Warhammer 40,000: Space Marine 2",
+  "titleSub": "战锤40K：星际战士2",
+  "short": "星际战士2",
+  "genre": "第三人称射击 · 砍杀",
+  "currentPct": 0,
+  "nameEn": "Warhammer 40,000: Space Marine 2",
+  "developer": "Saber Interactive",
+  "year": 2024,
+  "steamAppId": 2183900,
+  "totalHoursMain": 9,
+  "totalHoursComplete": 18,
+  "bannerUrl": "assets/covers/space_marine_2-banner.jpg",
+  "posterUrl": "assets/covers/space_marine_2-poster.jpg",
+  "gameTheme": {
+    "bg": "#0a0c12",
+    "bgCard": "#12161f",
+    "accent": "#e0b341",
+    "accent2": "#2f5fa6",
+    "text": "#e8e0cc"
+  },
+  "overview": {
+    "tagline": "钢铁、烈火与忠诚——为帝皇而战，绝不退缩",
+    "description": "《战锤40,000：星际战士2》是 Saber Interactive 出品的第三人称动作射击游戏，时隔十三年续写 2011 年初代的故事。你再次扮演极限战士（Ultramarines）的提图斯中尉（Demetrian Titus）——这一次，他在重伤之后接受\"卢比孔primaris\"改造，成为更强大的primaris星际战士。游戏以战锤40K最标志性的\"以一当百\"为卖点：屏幕上同时涌来成百上千的泰伦虫族（Tyranids），刀锯剑与爆矢枪在血肉横飞中砍出帝国的钢铁意志。然而虫潮只是开始——一场更黑暗的混沌阴谋（千子军团 / 提兹奇）正在三颗星球的废墟之下悄然展开。",
+    "highlights": [
+      {
+        "icon": "🐛",
+        "text": "成百上千的泰伦虫潮：屏幕被血肉淹没的\"规模感\"是系列招牌"
+      },
+      {
+        "icon": "⚔️",
+        "text": "近战与枪械并重：处决、格挡、枪刺，分量十足的战斗手感"
+      },
+      {
+        "icon": "🤝",
+        "text": "三人合作 Operations：与战友并肩，战役之外的长线内容"
+      },
+      {
+        "icon": "🛡️",
+        "text": "原汁原味的 40K 氛围：哥特巨构、帝国圣咏与绝望宇宙观"
+      }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "从提图斯空降 Kadaku、重伤后重生为 primaris 开始，完整感受从泰伦虫潮到混沌阴谋的叙事转折。开场即是系列标志性的\"虫海\"震撼。"
+    },
+    {
+      "progressPct": 44,
+      "label": "混沌转折入口",
+      "reason": "Avarax 一段，战争从单纯的泰伦虫潮转向千子军团的混沌威胁——\"曙光计划\"的真相浮现，是全作叙事密度陡增的拐点。"
+    },
+    {
+      "progressPct": 86,
+      "label": "终章直入·Demerium",
+      "reason": "追击混沌术士伊穆拉来到墓葬星 Demerium，混沌/提兹奇的终局对决在此展开，动作与演出双高峰。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 0,
+      "event": "空降 Kadaku·孤身陷入虫潮",
+      "description": "提图斯随小队空降丛林星球 Kadaku 回应机械教的求救，运输舰被泰伦虫族击落，他在尸山血海中杀出一条路。",
+      "unlocks": [
+        "链锯剑近战连段",
+        "爆矢枪射击",
+        "处决与格挡"
+      ]
+    },
+    {
+      "progressPct": 12,
+      "event": "卢比孔改造·重生为 Primaris",
+      "description": "身受重伤的提图斯接受危险的\"卢比孔primaris\"手术，从老式星际战士蜕变为更强大的primaris，力量与体魄全面跃升。",
+      "unlocks": [
+        "primaris 强化体魄",
+        "更重型的近战武器",
+        "枪刺处决"
+      ]
+    },
+    {
+      "progressPct": 30,
+      "event": "击落泰伦母舰·钢铁的怒吼",
+      "description": "提图斯操控对空炮台与重型火力击落笼罩战场的泰伦母舰，这是全作最具\"规模感\"的标志性场面之一。",
+      "unlocks": [
+        "重型武器（多管/等离子）",
+        "炮台与载具协同",
+        "大群处决连锁"
+      ]
+    },
+    {
+      "progressPct": 50,
+      "event": "混沌揭示·千子降临",
+      "description": "战争从泰伦虫潮转向混沌——千子军团（提兹奇）的术士现身，\"曙光计划\"竟由提图斯当年在 Graia 摧毁的混沌神器供能。",
+      "unlocks": [
+        "对混沌（能量）作战",
+        "新枪械型号",
+        "精英敌人应对"
+      ]
+    },
+    {
+      "progressPct": 75,
+      "event": "墓星 Demerium·步步逼近",
+      "description": "追击混沌术士伊穆拉来到墓葬星 Demerium，提兹奇的扭曲与亚空间恐怖全面展开，卡尔加被卷入险境。",
+      "unlocks": [
+        "全武器库开放",
+        "精英装备配装",
+        "高难处决终结技"
+      ]
+    },
+    {
+      "progressPct": 98,
+      "event": "终战伊穆拉·摧毁能量源",
+      "description": "提图斯击败召唤了\"变天魔\"的混沌术士伊穆拉，摧毁\"曙光计划\"的能量源，挽救卡尔加。战后他获得擢升。",
+      "unlocks": [
+        "战役通关",
+        "晋升（连队要职）",
+        "终结演出"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "name": "序章·空降 Kadaku",
+      "planet": "丛林星球 Kadaku",
+      "progressStart": 0,
+      "progressEnd": 14,
+      "hypeScore": 8,
+      "keyEvent": "提图斯空降 Kadaku，运输舰被泰伦击落，孤身杀出重围",
+      "plotDetail": "提图斯随极限战士小队空降丛林星球 Kadaku，回应阿德 prtus 机械教的紧急求救。刚一着陆，泰伦虫族（利维坦舰队的一支）便如潮水般涌来，运输舰坠毁，提图斯几乎是孤身一人在血肉横飞中开辟道路。这段开场用最直接的方式建立了游戏的核心体验：你是一名星际战士，而敌人多到淹没整个屏幕。",
+      "playerGoals": "在泰伦虫潮中存活并前进 → 与失散的战友会合 → 推进至机械教据点",
+      "newCharacters": "提图斯中尉（主角，极限战士）、卡里隆（小队战友）、加德里尔军士（恪守教典的战友）"
+    },
+    {
+      "id": 1,
+      "name": "丛林浩劫·卢比孔重生",
+      "planet": "Kadaku 丛林蜂巢区",
+      "progressStart": 14,
+      "progressEnd": 30,
+      "hypeScore": 9,
+      "keyEvent": "提图斯重伤，接受卢比孔改造重生为 primaris，击落泰伦母舰",
+      "plotDetail": "深入 Kadaku 的虫巢战区，提图斯身受致命重伤。在卡尔加的授意下，他接受了凶险的\"卢比孔primaris\"手术，从老式星际战士蜕变为更强大的primaris。新生的提图斯以重型火力击落了笼罩战场的泰伦母舰——这是全作最震撼的\"规模\"场面之一。",
+      "playerGoals": "穿越虫巢战区 → 完成卢比孔改造 → 操控对空火力击落泰伦母舰",
+      "newCharacters": "马尼斯·卡尔加（极限战士战团长）、阿德rtus 机械教技师"
+    },
+    {
+      "id": 2,
+      "name": "轨道平台·Avarax",
+      "planet": "Avarax 轨道平台",
+      "progressStart": 30,
+      "progressEnd": 44,
+      "hypeScore": 7,
+      "keyEvent": "转往 Avarax 寻回\"曙光计划\"关键人物，轨道/登舰激战",
+      "plotDetail": "为推进机械教的机密武器\"曙光计划\"（Project Aurora），提图斯一行转往工业星球 Avarax 的轨道设施，寻回掌握关键的机械教技师。狭窄的舰舱与轨道平台间，战斗从开阔的虫海转为更紧凑的近距离厮杀。混沌的阴影也在此第一次若隐若现。",
+      "playerGoals": "登上 Avarax 轨道平台 → 在舱室间清剿敌军 → 寻回\"曙光计划\"关键人物",
+      "newCharacters": "莫里亚斯·勒兹（延续曙光计划的机械教学徒）"
+    },
+    {
+      "id": 3,
+      "name": "机魂之仆·混沌现身",
+      "planet": "Avarax 设施",
+      "progressStart": 44,
+      "progressEnd": 58,
+      "hypeScore": 9,
+      "keyEvent": "Avarax 设施同时遭泰伦与千子军团夹击，混沌阴谋揭开",
+      "plotDetail": "抵达勒兹的设施时，提图斯发现这里正被泰伦虫族与混沌的千子军团（提兹奇）同时围攻。战争的性质在此彻底转变——\"曙光计划\"竟由提图斯当年在 Graia 摧毁的同一件混沌神器供能，而幕后是一名图谋向卡尔加复仇的千子术士伊穆拉。",
+      "playerGoals": "突破泰伦与混沌的双重围攻 → 抵达勒兹的设施 → 揭开\"曙光计划\"与混沌的关联",
+      "newCharacters": "伊穆拉（千子军团术士，混沌主谋）、千子军团叛徒陆战队"
+    },
+    {
+      "id": 4,
+      "name": "虚空之歌·清剿 Avarax",
+      "planet": "Avarax 地表",
+      "progressStart": 58,
+      "progressEnd": 72,
+      "hypeScore": 8,
+      "keyEvent": "在泰伦与混沌交织的战场清剿，确保曙光计划研究，迎战地狱兽",
+      "plotDetail": "Avarax 地表化作泰伦与混沌交织的炼狱。提图斯一行在惨烈的混合战斗中稳住阵线，确保\"曙光计划\"的研究成果不落入敌手。混沌的重型恶魔机甲\"地狱兽\"（Helbrute）在这一段成为最难缠的拦路猛兽。",
+      "playerGoals": "在泰伦+混沌混合战场推进 → 击败地狱兽 → 保住曙光计划研究成果",
+      "newCharacters": "地狱兽（混沌堕落的无畏机甲）"
+    },
+    {
+      "id": 5,
+      "name": "黎明降临·Demerium",
+      "planet": "墓葬星 Demerium",
+      "progressStart": 72,
+      "progressEnd": 86,
+      "hypeScore": 9,
+      "keyEvent": "追击伊穆拉突入墓星 Demerium，混沌/亚空间恐怖全面展开",
+      "plotDetail": "提图斯一行追击术士伊穆拉，从低空突入墓葬星 Demerium。这里是提兹奇混沌的主场，亚空间的扭曲与古墓的死寂交织成压抑的恐怖。战争至此已彻底是一场对抗混沌的圣战，而卡尔加也被卷入了伊穆拉的算计之中。",
+      "playerGoals": "突入 Demerium 地表 → 穿越混沌扭曲的墓葬区 → 逼近伊穆拉的核心据点",
+      "newCharacters": "（混沌/提兹奇 势力全面登场，无新增主要友方）"
+    },
+    {
+      "id": 6,
+      "name": "永无止境的责任·终战",
+      "planet": "Demerium·亚空间裂隙",
+      "progressStart": 86,
+      "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "伊穆拉启动曙光、撕开亚空间裂隙诱困卡尔加，提图斯终战取胜",
+      "plotDetail": "终章。伊穆拉启动\"曙光计划\"，杀死勒兹、撕开一道亚空间裂隙，将卡尔加诱入其中。提图斯与召唤出\"变天魔\"（提兹奇的大恶魔）的伊穆拉展开最终决战，最终摧毁能量源——伊穆拉自身被反噬的亚空间之力吞没。战后，提图斯因功获得擢升，钢铁的责任永无止境。",
+      "playerGoals": "穿过亚空间裂隙救援卡尔加 → 击败召唤变天魔的伊穆拉 → 摧毁曙光计划能量源，结束战役",
+      "newCharacters": "变天魔（伊穆拉召唤的提兹奇大恶魔）"
+    }
+  ],
+  "hypePeaks": [
+    {
+      "progressPct": 12,
+      "label": "重生为 Primaris",
+      "score": 9,
+      "color": "#e0b341"
+    },
+    {
+      "progressPct": 20,
+      "label": "首次泰伦虫潮",
+      "score": 8,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 30,
+      "label": "击落泰伦母舰",
+      "score": 9,
+      "color": "#2f5fa6"
+    },
+    {
+      "progressPct": 50,
+      "label": "混沌揭示·千子降临",
+      "score": 9,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 62,
+      "label": "地狱兽决战",
+      "score": 8,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 85,
+      "label": "墓星 Demerium·卡尔加被困",
+      "score": 9,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 98,
+      "label": "伊穆拉终战·变天魔",
+      "score": 10,
+      "color": "#ef4444"
+    }
+  ],
+  "achievements": [
+    {
+      "steamId": "ACH_SM2_PRIMARIS",
+      "name": "命运已定（重生为 Primaris）",
+      "progressPct": 12
+    },
+    {
+      "steamId": "ACH_SM2_HIVESHIP",
+      "name": "怒炮轰鸣（击落泰伦母舰）",
+      "progressPct": 30
+    },
+    {
+      "steamId": "ACH_SM2_AVARAX",
+      "name": "Avarax 的余烬",
+      "progressPct": 58
+    },
+    {
+      "steamId": "ACH_SM2_DEMERIUM",
+      "name": "踏上墓星",
+      "progressPct": 85
+    },
+    {
+      "steamId": "ACH_SM2_IMURAH",
+      "name": "永无止境的责任（通关）",
+      "progressPct": 100
+    }
+  ],
+  "bossSaves": [
+    {
+      "id": "tyranid_hiveship",
+      "name": "泰伦虫潮 — 母舰歼灭战",
+      "nameEn": "Tyranid Swarm – Hive Ship",
+      "folder": null,
+      "progressPct": 28,
+      "storyGap": 2,
+      "planet": "Kadaku 蜂巢战区",
+      "highlight": true,
+      "context": {
+        "plot": "重生为 primaris 的提图斯迎来第一场\"规模\"级考验：泰伦虫族以成百上千的数量涌向阵地，而天空被一艘泰伦母舰笼罩。这不是单一Boss，而是一场你必须操控对空与重型火力、在血肉海洋中击落巨舰的标志性大场面——星际战士\"以一当百\"的最佳注脚。",
+        "characters": "提图斯：刚完成卢比孔改造，力量正处于上升期。\n\n泰伦虫族（利维坦舰队支系）：以纯粹的数量与生物兵器淹没战场，母舰是这一段的\"大目标\"。",
+        "gameplay": "本质是\"清群+打大目标\"的混合战。优先用范围处决与重武器维持人群压制，别被小型虫子围死；轮到对空/炮台段落时，跟随提示集中火力打击母舰薄弱点。全程保持移动，处决回血是续航关键。"
+      }
+    },
+    {
+      "id": "helbrute",
+      "name": "地狱兽 — 混沌无畏机甲",
+      "nameEn": "Helbrute",
+      "folder": null,
+      "progressPct": 60,
+      "storyGap": 3,
+      "planet": "Avarax 地表",
+      "highlight": false,
+      "context": {
+        "plot": "随着战争转向混沌，提图斯在 Avarax 撞上一头\"地狱兽\"——被混沌堕落、血肉与机械缝合的无畏机甲。它挥舞重锤、以臂载等离子炮喷吐死亡，是混沌阵营在中后段最硬的一堵墙。",
+        "characters": "地狱兽：堕入混沌的无畏机甲，里面封着一具痛苦扭曲的陆战队躯体，力大无穷且抗打。\n\n提图斯与战友：首次正面硬撼混沌重型单位。",
+        "gameplay": "典型\"绕背打弱点\"的重型Boss。正面格挡其重锤极其吃亏，应侧向翻滚到它身后或侧面输出。注意臂载等离子的蓄力光效，提前拉开距离。场地常伴杂兵，用处决回血并清场，避免被夹击。"
+      }
+    },
+    {
+      "id": "imurah_first",
+      "name": "伊穆拉 — 初遇",
+      "nameEn": "Imurah – First Encounter",
+      "folder": null,
+      "progressPct": 85,
+      "storyGap": 4,
+      "planet": "墓葬星 Demerium",
+      "highlight": false,
+      "context": {
+        "plot": "提图斯终于在 Demerium 追上千子军团术士伊穆拉。此时的交手更像一次\"未竟\"的对决——伊穆拉以亚空间法术周旋，并非要在此分出生死，而是为终局的算计落子。这一战让提图斯（和玩家）真正领教提兹奇术士的危险。",
+        "characters": "伊穆拉：千子军团（提兹奇）术士，城府深、法术诡谲，与卡尔加有长达两百年的旧怨。\n\n提图斯：逼近真相，却尚未能阻止伊穆拉的计划。",
+        "gameplay": "对抗会飞、会放亚空间投射物的法术型敌人。重点是\"逼近\"：利用掩体规避远程弹幕，抓住他降下或读条的间隙快速贴脸近战。携带稳定的中距离火力（如等离子）打断其施法节奏。"
+      }
+    },
+    {
+      "id": "imurah_final",
+      "name": "伊穆拉 — 终战（召唤变天魔）",
+      "nameEn": "Imurah – Final Boss",
+      "folder": null,
+      "progressPct": 98,
+      "storyGap": 5,
+      "planet": "Demerium·亚空间裂隙",
+      "highlight": true,
+      "context": {
+        "plot": "战役高潮与终点。伊穆拉启动\"曙光计划\"、撕开亚空间裂隙诱困卡尔加，并召唤提兹奇的大恶魔\"变天魔\"（Lord of Change）助阵。提图斯必须在这场亚空间的混乱中击败伊穆拉——最终他摧毁能量源，让伊穆拉被自己引导的亚空间之力反噬吞没。这是一场关于忠诚、复仇与牺牲的史诗收束。",
+        "characters": "伊穆拉：召唤变天魔、力量达到巅峰的混沌术士，此战是他两百年算计的终点。\n\n变天魔：提兹奇的大恶魔，战斗中的强力助力与威胁。\n\n提图斯：以一名 primaris 星际战士的全部力量，为帝皇与战团长而战。",
+        "gameplay": "多阶段法术终战：伊穆拉空中走位＋亚空间弹幕，并周期性借助变天魔施压。核心是\"读招—规避—贴脸\"的循环：用掩体和翻滚躲过弹幕齐射，抓他施法后摇近战爆发；留意需要破坏的能量源/机关节点，按提示推进剧情阶段。全程靠处决维持续航。"
+      }
+    }
+  ],
+  "playerSentiment": {
+    "steamScore": 86,
+    "source": "Steam 用户评测 & Metacritic & Reddit",
+    "note": "发售即「特别好评」；战役偏短与 Epic 在线服务/隐私争议是主要槽点，但\"星际战士爽感\"获广泛认可（数值随时间小幅波动，待核）",
+    "keywords": {
+      "praise": [
+        "星际战士爽感拉满",
+        "虫潮规模震撼",
+        "近战手感扎实",
+        "合作模式上头",
+        "40K氛围还原满分",
+        "演出与配乐到位",
+        "处决系统过瘾"
+      ],
+      "criticism": [
+        "战役偏短",
+        "剧情略单薄",
+        "敌人种类偏少",
+        "后期略重复",
+        "首发联机/EOS争议"
+      ],
+      "hot": [
+        "为了帝皇",
+        "战役该再长点",
+        "合作Operations才是肉",
+        "提图斯回来了",
+        "PVE还是PVP更香"
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "屏幕上一千只虫子冲过来，我笑着按下处决键——这就是我想要的星际战士。（综合转述自 Steam 好评）",
+        "author": "Steam 评测（转述）",
+        "upvotes": 4200
+      },
+      {
+        "text": "战役只有不到十小时，刚进入状态就结束了。但那十小时，每一分钟都是史诗。（综合转述）",
+        "author": "Steam 评测（转述）",
+        "upvotes": 3100
+      },
+      {
+        "text": "真正的乐趣在三人合作 Operations——和兄弟并肩扛住虫潮，比单人战役更上头。（综合转述自 Reddit）",
+        "author": "Reddit r/Spacemarine（转述）",
+        "upvotes": 2600
+      },
+      {
+        "text": "氛围、音效、那种为帝皇赴死的悲壮感——40K 粉丝等了十三年，值了。（综合转述）",
+        "author": "Metacritic 用户评测（转述）",
+        "upvotes": 1900
+      }
+    ]
+  }
+}
