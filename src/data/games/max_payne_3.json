@@ -12,8 +12,8 @@
   "steamAppId": 204100,
   "totalHoursMain": 10,
   "totalHoursComplete": 16,
-  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_hero.jpg",
-  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/204100/library_600x900.jpg",
+  "bannerUrl": "assets/covers/max_payne_3-banner.jpg",
+  "posterUrl": "assets/covers/max_payne_3-poster.jpg",
   "overview": {
     "tagline": "一个男人，一把枪，一段无路可退的旅程",
     "description": "Max Payne 3 是 Rockstar Games 出品的第三人称射击游戏，也是这个系列最成熟、最沉重的篇章。Max Payne——一个被悲剧和酒精蹂躏多年的前纽约警探——来到圣保罗担任保镖，却意外卷入了一场涉及腐败政客、黑帮与人体器官贩卖的巨大阴谋。游戏以慢动作子弹时间为核心机制，以电影级叙事为灵魂，大量第一人称内心独白构成了这个故事最独特的气质：疲惫、犀利、黑色幽默之下是一个孤独男人试图在废墟中找到一点点意义。",

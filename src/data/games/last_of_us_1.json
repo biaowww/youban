@@ -10,8 +10,8 @@
   "year": 2023,
   "steamAppId": 1888930,
   "totalHoursMain": 15,
-  "posterUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1888930/library_600x900.jpg",
-  "bannerUrl": "https://cdn.akamai.steamstatic.com/steam/apps/1888930/library_hero.jpg",
+  "posterUrl": "assets/covers/last_of_us_1-poster.jpg",
+  "bannerUrl": "assets/covers/last_of_us_1-banner.jpg",
   "gameTheme": {
     "bg": "#160e06",
     "bgCard": "#1e1408",

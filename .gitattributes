@@ -1,0 +1,17 @@
+# 行尾统一为 LF（仓库与工作区一致，消除 Windows 的 LF/CRLF 警告）
+* text=auto eol=lf
+
+# 二进制资源：禁止任何行尾 / 编码转换（防损坏）
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.icns  binary
+*.ttf   binary
+*.otf   binary
+*.woff  binary
+*.woff2 binary
+*.zip   binary
+*.pdf   binary
