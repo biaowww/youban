@@ -33,7 +33,10 @@ const HEADERS = {
   'Content-Type': 'application/json',
 };
 
-const hashOf = (obj) => createHash('sha256').update(JSON.stringify(obj)).digest('hex').slice(0, 16);
+// jsonb 回读会重排对象键序 → 哈希前先做键序无关的规范化，否则每次重跑都误判内容变更
+const canon = (v) => Array.isArray(v) ? v.map(canon)
+  : (v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])])) : v);
+const hashOf = (obj) => createHash('sha256').update(JSON.stringify(canon(obj))).digest('hex').slice(0, 16);
 
 async function main() {
   const files = readdirSync(GAMES_DIR).filter((f) => f.endsWith('.json')).sort();
