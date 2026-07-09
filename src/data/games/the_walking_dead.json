@@ -1,0 +1,357 @@
+{
+  "id": "the_walking_dead",
+  "name": "The Walking Dead",
+  "titleMain": "The Walking Dead",
+  "titleSub": "行尸走肉 第一季",
+  "short": "行尸走肉",
+  "genre": "剧情冒险 · 选择取向",
+  "currentPct": 0,
+  "nameEn": "The Walking Dead (Telltale)",
+  "developer": "Telltale Games",
+  "year": 2012,
+  "steamAppId": 207610,
+  "totalHoursMain": 11,
+  "totalHoursComplete": 15,
+  "bannerUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/207610/library_hero.jpg",
+  "posterUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/207610/library_600x900.jpg",
+  "gameTheme": {
+    "bg": "#0e0f0c",
+    "bgCard": "#16180f",
+    "accent": "#9a3327",
+    "accent2": "#41502c",
+    "text": "#dcd6c2"
+  },
+  "overview": {
+    "tagline": "末世里最难的不是活下去，而是决定成为怎样的人",
+    "description": "《行尸走肉》第一季是 Telltale Games 开创叙事冒险新范式的里程碑之作，改编自 Robert Kirkman 的同名漫画宇宙。你扮演 Lee Everett——一个被定罪、正被押送的男子，在丧尸爆发之初意外获得自由，遇见独自躲在树屋里的小女孩 Clementine。他承诺护她周全，两人在崩坏的乔治亚州一路辗转。游戏的核心从来不是打丧尸，而是「选择的重量」：每一次对话、每一个道德抉择，都在悄悄塑造 Clementine 会长成怎样的人，也在定义你自己。它以一段亦父亦师的「父女」羁绊，重新定义了什么叫互动叙事，横扫当年年度游戏奖项。",
+    "highlights": [
+      {
+        "icon": "💔",
+        "text": "Lee 与 Clementine 的父女羁绊——几乎每篇评测的情感核心"
+      },
+      {
+        "icon": "🔀",
+        "text": "选择驱动叙事：对话与抉择塑造角色，把「选择的重量」压在你肩上"
+      },
+      {
+        "icon": "😭",
+        "text": "结局是游戏史级的催泪告别，无数玩家看完久久无法起身"
+      },
+      {
+        "icon": "🏆",
+        "text": "重新定义叙事冒险品类，横扫当年多项年度游戏奖"
+      }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "这是一段关于羁绊的旅程，情感靠一点一滴累积。从 Lee 遇见 Clementine 的第一刻开始，才能真正体会结局的重量——强烈建议从头亲历。"
+    },
+    {
+      "progressPct": 20,
+      "label": "恐怖高潮入口",
+      "reason": "第二章「Starved for Help」的 St. John 奶牛农场是全季最惊悚的桥段，也是第一个真正意义上的道德重锤，剧情张力从这里陡增。"
+    },
+    {
+      "progressPct": 80,
+      "label": "终章直入·时日无多",
+      "reason": "第五章「No Time Left」——被咬的 Lee 拼尽最后气力守护 Clementine。只想感受这段催泪终幕的玩家可从这里进入（但会错过前情的情感铺垫）。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 5,
+      "event": "遇见 Clementine·羁绊的起点",
+      "description": "Lee 逃出车祸现场，在一栋屋子的树屋里发现独自躲藏的小女孩 Clementine。他做出了改变余生的承诺：护她周全。",
+      "unlocks": [
+        "对话选择系统",
+        "'选择会被记住'机制",
+        "克莱门婷信任线开启"
+      ]
+    },
+    {
+      "progressPct": 30,
+      "event": "奶牛农场·第一个道德重锤",
+      "description": "St. John 一家的'善意'揭开吃人的恐怖真相；Larry 的生死在此涉及玩家抉择。Lee 第一次直面'为了生存可以做到哪一步'。",
+      "unlocks": [
+        "高压道德抉择",
+        "团队信任分化",
+        "生存伦理主题"
+      ]
+    },
+    {
+      "progressPct": 50,
+      "event": "夺车奔向萨凡纳·短暂的希望",
+      "description": "匪徒与丧尸接连袭击，团队分崩离析；众人夺得一列火车，驶向萨凡纳寻找 Clementine 的父母。绝望中难得的一段喘息。",
+      "unlocks": [
+        "团队重组",
+        "Kenny 悲剧弧推进",
+        "旅途目标明确"
+      ]
+    },
+    {
+      "progressPct": 75,
+      "event": "陌生人现身·信任的裂痕",
+      "description": "抵达萨凡纳寻船受阻，一个神秘的无线电声音通过 Clementine 的对讲机步步逼近。团队走向分化，Clementine 也开始动摇。",
+      "unlocks": [
+        "反派'陌生人'伏笔",
+        "父女信任受考验"
+      ]
+    },
+    {
+      "progressPct": 92,
+      "event": "Clementine 被掳·沉默的倒计时",
+      "description": "陌生人掳走了 Clementine，而 Lee 已被咬伤。他用尽最后的力气穿越丧尸围城，只为把她救回来。",
+      "unlocks": [
+        "最终营救",
+        "Lee 生命倒计时"
+      ]
+    },
+    {
+      "progressPct": 100,
+      "event": "终幕告别·教她如何独活",
+      "description": "Lee 完成最后的守护，把如何在末世独自活下去的道理，留给了 Clementine。公认游戏史级的催泪结局。",
+      "unlocks": [
+        "结局抉择",
+        "Clementine 独立成长",
+        "第二季伏笔"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "name": "第一章：A New Day",
+      "planet": "乔治亚州·梅肯",
+      "progressStart": 0,
+      "progressEnd": 20,
+      "hypeScore": 8,
+      "keyEvent": "Lee 逃出车祸、遇见 Clementine，与梅肯幸存者会合",
+      "plotDetail": "丧尸爆发的第一天。押送 Lee 的警车在乔治亚郊外撞毁，他侥幸逃生，却撞进了一个正在崩坏的世界。在一栋郊区屋子里，他遇见了躲在树屋、父母远在萨凡纳的小女孩 Clementine，并承诺保护她。两人一路辗转到小镇梅肯（Macon），与一群各怀心事的幸存者会合——末世的人性剧场正式拉开帷幕。",
+      "playerGoals": "逃离车祸现场活下来 → 保护 Clementine → 抵达梅肯、融入幸存者团队",
+      "newCharacters": "Lee Everett（主角，被定罪的男子）、Clementine（核心小女孩）、Kenny 一家（渔民硬汉 + 妻 Katjaa、子 Duck）、Lilly 与父亲 Larry（早期团队领袖父女）"
+    },
+    {
+      "id": 1,
+      "name": "第二章：Starved for Help",
+      "planet": "乔治亚州·St. John 奶牛农场",
+      "progressStart": 20,
+      "progressEnd": 40,
+      "hypeScore": 9,
+      "keyEvent": "汽车旅馆断粮，St. John 农场的'善意'揭开吃人真相",
+      "plotDetail": "汽车旅馆基地陷入断粮危机，众人接受了 St. John 一家奶牛农场的招待。但这份'善意'背后，是全季最令人毛骨悚然的秘密——这一家人在吃人。第二章把'为了生存能做到哪一步'的拷问推到极致，Larry 的命运更让玩家在生死之间被迫抉择。这是本作第一个真正的道德重锤。",
+      "playerGoals": "为旅馆众人寻找食物 → 识破 St. John 一家的恐怖真相 → 在人吃人的绝境中带众人脱身",
+      "newCharacters": "St. John 兄弟 Danny & Andrew、母亲 Brenda（食人农场一家）"
+    },
+    {
+      "id": 2,
+      "name": "第三章：Long Road Ahead",
+      "planet": "乔治亚州·公路与铁路",
+      "progressStart": 40,
+      "progressEnd": 60,
+      "hypeScore": 8,
+      "keyEvent": "匪徒与丧尸接连来袭，团队分裂，夺火车驶向萨凡纳",
+      "plotDetail": "匪徒的骚扰与丧尸的围攻接连而至，旅馆基地失守，团队在内讧与外敌中濒临瓦解，Lilly 阵营与众人彻底决裂。绝境中，众人夺得一列废弃火车，把希望寄托在萨凡纳——那里也许有 Clementine 的父母。这一章节奏最快、损失最惨，Kenny 一家的悲剧在此埋下最深的线。",
+      "playerGoals": "抵御匪徒与丧尸的接连袭击 → 应对团队内部的信任崩塌 → 夺得火车、启程前往萨凡纳",
+      "newCharacters": "Omid & Christa（途中加入的情侣，一路陪伴至终章）"
+    },
+    {
+      "id": 3,
+      "name": "第四章：Around Every Corner",
+      "planet": "乔治亚州·萨凡纳",
+      "progressStart": 60,
+      "progressEnd": 80,
+      "hypeScore": 8,
+      "keyEvent": "抵达萨凡纳找船，卷入社区冲突，'陌生人'的声音逼近",
+      "plotDetail": "众人终于抵达海滨城市萨凡纳，寻找一艘能离开这片死地的船。但城市远非避风港——当地社区的冲突、无处不在的丧尸，以及一个通过 Clementine 对讲机不断传来的神秘声音，让危机四伏。那个'陌生人'究竟是谁、想要什么，成了压在所有人心头的阴影。",
+      "playerGoals": "在萨凡纳寻找可用的船 → 周旋于当地社区的冲突 → 追查'陌生人'的来意，保护 Clementine",
+      "newCharacters": "萨凡纳社区幸存者、陌生人（The Stranger，无线电中的声音，反派浮现）"
+    },
+    {
+      "id": 4,
+      "name": "第五章：No Time Left",
+      "planet": "乔治亚州·萨凡纳",
+      "progressStart": 80,
+      "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "被咬的 Lee 拼死救回被掳的 Clementine，走向催泪终幕",
+      "plotDetail": "Lee 被咬了。倒计时开始。Clementine 被'陌生人'掳走，而 Lee 拼尽最后的气力，穿越萨凡纳的丧尸围城去把她救回来。在旅馆房间里与陌生人的摊牌，是这段旅程所有选择的总清算；而 Lee 留给 Clementine 的最后一课，则是游戏史上最令人心碎的告别之一。此处不再剧透——请亲历。",
+      "playerGoals": "在被咬倒计时中穿越丧尸围城 → 与陌生人摊牌、救回 Clementine → 完成最后的守护与告别",
+      "newCharacters": "（无新主要角色——这是所有羁绊的收束）"
+    }
+  ],
+  "hypePeaks": [
+    {
+      "progressPct": 6,
+      "label": "遇见 Clementine",
+      "score": 8,
+      "color": "#9a3327"
+    },
+    {
+      "progressPct": 30,
+      "label": "St. John 食人农场",
+      "score": 9,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 34,
+      "label": "Larry 的生死抉择",
+      "score": 8,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 52,
+      "label": "团队崩塌·夺火车",
+      "score": 8,
+      "color": "#f97316"
+    },
+    {
+      "progressPct": 66,
+      "label": "抵达萨凡纳",
+      "score": 7,
+      "color": "#41502c"
+    },
+    {
+      "progressPct": 78,
+      "label": "陌生人现身",
+      "score": 8,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 92,
+      "label": "Clementine 被掳",
+      "score": 9,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 99,
+      "label": "Lee 的最后告别",
+      "score": 10,
+      "color": "#9a3327"
+    }
+  ],
+  "achievements": [
+    {
+      "steamId": "ACH_EP1_DONE",
+      "name": "熬过第一天",
+      "progressPct": 20
+    },
+    {
+      "steamId": "ACH_EP2_DONE",
+      "name": "逃出奶牛农场",
+      "progressPct": 40
+    },
+    {
+      "steamId": "ACH_EP3_DONE",
+      "name": "驶向萨凡纳",
+      "progressPct": 60
+    },
+    {
+      "steamId": "ACH_EP4_DONE",
+      "name": "萨凡纳的阴影",
+      "progressPct": 80
+    },
+    {
+      "steamId": "ACH_EP5_DONE",
+      "name": "时日无多",
+      "progressPct": 100
+    }
+  ],
+  "bossSaves": [
+    {
+      "id": "st_john_dairy",
+      "name": "St. John 奶牛农场 — 食人真相",
+      "nameEn": "The St. John Dairy",
+      "folder": null,
+      "progressPct": 30,
+      "storyGap": 2,
+      "planet": "乔治亚州·St. John 农场",
+      "highlight": true,
+      "context": {
+        "plot": "汽车旅馆断粮，Lee 一行接受了 St. John 一家奶牛农场的招待。农场看似世外桃源，却藏着全季最恐怖的秘密——这一家人靠吃人续命。当真相在餐桌与谷仓之间层层揭开，恐惧与愤怒交织成本作第一个真正的高潮。Larry 的命运（涉及玩家抉择）更把'生存伦理'的拷问推到极致。",
+        "characters": "Danny & Andrew St. John：农场的两兄弟，笑里藏刀的食人者。\n\nBrenda St. John：一家之母，温柔表象下最冷酷的一个。\n\nLarry：Lilly 的父亲、暴躁老兵，其生死在农场高潮中由玩家抉择左右，是全季最受争议的一幕。",
+        "gameplay": "本作没有传统 Boss 战——'战斗'是对话、潜行、快速反应（QTE）与道德抉择的混合。农场章节的核心是识破真相后的逃生序列：在紧张的 QTE 与限时选择中带众人脱身；而 Larry 的处理方式会永久改变团队对 Lee 的看法。选择没有对错，只有代价。"
+      }
+    },
+    {
+      "id": "bandit_train",
+      "name": "团队崩塌 — 匪徒与火车",
+      "nameEn": "Bandits & the Train",
+      "folder": null,
+      "progressPct": 52,
+      "storyGap": 3,
+      "planet": "乔治亚州·公路与铁路",
+      "highlight": false,
+      "context": {
+        "plot": "匪徒的骚扰与丧尸的围攻接连而至，旅馆基地失守，团队在内讧中彻底分裂，Lilly 与众人决裂。绝境之中，众人夺得一列废弃火车，把最后的希望寄托在萨凡纳。这一段是全季损失最惨、节奏最快的转折，也是 Kenny 一家悲剧的引信。",
+        "characters": "Lilly：早期团队领袖，控制欲强，父亲死后走向敌对与出走。\n\nKenny：顾家的渔民硬汉，与 Lee 亦友亦敌，他一家的命运是全季最痛的悲剧弧。\n\nClementine：在颠沛中一天天长大，也一天天看清这个世界的残酷。",
+        "gameplay": "以限时抉择与场景解谜为主：清理铁轨障碍、抵御来袭、决定谁能留下谁被舍弃。多处'瞬间判断'会永久改变团队构成——本作的紧张感来自'你必须在几秒内为别人的生死做决定'，而非操作难度。"
+      }
+    },
+    {
+      "id": "stranger_finale",
+      "name": "陌生人对决 — 时日无多",
+      "nameEn": "The Stranger",
+      "folder": null,
+      "progressPct": 92,
+      "storyGap": 4,
+      "planet": "乔治亚州·萨凡纳",
+      "highlight": true,
+      "context": {
+        "plot": "全季的终点。已被咬伤、生命进入倒计时的 Lee，为了救回被'陌生人'掳走的 Clementine，拼尽最后的力气穿越萨凡纳的丧尸围城。在旅馆房间里与陌生人的摊牌，是这段旅程所有选择的总清算——他是谁、为何执意夺走 Clementine，答案令人唏嘘。这场对决之后，是游戏史上最令人心碎的告别之一。",
+        "characters": "The Stranger（陌生人）：本章反派。他的家人因 Lee 一行在旅途中的某个选择而间接送命，悲痛让他精神崩溃，执意要'替 Clementine 找个更好的归宿'。\n\nLee Everett：油尽灯枯，却仍要完成最后的守护。\n\nClementine：这一刻，她将学会如何独自面对世界。",
+        "gameplay": "对决以对话博弈 + 关键 QTE 呈现，处理方式（如何制服陌生人、Clementine 是否出手）取决于玩家。终局的一系列抉择没有'最优解'，只有属于你的那一版告别。请放慢脚步，充分体验最后的过场——这是无数玩家心中难以逾越的结局。"
+      }
+    }
+  ],
+  "playerSentiment": {
+    "steamScore": 97,
+    "source": "Steam 用户评测 & Metacritic & Wikipedia",
+    "note": "叙事冒险的里程碑，Steam「好评如潮」（52,983 篇评测），横扫当年年度游戏奖",
+    "keywords": {
+      "praise": [
+        "叙事天花板",
+        "Lee与克莱门婷父女情",
+        "选择有重量",
+        "结局催泪炸弹",
+        "角色塑造极深",
+        "重新定义叙事冒险",
+        "配乐动人",
+        "沉浸感极强"
+      ],
+      "criticism": [
+        "Telltale引擎卡顿",
+        "场景切换加载",
+        "选择影响没那么大",
+        "部分章节偏短",
+        "操作偏简单"
+      ],
+      "hot": [
+        "结局哭了多久",
+        "克莱门婷要教成什么样",
+        "Larry该不该救",
+        "选择到底影不影响结局",
+        "史上最强游戏结局之一"
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "剧情和角色好到让你忘了它其实是个'点选'游戏——结局让我坐在屏幕前久久起不来。",
+        "author": "Steam 评测（转述）",
+        "upvotes": 6200
+      },
+      {
+        "text": "别被丧尸题材骗了，这是一个关于'如何做人'的故事。克莱门婷会永远住在你心里。",
+        "author": "Steam 评测（转述）",
+        "upvotes": 4800
+      },
+      {
+        "text": "技术上确实糙、会卡，选择的蝴蝶效应也没宣传得那么大——但那份情感体验完全值回票价。",
+        "author": "Metacritic 用户评测（转述）",
+        "upvotes": 2600
+      }
+    ]
+  }
+}

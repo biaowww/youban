@@ -9,8 +9,8 @@ const { loadGameFiles } = validator;
 const files = loadGameFiles();
 
 describe('adaptGame · 真实游戏数据', () => {
-  it('能加载到 6 款游戏', () => {
-    expect(files.length).toBe(6);
+  it('能加载到 9 款游戏', () => {
+    expect(files.length).toBe(9);
   });
 
   for (const { file, game } of files) {

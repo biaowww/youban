@@ -1,0 +1,438 @@
+{
+  "id": "spider_man_remastered",
+  "name": "Marvel's Spider-Man Remastered",
+  "titleMain": "Marvel's Spider-Man",
+  "titleSub": "漫威蜘蛛侠 重制版",
+  "short": "漫威蜘蛛侠",
+  "genre": "开放世界 · 动作冒险",
+  "currentPct": 0,
+  "nameEn": "Marvel's Spider-Man Remastered",
+  "developer": "Insomniac Games",
+  "year": 2022,
+  "steamAppId": 1817070,
+  "totalHoursMain": 17,
+  "totalHoursComplete": 35,
+  "bannerUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/library_hero.jpg",
+  "posterUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/library_600x900.jpg",
+  "gameTheme": {
+    "bg": "#0b0d14",
+    "bgCard": "#121622",
+    "accent": "#c8202f",
+    "accent2": "#2f6fd0",
+    "text": "#e8ecf4"
+  },
+  "overview": {
+    "tagline": "能力越大，责任越大——但没人教过你责任有多重",
+    "description": "《漫威蜘蛛侠 重制版》是 Insomniac 打造的超级英雄开放世界标杆。彼得·帕克 23 岁，已当了 8 年蜘蛛侠，却依旧在为房租、感情和事业焦头烂额——这是一个「成熟版」的蜘蛛侠：足够老练，也足够疲惫。游戏开场，他终于将统治纽约黑帮多年的犯罪之王金并送进监狱，但权力真空引来了戴面具的「恶魔帮」及其首领黑心先生。随着致命生化武器「恶魔之息」被夺、瘟疫笼罩曼哈顿，一场关于信任、牺牲与「责任」的风暴，最终演变成「邪恶六人组」的全面危机。招牌的摆荡传送手感、电影化的剧情演出、以及那个被誉为神来之笔的反转，让它成为许多人心中最好的超级英雄游戏。",
+    "highlights": [
+      {
+        "icon": "🕸️",
+        "text": "摆荡传送的「飞天蜘蛛」手感，纽约上空穿梭爽到起飞"
+      },
+      {
+        "icon": "👊",
+        "text": "战斗爽快连招流畅，处决 / 道具 / 环境互动花样繁多"
+      },
+      {
+        "icon": "🎭",
+        "text": "剧情电影化，一个被公认为神来之笔的中后期反转"
+      },
+      {
+        "icon": "🏙️",
+        "text": "高度还原的曼哈顿，地标与城市氛围满分"
+      }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "开场擒金并的登塔一跃是系列最经典的高空摆荡教学，也是彼得日常压力与英雄身份并行的绝佳引入。从头玩才能体会中后期反转的重量。"
+    },
+    {
+      "progressPct": 42,
+      "label": "剧情加速入口",
+      "reason": "彼得开始协助 Otto 研究、秃鹫电光登场——邪恶集结、瘟疫将至，叙事密度从这里陡增，战斗难度也进入中段。"
+    },
+    {
+      "progressPct": 72,
+      "label": "高潮直入·六人组越狱",
+      "reason": "全作最大的转折与终局：邪恶六人组越狱、真正的幕后黑手现身。只想体验高潮与结局情感抉择的玩家可从这里进入（会剧透中段反转）。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 3,
+      "event": "擒金并·登塔一跃",
+      "description": "彼得突袭 Fisk Tower，将统治纽约黑帮多年的犯罪之王金并送进监狱。八年蜘蛛侠生涯的一个句点，也是新危机的开端。",
+      "unlocks": [
+        "摆荡传送与跑酷",
+        "近战连招 + 蛛丝道具",
+        "环境处决"
+      ]
+    },
+    {
+      "progressPct": 15,
+      "event": "恶魔帮崛起·黑心先生现身",
+      "description": "金并倒台留下的权力真空，被戴面具的「恶魔帮」填补。其首领黑心先生（马丁·李）以诡异的暗物质能力登场，一个全新的威胁浮出水面。",
+      "unlocks": [
+        "小工具（gadget）系统",
+        "对恶魔帮作战",
+        "潜行处决"
+      ]
+    },
+    {
+      "progressPct": 35,
+      "event": "恶魔之息·危机升级",
+      "description": "黑心先生盗取致命生化武器「恶魔之息」，纽约笼罩在瘟疫的阴影下。彼得在火车上与黑心首次正面对决，赌注前所未有地高。",
+      "unlocks": [
+        "更多战斗小工具",
+        "剧情化 Boss 战",
+        "城市危机事件"
+      ]
+    },
+    {
+      "progressPct": 50,
+      "event": "义肢研究·邪恶集结",
+      "description": "彼得在 Otto Octavius 博士的实验室协助研究义肢科技（一段意味深长的伏笔）。与此同时，秃鹫与电光等反派开始聚集，风暴正在成形。",
+      "unlocks": [
+        "对空作战",
+        "双 Boss 应对",
+        "研究站 / 城市任务"
+      ]
+    },
+    {
+      "progressPct": 72,
+      "event": "导师的反转·章鱼博士",
+      "description": "你信任、敬重的导师 Otto，戴上了机械臂——成为章鱼博士。铺垫了整整一场的角色弧在此刻收束，也是全作最令人心碎的情感重锤。",
+      "unlocks": [
+        "剧情彻底转向",
+        "邪恶六人组成形",
+        "终局倒计时"
+      ]
+    },
+    {
+      "progressPct": 80,
+      "event": "邪恶六人组越狱",
+      "description": "章鱼博士突袭「监狱岛」，一次性放出电光、秃鹫、犀牛、蝎子与黑心先生。纽约陷入全面失控，蜘蛛侠孤军奋战。",
+      "unlocks": [
+        "多线危机应对",
+        "全城陷落事件",
+        "最强反派群像"
+      ]
+    },
+    {
+      "progressPct": 100,
+      "event": "艰难的抉择·责任的重量",
+      "description": "恶魔之息瘟疫下，唯一的解药只够救一人：是救全城，还是救最亲的人。彼得做出了英雄的选择，也付出了沉痛的代价——「能力越大，责任越大」在这一刻有了最重的分量。",
+      "unlocks": [
+        "最终决战",
+        "结局的情感抉择",
+        "迈尔斯 / 续作伏笔"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "name": "序章：擒金并",
+      "planet": "纽约·曼哈顿（Fisk Tower）",
+      "progressStart": 0,
+      "progressEnd": 8,
+      "hypeScore": 8,
+      "keyEvent": "突袭 Fisk Tower，将犯罪之王金并送进监狱",
+      "plotDetail": "23 岁的彼得·帕克已是 8 年经验的蜘蛛侠。游戏以一场酣畅淋漓的突袭开场：他一路杀进 Fisk Tower 顶层，终于将统治纽约黑帮多年的犯罪之王金并（Wilson Fisk）绳之以法。这既是他英雄生涯的一座里程碑，也在无意间打开了潘多拉的盒子——金并倒台留下的权力真空，很快将被更危险的东西填满。",
+      "playerGoals": "突袭 Fisk Tower，一路打到顶层 → 击败金并 → 将犯罪之王送进监狱",
+      "newCharacters": "彼得·帕克 / 蜘蛛侠（主角）、金并 Wilson Fisk（开场 Boss，犯罪之王）、尤里·渡边（NYPD 警监，警方联络人）"
+    },
+    {
+      "id": 1,
+      "name": "第一章：恶魔帮崛起",
+      "planet": "纽约·曼哈顿",
+      "progressStart": 8,
+      "progressEnd": 22,
+      "hypeScore": 7,
+      "keyEvent": "戴面具的恶魔帮登场，黑心先生浮出水面",
+      "plotDetail": "金并入狱后，一个戴着面具、行事诡异的新帮派「恶魔帮（Demons）」迅速崛起，填补了黑帮的权力真空。它的首领黑心先生（Mr. Negative）拥有诡异的暗物质能力，目标远不止地盘那么简单。与此同时，彼得的生活一团乱麻：与记者 MJ 藕断丝连，在 Otto Octavius 博士的实验室做研究助手，为理想与房租两头奔忙。",
+      "playerGoals": "调查恶魔帮的崛起 → 与震荡波（Shocker）交手 → 追查黑心先生的真正意图",
+      "newCharacters": "黑心先生 / 马丁·李（恶魔帮首领）、玛丽·简 MJ（记者，彼得恋人）、奥托·奥克塔维斯博士（彼得的导师与雇主）、梅姨（彼得至亲，F.E.A.S.T. 义工）"
+    },
+    {
+      "id": 2,
+      "name": "第二章：恶魔之息",
+      "planet": "纽约·曼哈顿",
+      "progressStart": 22,
+      "progressEnd": 42,
+      "hypeScore": 8,
+      "keyEvent": "黑心先生盗取生化武器「恶魔之息」，火车上首次对决",
+      "plotDetail": "黑心先生的真正目标浮出水面：致命生化武器「恶魔之息（Devil's Breath）」。他不惜血洗以夺取它，将整个纽约推向瘟疫的边缘。彼得在一列失控的列车上与黑心首次正面对决，电影化的高强度追逐让人肾上腺素飙升。而 MJ 的独立调查线，也让玩家体验了没有超能力时的紧张潜行。",
+      "playerGoals": "追查恶魔之息的下落 → 在火车上正面对决黑心先生 → 阻止生化武器落入最坏的人手中",
+      "newCharacters": "银貂 Silver Sable（雇佣兵首领，中期介入）、诺曼·奥斯本（纽约市长，权势人物）"
+    },
+    {
+      "id": 3,
+      "name": "第三章：义肢与邪恶集结",
+      "planet": "纽约·曼哈顿",
+      "progressStart": 42,
+      "progressEnd": 58,
+      "hypeScore": 8,
+      "keyEvent": "彼得助 Otto 研究义肢（伏笔），秃鹫与电光登场",
+      "plotDetail": "彼得在 Otto Octavius 博士的实验室，协助他研究能造福残障人士的先进义肢——一段温情而意味深长的伏笔。然而窗外的纽约正在失控：秃鹫（Vulture）与电光（Electro）等强敌接连登场，一股更大的邪恶正在暗中集结。英雄与科学家的双重身份，在这一章被拉扯到极限。",
+      "playerGoals": "在实验室协助 Otto 的义肢研究 → 应对秃鹫与电光的空中威胁 → 察觉邪恶集结的征兆",
+      "newCharacters": "电光 Electro、秃鹫 Vulture（邪恶六人组成员）"
+    },
+    {
+      "id": 4,
+      "name": "第四章：瘟疫·纽约陷落",
+      "planet": "纽约·曼哈顿",
+      "progressStart": 58,
+      "progressEnd": 72,
+      "hypeScore": 9,
+      "keyEvent": "马丁·李身份揭穿，恶魔之息释放，纽约陷入瘟疫",
+      "plotDetail": "黑心先生的公众身份——慈善家马丁·李——被揭穿，他执掌的 F.E.A.S.T. 收容所也卷入风暴。恶魔之息最终被释放，致命瘟疫在曼哈顿蔓延，城市陷入前所未有的混乱。蝎子（Scorpion）与犀牛（Rhino）的加入让局势雪上加霜。彼得最深的恐惧，开始一步步逼近他最珍视的人。",
+      "playerGoals": "阻止恶魔之息的扩散 → 迎战蝎子与犀牛 → 在瘟疫中守护城市与至亲",
+      "newCharacters": "蝎子 Scorpion、犀牛 Rhino（邪恶六人组成员）"
+    },
+    {
+      "id": 5,
+      "name": "第五章：邪恶六人组越狱",
+      "planet": "纽约·监狱岛（The Raft）",
+      "progressStart": 72,
+      "progressEnd": 90,
+      "hypeScore": 10,
+      "keyEvent": "Otto 现身为章鱼博士，率邪恶六人组越狱",
+      "plotDetail": "全作最大的转折。你信任、敬重的导师 Otto Octavius，戴上了他亲手研制的机械臂——成为章鱼博士（Doctor Octopus）。他突袭「监狱岛」，一次性解放电光、秃鹫、犀牛、蝎子与黑心先生，组成「邪恶六人组」。铺垫了整整一场的反转在此刻炸裂，纽约随之陷入全面失控，蜘蛛侠必须孤军对抗五路强敌。",
+      "playerGoals": "阻止监狱岛的越狱（但失败）→ 逐一迎战失控的邪恶六人组 → 追查章鱼博士的最终计划",
+      "newCharacters": "章鱼博士 Doctor Octopus（Otto 的黑暗蜕变，最终 Boss）"
+    },
+    {
+      "id": 6,
+      "name": "终章：艰难的抉择",
+      "planet": "纽约·曼哈顿",
+      "progressStart": 90,
+      "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "解药与至亲的抉择，最终对决章鱼博士",
+      "plotDetail": "瘟疫肆虐，唯一的解药却只够救一个人：是救全城，还是救最珍视的亲人。彼得在与章鱼博士的最终决战之外，还要面对一个英雄最沉重的抉择。「能力越大，责任越大」这句话，在这一刻有了最痛的重量。此处不再剧透——请亲历这个让无数玩家沉默的结局。",
+      "playerGoals": "与章鱼博士展开最终决战 → 面对解药只够救一人的抉择 → 承担「责任」的全部重量",
+      "newCharacters": "（角色弧线收束；迈尔斯·莫拉莱斯的续作伏笔）"
+    }
+  ],
+  "hypePeaks": [
+    {
+      "progressPct": 4,
+      "label": "擒金并·登塔一跃",
+      "score": 8,
+      "color": "#c8202f"
+    },
+    {
+      "progressPct": 15,
+      "label": "黑心先生现身",
+      "score": 7,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 35,
+      "label": "火车对决黑心",
+      "score": 8,
+      "color": "#2f6fd0"
+    },
+    {
+      "progressPct": 50,
+      "label": "电光 + 秃鹫空战",
+      "score": 8,
+      "color": "#eab308"
+    },
+    {
+      "progressPct": 72,
+      "label": "Otto 的反转",
+      "score": 10,
+      "color": "#c8202f"
+    },
+    {
+      "progressPct": 80,
+      "label": "邪恶六人组越狱",
+      "score": 9,
+      "color": "#ef4444"
+    },
+    {
+      "progressPct": 92,
+      "label": "解药的抉择",
+      "score": 9,
+      "color": "#a855f7"
+    },
+    {
+      "progressPct": 98,
+      "label": "章鱼博士终战",
+      "score": 10,
+      "color": "#c8202f"
+    }
+  ],
+  "achievements": [
+    {
+      "steamId": "ACH_SPM_KINGPIN",
+      "name": "擒下金并",
+      "progressPct": 8
+    },
+    {
+      "steamId": "ACH_SPM_TRAIN",
+      "name": "火车对决黑心",
+      "progressPct": 35
+    },
+    {
+      "steamId": "ACH_SPM_SINISTER",
+      "name": "邪恶集结",
+      "progressPct": 58
+    },
+    {
+      "steamId": "ACH_SPM_BREAKOUT",
+      "name": "六人组越狱",
+      "progressPct": 80
+    },
+    {
+      "steamId": "ACH_SPM_END",
+      "name": "责任的重量（通关）",
+      "progressPct": 100
+    }
+  ],
+  "bossSaves": [
+    {
+      "id": "kingpin",
+      "name": "金并 — 开场之战",
+      "nameEn": "Kingpin (Wilson Fisk)",
+      "folder": null,
+      "progressPct": 4,
+      "storyGap": 1,
+      "planet": "纽约·Fisk Tower",
+      "highlight": false,
+      "context": {
+        "plot": "游戏的开场教学 Boss。彼得一路杀进 Fisk Tower 顶层，与统治纽约黑帮多年的犯罪之王金并（Wilson Fisk）正面交锋。这场战斗动态十足、演出张力拉满，把蜘蛛侠的核心战斗语言——闪避、连招、蛛丝道具、环境利用——干净利落地介绍给玩家。",
+        "characters": "金并 Wilson Fisk：体格庞大的犯罪之王，蛮力型打法；他的倒台是全作一切连锁反应的起点。\n\n蜘蛛侠：8 年老手，开场即展现成熟的战斗身手。",
+        "gameplay": "教学级 Boss。核心：金并挥拳/冲撞有明显预警（蛛感闪光），闪避后反击；被红光标记的重击无法招架必须躲。利用场景中的物件（用蛛丝甩向他）打出破绽。熟悉「闪避—反击—蛛丝」的基础循环。"
+      }
+    },
+    {
+      "id": "negative_train",
+      "name": "黑心先生 — 火车对决",
+      "nameEn": "Mister Negative – Train",
+      "folder": null,
+      "progressPct": 35,
+      "storyGap": 2,
+      "planet": "纽约·地铁",
+      "highlight": true,
+      "context": {
+        "plot": "黑心先生盗取生化武器「恶魔之息」后，彼得在一列失控的地铁列车上与他首次正面对决。这是一场高度电影化的追逐战，黑心以暗物质能量猛攻，蜘蛛侠在飞驰的车厢内外腾挪——赌注是整座城市的安危。",
+        "characters": "黑心先生 / 马丁·李：拥有暗物质能力的恶魔帮首领，公众身份是慈善家。他的双面人生是全作重要的主题之一。\n\n蜘蛛侠：第一次真正见识黑心力量的可怕。",
+        "gameplay": "剧情化 Boss 战，大量快速反应（QTE）与限定场景交互穿插。跟随演出节奏闪避黑心的暗能量冲击、抓住间隙输出。重点是「感受」这场追逐的电影感，而非纯粹的技术难度。"
+      }
+    },
+    {
+      "id": "electro_vulture",
+      "name": "电光 + 秃鹫 — 二打一空战",
+      "nameEn": "Electro & Vulture",
+      "folder": null,
+      "progressPct": 50,
+      "storyGap": 3,
+      "planet": "纽约·上空",
+      "highlight": true,
+      "context": {
+        "plot": "邪恶开始集结。彼得同时面对两名强敌：能操控电力的电光（Electro）与飞行掠食的秃鹫（Vulture）。一个在空中俯冲、一个远程放电，双 Boss 的配合让这场空战成为中段最考验操作的一役。",
+        "characters": "电光 Electro：操控电力的远程威胁。\n\n秃鹫 Vulture：机械翼装的飞行掠食者，高机动近身。二人一远一近，逼你不断切换应对。",
+        "gameplay": "空中双 Boss 战。核心是「优先级管理」：用蛛丝拉近或打断飞行中的秃鹫，同时躲避电光的范围放电（地面/空中的电场提示）。善用小工具（电网、震荡波）控场，别让两人同时对你形成夹击。"
+      }
+    },
+    {
+      "id": "rhino_scorpion",
+      "name": "犀牛 + 蝎子 — 蛮力与剧毒",
+      "nameEn": "Rhino & Scorpion",
+      "folder": null,
+      "progressPct": 62,
+      "storyGap": 3,
+      "planet": "纽约·曼哈顿",
+      "highlight": false,
+      "context": {
+        "plot": "瘟疫笼罩下的纽约愈发失控，蝎子（Scorpion）与犀牛（Rhino）联手围攻蜘蛛侠。蝎子以剧毒幻觉扰乱心智，犀牛则是一堵横冲直撞的肉墙——蛮力与灵巧的组合让难度陡增。",
+        "characters": "犀牛 Rhino：装甲蛮牛，直线冲撞势不可挡。\n\n蝎子 Scorpion：剧毒尾刺 + 幻觉攻击，专攻心理。二者一硬一诡，是邪恶六人组的凶悍前哨。",
+        "gameplay": "双 Boss 战，讲究引导与走位。经典打法：引诱犀牛冲撞、让他撞上场景硬物触发硬直；同时闪避蝎子的毒刺突袭。别被两人夹在中间，利用场地障碍物分割他们的进攻。"
+      }
+    },
+    {
+      "id": "negative_final",
+      "name": "黑心先生 — 终战",
+      "nameEn": "Mister Negative – Final",
+      "folder": null,
+      "progressPct": 75,
+      "storyGap": 4,
+      "planet": "纽约·曼哈顿",
+      "highlight": false,
+      "context": {
+        "plot": "身份揭穿、恶魔之息释放之后，黑心先生迎来力量与执念的全面爆发。彼得与他的最后一战，不只是力量的对撞，更是两种「失去与救赎」人生的碰撞——黑心的悲剧底色，在这一战被完整点亮。",
+        "characters": "黑心先生 / 马丁·李：力量达到巅峰、也最接近崩溃的一战。他的配音与情感层次是这场战斗的亮点。\n\n蜘蛛侠：在瘟疫危机的重压下，仍要与宿敌了断。",
+        "gameplay": "多阶段 Boss 战：黑心会在「白衣（马丁·李）」与「黑心」形态间切换，暗物质分身与范围爆发是主要威胁。看准他能量读条的间隙集中输出，用小工具打断其大招。保持移动，别站进暗物质场。"
+      }
+    },
+    {
+      "id": "doc_ock",
+      "name": "章鱼博士 — 最终决战",
+      "nameEn": "Doctor Octopus",
+      "folder": null,
+      "progressPct": 98,
+      "storyGap": 5,
+      "planet": "纽约·曼哈顿",
+      "highlight": true,
+      "context": {
+        "plot": "全作的终点，也是无数玩家心中「最完美的最终 Boss」。你敬爱的导师 Otto Octavius，已彻底成为章鱼博士。铺垫了整部作品的角色弧在此收束——这一战不只是蜘蛛侠对反派，更是彼得对一位亦师亦友之人的痛心告别。战斗之后，是那个关于解药、关于至亲、关于「责任」的沉重抉择。",
+        "characters": "章鱼博士 Doctor Octopus / Otto Octavius：四条机械臂的天才科学家，从导师到宿敌的蜕变是全作最令人心碎的弧线。\n\n蜘蛛侠：以全部的力量与心痛，面对这场注定两败俱伤的对决。",
+        "gameplay": "多阶段最终 Boss，融合机械臂近战、远程投掷与场景破坏。核心是识别四条机械臂的攻击模式、在他大招间隙反击，并跟随高度剧情化的演出推进阶段。请放慢脚步，充分体验这场收束全作情感的终战与结局——它值得你亲历每一刻。"
+      }
+    }
+  ],
+  "playerSentiment": {
+    "steamScore": 96,
+    "source": "Steam 用户评测 & Metacritic & Reddit",
+    "note": "Steam「好评如潮」（约 96%）；摆荡手感与 Otto 反转广受赞誉，MJ/潜行段落与公式化收集为主要争议",
+    "keywords": {
+      "praise": [
+        "摆荡手感封神",
+        "战斗爽快连招流畅",
+        "剧情电影化",
+        "Otto反转神来之笔",
+        "曼哈顿高度还原",
+        "演出与配乐出色",
+        "处决花样多",
+        "超级英雄幻想拉满"
+      ],
+      "criticism": [
+        "收集物略繁多",
+        "MJ潜行关争议大",
+        "开放世界公式化",
+        "部分支线重复",
+        "强制绑定PSN账号"
+      ],
+      "hot": [
+        "Otto反转你哭了吗",
+        "结局解药该给谁",
+        "MJ潜行关爱还是恨",
+        "最好的超英游戏吗",
+        "迈尔斯续作期待"
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "在纽约上空荡来荡去这件事本身就值回票价——这是市面上手感最好的蜘蛛侠。",
+        "author": "Steam 评测（转述）",
+        "upvotes": 6400
+      },
+      {
+        "text": "Otto 戴上机械臂那一刻我是真的心碎了——铺垫了一整场，收得漂亮。",
+        "author": "Reddit r/SpidermanPS4（转述）",
+        "upvotes": 4700
+      },
+      {
+        "text": "唯一想快进的就是 MJ 潜行关，好在占比不大；结局的抉择让我沉默了很久。",
+        "author": "Steam 评测（转述）",
+        "upvotes": 2900
+      }
+    ]
+  }
+}
