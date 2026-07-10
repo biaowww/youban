@@ -1,0 +1,60 @@
+name: Deploy web demo to GitHub Pages
+
+# 把 renderer 作为「浏览器可开的静态 demo」发到 GitHub Pages（供内部测试）。
+# 数据用打包进去的 mock-data.js（真实 9 款游戏），不依赖 Electron/后端。
+# 入口 index.html = 手机端 App（preview.html）；三端切换在 /preview-multi.html。
+
+on:
+  push:
+    branches: [electron]
+    paths:
+      - 'src/renderer/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble static site from src/renderer
+        run: |
+          set -e
+          mkdir -p _site
+          # 拷贝运行时需要的产物与资源（不含 *.jsx 源码与 *.legacy）
+          cp -r src/renderer/dist            _site/dist
+          cp -r src/renderer/vendor          _site/vendor
+          cp -r src/renderer/assets          _site/assets
+          cp -r src/renderer/tokens          _site/tokens
+          cp src/renderer/adapt.js           _site/adapt.js
+          cp src/renderer/mock-data.js       _site/mock-data.js
+          cp src/renderer/app.css            _site/app.css
+          cp src/renderer/screens.css        _site/screens.css
+          cp src/renderer/desktop.css        _site/desktop.css
+          cp src/renderer/preview.html       _site/preview.html
+          cp src/renderer/preview-multi.html _site/preview-multi.html
+          # 入口：手机端 App demo
+          cp src/renderer/preview.html       _site/index.html
+          # 关闭 Jekyll，避免 _ 前缀等被吞
+          touch _site/.nojekyll
+          echo "assembled:" && ls _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
