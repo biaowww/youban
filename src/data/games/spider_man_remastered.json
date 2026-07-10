@@ -12,8 +12,8 @@
   "steamAppId": 1817070,
   "totalHoursMain": 17,
   "totalHoursComplete": 35,
-  "bannerUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/library_hero.jpg",
-  "posterUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/library_600x900.jpg",
+  "bannerUrl": "assets/covers/spider_man_remastered-banner.jpg",
+  "posterUrl": "assets/covers/spider_man_remastered-poster.jpg",
   "gameTheme": {
     "bg": "#0b0d14",
     "bgCard": "#121622",

@@ -12,8 +12,8 @@
   "steamAppId": 207610,
   "totalHoursMain": 11,
   "totalHoursComplete": 15,
-  "bannerUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/207610/library_hero.jpg",
-  "posterUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/207610/library_600x900.jpg",
+  "bannerUrl": "assets/covers/the_walking_dead-banner.jpg",
+  "posterUrl": "assets/covers/the_walking_dead-poster.jpg",
   "gameTheme": {
     "bg": "#0e0f0c",
     "bgCard": "#16180f",

@@ -12,8 +12,8 @@
   "steamAppId": 2215430,
   "totalHoursMain": 25,
   "totalHoursComplete": 60,
-  "bannerUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/2215430/library_hero.jpg",
-  "posterUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/2215430/library_600x900.jpg",
+  "bannerUrl": "assets/covers/ghost_of_tsushima-banner.jpg",
+  "posterUrl": "assets/covers/ghost_of_tsushima-poster.jpg",
   "gameTheme": {
     "bg": "#0d0a0a",
     "bgCard": "#17100e",
