@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>游伴 v10-C · 旅程陪伴版 — Fallen Order</title>
+<link rel="stylesheet" href="_ds/offcircle-design-system-754ff1d7-7a07-4d16-98c8-17c97668d605/tokens/fonts.css" />
+<style>
+/* ============ v10-C 旅程陪伴版 ============
+   参考:design/references/
+   A1 Hero全出血 · A3 章节墙 · B2 渐变时长条 · B4 防剧透模糊
+   C1 蜿蜒旅程图 · C2 宝箱推荐起点 · C4 陪伴式问候 · C6 桌面端路径布局
+=============================================== */
+* { box-sizing: border-box; margin: 0; }
+:root {
+  --bg: #f5efe2; --bg2: #fbf8f0; --card: #fffdf8;
+  --ink: #261f13; --mut: #8a7d66; --line: rgba(70,55,25,.13);
+  --gold: #C4A35A; --gold-deep: #a37f35;
+  --accent: #0f86c8; --accent2: #e85d16;
+  --done: #7ba05b;
+  --hero-h: 88vh;
+  --shadow: 0 10px 34px rgba(60,45,15,.10);
+}
+body.dark {
+  --bg: #07090f; --bg2: #0b0e16; --card: #10151f;
+  --ink: #e8e0d0; --mut: #8b93a3; --line: rgba(255,255,255,.09);
+  --accent: #00b4ff;
+  --shadow: 0 12px 36px rgba(0,0,0,.45);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  line-height: 1.6; transition: background .4s, color .4s;
+}
+.mono { font-family: 'Space Mono', ui-monospace, monospace; }
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  display: flex; align-items: center; gap: 18px;
+  padding: 14px 30px;
+  background: transparent; transition: .35s;
+}
+.topbar.solid {
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar, .topbar .t-btn { color: #f2ead8; }
+.topbar.solid, .topbar.solid .t-btn { color: var(--ink); }
+.t-back { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; opacity: .85; }
+.t-back:hover { opacity: 1; }
+.t-brand { display: flex; align-items: center; gap: 10px; }
+.t-brand img { width: 30px; height: 30px; border-radius: 8px; }
+.t-brand b { font-size: 14.5px; letter-spacing: .01em; }
+.t-brand span { font-size: 11px; opacity: .6; margin-left: 6px; }
+.t-tabs { margin-left: auto; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(20,16,8,.28); backdrop-filter: blur(8px); }
+.topbar.solid .t-tabs { background: color-mix(in oklab, var(--ink) 7%, transparent); }
+.t-tab { padding: 7px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; border: none; background: none; color: inherit; opacity: .72; transition: .2s; }
+.t-tab:hover { opacity: 1; }
+.t-tab.on { background: var(--gold); color: #1c1608; opacity: 1; }
+.t-btn {
+  border: 1px solid rgba(255,255,255,.3); background: rgba(20,16,8,.25); backdrop-filter: blur(8px);
+  padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; transition: .2s;
+}
+.topbar.solid .t-btn { border-color: var(--line); background: var(--card); }
+.t-btn:hover { border-color: var(--gold); }
+
+/* ---------- Hero 全出血 (A1) ---------- */
+.hero { position: relative; height: var(--hero-h); min-height: 560px; overflow: hidden; }
+.hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.hero .scrim { position: absolute; inset: 0; background:
+  linear-gradient(180deg, rgba(4,5,10,.42) 0%, rgba(4,5,10,.05) 30%, rgba(4,5,10,.18) 58%, var(--bg) 97%),
+  linear-gradient(100deg, rgba(4,5,10,.55) 0%, transparent 55%);
+  transition: background .4s; }
+.hero .inner {
+  position: absolute; inset: auto 0 0 0; padding: 0 56px 58px;
+  max-width: 1280px; margin: 0 auto; color: #f4edda;
+}
+.greet { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; margin-bottom: 16px;
+  padding: 8px 16px; border-radius: 999px; background: rgba(14,11,5,.42); backdrop-filter: blur(10px);
+  border: 1px solid rgba(196,163,90,.35); }
+.greet .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--done); box-shadow: 0 0 8px var(--done); }
+.greet b { color: var(--gold); font-weight: 700; }
+.hero h1 { font-size: clamp(34px, 4.6vw, 58px); line-height: 1.05; letter-spacing: -.015em; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
+.hero .sub { font-size: 16px; opacity: .82; margin-top: 8px; }
+.hero .meta { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 12.5px; flex-wrap: wrap; }
+.chip { padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28); background: rgba(10,8,4,.3); backdrop-filter: blur(6px); }
+.chip.gold { border-color: rgba(196,163,90,.55); color: #ecd9ab; }
+.hero-foot { display: flex; align-items: flex-end; gap: 42px; margin-top: 26px; flex-wrap: wrap; }
+.cta-row { display: flex; gap: 12px; }
+.cta { padding: 13px 26px; border-radius: 13px; font-size: 14.5px; font-weight: 700; cursor: pointer; border: none; transition: .2s; }
+.cta.primary { background: linear-gradient(135deg, #d9b96e, var(--gold-deep)); color: #1a1405; box-shadow: 0 6px 24px rgba(196,163,90,.4); }
+.cta.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(196,163,90,.55); }
+.cta.ghost { background: rgba(16,13,6,.4); color: #f0e8d4; border: 1px solid rgba(255,255,255,.32); backdrop-filter: blur(8px); }
+.cta.ghost:hover { border-color: var(--gold); color: #ecd9ab; }
+
+/* 时长渐变分段条 (B2) */
+.hours { flex: 1; min-width: 300px; max-width: 460px; }
+.hours .row1 { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
+.hours .pct-big { font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.5); }
+.hours .pct-big small { font-size: 15px; font-weight: 600; opacity: .75; margin-left: 3px; }
+.hours .lbl { font-size: 12px; opacity: .8; }
+.hbar { position: relative; height: 30px; border-radius: 10px; overflow: hidden; background: rgba(8,7,3,.5); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(6px); display: flex; }
+.hbar .seg-played { background: linear-gradient(90deg, #d9b96e, var(--gold-deep)); display: grid; place-items: center; font-size: 11.5px; font-weight: 700; color: #201806; white-space: nowrap; overflow: hidden; transition: width .45s cubic-bezier(.2,.8,.25,1); }
+.hbar .seg-left { flex: 1; display: grid; place-items: center; font-size: 11.5px; color: rgba(244,237,218,.85); white-space: nowrap; overflow: hidden; }
+.hours .row2 { display: flex; justify-content: space-between; font-size: 11px; opacity: .65; margin-top: 7px; }
+
+/* ---------- 通用 section ---------- */
+section { max-width: 1280px; margin: 0 auto; padding: 74px 56px 20px; }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; }
+.sec-head h2 { font-size: 27px; letter-spacing: -.01em; }
+.sec-head .k { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.sec-head .tools { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+.sec-sub { color: var(--mut); font-size: 14px; max-width: 640px; }
+.pill-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 15px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--line); background: var(--card); color: var(--ink); transition: .2s; }
+.pill-btn:hover { border-color: var(--gold); }
+.pill-btn .sw { width: 30px; height: 16px; border-radius: 999px; background: color-mix(in oklab, var(--mut) 35%, transparent); position: relative; transition: .25s; }
+.pill-btn .sw::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #fff; transition: .25s; }
+body.guard .pill-btn.guard-t .sw { background: var(--done); }
+body.guard .pill-btn.guard-t .sw::after { left: 16px; }
+
+/* ---------- 旅程图 (C1/C2/C6) ---------- */
+.journey-wrap { position: relative; margin-top: 38px; }
+svg.route { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+svg.route .base { fill: none; stroke: color-mix(in oklab, var(--mut) 38%, transparent); stroke-width: 3; stroke-dasharray: 3 9; stroke-linecap: round; }
+svg.route .trod { fill: none; stroke: var(--gold); stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 2px 6px rgba(196,163,90,.5)); }
+.j-row { position: relative; display: grid; grid-template-columns: 1fr 130px 1fr; align-items: center; min-height: 128px; z-index: 1; }
+.j-row.entry-row { min-height: 96px; }
+.j-node { grid-column: 2; justify-self: center; position: relative; }
+/* 蜿蜒:节点左右交错,路径随之成 S 形 (C1) */
+.j-row.L .j-node { transform: translateX(46px); }
+.j-row.R .j-node { transform: translateX(-46px); }
+.j-dot {
+  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--card); border: 3px solid color-mix(in oklab, var(--mut) 50%, transparent);
+  font-size: 17px; color: var(--mut); position: relative; z-index: 2;
+  transition: .3s; cursor: default;
+}
+.j-row.done .j-dot { border-color: var(--gold); background: linear-gradient(135deg,#e6cc8b,var(--gold)); color: #241c07; box-shadow: 0 4px 16px rgba(196,163,90,.45); }
+.j-row.current .j-dot { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 55%, transparent); animation: pulse 2.2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 45%, transparent); } 70% { box-shadow: 0 0 0 16px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.j-row.future .j-dot { background: color-mix(in oklab, var(--card) 70%, var(--bg)); }
+.j-pct { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--mut); font-weight: 700; white-space: nowrap; }
+.j-row.L .j-pct { left: calc(100% + 10px); }
+.j-row.R .j-pct { right: calc(100% + 10px); }
+
+.j-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+  padding: 20px 22px; box-shadow: var(--shadow); max-width: 480px; position: relative; transition: .3s;
+}
+.j-row.L .j-card { grid-column: 1; justify-self: end; }
+.j-row.R .j-card { grid-column: 3; justify-self: start; }
+.j-card::before { content: ''; position: absolute; top: 50%; width: 34px; height: 2px; background: var(--line); }
+.j-row.L .j-card::before { right: -34px; }
+.j-row.R .j-card::before { left: -34px; }
+.j-card .ev { font-size: 16.5px; font-weight: 700; letter-spacing: -.01em; }
+.j-card .desc { font-size: 13px; color: var(--mut); margin-top: 7px; transition: filter .3s; }
+.j-card .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; transition: filter .3s; }
+.tag { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 999px; background: color-mix(in oklab, var(--accent) 11%, transparent); color: var(--accent); border: 1px solid color-mix(in oklab, var(--accent) 28%, transparent); }
+.j-row.done .tag { background: color-mix(in oklab, var(--gold) 13%, transparent); color: var(--gold-deep); border-color: color-mix(in oklab, var(--gold) 35%, transparent); }
+body.dark .j-row.done .tag { color: #dfc182; }
+.j-state { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+.j-row.done .j-state { color: var(--gold-deep); } body.dark .j-row.done .j-state { color: #dfc182; }
+.j-row.current .j-state { color: var(--accent); }
+.j-row.future .j-state { color: var(--mut); }
+/* 防剧透 (B4) */
+body.guard .j-row.future .desc, body.guard .j-row.future .tags { filter: blur(7px); user-select: none; pointer-events: none; }
+.peek { display: none; position: absolute; right: 14px; top: 14px; font-size: 11px; color: var(--mut); cursor: pointer; border: 1px dashed var(--line); border-radius: 8px; padding: 3px 9px; background: var(--card); z-index: 2; }
+body.guard .j-row.future .peek { display: block; }
+.j-row.future.peeked .desc, .j-row.future.peeked .tags { filter: none !important; pointer-events: auto; }
+
+/* 推荐起点 · 宝箱 (C2) */
+.entry-row .j-dot { width: 38px; height: 38px; border-radius: 12px; transform: rotate(45deg); border-color: color-mix(in oklab, var(--accent2) 65%, transparent); color: var(--accent2); background: color-mix(in oklab, var(--accent2) 8%, var(--card)); }
+.entry-row .j-dot > span { transform: rotate(-45deg); font-size: 15px; }
+.entry-row.done .j-dot { background: var(--accent2); color: #fff; box-shadow: 0 4px 14px color-mix(in oklab, var(--accent2) 55%, transparent); }
+.e-card { background: color-mix(in oklab, var(--accent2) 5%, var(--card)); border: 1px solid color-mix(in oklab, var(--accent2) 30%, transparent); border-radius: 15px; padding: 14px 18px; max-width: 420px; position: relative; }
+.entry-row.L .e-card { grid-column: 1; justify-self: end; }
+.entry-row.R .e-card { grid-column: 3; justify-self: start; }
+.e-card .el { font-size: 13px; font-weight: 700; color: var(--accent2); display: flex; align-items: center; gap: 7px; }
+.e-card .ew { font-size: 12px; color: var(--mut); margin-top: 5px; }
+.e-card .go { margin-top: 9px; display: inline-block; font-size: 11.5px; font-weight: 700; color: var(--accent2); cursor: pointer; border-bottom: 1px dashed; }
+
+/* 你在这里 marker */
+.you { position: absolute; z-index: 5; transform: translate(-50%, -50%); pointer-events: none; transition: top .5s cubic-bezier(.2,.8,.25,1), left .5s cubic-bezier(.2,.8,.25,1); }
+.you .avatar { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--accent); background: var(--card) url('assets/youban-glyph.svg') center/60% no-repeat; box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 22%, transparent), 0 6px 18px rgba(0,0,0,.3); }
+.you .yl { position: absolute; left: 46px; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 11.5px; font-weight: 800; color: #fff; background: var(--accent); padding: 5px 12px; border-radius: 999px; box-shadow: 0 4px 14px color-mix(in oklab, var(--accent) 50%, transparent); }
+.you .yl::before { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%) rotate(45deg); width: 9px; height: 9px; background: var(--accent); }
+
+/* ---------- 章节墙 (A3) ---------- */
+.ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; margin-top: 34px; }
+.ch-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transition: .28s; position: relative; cursor: pointer; }
+.ch-card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(50,38,12,.16); }
+body.dark .ch-card:hover { box-shadow: 0 18px 44px rgba(0,0,0,.55); }
+.ch-thumb { position: relative; aspect-ratio: 16/8.6; overflow: hidden; }
+.ch-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, filter .3s; }
+.ch-card:hover .ch-thumb img { transform: scale(1.06); }
+.ch-thumb .tint { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(6,7,12,.78)); }
+.ch-thumb .planet { position: absolute; left: 14px; bottom: 10px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #ecd9ab; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+.ch-thumb .range { position: absolute; right: 14px; bottom: 10px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.85); }
+.ch-badge { position: absolute; top: 12px; left: 12px; font-size: 10.5px; font-weight: 800; letter-spacing: .08em; padding: 5px 11px; border-radius: 999px; backdrop-filter: blur(8px); }
+.ch-card.done .ch-badge { background: rgba(123,160,91,.88); color: #f6fbef; }
+.ch-card.current .ch-badge { background: var(--accent); color: #fff; box-shadow: 0 3px 12px color-mix(in oklab, var(--accent) 55%, transparent); }
+.ch-card.future .ch-badge { background: rgba(20,18,12,.6); color: rgba(255,255,255,.75); }
+.ch-card.done .ch-thumb img { filter: saturate(.55) brightness(.82); }
+body.guard .ch-card.future .ch-thumb img { filter: blur(10px) saturate(.7); transform: scale(1.1); }
+.ch-card.current { border-color: color-mix(in oklab, var(--accent) 55%, transparent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent), var(--shadow); }
+.ch-body { padding: 16px 18px 18px; }
+.ch-body h3 { font-size: 16px; letter-spacing: -.01em; }
+.ch-key { font-size: 12.5px; color: var(--mut); margin-top: 6px; min-height: 38px; transition: filter .3s; }
+body.guard .ch-card.future .ch-key { filter: blur(6px); user-select: none; }
+.ch-foot { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.hype { display: flex; gap: 3px; align-items: center; }
+.hype i { width: 7px; height: 7px; border-radius: 2px; background: color-mix(in oklab, var(--mut) 28%, transparent); }
+.hype i.on { background: var(--accent2); }
+.hype span { font-size: 10.5px; color: var(--mut); margin-left: 5px; font-weight: 700; }
+.ch-fill { flex: 1; height: 5px; border-radius: 99px; background: color-mix(in oklab, var(--mut) 22%, transparent); overflow: hidden; }
+.ch-fill i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #d9b96e, var(--gold-deep)); transition: width .45s; }
+.ch-card.current .ch-fill i { background: linear-gradient(90deg, color-mix(in oklab, var(--accent) 70%, #fff), var(--accent)); }
+/* 名场面 chips */
+.moments { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+.mo { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--accent2) 35%, transparent); color: var(--accent2); background: color-mix(in oklab, var(--accent2) 7%, transparent); }
+.mo b { opacity: .75; margin-left: 3px; }
+body.guard .ch-card.future .moments { filter: blur(6px); }
+
+/* ---------- 页脚 ---------- */
+footer { max-width: 1280px; margin: 40px auto 0; padding: 26px 56px 120px; border-top: 1px solid var(--line); color: var(--mut); font-size: 12px; display: flex; gap: 24px; flex-wrap: wrap; }
+footer b { color: var(--ink); }
+
+/* ---------- 模拟进度浮窗 ---------- */
+.sim { position: fixed; right: 22px; bottom: 22px; z-index: 80; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 13px 17px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 13px; }
+.sim .sl { font-size: 11px; color: var(--mut); font-weight: 700; letter-spacing: .06em; }
+.sim output { font-size: 15px; font-weight: 800; color: var(--accent); min-width: 44px; text-align: right; }
+.sim input[type=range] { width: 170px; accent-color: var(--gold); }
+
+@media (max-width: 900px) {
+  section { padding: 60px 22px 12px; }
+  .hero .inner { padding: 0 22px 44px; }
+  .j-row { grid-template-columns: 56px 1fr !important; min-height: 110px; }
+  .j-node { grid-column: 1; }
+  .j-card, .e-card { grid-column: 2 !important; justify-self: start !important; }
+  .j-row.L .j-card::before, .j-row.R .j-card::before { left: -26px; right: auto; width: 26px; }
+  .j-pct { display: none; }
+}
+</style>
+</head>
+<body class="guard">
+
+<!-- ═══ 顶栏 ═══ -->
+<nav class="topbar" id="topbar">
+  <span class="t-back">←　游戏库</span>
+  <div class="t-brand">
+    <img src="assets/youban-mark.svg" alt="游伴" />
+    <b>Fallen Order</b><span>游伴 YouBan · v10-C 旅程陪伴版</span>
+  </div>
+  <div class="t-tabs">
+    <button class="t-tab on" data-to="hero">概览</button>
+    <button class="t-tab" data-to="journey">旅程</button>
+    <button class="t-tab" data-to="chapters">章节</button>
+    <button class="t-tab" style="opacity:.35;cursor:not-allowed" title="本探索版未含">舆情</button>
+  </div>
+  <button class="t-btn" id="themeBtn">🌙 主题色</button>
+</nav>
+
+<!-- ═══ Hero 全出血 (A1) ═══ -->
+<header class="hero" id="hero">
+  <img class="bg" src="../src/renderer/assets/covers/jedi_fo-banner.jpg" alt="" />
+  <div class="scrim"></div>
+  <div class="inner">
+    <div class="greet"><span class="dot"></span>欢迎回来 · 距上次陪 <b>Cal</b> 走过这段路，过了 3 天</div>
+    <h1>Star Wars Jedi: Fallen Order</h1>
+    <div class="sub">星球大战 绝地：陨落的武士团</div>
+    <div class="meta">
+      <span class="chip">Respawn Entertainment · 2019</span>
+      <span class="chip">动作冒险 · 魂类</span>
+      <span class="chip gold">⚡ 绝地之道，从废墟中重生</span>
+    </div>
+    <div class="hero-foot">
+      <div class="cta-row">
+        <button class="cta primary" id="ctaGo">▶　继续旅程</button>
+        <button class="cta ghost" data-to="journey">查看成长历程</button>
+      </div>
+      <div class="hours">
+        <div class="row1">
+          <span class="pct-big"><span id="pctNum">38</span><small>%</small></span>
+          <span class="lbl">主线 17h · 全收集 31h</span>
+        </div>
+        <div class="hbar">
+          <div class="seg-played" id="segPlayed">已陪跑 6.5h</div>
+          <div class="seg-left" id="segLeft">还剩约 10.5h</div>
+        </div>
+        <div class="row2"><span>序章 · Bracca</span><span>第六章 · 审判者要塞</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ 旅程图 (C) ═══ -->
+<section id="journey">
+  <div class="sec-head">
+    <span class="k">Journey</span>
+    <h2>Cal 的成长旅程</h2>
+    <div class="tools">
+      <button class="pill-btn guard-t" id="guardBtn">🛡 防剧透<span class="sw"></span></button>
+    </div>
+  </div>
+  <p class="sec-sub">从废料场的逃亡者到真正的绝地武士——游伴陪你走完这条路。金色是走过的路，虚线是前方;未到的剧情已为你遮好。</p>
+  <div class="journey-wrap" id="jwrap">
+    <svg class="route" id="routeSvg"><path class="base" id="pBase"/><path class="trod" id="pTrod"/></svg>
+    <div class="you" id="youMark"><div class="avatar"></div><div class="yl" id="youLbl">你在这里 · 38%</div></div>
+    <!-- rows injected by JS -->
+  </div>
+</section>
+
+<!-- ═══ 章节墙 (A3) ═══ -->
+<section id="chapters">
+  <div class="sec-head">
+    <span class="k">Chapters</span>
+    <h2>章节墙 · 七段路</h2>
+  </div>
+  <p class="sec-sub">每一章是一颗星球、一段考验。橙色标签是该章的名场面(热度峰值);未开始的章节自动模糊防剧透。</p>
+  <div class="ch-grid" id="chGrid"><!-- cards injected --></div>
+</section>
+
+<footer>
+  <span><b>v10-C 旅程陪伴版</b> · 设计探索原型 · 分支 design/v10-explore</span>
+  <span>参考:<b>C1</b> Replit 旅程图 · <b>C2</b> Duolingo 宝箱 · <b>A1</b> Disney+ Hero · <b>A3</b> 章节卡片墙 · <b>B2/B4</b> Xbox 渐变条/防剧透模糊 → 详见 design/references/</span>
+</footer>
+
+<!-- ═══ 模拟进度 ═══ -->
+<div class="sim">
+  <span class="sl">模拟进度</span>
+  <input type="range" id="simRange" min="0" max="100" value="38" />
+  <output id="simOut">38%</output>
+</div>
+
+<script>
+/* ================= 数据(自 src/data/games/jedi_fo.json 提取) ================= */
+const HOURS_MAIN = 17;
+const JOURNEY = [
+  { pct: 0,  ev: 'Bracca · 身份暴露，逃亡开始', desc: 'Cal 在废料星球以工人身份苟活，一次本能反应暴露了他的原力能力，帝国的猎杀随即开始。', un: ['原力慢（Force Slow）','原力推（Force Push）','光剑基础连段'] },
+  { pct: 18, ev: 'Bogano · 与 BD-1 相遇，使命确立', desc: '遇见 BD-1，找到 Eno Cordova 的全息日志，Cal 第一次有了明确的使命：找到失落的绝地感应者名单。', un: ['原力拉（Force Pull）','壁跑强化','BD-1 探索辅助'] },
+  { pct: 35, ev: 'Dathomir 或 Zeffo · 双刀与内心危机', desc: 'Cal 的光剑进化，战斗能力大幅提升。同时，Trilla 的压力和过去的创伤让 Cal 开始直面自己逃避已久的恐惧。', un: ['双刀形态（Split Saber）','原力闪避','高级格挡反击'] },
+  { pct: 55, ev: 'Kashyyyk 第二次 · Saw 与盟友网络', desc: 'Cal 与抵抗军建立联系，意识到这场旅途不只是个人的成长，而是更大反抗叙事的一部分。', un: ['原力偏转（Force Deflect）','攀爬强化','光剑自定义解锁'] },
+  { pct: 70, ev: '圣所 · 真相与崩溃', desc: 'BD-1 记忆完全解锁，Cordova 的真实决定揭晓。Cal 在最黑暗的时刻必须重新选择：继续还是放弃？', un: ['原力满强化','双手棍形态','全原力技能解锁'] },
+  { pct: 88, ev: '最终决战 · Cal 成为绝地', desc: '对抗 Trilla、Vader、以及自己内心的恐惧。Cal 在这一刻真正完成了从学徒到绝地武士的转变。', un: ['原力巅峰状态','最终光剑形态','结局抉择'] },
+];
+const ENTRIES = [
+  { pct: 0,  label: '推荐起点：完整体验', why: 'Bracca 废料星球的开场是近年最好的游戏开场之一，Cal 身份揭露和逃亡序列直接抓住人心，不要跳过。' },
+  { pct: 35, label: '动作爽点入口', why: '获得双刀之后战斗风格完全打开，招架-反击-原力连携已全部解锁，这是手感最好的入场时机。' },
+  { pct: 65, label: '剧情高潮直入', why: 'Trilla 真实身份揭露后故事进入情感高密度区间，Cal 的成长危机、BD-1 的秘密、圣所的真正含义开始层层展开。' },
+];
+const CHAPTERS = [
+  { n: '序章：逃离 Bracca', p: 'Bracca', s: 0,  e: 7,   hype: 7,  key: 'Cal 逃离星球，与 Cere & Greez 相遇', pos: '18% 18%' },
+  { n: '第一章：Bogano 地窖', p: 'Bogano', s: 7,  e: 15,  hype: 5,  key: '结识 BD-1，Cordova 全息信息揭示任务', pos: '78% 30%' },
+  { n: '第二章：Zeffo Eilram 墓', p: 'Zeffo', s: 15, e: 30,  hype: 6,  key: '重拾原力推力，再遇第二姐妹', pos: '46% 62%' },
+  { n: '第三章：解救乌基族', p: 'Kashyyyk', s: 30, e: 46,  hype: 7,  key: '遇见 Saw Gerrera，攀登源树，击败第九姐妹', pos: '8% 72%' },
+  { n: '第四章：Miktrull 墓穴', p: 'Dathomir / Zeffo', s: 46, e: 62, hype: 8, key: '夜姐妹登场，双刃光剑解锁，Cere 的秘密', pos: '90% 58%' },
+  { n: '第五章：Ilum & Dathomir', p: 'Ilum / Dathomir', s: 62, e: 80, hype: 9, key: '打造新光剑，击败 Malicos，Merrin 加入', pos: '30% 40%' },
+  { n: '第六章：审判者要塞', p: 'Nur', s: 80, e: 100, hype: 10, key: '击败第二姐妹，Darth Vader 追杀，毁掉 Holocron', pos: '62% 12%' },
+];
+const PEAKS = [
+  { pct: 3,  label: '逃离 Bracca', score: 7 }, { pct: 13, label: '第二姐妹初遇', score: 6 },
+  { pct: 27, label: 'Zeffo 对决', score: 7 },  { pct: 44, label: '击败第九姐妹', score: 8 },
+  { pct: 55, label: 'Cere 秘密揭露', score: 8 },{ pct: 65, label: '打造新光剑', score: 6 },
+  { pct: 73, label: 'Malicos 终局', score: 8 }, { pct: 88, label: '击败第二姐妹', score: 9 },
+  { pct: 93, label: 'Vader 追杀', score: 10 },  { pct: 98, label: '毁掉 Holocron', score: 8 },
+];
+const BANNER = '../src/renderer/assets/covers/jedi_fo-banner.jpg';
+
+/* ================= 构建旅程节点(里程碑 + 宝箱起点,按 pct 排序) ================= */
+const NODES = [
+  ...JOURNEY.map(j => ({ type: 'm', ...j })),
+  ...ENTRIES.map(e => ({ type: 'e', ...e })),
+].sort((a, b) => a.pct - b.pct || (a.type === 'e' ? -1 : 1));
+
+const jwrap = document.getElementById('jwrap');
+NODES.forEach((n, i) => {
+  const side = i % 2 === 0 ? 'L' : 'R';
+  const row = document.createElement('div');
+  if (n.type === 'm') {
+    row.className = `j-row ${side}`;
+    row.dataset.pct = n.pct;
+    row.innerHTML = `
+      <div class="j-card">
+        <span class="peek">偷看一眼 👀</span>
+        <div class="j-state"></div>
+        <div class="ev">${n.ev}</div>
+        <div class="desc">${n.desc}</div>
+        <div class="tags">${n.un.map(u => `<span class="tag">✦ ${u}</span>`).join('')}</div>
+      </div>
+      <div class="j-node"><div class="j-dot"><span>◆</span></div><span class="j-pct">${n.pct}%</span></div>`;
+  } else {
+    row.className = `j-row entry-row ${side}`;
+    row.dataset.pct = n.pct;
+    row.innerHTML = `
+      <div class="e-card">
+        <div class="el">🎁 ${n.label}<span class="mono" style="font-size:10px;opacity:.7">${n.pct}%</span></div>
+        <div class="ew">${n.why}</div>
+        <span class="go">⤓ 下载此进度存档，从这里进入 →</span>
+      </div>
+      <div class="j-node"><div class="j-dot"><span>🎁</span></div><span class="j-pct">${n.pct}%</span></div>`;
+  }
+  jwrap.appendChild(row);
+});
+jwrap.querySelectorAll('.peek').forEach(p =>
+  p.addEventListener('click', ev => { ev.target.closest('.j-row').classList.toggle('peeked'); }));
+
+/* ================= 章节墙 ================= */
+const chGrid = document.getElementById('chGrid');
+CHAPTERS.forEach(c => {
+  const moms = PEAKS.filter(p => p.pct >= c.s && p.pct < c.e);
+  const card = document.createElement('div');
+  card.className = 'ch-card';
+  card.dataset.s = c.s; card.dataset.e = c.e;
+  card.innerHTML = `
+    <div class="ch-thumb">
+      <img src="${BANNER}" style="object-position:${c.pos}" alt="" />
+      <div class="tint"></div>
+      <span class="ch-badge"></span>
+      <span class="planet">🪐 ${c.p}</span>
+      <span class="range mono">${c.s}–${c.e}%</span>
+    </div>
+    <div class="ch-body">
+      <h3>${c.n}</h3>
+      <div class="ch-key">${c.key}</div>
+      <div class="ch-foot">
+        <div class="hype">${Array.from({length:10},(_,i)=>`<i class="${i<c.hype?'on':''}"></i>`).join('')}<span>热度 ${c.hype}</span></div>
+        <div class="ch-fill"><i></i></div>
+      </div>
+      <div class="moments">${moms.map(m=>`<span class="mo">🔥 ${m.label}<b>${m.score}</b></span>`).join('')}</div>
+    </div>`;
+  chGrid.appendChild(card);
+});
+
+/* ================= 路径绘制 (C1 蜿蜒) ================= */
+const svg = document.getElementById('routeSvg');
+const pBase = document.getElementById('pBase');
+const pTrod = document.getElementById('pTrod');
+let nodePts = [], nodePcts = [];
+
+function drawRoute() {
+  const wrapRect = jwrap.getBoundingClientRect();
+  if (wrapRect.width < 10) return;   /* 布局未就绪,跳过等重试 */
+  svg.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
+  nodePts = []; nodePcts = [];
+  jwrap.querySelectorAll('.j-row').forEach(row => {
+    const dot = row.querySelector('.j-dot').getBoundingClientRect();
+    nodePts.push({ x: dot.left + dot.width/2 - wrapRect.left, y: dot.top + dot.height/2 - wrapRect.top });
+    nodePcts.push(+row.dataset.pct);
+  });
+  if (nodePts.length < 2) return;
+  let d = `M ${nodePts[0].x} ${nodePts[0].y}`;
+  for (let i = 1; i < nodePts.length; i++) {
+    const a = nodePts[i-1], b = nodePts[i], my = (a.y + b.y) / 2;
+    d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
+  }
+  pBase.setAttribute('d', d);
+  pTrod.setAttribute('d', d);
+  updateProgress(current);
+}
+
+/* pct → 路径长度(节点间线性内插) */
+function lenAtPct(pct) {
+  const total = pBase.getTotalLength();
+  const lens = [0];
+  for (let i = 1; i < nodePts.length; i++) {
+    lens.push(lens[i-1] + Math.hypot(nodePts[i].x - nodePts[i-1].x, nodePts[i].y - nodePts[i-1].y) * 1.02);
+  }
+  const scale = total / lens[lens.length - 1];
+  if (pct <= nodePcts[0]) return 0;
+  for (let i = 1; i < nodePcts.length; i++) {
+    if (pct <= nodePcts[i]) {
+      const t = (pct - nodePcts[i-1]) / Math.max(1e-6, nodePcts[i] - nodePcts[i-1]);
+      return (lens[i-1] + t * (lens[i] - lens[i-1])) * scale;
+    }
+  }
+  const t2 = (pct - nodePcts.at(-1)) / Math.max(1e-6, 100 - nodePcts.at(-1));
+  return Math.min(total, (lens.at(-1) + t2 * 0) * scale + t2 * (total - lens.at(-1) * scale));
+}
+
+/* ================= 全局状态渲染 ================= */
+let current = 38;
+const STATE_TXT = { done: '✓ 走过', current: '⟡ 此刻', future: '🔒 前方' };
+
+function updateProgress(pct) {
+  current = pct;
+  /* hero */
+  const played = (pct / 100 * HOURS_MAIN);
+  document.getElementById('pctNum').textContent = pct;
+  const sp = document.getElementById('segPlayed');
+  sp.style.width = Math.max(6, pct) + '%';
+  sp.textContent = `已陪跑 ${played.toFixed(1)}h`;
+  document.getElementById('segLeft').textContent = pct >= 100 ? '🎉 旅程完成' : `还剩约 ${(HOURS_MAIN - played).toFixed(1)}h`;
+  document.getElementById('simOut').textContent = pct + '%';
+  /* journey rows */
+  let currentIdx = -1;
+  NODES.forEach((n, i) => { if (n.type === 'm' && n.pct <= pct) currentIdx = i; });
+  jwrap.querySelectorAll('.j-row').forEach((row, i) => {
+    row.classList.remove('done', 'current', 'future');
+    const n = NODES[i];
+    if (n.type === 'e') { row.classList.add(n.pct <= pct ? 'done' : 'future'); return; }
+    if (i === currentIdx) row.classList.add('current');
+    else row.classList.add(n.pct <= pct ? 'done' : 'future');
+    const st = row.querySelector('.j-state');
+    if (st) st.textContent = i === currentIdx ? STATE_TXT.current : (n.pct <= pct ? STATE_TXT.done : STATE_TXT.future);
+    const dot = row.querySelector('.j-dot span');
+    if (dot) dot.textContent = i === currentIdx ? '⟡' : (n.pct <= pct ? '✓' : '◆');
+  });
+  /* trod path + you marker */
+  if (nodePts.length > 1) {
+    const total = pBase.getTotalLength();
+    const l = lenAtPct(pct);
+    pTrod.setAttribute('stroke-dasharray', `${l} ${total}`);
+    const pt = pBase.getPointAtLength(l);
+    const you = document.getElementById('youMark');
+    you.style.left = pt.x + 'px'; you.style.top = pt.y + 'px';
+    document.getElementById('youLbl').textContent = `你在这里 · ${pct}%`;
+  }
+  /* chapters */
+  chGrid.querySelectorAll('.ch-card').forEach(card => {
+    const s = +card.dataset.s, e = +card.dataset.e;
+    card.classList.remove('done', 'current', 'future');
+    const badge = card.querySelector('.ch-badge');
+    const fill = card.querySelector('.ch-fill i');
+    if (pct >= e) { card.classList.add('done'); badge.textContent = '✓ 已走过'; fill.style.width = '100%'; }
+    else if (pct >= s) { card.classList.add('current'); badge.textContent = '⟡ 你在这里'; fill.style.width = ((pct - s) / (e - s) * 100).toFixed(0) + '%'; }
+    else { card.classList.add('future'); badge.textContent = '🔒 未抵达'; fill.style.width = '0%'; }
+  });
+}
+
+/* ================= 交互 ================= */
+document.getElementById('simRange').addEventListener('input', e => updateProgress(+e.target.value));
+document.getElementById('guardBtn').addEventListener('click', () => document.body.classList.toggle('guard'));
+document.getElementById('themeBtn').addEventListener('click', function () {
+  const dark = document.body.classList.toggle('dark');
+  this.textContent = dark ? '☀ 浅色' : '🌙 主题色';
+});
+document.getElementById('ctaGo').addEventListener('click', () => document.getElementById('journey').scrollIntoView());
+document.querySelectorAll('[data-to]').forEach(el =>
+  el.addEventListener('click', () => document.getElementById(el.dataset.to).scrollIntoView()));
+/* 顶栏滚动态 + tab 高亮 */
+const topbar = document.getElementById('topbar');
+const secIds = ['hero', 'journey', 'chapters'];
+window.addEventListener('scroll', () => {
+  topbar.classList.toggle('solid', window.scrollY > window.innerHeight * .55);
+  let on = 'hero';
+  secIds.forEach(id => { if (document.getElementById(id).getBoundingClientRect().top < 140) on = id; });
+  document.querySelectorAll('.t-tab[data-to]').forEach(t => t.classList.toggle('on', t.dataset.to === on));
+}, { passive: true });
+
+window.addEventListener('resize', drawRoute);
+/* ?at=journey|chapters 瞬时定位;?flat=1 hero 定高(整页长截图用) */
+const QS = new URLSearchParams(location.search);
+if (QS.get('flat')) document.documentElement.style.setProperty('--hero-h', '780px');
+if (QS.get('dark')) { document.body.classList.add('dark'); document.getElementById('themeBtn').textContent = '☀ 浅色'; }
+const AT = QS.get('at');
+if (AT) setTimeout(() => {
+  document.documentElement.style.scrollBehavior = 'auto';
+  document.getElementById(AT)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+}, 700);
+/* 初始:布局/字体/图片就绪时机不定,多次兜底重绘 */
+function init() { drawRoute(); updateProgress(current); }
+requestAnimationFrame(init);
+window.addEventListener('load', () => setTimeout(init, 60));
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(init);
+setTimeout(init, 500);
+</script>
+</body>
+</html>

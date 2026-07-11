@@ -34,6 +34,7 @@ npm run tauri build      # 打包；首次先 cargo tauri icon ../../logo.png
 | Tauri 后端 / 命令 / 配置 | `src/src-tauri/`（仅 tauri 分支：`src/lib.rs` 命令、`tauri.conf.json`） |
 | 策划 / 架构 / 方案文档 | `docs/` |
 | 设计稿参考（只读） | `design/`（`design/游伴 YouBan.html` 是可直接浏览器打开的高保真原型） |
+| **v10 新版 UI 落地** | **动手前必读 `design/v10-新版UI-实施说明.md`**（定稿原型 `design/游伴 v10 新版UI完整稿.html`）。铁律：新分支开发、v9 界面只加不改、数据 schema 不动 |
 
 ## 架构要点（改之前先懂这几条）
 
