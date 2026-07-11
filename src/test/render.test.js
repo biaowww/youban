@@ -124,6 +124,9 @@ describe('界面冒烟渲染 · 每款游戏 × 每个界面', () => {
       it('V10Journey (旅程图)', () => {
         expectClean('V10Journey', { game, value: game.currentPct, openBoss: noop, openEntry: noop });
       });
+      it('V10Wave (张力曲线+轴+里程碑)', () => {
+        expectClean('V10Wave', { game, value: game.currentPct, setValue: noop, guard: true, openBoss: noop, openEntry: noop });
+      });
     });
   });
 

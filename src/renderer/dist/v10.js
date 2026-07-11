@@ -254,6 +254,263 @@ function V10Journey({
   }));
 }
 
+/* ───────── 进度 Tab：Hype Wave + 渐变坐标轴 + 邻近里程碑（步骤 3） ───────── */
+function V10Wave({
+  game,
+  value,
+  setValue,
+  guard,
+  openBoss,
+  openEntry
+}) {
+  const W = 440,
+    H = 190,
+    PB = 26,
+    PT = 16;
+  const X = p => p / 100 * W;
+  const chapters = game.chapters;
+  const peaks = game.hype || [];
+  const bosses = game.bosses || [];
+  const entries = game.entries || [];
+  const svgRef = useRef(null);
+  const barRef = useRef(null);
+
+  /* 曲线：章节热度打底 + 峰值高斯叠加（同原型算法） */
+  const {
+    lineD,
+    areaD,
+    peakPts
+  } = React.useMemo(() => {
+    const chapHypeAt = p => {
+      const c = chapters.find(c => p >= c.start && p < c.end) || chapters[chapters.length - 1];
+      return c.hype || 5;
+    };
+    const hypeAt = p => {
+      let v = chapHypeAt(p) * .34;
+      peaks.forEach(pk => {
+        v += pk.score * Math.exp(-((p - pk.pct) ** 2) / (2 * 2.4 ** 2));
+      });
+      return Math.min(v, 11);
+    };
+    const Y = v => H - PB - v / 11 * (H - PB - PT);
+    let d = '';
+    for (let p = 0; p <= 100; p += .5) d += `${p === 0 ? 'M' : 'L'} ${X(p).toFixed(1)} ${Y(hypeAt(p)).toFixed(1)} `;
+    return {
+      lineD: d,
+      areaD: d + `L ${W} ${H - PB} L 0 ${H - PB} Z`,
+      peakPts: peaks.map(pk => ({
+        ...pk,
+        x: X(pk.pct),
+        y: Y(hypeAt(pk.pct)),
+        hi: pk.score >= 8
+      }))
+    };
+  }, [game.id]);
+
+  /* 邻近里程碑事件源：⚔Boss + 🔥名场面(hi) + ✦成长节点，合并时间线 */
+  const events = React.useMemo(() => [...bosses.map(b => ({
+    pct: b.pct,
+    n: b.name,
+    t: 'Boss 战',
+    ic: '⚔',
+    spoil: true
+  })), ...peaks.filter(p => p.score >= 8).map(p => ({
+    pct: p.pct,
+    n: p.label,
+    t: '名场面',
+    ic: '🔥',
+    spoil: true
+  })), ...(game.journey || []).map(j => ({
+    pct: j.pct,
+    n: j.event,
+    t: '成长节点',
+    ic: '✦',
+    spoil: false
+  }))].sort((a, b) => a.pct - b.pct), [game.id]);
+  const clickJump = (e, el) => {
+    const r = el.getBoundingClientRect();
+    setValue(Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100))));
+  };
+  const safeTitle = (pct, name) => guard && pct > value ? `未至节点 · ${pct}%` : `${name} · ${pct}%`;
+  const curCh = chapters.find(c => value >= c.start && value < c.end) || chapters[chapters.length - 1];
+  const prevEv = [...events].reverse().find(e => e.pct <= value);
+  const nextEvs = events.filter(e => e.pct > value).slice(0, 2);
+  const nowX = Math.min(Math.max(X(value), 44), W - 44);
+  const shortName = c => c.name.split(/[：:]/)[0];
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "wave-box"
+  }, /*#__PURE__*/React.createElement("svg", {
+    ref: svgRef,
+    className: "wave",
+    viewBox: `0 0 ${W} ${H}`,
+    preserveAspectRatio: "none",
+    onClick: e => clickJump(e, svgRef.current)
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: "v10gLit",
+    x1: "0",
+    y1: "0",
+    x2: "0",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    offset: "0%",
+    stopColor: "rgba(0,160,240,.44)"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "100%",
+    stopColor: "rgba(123,47,247,.05)"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "v10gDim",
+    x1: "0",
+    y1: "0",
+    x2: "0",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    offset: "0%",
+    stopColor: "rgba(138,125,102,.18)"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "100%",
+    stopColor: "rgba(138,125,102,.02)"
+  })), /*#__PURE__*/React.createElement("clipPath", {
+    id: "v10clipLit"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "0",
+    y: "0",
+    width: X(value),
+    height: H
+  }))), chapters.map((c, i) => /*#__PURE__*/React.createElement("rect", {
+    key: i,
+    x: X(c.start),
+    y: 0,
+    width: X(c.end) - X(c.start),
+    height: H - PB,
+    className: 'wv-band' + (i % 2 ? ' alt' : '')
+  })), /*#__PURE__*/React.createElement("path", {
+    d: areaD,
+    className: "wv-area-dim"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: lineD,
+    className: "wv-line-dim"
+  }), /*#__PURE__*/React.createElement("g", {
+    clipPath: "url(#v10clipLit)"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: areaD,
+    className: "wv-area-lit"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: lineD,
+    className: "wv-line-lit"
+  })), bosses.map((b, i) => /*#__PURE__*/React.createElement("text", {
+    key: 'b' + i,
+    x: X(b.pct),
+    y: H - 2,
+    className: 'wv-boss' + (b.pct > value ? ' future' : ''),
+    onClick: e => {
+      e.stopPropagation();
+      openBoss && openBoss(b);
+    }
+  }, /*#__PURE__*/React.createElement("title", null, safeTitle(b.pct, '⚔ ' + b.name)), "\u2694")), peakPts.map((pk, i) => /*#__PURE__*/React.createElement("g", {
+    key: 'p' + i,
+    className: 'wv-peak' + (pk.hi ? ' hi' : '') + (pk.pct > value ? ' future' : ''),
+    onClick: e => {
+      e.stopPropagation();
+      setValue(pk.pct);
+    }
+  }, /*#__PURE__*/React.createElement("title", null, safeTitle(pk.pct, pk.label)), /*#__PURE__*/React.createElement("circle", {
+    cx: pk.x,
+    cy: pk.y,
+    r: pk.hi ? 6 : 4
+  }), pk.hi && /*#__PURE__*/React.createElement("text", {
+    x: pk.x,
+    y: pk.y - 10
+  }, pk.label))), /*#__PURE__*/React.createElement("line", {
+    x1: X(value),
+    x2: X(value),
+    y1: PT - 6,
+    y2: H - PB,
+    className: "wv-now"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: nowX,
+    y: PT - 6,
+    className: "wv-now-lbl"
+  }, "\u4F60\u5728\u8FD9\u91CC ", value, "%"))), /*#__PURE__*/React.createElement("div", {
+    className: "axis"
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: barRef,
+    className: "bar",
+    onClick: e => {
+      if (e.target !== barRef.current && !e.target.classList.contains('fill') && !e.target.classList.contains('fillclip')) return;
+      clickJump(e, barRef.current);
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fillclip"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fill",
+    style: {
+      width: value + '%'
+    }
+  })), chapters.slice(1).map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "tick",
+    style: {
+      left: c.start + '%'
+    }
+  })), entries.map((en, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: 'entry' + (en.pct <= value ? ' done' : ''),
+    style: {
+      left: en.pct + '%'
+    },
+    title: `🎁 ${en.label}（${en.pct}%）`,
+    onClick: () => openEntry && openEntry(en)
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "youmk",
+    style: {
+      left: value + '%'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "axis-cap"
+  }, /*#__PURE__*/React.createElement("span", null, shortName(chapters[0])), /*#__PURE__*/React.createElement("b", {
+    className: "mono"
+  }, value, "% \xB7 ", curCh.name), /*#__PURE__*/React.createElement("span", null, shortName(chapters[chapters.length - 1])))), /*#__PURE__*/React.createElement("div", {
+    className: "nearby"
+  }, prevEv && /*#__PURE__*/React.createElement("div", {
+    className: "nb prev"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ic"
+  }, prevEv.ic), /*#__PURE__*/React.createElement("div", {
+    className: "tt"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "tl"
+  }, "\u521A\u8D70\u8FC7"), /*#__PURE__*/React.createElement("div", {
+    className: "nm"
+  }, prevEv.n), /*#__PURE__*/React.createElement("div", {
+    className: "mt2"
+  }, prevEv.t, " \xB7 ", prevEv.pct, "%"))), /*#__PURE__*/React.createElement("div", {
+    className: "nb now"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ic"
+  }, "\u27E1"), /*#__PURE__*/React.createElement("div", {
+    className: "tt"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "tl"
+  }, "\u6B64\u523B"), /*#__PURE__*/React.createElement("div", {
+    className: "nm"
+  }, curCh.name), /*#__PURE__*/React.createElement("div", {
+    className: "mt2"
+  }, "\u8FDB\u5EA6 ", value, "% \xB7 \u5DF2\u966A\u8DD1 ", (value / 100 * game.hoursMain).toFixed(1), "h"))), nextEvs.map((e, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "nb next"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ic"
+  }, e.ic), /*#__PURE__*/React.createElement("div", {
+    className: "tt"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "tl"
+  }, i === 0 ? '即将抵达' : '再往前'), /*#__PURE__*/React.createElement("div", {
+    className: 'nm' + (e.spoil ? ' spoil' : '')
+  }, e.n), /*#__PURE__*/React.createElement("div", {
+    className: "mt2"
+  }, e.t, " \xB7 ", e.pct, "%"))))));
+}
+
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
 function V10App({
   game,
@@ -354,22 +611,34 @@ function V10App({
     className: "hstat"
   }, /*#__PURE__*/React.createElement("b", null, Math.max(0, game.hoursMain - played).toFixed(1), /*#__PURE__*/React.createElement("small", null, "h")), /*#__PURE__*/React.createElement("span", null, "\u5269\u4F59(\u4E3B\u7EBF)")), /*#__PURE__*/React.createElement("div", {
     className: "hstat"
-  }, /*#__PURE__*/React.createElement("b", null, bossPassed, /*#__PURE__*/React.createElement("small", null, "/", game.bosses.length)), /*#__PURE__*/React.createElement("span", null, "Boss \u5DF2\u8FC7")))))), /*#__PURE__*/React.createElement("main", null, tab === 'progress' && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("b", null, bossPassed, /*#__PURE__*/React.createElement("small", null, "/", game.bosses.length)), /*#__PURE__*/React.createElement("span", null, "Boss \u5DF2\u8FC7")))))), /*#__PURE__*/React.createElement("main", null, tab === 'progress' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "panel"
   }, /*#__PURE__*/React.createElement("div", {
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "k"
-  }, "Hype Wave"), /*#__PURE__*/React.createElement("h2", null, "\u5267\u60C5\u5F20\u529B\u66F2\u7EBF")), /*#__PURE__*/React.createElement("div", {
+  }, "Hype Wave"), /*#__PURE__*/React.createElement("h2", null, "\u5267\u60C5\u5F20\u529B\u66F2\u7EBF"), /*#__PURE__*/React.createElement("span", {
+    className: "note"
+  }, "\u70B9\u66F2\u7EBF\u8BD5\u8DF3\u8FDB\u5EA6")), /*#__PURE__*/React.createElement("p", {
+    className: "p-sub"
+  }, "\u4EAE\u84DD=\u8D70\u8FC7\u7684\u5F20\u529B\uFF0C\u7070\u7EBF=\u524D\u65B9\uFF1B\u5B9E\u5FC3\u6A59=\u5FC5\u770B\u540D\u573A\u9762\uFF0C\u2694=Boss \u5B58\u6863\u70B9\uFF1B\u4E0B\u65B9\u6E10\u53D8\u8F74\uFF1A\u25C6=\u63A8\u8350\u8D77\u70B9\uFF0C\u91D1\u70B9=\u4F60\u5728\u8FD9\u91CC\u3002"), /*#__PURE__*/React.createElement(V10Wave, {
+    game: game,
+    value: value,
+    setValue: setValue,
+    guard: guard,
+    openBoss: openBoss,
+    openEntry: openEntry
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "panel sec-gap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "p-head"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "k"
+  }, "Chapters"), /*#__PURE__*/React.createElement("h2", null, "\u7AE0\u8282\u5899")), /*#__PURE__*/React.createElement("div", {
     className: "ph"
   }, /*#__PURE__*/React.createElement("div", {
     className: "big"
-  }, "\uD83D\uDEA7"), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "\u8FDB\u5EA6 Tab \u65BD\u5DE5\u4E2D"), "\uFF08\u6B65\u9AA4 3-4\uFF1A\u6CE2\u5F62 / \u5750\u6807\u8F74 / \u90BB\u8FD1\u91CC\u7A0B\u7891 / \u7AE0\u8282\u5899\uFF09"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginTop: 6,
-      fontSize: 12
-    }
-  }, "\u53F3\u4E0B\u89D2\u6ED1\u6746\u5DF2\u63A5\u771F\u5B9E\u8FDB\u5EA6\uFF0CHero \u7EDF\u8BA1\u5168\u8054\u52A8\u3002"))), tab === 'journey' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, "\uD83D\uDEA7"), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "\u7AE0\u8282\u5899\u65BD\u5DE5\u4E2D"), "\uFF08\u6B65\u9AA4 4\uFF1A\u5927\u5361 + \u2694 \u5B58\u6863\u96C6\u6210\uFF09")))), tab === 'journey' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "k"
@@ -404,5 +673,6 @@ function V10App({
 }
 Object.assign(window, {
   V10App,
-  V10Journey
+  V10Journey,
+  V10Wave
 });

@@ -147,6 +147,137 @@ function V10Journey({ game, value, openBoss, openEntry }) {
   );
 }
 
+/* ───────── 进度 Tab：Hype Wave + 渐变坐标轴 + 邻近里程碑（步骤 3） ───────── */
+function V10Wave({ game, value, setValue, guard, openBoss, openEntry }) {
+  const W = 440, H = 190, PB = 26, PT = 16;
+  const X = (p) => p / 100 * W;
+  const chapters = game.chapters;
+  const peaks = game.hype || [];
+  const bosses = game.bosses || [];
+  const entries = game.entries || [];
+  const svgRef = useRef(null);
+  const barRef = useRef(null);
+
+  /* 曲线：章节热度打底 + 峰值高斯叠加（同原型算法） */
+  const { lineD, areaD, peakPts } = React.useMemo(() => {
+    const chapHypeAt = (p) => { const c = chapters.find(c => p >= c.start && p < c.end) || chapters[chapters.length - 1]; return c.hype || 5; };
+    const hypeAt = (p) => { let v = chapHypeAt(p) * .34; peaks.forEach(pk => { v += pk.score * Math.exp(-((p - pk.pct) ** 2) / (2 * 2.4 ** 2)); }); return Math.min(v, 11); };
+    const Y = (v) => H - PB - v / 11 * (H - PB - PT);
+    let d = '';
+    for (let p = 0; p <= 100; p += .5) d += `${p === 0 ? 'M' : 'L'} ${X(p).toFixed(1)} ${Y(hypeAt(p)).toFixed(1)} `;
+    return {
+      lineD: d,
+      areaD: d + `L ${W} ${H - PB} L 0 ${H - PB} Z`,
+      peakPts: peaks.map(pk => ({ ...pk, x: X(pk.pct), y: Y(hypeAt(pk.pct)), hi: pk.score >= 8 })),
+    };
+  }, [game.id]);
+
+  /* 邻近里程碑事件源：⚔Boss + 🔥名场面(hi) + ✦成长节点，合并时间线 */
+  const events = React.useMemo(() => [
+    ...bosses.map(b => ({ pct: b.pct, n: b.name, t: 'Boss 战', ic: '⚔', spoil: true })),
+    ...peaks.filter(p => p.score >= 8).map(p => ({ pct: p.pct, n: p.label, t: '名场面', ic: '🔥', spoil: true })),
+    ...(game.journey || []).map(j => ({ pct: j.pct, n: j.event, t: '成长节点', ic: '✦', spoil: false })),
+  ].sort((a, b) => a.pct - b.pct), [game.id]);
+
+  const clickJump = (e, el) => {
+    const r = el.getBoundingClientRect();
+    setValue(Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100))));
+  };
+  const safeTitle = (pct, name) => (guard && pct > value) ? `未至节点 · ${pct}%` : `${name} · ${pct}%`;
+
+  const curCh = chapters.find(c => value >= c.start && value < c.end) || chapters[chapters.length - 1];
+  const prevEv = [...events].reverse().find(e => e.pct <= value);
+  const nextEvs = events.filter(e => e.pct > value).slice(0, 2);
+  const nowX = Math.min(Math.max(X(value), 44), W - 44);
+  const shortName = (c) => c.name.split(/[：:]/)[0];
+
+  return (
+    <>
+      {/* Hype Wave */}
+      <div className="wave-box">
+        <svg ref={svgRef} className="wave" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none"
+          onClick={(e) => clickJump(e, svgRef.current)}>
+          <defs>
+            <linearGradient id="v10gLit" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="rgba(0,160,240,.44)" /><stop offset="100%" stopColor="rgba(123,47,247,.05)" />
+            </linearGradient>
+            <linearGradient id="v10gDim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="rgba(138,125,102,.18)" /><stop offset="100%" stopColor="rgba(138,125,102,.02)" />
+            </linearGradient>
+            <clipPath id="v10clipLit"><rect x="0" y="0" width={X(value)} height={H} /></clipPath>
+          </defs>
+          {chapters.map((c, i) => (
+            <rect key={i} x={X(c.start)} y={0} width={X(c.end) - X(c.start)} height={H - PB} className={'wv-band' + (i % 2 ? ' alt' : '')} />
+          ))}
+          <path d={areaD} className="wv-area-dim" />
+          <path d={lineD} className="wv-line-dim" />
+          <g clipPath="url(#v10clipLit)">
+            <path d={areaD} className="wv-area-lit" />
+            <path d={lineD} className="wv-line-lit" />
+          </g>
+          {bosses.map((b, i) => (
+            <text key={'b' + i} x={X(b.pct)} y={H - 2} className={'wv-boss' + (b.pct > value ? ' future' : '')}
+              onClick={(e) => { e.stopPropagation(); openBoss && openBoss(b); }}>
+              <title>{safeTitle(b.pct, '⚔ ' + b.name)}</title>⚔
+            </text>
+          ))}
+          {peakPts.map((pk, i) => (
+            <g key={'p' + i} className={'wv-peak' + (pk.hi ? ' hi' : '') + (pk.pct > value ? ' future' : '')}
+              onClick={(e) => { e.stopPropagation(); setValue(pk.pct); }}>
+              <title>{safeTitle(pk.pct, pk.label)}</title>
+              <circle cx={pk.x} cy={pk.y} r={pk.hi ? 6 : 4} />
+              {pk.hi && <text x={pk.x} y={pk.y - 10}>{pk.label}</text>}
+            </g>
+          ))}
+          <line x1={X(value)} x2={X(value)} y1={PT - 6} y2={H - PB} className="wv-now" />
+          <text x={nowX} y={PT - 6} className="wv-now-lbl">你在这里 {value}%</text>
+        </svg>
+      </div>
+
+      {/* 渐变坐标轴（与波形同 x 轴） */}
+      <div className="axis">
+        <div ref={barRef} className="bar" onClick={(e) => { if (e.target !== barRef.current && !e.target.classList.contains('fill') && !e.target.classList.contains('fillclip')) return; clickJump(e, barRef.current); }}>
+          <div className="fillclip"><div className="fill" style={{ width: value + '%' }} /></div>
+          {chapters.slice(1).map((c, i) => <div key={i} className="tick" style={{ left: c.start + '%' }} />)}
+          {entries.map((en, i) => (
+            <div key={i} className={'entry' + (en.pct <= value ? ' done' : '')} style={{ left: en.pct + '%' }}
+              title={`🎁 ${en.label}（${en.pct}%）`} onClick={() => openEntry && openEntry(en)} />
+          ))}
+          <div className="youmk" style={{ left: value + '%' }} />
+        </div>
+        <div className="axis-cap">
+          <span>{shortName(chapters[0])}</span>
+          <b className="mono">{value}% · {curCh.name}</b>
+          <span>{shortName(chapters[chapters.length - 1])}</span>
+        </div>
+      </div>
+
+      {/* 邻近里程碑（刚走过 1 + 即将抵达 ≤2） */}
+      <div className="nearby">
+        {prevEv && (
+          <div className="nb prev"><div className="ic">{prevEv.ic}</div>
+            <div className="tt"><div className="tl">刚走过</div>
+              <div className="nm">{prevEv.n}</div>
+              <div className="mt2">{prevEv.t} · {prevEv.pct}%</div></div>
+          </div>
+        )}
+        <div className="nb now"><div className="ic">⟡</div>
+          <div className="tt"><div className="tl">此刻</div>
+            <div className="nm">{curCh.name}</div>
+            <div className="mt2">进度 {value}% · 已陪跑 {(value / 100 * game.hoursMain).toFixed(1)}h</div></div>
+        </div>
+        {nextEvs.map((e, i) => (
+          <div key={i} className="nb next"><div className="ic">{e.ic}</div>
+            <div className="tt"><div className="tl">{i === 0 ? '即将抵达' : '再往前'}</div>
+              <div className={'nm' + (e.spoil ? ' spoil' : '')}>{e.n}</div>
+              <div className="mt2">{e.t} · {e.pct}%</div></div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
 function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry }) {
   const [tab, setTab] = useState('progress');
@@ -209,13 +340,19 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
       </header>
 
       <main>
-        {/* 进度 Tab（步骤 3-4：HypeWave + 坐标轴 + 邻近里程碑 + 章节墙） */}
+        {/* 进度 Tab：HypeWave + 坐标轴 + 邻近里程碑（章节墙 = 步骤 4） */}
         {tab === 'progress' && (
-          <div className="panel">
-            <div className="p-head"><span className="k">Hype Wave</span><h2>剧情张力曲线</h2></div>
-            <div className="ph"><div className="big">🚧</div><p><b>进度 Tab 施工中</b>（步骤 3-4：波形 / 坐标轴 / 邻近里程碑 / 章节墙）</p>
-              <p style={{ marginTop: 6, fontSize: 12 }}>右下角滑杆已接真实进度，Hero 统计全联动。</p></div>
-          </div>
+          <>
+            <div className="panel">
+              <div className="p-head"><span className="k">Hype Wave</span><h2>剧情张力曲线</h2><span className="note">点曲线试跳进度</span></div>
+              <p className="p-sub">亮蓝=走过的张力，灰线=前方；实心橙=必看名场面，⚔=Boss 存档点；下方渐变轴：◆=推荐起点，金点=你在这里。</p>
+              <V10Wave game={game} value={value} setValue={setValue} guard={guard} openBoss={openBoss} openEntry={openEntry} />
+            </div>
+            <div className="panel sec-gap">
+              <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2></div>
+              <div className="ph"><div className="big">🚧</div><p><b>章节墙施工中</b>（步骤 4：大卡 + ⚔ 存档集成）</p></div>
+            </div>
+          </>
         )}
 
         {/* 历程 Tab：蜿蜒旅程图（v10-C + B 里程碑元素） */}
@@ -247,4 +384,4 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
   );
 }
 
-Object.assign(window, { V10App, V10Journey });
+Object.assign(window, { V10App, V10Journey, V10Wave });
