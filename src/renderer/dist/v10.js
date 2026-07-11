@@ -584,6 +584,82 @@ function V10PrevNext({
   }, next.t, " \xB7 ", next.pct, "% \xB7 \u7EA6 ", ((next.pct - value) / 100 * game.hoursMain).toFixed(1), "h \u540E"))));
 }
 
+/* ───────── 进度 Tab：章节墙（步骤 4，v10-C 大卡 + ⚔ 存档集成，不做独立 Boss 列表） ───────── */
+function V10Chapters({
+  game,
+  value,
+  openBoss
+}) {
+  /* 无每章配图 → 用 banner 按章节序号取不同焦点位，营造差异 */
+  const posFor = i => `${i * 37 % 70 + 15}% ${i * 29 % 50 + 20}%`;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "ch-grid"
+  }, game.chapters.map((c, i) => {
+    const saves = (game.bosses || []).filter(b => b.pct >= c.start && b.pct < c.end);
+    const state = value >= c.end ? 'done' : value >= c.start ? 'current' : 'future';
+    const fillW = state === 'done' ? 100 : state === 'current' ? Math.round((value - c.start) / Math.max(1, c.end - c.start) * 100) : 0;
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: 'ch-card ' + state
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ch-thumb"
+    }, /*#__PURE__*/React.createElement("img", {
+      src: game.banner,
+      style: {
+        objectPosition: posFor(i)
+      },
+      alt: "",
+      onError: e => {
+        e.target.style.display = 'none';
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "tint"
+    }), /*#__PURE__*/React.createElement("span", {
+      className: "ch-badge"
+    }, state === 'done' ? '✓ 已走过' : state === 'current' ? '⟡ 你在这里' : '🔒 未抵达'), /*#__PURE__*/React.createElement("span", {
+      className: "planet"
+    }, "\uD83E\uDE90 ", c.planet), /*#__PURE__*/React.createElement("span", {
+      className: "range mono"
+    }, c.start, "\u2013", c.end, "%")), /*#__PURE__*/React.createElement("div", {
+      className: "ch-body"
+    }, /*#__PURE__*/React.createElement("h3", null, c.name), /*#__PURE__*/React.createElement("div", {
+      className: "ch-key"
+    }, c.key), /*#__PURE__*/React.createElement("div", {
+      className: "ch-foot"
+    }, c.hype ? /*#__PURE__*/React.createElement("span", {
+      className: "hype-n"
+    }, "\uD83D\uDD25 \u70ED\u5EA6 ", c.hype) : null, /*#__PURE__*/React.createElement("div", {
+      className: "ch-fill"
+    }, /*#__PURE__*/React.createElement("i", {
+      style: {
+        width: fillW + '%'
+      }
+    }))), saves.length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "ch-saves"
+    }, saves.map(b => {
+      const locked = b.pct > value;
+      return /*#__PURE__*/React.createElement("div", {
+        key: b.id || b.pct,
+        className: 'sv' + (b.hi ? ' hi' : '') + (locked ? ' locked' : '')
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "swd"
+      }, "\u2694"), /*#__PURE__*/React.createElement("span", {
+        className: "n",
+        onClick: () => {
+          if (!locked && openBoss) openBoss(b);
+        }
+      }, b.name), b.hi ? /*#__PURE__*/React.createElement("span", {
+        className: "hib"
+      }, "\u540D\u573A\u9762") : null, /*#__PURE__*/React.createElement("span", {
+        className: "pc2 mono"
+      }, b.pct, "%"), /*#__PURE__*/React.createElement("button", {
+        className: "dl",
+        onClick: () => openBoss && openBoss(b)
+      }, '⤓ 存档'));
+    }))));
+  }));
+}
+
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
 function V10App({
   game,
@@ -720,11 +796,13 @@ function V10App({
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "k"
-  }, "Chapters"), /*#__PURE__*/React.createElement("h2", null, "\u7AE0\u8282\u5899")), /*#__PURE__*/React.createElement("div", {
-    className: "ph"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "big"
-  }, "\uD83D\uDEA7"), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "\u7AE0\u8282\u5899\u65BD\u5DE5\u4E2D"), "\uFF08\u6B65\u9AA4 4\uFF1A\u5927\u5361 + \u2694 \u5B58\u6863\u96C6\u6210\uFF09")))), tab === 'journey' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, "Chapters"), /*#__PURE__*/React.createElement("h2", null, "\u7AE0\u8282\u5899"), /*#__PURE__*/React.createElement("span", {
+    className: "note"
+  }, "\u2694 \u5B58\u6863\u5728\u5404\u7AE0\u5361\u5185")), /*#__PURE__*/React.createElement(V10Chapters, {
+    game: game,
+    value: value,
+    openBoss: openBoss
+  }))), tab === 'journey' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "k"
@@ -760,5 +838,6 @@ Object.assign(window, {
   V10Journey,
   V10Hype,
   V10Axis,
-  V10PrevNext
+  V10PrevNext,
+  V10Chapters
 });

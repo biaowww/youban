@@ -127,6 +127,12 @@ describe('界面冒烟渲染 · 每款游戏 × 每个界面', () => {
       it('V10PrevNext (高潮节点前后小卡)', () => {
         expectClean('V10PrevNext', { game, value: 50 });
       });
+      it('V10Hype (v9复刻波形)', () => {
+        expectClean('V10Hype', { game, value: game.currentPct, onChange: noop, onBoss: noop, onEntry: noop });
+      });
+      it('V10Chapters (章节墙)', () => {
+        expectClean('V10Chapters', { game, value: game.currentPct, openBoss: noop });
+      });
     });
   });
 

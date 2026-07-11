@@ -326,6 +326,56 @@ function V10PrevNext({ game, value }) {
   );
 }
 
+/* ───────── 进度 Tab：章节墙（步骤 4，v10-C 大卡 + ⚔ 存档集成，不做独立 Boss 列表） ───────── */
+function V10Chapters({ game, value, openBoss }) {
+  /* 无每章配图 → 用 banner 按章节序号取不同焦点位，营造差异 */
+  const posFor = (i) => `${(i * 37) % 70 + 15}% ${(i * 29) % 50 + 20}%`;
+  return (
+    <div className="ch-grid">
+      {game.chapters.map((c, i) => {
+        const saves = (game.bosses || []).filter(b => b.pct >= c.start && b.pct < c.end);
+        const state = value >= c.end ? 'done' : value >= c.start ? 'current' : 'future';
+        const fillW = state === 'done' ? 100 : state === 'current' ? Math.round((value - c.start) / Math.max(1, c.end - c.start) * 100) : 0;
+        return (
+          <div key={i} className={'ch-card ' + state}>
+            <div className="ch-thumb">
+              <img src={game.banner} style={{ objectPosition: posFor(i) }} alt="" onError={e => { e.target.style.display = 'none'; }} />
+              <div className="tint" />
+              <span className="ch-badge">{state === 'done' ? '✓ 已走过' : state === 'current' ? '⟡ 你在这里' : '🔒 未抵达'}</span>
+              <span className="planet">🪐 {c.planet}</span>
+              <span className="range mono">{c.start}–{c.end}%</span>
+            </div>
+            <div className="ch-body">
+              <h3>{c.name}</h3>
+              <div className="ch-key">{c.key}</div>
+              <div className="ch-foot">
+                {c.hype ? <span className="hype-n">🔥 热度 {c.hype}</span> : null}
+                <div className="ch-fill"><i style={{ width: fillW + '%' }} /></div>
+              </div>
+              {saves.length > 0 && (
+                <div className="ch-saves">
+                  {saves.map(b => {
+                    const locked = b.pct > value;
+                    return (
+                      <div key={b.id || b.pct} className={'sv' + (b.hi ? ' hi' : '') + (locked ? ' locked' : '')}>
+                        <span className="swd">⚔</span>
+                        <span className="n" onClick={() => { if (!locked && openBoss) openBoss(b); }}>{b.name}</span>
+                        {b.hi ? <span className="hib">名场面</span> : null}
+                        <span className="pc2 mono">{b.pct}%</span>
+                        <button className="dl" onClick={() => openBoss && openBoss(b)}>{'⤓ 存档'}</button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
 function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry }) {
   const [tab, setTab] = useState('progress');
@@ -400,8 +450,8 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
               <V10PrevNext game={game} value={value} />
             </div>
             <div className="panel sec-gap">
-              <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2></div>
-              <div className="ph"><div className="big">🚧</div><p><b>章节墙施工中</b>（步骤 4：大卡 + ⚔ 存档集成）</p></div>
+              <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2><span className="note">⚔ 存档在各章卡内</span></div>
+              <V10Chapters game={game} value={value} openBoss={openBoss} />
             </div>
           </>
         )}
@@ -434,4 +484,4 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
   );
 }
 
-Object.assign(window, { V10App, V10Journey, V10Hype, V10Axis, V10PrevNext });
+Object.assign(window, { V10App, V10Journey, V10Hype, V10Axis, V10PrevNext, V10Chapters });
