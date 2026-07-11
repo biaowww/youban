@@ -147,134 +147,33 @@ function V10Journey({ game, value, openBoss, openEntry }) {
   );
 }
 
-/* ───────── 进度 Tab：Hype Wave + 渐变坐标轴 + 邻近里程碑（步骤 3） ───────── */
-function V10Wave({ game, value, setValue, guard, openBoss, openEntry }) {
-  const W = 440, H = 190, PB = 26, PT = 16;
-  const X = (p) => p / 100 * W;
-  const chapters = game.chapters;
-  const peaks = game.hype || [];
-  const bosses = game.bosses || [];
-  const entries = game.entries || [];
-  const svgRef = useRef(null);
-  const barRef = useRef(null);
-
-  /* 曲线：章节热度打底 + 峰值高斯叠加（同原型算法） */
-  const { lineD, areaD, peakPts } = React.useMemo(() => {
-    const chapHypeAt = (p) => { const c = chapters.find(c => p >= c.start && p < c.end) || chapters[chapters.length - 1]; return c.hype || 5; };
-    const hypeAt = (p) => { let v = chapHypeAt(p) * .34; peaks.forEach(pk => { v += pk.score * Math.exp(-((p - pk.pct) ** 2) / (2 * 2.4 ** 2)); }); return Math.min(v, 11); };
-    const Y = (v) => H - PB - v / 11 * (H - PB - PT);
-    let d = '';
-    for (let p = 0; p <= 100; p += .5) d += `${p === 0 ? 'M' : 'L'} ${X(p).toFixed(1)} ${Y(hypeAt(p)).toFixed(1)} `;
-    return {
-      lineD: d,
-      areaD: d + `L ${W} ${H - PB} L 0 ${H - PB} Z`,
-      peakPts: peaks.map(pk => ({ ...pk, x: X(pk.pct), y: Y(hypeAt(pk.pct)), hi: pk.score >= 8 })),
-    };
-  }, [game.id]);
-
-  /* 邻近里程碑事件源：⚔Boss + 🔥名场面(hi) + ✦成长节点，合并时间线 */
-  const events = React.useMemo(() => [
-    ...bosses.map(b => ({ pct: b.pct, n: b.name, t: 'Boss 战', ic: '⚔', spoil: true })),
-    ...peaks.filter(p => p.score >= 8).map(p => ({ pct: p.pct, n: p.label, t: '名场面', ic: '🔥', spoil: true })),
-    ...(game.journey || []).map(j => ({ pct: j.pct, n: j.event, t: '成长节点', ic: '✦', spoil: false })),
+/* ───────── 进度 Tab：高潮节点前后小卡（v9 HypeProgress 的 v10 补充件） ───────── */
+function V10PrevNext({ game, value }) {
+  /* 事件源 = ⚔Boss + 🔥名场面（score>=8），只取当前前后各一个 */
+  const evs = React.useMemo(() => [
+    ...(game.bosses || []).map(b => ({ pct: b.pct, n: b.name, t: 'Boss 战', ic: '⚔' })),
+    ...(game.hype || []).filter(p => p.score >= 8).map(p => ({ pct: p.pct, n: p.label, t: '名场面', ic: '🔥' })),
   ].sort((a, b) => a.pct - b.pct), [game.id]);
-
-  const clickJump = (e, el) => {
-    const r = el.getBoundingClientRect();
-    setValue(Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100))));
-  };
-  const safeTitle = (pct, name) => (guard && pct > value) ? `未至节点 · ${pct}%` : `${name} · ${pct}%`;
-
-  const curCh = chapters.find(c => value >= c.start && value < c.end) || chapters[chapters.length - 1];
-  const prevEv = [...events].reverse().find(e => e.pct <= value);
-  const nextEvs = events.filter(e => e.pct > value).slice(0, 2);
-  const nowX = Math.min(Math.max(X(value), 44), W - 44);
-  const shortName = (c) => c.name.split(/[：:]/)[0];
-
+  const prev = [...evs].reverse().find(e => e.pct <= value);
+  const next = evs.find(e => e.pct > value);
+  if (!prev && !next) return null;
   return (
-    <>
-      {/* Hype Wave */}
-      <div className="wave-box">
-        <svg ref={svgRef} className="wave" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none"
-          onClick={(e) => clickJump(e, svgRef.current)}>
-          <defs>
-            <linearGradient id="v10gLit" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(0,160,240,.44)" /><stop offset="100%" stopColor="rgba(123,47,247,.05)" />
-            </linearGradient>
-            <linearGradient id="v10gDim" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(138,125,102,.18)" /><stop offset="100%" stopColor="rgba(138,125,102,.02)" />
-            </linearGradient>
-            <clipPath id="v10clipLit"><rect x="0" y="0" width={X(value)} height={H} /></clipPath>
-          </defs>
-          {chapters.map((c, i) => (
-            <rect key={i} x={X(c.start)} y={0} width={X(c.end) - X(c.start)} height={H - PB} className={'wv-band' + (i % 2 ? ' alt' : '')} />
-          ))}
-          <path d={areaD} className="wv-area-dim" />
-          <path d={lineD} className="wv-line-dim" />
-          <g clipPath="url(#v10clipLit)">
-            <path d={areaD} className="wv-area-lit" />
-            <path d={lineD} className="wv-line-lit" />
-          </g>
-          {bosses.map((b, i) => (
-            <text key={'b' + i} x={X(b.pct)} y={H - 2} className={'wv-boss' + (b.pct > value ? ' future' : '')}
-              onClick={(e) => { e.stopPropagation(); openBoss && openBoss(b); }}>
-              <title>{safeTitle(b.pct, '⚔ ' + b.name)}</title>⚔
-            </text>
-          ))}
-          {peakPts.map((pk, i) => (
-            <g key={'p' + i} className={'wv-peak' + (pk.hi ? ' hi' : '') + (pk.pct > value ? ' future' : '')}
-              onClick={(e) => { e.stopPropagation(); setValue(pk.pct); }}>
-              <title>{safeTitle(pk.pct, pk.label)}</title>
-              <circle cx={pk.x} cy={pk.y} r={pk.hi ? 6 : 4} />
-              {pk.hi && <text x={pk.x} y={pk.y - 10}>{pk.label}</text>}
-            </g>
-          ))}
-          <line x1={X(value)} x2={X(value)} y1={PT - 6} y2={H - PB} className="wv-now" />
-          <text x={nowX} y={PT - 6} className="wv-now-lbl">你在这里 {value}%</text>
-        </svg>
-      </div>
-
-      {/* 渐变坐标轴（与波形同 x 轴） */}
-      <div className="axis">
-        <div ref={barRef} className="bar" onClick={(e) => { if (e.target !== barRef.current && !e.target.classList.contains('fill') && !e.target.classList.contains('fillclip')) return; clickJump(e, barRef.current); }}>
-          <div className="fillclip"><div className="fill" style={{ width: value + '%' }} /></div>
-          {chapters.slice(1).map((c, i) => <div key={i} className="tick" style={{ left: c.start + '%' }} />)}
-          {entries.map((en, i) => (
-            <div key={i} className={'entry' + (en.pct <= value ? ' done' : '')} style={{ left: en.pct + '%' }}
-              title={`🎁 ${en.label}（${en.pct}%）`} onClick={() => openEntry && openEntry(en)} />
-          ))}
-          <div className="youmk" style={{ left: value + '%' }} />
+    <div className="nearby">
+      {prev && (
+        <div className="nb prev"><div className="ic">{prev.ic}</div>
+          <div className="tt"><div className="tl">刚走过</div>
+            <div className="nm">{prev.n}</div>
+            <div className="mt2">{prev.t} · {prev.pct}%</div></div>
         </div>
-        <div className="axis-cap">
-          <span>{shortName(chapters[0])}</span>
-          <b className="mono">{value}% · {curCh.name}</b>
-          <span>{shortName(chapters[chapters.length - 1])}</span>
+      )}
+      {next && (
+        <div className="nb next"><div className="ic">{next.ic}</div>
+          <div className="tt"><div className="tl">即将抵达</div>
+            <div className="nm spoil">{next.n}</div>
+            <div className="mt2">{next.t} · {next.pct}% · 约 {((next.pct - value) / 100 * game.hoursMain).toFixed(1)}h 后</div></div>
         </div>
-      </div>
-
-      {/* 邻近里程碑（刚走过 1 + 即将抵达 ≤2） */}
-      <div className="nearby">
-        {prevEv && (
-          <div className="nb prev"><div className="ic">{prevEv.ic}</div>
-            <div className="tt"><div className="tl">刚走过</div>
-              <div className="nm">{prevEv.n}</div>
-              <div className="mt2">{prevEv.t} · {prevEv.pct}%</div></div>
-          </div>
-        )}
-        <div className="nb now"><div className="ic">⟡</div>
-          <div className="tt"><div className="tl">此刻</div>
-            <div className="nm">{curCh.name}</div>
-            <div className="mt2">进度 {value}% · 已陪跑 {(value / 100 * game.hoursMain).toFixed(1)}h</div></div>
-        </div>
-        {nextEvs.map((e, i) => (
-          <div key={i} className="nb next"><div className="ic">{e.ic}</div>
-            <div className="tt"><div className="tl">{i === 0 ? '即将抵达' : '再往前'}</div>
-              <div className={'nm' + (e.spoil ? ' spoil' : '')}>{e.n}</div>
-              <div className="mt2">{e.t} · {e.pct}%</div></div>
-          </div>
-        ))}
-      </div>
-    </>
+      )}
+    </div>
   );
 }
 
@@ -314,7 +213,7 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
         <button className="t-ctl" title="切回旧版界面" onClick={onSwitchToV9}>v9</button>
       </nav>
 
-      {/* Hero 全出血（步骤 5 精修；骨架先按定稿结构立起来） */}
+      {/* Hero：v9 banner 基底 + 打招呼 + 数据面板（信息精简，标签挪简介） */}
       <header className="hero">
         <img className="bg" src={game.banner} alt="" onError={e => { e.target.style.display = 'none'; }} />
         <div className="scrim" />
@@ -322,31 +221,33 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
           <div className="greet"><span className="dot" />欢迎回来 · 继续陪 <b>{game.short}</b> 走这段路</div>
           <h1>{game.titleMain}</h1>
           <div className="sub">{game.titleSub}</div>
-          <div className="meta">
-            {game.developer && <span className="chip">{game.developer}{game.year ? ' · ' + game.year : ''}</span>}
-            {game.genre && <span className="chip">{game.genre}</span>}
-            {game.tagline && <span className="chip gold">⚡ {game.tagline}</span>}
-          </div>
-          <div className="hero-foot">
-            <button className="cta primary" onClick={() => setTab('progress')}>{'▶ 继续旅程'}</button>
-            <div className="hero-stats">
-              <div className="hstat"><b>{value}<small>%</small></b><span>完成度</span></div>
-              <div className="hstat"><b>{played.toFixed(1)}<small>h</small></b><span>已陪跑</span></div>
-              <div className="hstat"><b>{Math.max(0, game.hoursMain - played).toFixed(1)}<small>h</small></b><span>剩余(主线)</span></div>
-              <div className="hstat"><b>{bossPassed}<small>/{game.bosses.length}</small></b><span>Boss 已过</span></div>
-            </div>
+          <div className="hero-stats">
+            <div className="hstat"><b>{value}<small>%</small></b><span>完成度</span></div>
+            <div className="hstat"><b>{played.toFixed(1)}<small>h</small></b><span>已陪跑</span></div>
+            <div className="hstat"><b>{Math.max(0, game.hoursMain - played).toFixed(1)}<small>h</small></b><span>剩余(主线)</span></div>
+            <div className="hstat"><b>{bossPassed}<small>/{game.bosses.length}</small></b><span>Boss 已过</span></div>
           </div>
         </div>
       </header>
 
       <main>
-        {/* 进度 Tab：HypeWave + 坐标轴 + 邻近里程碑（章节墙 = 步骤 4） */}
+        {/* 进度 Tab：进度输入(v9) → 游戏简介(v9+chips) → HypeWave(v9组件) + 前后小卡 → 章节墙(步骤4) */}
         {tab === 'progress' && (
           <>
-            <div className="panel">
-              <div className="p-head"><span className="k">Hype Wave</span><h2>剧情张力曲线</h2><span className="note">点曲线试跳进度</span></div>
-              <p className="p-sub">亮蓝=走过的张力，灰线=前方；实心橙=必看名场面，⚔=Boss 存档点；下方渐变轴：◆=推荐起点，金点=你在这里。</p>
-              <V10Wave game={game} value={value} setValue={setValue} guard={guard} openBoss={openBoss} openEntry={openEntry} />
+            <ProgressInput game={game} value={value} setValue={setValue} />
+            <div className="panel sec-gap">
+              <div className="p-head"><span className="k">About</span><h2>游戏简介</h2></div>
+              <div className="v10-chiprow">
+                {game.developer ? <span className="vchip">{game.developer}{game.year ? ' · ' + game.year : ''}</span> : null}
+                {game.genre ? <span className="vchip">{game.genre}</span> : null}
+                {game.hoursMain > 0 ? <span className="vchip">主线约 {game.hoursMain}h</span> : null}
+              </div>
+              <Overview game={game} />
+            </div>
+            <div className="panel sec-gap">
+              <div className="p-head"><span className="k">Hype Wave</span><h2>剧情张力曲线</h2><span className="note">拖动预览</span></div>
+              <HypeProgress game={game} value={value} onChange={setValue} onBoss={openBoss} onEntry={openEntry} idBase={'v10-' + game.id} />
+              <V10PrevNext game={game} value={value} />
             </div>
             <div className="panel sec-gap">
               <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2></div>
@@ -359,7 +260,6 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
         {tab === 'journey' && (
           <>
             <div className="p-head"><span className="k">Journey</span><h2>成长旅程</h2></div>
-            <p className="p-sub">金色是走过的路，虚线是前方。🎁 是推荐起点；各段就近的 ⚔ 存档直接挂在节点卡里。</p>
             {(game.journey && game.journey.length > 0)
               ? <V10Journey game={game} value={value} openBoss={openBoss} openEntry={openEntry} />
               : <div className="panel ph"><p>本作暂无成长历程数据</p></div>}
@@ -384,4 +284,4 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
   );
 }
 
-Object.assign(window, { V10App, V10Journey, V10Wave });
+Object.assign(window, { V10App, V10Journey, V10PrevNext });

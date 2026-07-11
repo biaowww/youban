@@ -4,7 +4,10 @@
         原型 body.dark / body.guard → .v10.dark / .v10.guard；
         原型 position:fixed（topbar/sim）→ absolute（容器内滚动）。
    ============================================================ */
-.v10, .v10 * { box-sizing: border-box; margin: 0; }
+.v10, .v10 * { box-sizing: border-box; }
+.v10 { margin: 0; }
+/* 用 :where 零特异性重置，避免压过挂载在 v10 内的 v9 组件自身样式 */
+.v10 :where(h1, h2, h3, p) { margin: 0; }
 .v10 {
   --bg: #f5efe2; --bg2: #fbf8f0; --card: #fffdf8; --panel2: #f2ecdd;
   --ink: #261f13; --mut: #8a7d66; --line: rgba(70,55,25,.13);
@@ -31,9 +34,8 @@
 .v10 .mono { font-family: 'Space Mono', ui-monospace, monospace; }
 
 /* ─────── 顶栏（容器内 sticky） ─────── */
-/* 顶栏：padding-top 顶开模拟 notch（QA 阶段换 safe-area-inset，见 docs/tasks/v10-QA-issues.md） */
-.v10 .topbar { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 6px; padding: 34px 10px 8px; transition: .35s; margin-bottom: -76px; }
-.v10 .topbar.solid { margin-bottom: -76px; }
+/* 顶栏：借鉴 v9 gtopbar 的 top:50px 方案躲 notch（真机 safe-area 见 docs/tasks/v10-QA-issues.md） */
+.v10 .topbar { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 6px; padding: 48px 10px 8px; transition: .35s; margin-bottom: -88px; }
 .v10 .t-brand b { display: none; } /* 窄屏只留图标，游戏名在 Hero 里 */
 .v10 .t-tab { white-space: nowrap; }
 .v10 .topbar.solid { background: color-mix(in oklab, var(--bg) 84%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
@@ -57,8 +59,8 @@
 .v10.guard .t-ctl.guard-t .sw { background: var(--done); }
 .v10.guard .t-ctl.guard-t .sw::after { left: 14px; }
 
-/* ─────── Hero 全出血 ─────── */
-.v10 .hero { position: relative; height: var(--hero-h); min-height: 340px; overflow: hidden; }
+/* ─────── Hero（v9 banner 340px 基底 + 雾化/问候/数据面板） ─────── */
+.v10 .hero { position: relative; height: 340px; overflow: hidden; }
 .v10 .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 .v10 .hero .scrim { position: absolute; inset: 0; background:
   linear-gradient(180deg, rgba(4,5,10,.42) 0%, rgba(4,5,10,.05) 32%, rgba(4,5,10,.2) 60%, var(--bg) 97%),
@@ -77,8 +79,8 @@
 .v10 .cta { padding: 8px 15px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer; border: none; transition: .2s; }
 .v10 .cta.primary { background: linear-gradient(135deg,#d9b96e,var(--gold-deep)); color: #1a1405; box-shadow: 0 6px 24px rgba(196,163,90,.4); }
 .v10 .cta.primary:hover { transform: translateY(-2px); }
-.v10 .hero-stats { display: flex; gap: 12px; font-size: 10px; flex-wrap: wrap; }
-.v10 .hstat b { display: block; font-size: 15.5px; font-weight: 700; letter-spacing: -.02em; color: #fff; }
+.v10 .hero-stats { display: flex; gap: 14px; font-size: 10px; flex-wrap: wrap; margin-top: 12px; }
+.v10 .hstat b { display: block; font-size: 16px; font-weight: 700; letter-spacing: -.02em; color: #fff; }
 .v10 .hstat b small { font-size: 10px; font-weight: 600; opacity: .7; margin-left: 2px; }
 .v10 .hstat span { opacity: .72; }
 
@@ -248,6 +250,17 @@
 .v10 .you .avatar { width: 32px; height: 32px; border-radius: 50%; border: 3px solid var(--accent); background: var(--card) url('assets/youban-glyph.svg') center/60% no-repeat; box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 22%, transparent), 0 6px 18px rgba(0,0,0,.3); }
 .v10 .you .yl { position: absolute; left: 42px; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 10.5px; font-weight: 800; color: #fff; background: var(--accent); padding: 4px 10px; border-radius: 999px; }
 .v10 .you .yl::before { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%) rotate(45deg); width: 9px; height: 9px; background: var(--accent); }
+
+/* ─────── v9 HypeProgress 在 v10 内的小优化（只加样式，不动 v9 组件） ─────── */
+.v10 .node.n-boss { width: 16px; height: 16px; display: grid; place-items: center; }
+.v10 .node.n-boss::after { content: '⚔'; font-size: 8.5px; line-height: 1; color: #fff; }
+.v10 .leg.n-climax, .v10 .leg.n-char { display: none; }   /* 图例只留 Boss战 + 推荐起点 */
+.v10 .node-legend { margin-top: 10px; padding: 7px 12px; gap: 7px 14px; }
+.v10 .leg { font-size: 11px; }
+
+/* 简介 chips（自 Hero 挪入） */
+.v10 .v10-chiprow { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 10px; }
+.v10 .vchip { font-size: 11px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel2); color: var(--mut); font-weight: 600; }
 
 /* ─────── 占位 & 开发提示 ─────── */
 .v10 .ph { text-align: center; padding: 46px 20px; color: var(--mut); }
