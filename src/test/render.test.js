@@ -58,6 +58,7 @@ beforeAll(() => {
   inject(read('dist/components.js'));
   inject(read('dist/screens.js'));
   inject(read('dist/desktop.js'));
+  inject(read('dist/v10.js'));
 
   if (!win.React || !win.ReactDOM) {
     throw new Error('React/ReactDOM 未挂载到 window —— 注入失败');
@@ -116,6 +117,12 @@ describe('界面冒烟渲染 · 每款游戏 × 每个界面', () => {
       });
       it('DesktopApp (PC)', () => {
         expectClean('DesktopApp', { games, gi: idx, enter: noop, value: game.currentPct, setValue: noop, theme: 'light', setTheme: noop, onProfile: noop });
+      });
+      it('V10App (新版外壳)', () => {
+        expectClean('V10App', { game, games, value: game.currentPct, setValue: noop, onBack: noop, onSwitchToV9: noop, openBoss: noop, openEntry: noop });
+      });
+      it('V10Journey (旅程图)', () => {
+        expectClean('V10Journey', { game, value: game.currentPct, openBoss: noop, openEntry: noop });
       });
     });
   });

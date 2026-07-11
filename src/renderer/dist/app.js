@@ -8,6 +8,28 @@
 /* 数据层 adaptGame / loadRawGames 已抽到 renderer/adapt.js（普通脚本，先于 dist/app.js 引入），
    这里直接复用全局 adaptGame / loadRawGames。改游戏 JSON 字段名时去 adapt.js 同步。 */
 
+/* ───────── v10 保险丝：v10 运行时崩溃 → 自动回落 v9，绝不白屏 ───────── */
+class V10Boundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      err: false
+    };
+  }
+  static getDerivedStateFromError() {
+    return {
+      err: true
+    };
+  }
+  componentDidCatch(e, info) {
+    console.error('[v10] 渲染崩溃，已自动回落 v9：', e, info && info.componentStack);
+    if (this.props.onCrash) this.props.onCrash();
+  }
+  render() {
+    return this.state.err ? null : this.props.children;
+  }
+}
+
 /* ───────── 游戏内顶栏 ───────── */
 function GameTopBar({
   game,
@@ -181,7 +203,9 @@ function YBApp({
     gi: gi,
     enter: enter,
     onProfile: () => setProfile(true)
-  })) : v10on && window.V10App ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(V10App, {
+  })) : v10on && window.V10App ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(V10Boundary, {
+    onCrash: () => switchV10(false)
+  }, /*#__PURE__*/React.createElement(V10App, {
     game: game,
     games: games,
     value: value,
@@ -190,7 +214,7 @@ function YBApp({
     onSwitchToV9: () => switchV10(false),
     openBoss: setBoss,
     openEntry: setEntry
-  }), /*#__PURE__*/React.createElement(BossDrawer, {
+  })), /*#__PURE__*/React.createElement(BossDrawer, {
     game: game,
     boss: boss,
     onClose: () => setBoss(null)

@@ -9,6 +9,144 @@
    hooks（useState 等）由 components.js 全局声明，直接复用。
    ============================================================ */
 
+/* ───────── 历程 Tab：蜿蜒旅程图（步骤 2，v10-C 定稿 + v10-B 里程碑元素） ───────── */
+const V10_ICONS = ['🛠', '🤖', '⚔', '🤝', '🏛', '🌟', '🔥', '🗝'];
+
+function V10Journey({ game, value, openBoss, openEntry }) {
+  const wrapRef = useRef(null);
+  const baseRef = useRef(null);
+  const trodRef = useRef(null);
+  const youRef = useRef(null);
+  const ptsRef = useRef([]);      // 各节点圆心坐标（相对 wrap）
+  const pctsRef = useRef([]);     // 各节点对应进度
+  const valRef = useRef(value);
+  const [peeked, setPeeked] = useState({});
+
+  /* 节点序列：里程碑(journey) + 推荐起点(entries)，按进度排序（同进度 🎁 在前） */
+  const nodes = React.useMemo(() => {
+    const ms = (game.journey || []).map((j, i) => ({ type: 'm', ...j, ico: V10_ICONS[i % V10_ICONS.length] }));
+    const es = (game.entries || []).map(e => ({ type: 'e', ...e }));
+    return [...ms, ...es].sort((a, b) => a.pct - b.pct || (a.type === 'e' ? -1 : 1));
+  }, [game.id]);
+
+  /* 里程碑 → 下一站进度、就近 ⚔ 存档（每段最多 1 个） */
+  const milestonePcts = (game.journey || []).map(j => j.pct);
+  const nextOf = (pct) => { const i = milestonePcts.indexOf(pct); return milestonePcts[i + 1] != null ? milestonePcts[i + 1] : 100; };
+  const segBossOf = (pct) => (game.bosses || []).filter(b => b.pct >= pct && b.pct < nextOf(pct)).slice(0, 1);
+
+  /* 路径绘制（量 DOM 圆心 → 三次贝塞尔） */
+  const paint = () => {
+    const base = baseRef.current, trod = trodRef.current, you = youRef.current;
+    if (!base || !trod || !you || !base.getAttribute('d')) return;
+    if (typeof base.getTotalLength !== 'function') return; // jsdom 等无 SVG 几何实现的环境
+    const pts = ptsRef.current, pcts = pctsRef.current, pct = valRef.current;
+    const total = base.getTotalLength();
+    const lens = [0];
+    for (let i = 1; i < pts.length; i++) lens.push(lens[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y) * 1.02);
+    const scale = total / Math.max(1e-6, lens[lens.length - 1]);
+    let l = total;
+    if (pct <= pcts[0]) l = 0;
+    else {
+      for (let i = 1; i < pcts.length; i++) {
+        if (pct <= pcts[i]) { const t = (pct - pcts[i - 1]) / Math.max(1e-6, pcts[i] - pcts[i - 1]); l = (lens[i - 1] + t * (lens[i] - lens[i - 1])) * scale; break; }
+      }
+    }
+    trod.setAttribute('stroke-dasharray', `${l} ${total}`);
+    const p = base.getPointAtLength(l);
+    you.style.left = p.x + 'px'; you.style.top = p.y + 'px';
+    const lbl = you.querySelector('.yl'); if (lbl) lbl.textContent = `你在这里 · ${pct}%`;
+  };
+
+  const draw = () => {
+    const wrap = wrapRef.current, base = baseRef.current, trod = trodRef.current;
+    if (!wrap || !base || !trod) return;
+    const r = wrap.getBoundingClientRect();
+    if (r.width < 10 || r.height < 10) return;
+    base.ownerSVGElement.setAttribute('viewBox', `0 0 ${r.width} ${r.height}`);
+    const pts = [], pcts = [];
+    wrap.querySelectorAll('.j-row').forEach(row => {
+      const d = row.querySelector('.j-dot'); if (!d) return;
+      const b = d.getBoundingClientRect();
+      pts.push({ x: b.left + b.width / 2 - r.left, y: b.top + b.height / 2 - r.top });
+      pcts.push(+row.dataset.pct);
+    });
+    if (pts.length < 2) return;
+    let d = `M ${pts[0].x} ${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1], b = pts[i], my = (a.y + b.y) / 2;
+      d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
+    }
+    base.setAttribute('d', d); trod.setAttribute('d', d);
+    ptsRef.current = pts; pctsRef.current = pcts;
+    paint();
+  };
+
+  useEffect(() => {
+    draw();
+    const t1 = setTimeout(draw, 150), t2 = setTimeout(draw, 600); // 字体/图片落定后再校
+    window.addEventListener('resize', draw);
+    return () => { clearTimeout(t1); clearTimeout(t2); window.removeEventListener('resize', draw); };
+  }, [game.id]);
+  useEffect(() => { valRef.current = value; paint(); }, [value]);
+
+  /* 当前里程碑 = 最后一个 pct<=value 的里程碑节点 */
+  let curIdx = -1;
+  nodes.forEach((n, i) => { if (n.type === 'm' && n.pct <= value) curIdx = i; });
+  const STATE_TXT = { done: '已解锁', current: '进行中', future: '锁定' };
+
+  return (
+    <div className="journey-wrap" ref={wrapRef}>
+      <svg className="route"><path className="base" ref={baseRef} /><path className="trod" ref={trodRef} /></svg>
+      <div className="you" ref={youRef}><div className="avatar" /><div className="yl">你在这里 · {value}%</div></div>
+      {nodes.map((n, i) => {
+        const side = i % 2 === 0 ? 'L' : 'R';
+        if (n.type === 'e') {
+          const done = n.pct <= value;
+          return (
+            <div key={'e' + n.pct} className={`j-row entry-row ${side} ${done ? 'done' : 'future'}`} data-pct={n.pct}>
+              <div className="e-card">
+                <div className="el">🎁 {n.label}<span className="mono" style={{ fontSize: 10, opacity: .7 }}>{n.pct}%</span></div>
+                <div className="ew">{n.reason}</div>
+                <span className="go" onClick={() => openEntry && openEntry(n)}>{'从这里进入 →'}</span>
+              </div>
+              <div className="j-node"><div className="j-dot"><span>🎁</span></div><span className="j-pct mono">{n.pct}%</span></div>
+            </div>
+          );
+        }
+        const state = i === curIdx ? 'current' : (n.pct <= value ? 'done' : 'future');
+        const nextPct = nextOf(n.pct);
+        const seg = segBossOf(n.pct);
+        const glW = state === 'done' ? 100 : state === 'future' ? 0 : Math.min(100, (value - n.pct) / Math.max(1, nextPct - n.pct) * 100);
+        return (
+          <div key={'m' + n.pct} className={`j-row ${side} ${state}${peeked[i] ? ' peeked' : ''}`} data-pct={n.pct}>
+            <div className="j-card">
+              {state === 'future' && <span className="peek" onClick={() => setPeeked(p => ({ ...p, [i]: !p[i] }))}>偷看一眼 👀</span>}
+              <div className="ico">{n.ico}</div>
+              <div className="bd2">
+                <div className="ev">{n.event}<span className="st">{STATE_TXT[state]}</span></div>
+                <div className="desc">{n.desc}</div>
+                {n.unlocks.length > 0 && <div className="tags">{n.unlocks.map((u, k) => <span key={k} className="tag">✦ {u}</span>)}</div>}
+                <div className="j-next"><div className="gl"><i style={{ width: glW + '%' }} /></div><span className="pc mono">{'→ 下一站 ' + nextPct + '%'}</span></div>
+                {seg.length > 0 && (
+                  <div className="j-save">{seg.map(b => (
+                    <div key={b.id || b.pct} className={'sv' + (b.hi ? ' hi' : '') + (b.pct > value ? ' locked' : '')}>
+                      <span className="swd">⚔</span>
+                      <span className="n" onClick={() => openBoss && openBoss(b)}>就近存档 · {b.name}</span>
+                      <span className="pc2 mono">{b.pct}%</span>
+                      <button className="dl" onClick={() => openBoss && openBoss(b)}>⤓</button>
+                    </div>
+                  ))}</div>
+                )}
+              </div>
+            </div>
+            <div className="j-node"><div className="j-dot"><span>{state === 'current' ? '⟡' : state === 'done' ? '✓' : '◆'}</span></div><span className="j-pct mono">{n.pct}%</span></div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
 function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry }) {
   const [tab, setTab] = useState('progress');
@@ -80,12 +218,15 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
           </div>
         )}
 
-        {/* 历程 Tab（步骤 2：蜿蜒旅程图） */}
+        {/* 历程 Tab：蜿蜒旅程图（v10-C + B 里程碑元素） */}
         {tab === 'journey' && (
-          <div className="panel">
+          <>
             <div className="p-head"><span className="k">Journey</span><h2>成长旅程</h2></div>
-            <div className="ph"><div className="big">🚧</div><p><b>历程 Tab 施工中</b>（步骤 2：蜿蜒旅程图）</p></div>
-          </div>
+            <p className="p-sub">金色是走过的路，虚线是前方。🎁 是推荐起点；各段就近的 ⚔ 存档直接挂在节点卡里。</p>
+            {(game.journey && game.journey.length > 0)
+              ? <V10Journey game={game} value={value} openBoss={openBoss} openEntry={openEntry} />
+              : <div className="panel ph"><p>本作暂无成长历程数据</p></div>}
+          </>
         )}
 
         {/* 舆情 Tab：沿用 v9（铁律 4，只接入口） */}
@@ -106,4 +247,4 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
   );
 }
 
-Object.assign(window, { V10App });
+Object.assign(window, { V10App, V10Journey });
