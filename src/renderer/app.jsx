@@ -9,11 +9,12 @@
    这里直接复用全局 adaptGame / loadRawGames。改游戏 JSON 字段名时去 adapt.js 同步。 */
 
 /* ───────── 游戏内顶栏 ───────── */
-function GameTopBar({ game, onBack, onSwitch, theme, setTheme }) {
+function GameTopBar({ game, onBack, onSwitch, theme, setTheme, onV10 }) {
   return (
     <div className="gtopbar">
       <button className="gt-btn" onClick={onBack}><Icon name="back" size={16} />游戏库</button>
       <button className="gt-btn" onClick={onSwitch}><span className="gt-name">{game.short}<Icon name="chevd" size={14} /></span></button>
+      {onV10 && <button className="gt-btn" onClick={onV10} title="切到 v10 新版界面">v10</button>}
       <ThemeToggle theme={theme} setTheme={setTheme} game={game} />
     </div>
   );
@@ -49,6 +50,9 @@ function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, 
   const [switcher, setSwitcher] = useState(false);
   const [profile, setProfile] = useState(false);
   const [connect, setConnect] = useState(null);
+  /* v10 新版 UI 开关（feature/v10-ui）：默认开，可切回 v9；v9 渲染路径原样保留 */
+  const [v10on, setV10on] = useState(() => { try { return localStorage.getItem('yb_v10') !== '0'; } catch (e) { return true; } });
+  const switchV10 = (on) => { setV10on(on); try { localStorage.setItem('yb_v10', on ? '1' : '0'); } catch (e) { /* noop */ } };
   const th = game.theme;
   const vars = { '--g-bg': th.bg, '--g-card': th.card, '--g-accent': th.accent, '--g-accent2': th.accent2, '--g-text': th.text };
   const brand = stage !== 'app';
@@ -80,9 +84,17 @@ function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, 
         <div className="yb-viewport">
           <LibraryScreen games={games} gi={gi} enter={enter} onProfile={() => setProfile(true)} />
         </div>
+      ) : (v10on && window.V10App) ? (
+        <>
+          <V10App game={game} games={games} value={value} setValue={setValue}
+            onBack={() => setView('library')} onSwitchToV9={() => switchV10(false)}
+            openBoss={setBoss} openEntry={setEntry} />
+          <BossDrawer game={game} boss={boss} onClose={() => setBoss(null)} />
+          <EntryDetail game={game} entry={entry} onClose={() => setEntry(null)} onStart={setValue} />
+        </>
       ) : (
         <>
-          <GameTopBar game={game} onBack={() => setView('library')} onSwitch={() => setSwitcher(true)} theme={theme} setTheme={setTheme} />
+          <GameTopBar game={game} onBack={() => setView('library')} onSwitch={() => setSwitcher(true)} theme={theme} setTheme={setTheme} onV10={() => switchV10(true)} />
           <div className="yb-viewport">
             {screen}
             <TabBar tab={tab} setTab={setTab} />

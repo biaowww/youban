@@ -14,7 +14,8 @@ function GameTopBar({
   onBack,
   onSwitch,
   theme,
-  setTheme
+  setTheme,
+  onV10
 }) {
   return /*#__PURE__*/React.createElement("div", {
     className: "gtopbar"
@@ -32,7 +33,11 @@ function GameTopBar({
   }, game.short, /*#__PURE__*/React.createElement(Icon, {
     name: "chevd",
     size: 14
-  }))), /*#__PURE__*/React.createElement(ThemeToggle, {
+  }))), onV10 && /*#__PURE__*/React.createElement("button", {
+    className: "gt-btn",
+    onClick: onV10,
+    title: "\u5207\u5230 v10 \u65B0\u7248\u754C\u9762"
+  }, "v10"), /*#__PURE__*/React.createElement(ThemeToggle, {
     theme: theme,
     setTheme: setTheme,
     game: game
@@ -112,6 +117,20 @@ function YBApp({
   const [switcher, setSwitcher] = useState(false);
   const [profile, setProfile] = useState(false);
   const [connect, setConnect] = useState(null);
+  /* v10 新版 UI 开关（feature/v10-ui）：默认开，可切回 v9；v9 渲染路径原样保留 */
+  const [v10on, setV10on] = useState(() => {
+    try {
+      return localStorage.getItem('yb_v10') !== '0';
+    } catch (e) {
+      return true;
+    }
+  });
+  const switchV10 = on => {
+    setV10on(on);
+    try {
+      localStorage.setItem('yb_v10', on ? '1' : '0');
+    } catch (e) {/* noop */}
+  };
   const th = game.theme;
   const vars = {
     '--g-bg': th.bg,
@@ -162,12 +181,31 @@ function YBApp({
     gi: gi,
     enter: enter,
     onProfile: () => setProfile(true)
+  })) : v10on && window.V10App ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(V10App, {
+    game: game,
+    games: games,
+    value: value,
+    setValue: setValue,
+    onBack: () => setView('library'),
+    onSwitchToV9: () => switchV10(false),
+    openBoss: setBoss,
+    openEntry: setEntry
+  }), /*#__PURE__*/React.createElement(BossDrawer, {
+    game: game,
+    boss: boss,
+    onClose: () => setBoss(null)
+  }), /*#__PURE__*/React.createElement(EntryDetail, {
+    game: game,
+    entry: entry,
+    onClose: () => setEntry(null),
+    onStart: setValue
   })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(GameTopBar, {
     game: game,
     onBack: () => setView('library'),
     onSwitch: () => setSwitcher(true),
     theme: theme,
-    setTheme: setTheme
+    setTheme: setTheme,
+    onV10: () => switchV10(true)
   }), /*#__PURE__*/React.createElement("div", {
     className: "yb-viewport"
   }, screen, /*#__PURE__*/React.createElement(TabBar, {
