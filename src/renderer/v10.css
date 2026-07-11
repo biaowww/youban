@@ -63,14 +63,14 @@
 .v10 .hero { position: relative; height: 340px; overflow: hidden; }
 .v10 .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 .v10 .hero .scrim { position: absolute; inset: 0; background:
-  linear-gradient(180deg, rgba(4,5,10,.42) 0%, rgba(4,5,10,.05) 32%, rgba(4,5,10,.2) 60%, var(--bg) 97%),
-  linear-gradient(100deg, rgba(4,5,10,.55) 0%, transparent 55%); transition: background .4s; }
+  linear-gradient(180deg, rgba(4,5,10,.5) 0%, rgba(4,5,10,.16) 30%, rgba(4,5,10,.6) 62%, var(--bg) 98%),
+  linear-gradient(100deg, rgba(4,5,10,.6) 0%, transparent 60%); transition: background .4s; }
 .v10 .hero .inner { position: absolute; inset: auto 0 0 0; padding: 0 16px 16px; color: #f4edda; }
-.v10 .greet { display: inline-flex; align-items: center; gap: 7px; font-size: 10.5px; margin-bottom: 7px; padding: 4px 10px; border-radius: 999px; background: rgba(14,11,5,.42); backdrop-filter: blur(10px); border: 1px solid rgba(196,163,90,.35); max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v10 .greet { display: inline-flex; align-items: center; gap: 7px; font-size: 10.5px; margin-bottom: 7px; padding: 4px 10px; border-radius: 999px; background: rgba(14,11,5,.62); backdrop-filter: blur(10px); border: 1px solid rgba(196,163,90,.4); max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .v10 .greet .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--done); box-shadow: 0 0 8px var(--done); flex-shrink: 0; }
 .v10 .greet b { color: var(--gold); font-weight: 700; }
 .v10 .hero h1 { font-size: clamp(18px, 5vw, 26px); line-height: 1.1; letter-spacing: -.015em; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
-.v10 .hero .sub { font-size: 11.5px; opacity: .82; margin-top: 2px; }
+.v10 .hero .sub { font-size: 11.5px; opacity: .95; margin-top: 2px; text-shadow: 0 1px 12px rgba(0,0,0,.85); }
 .v10 .hero .meta { display: flex; align-items: center; gap: 6px; margin-top: 7px; font-size: 10.5px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
 .v10 .hero .meta::-webkit-scrollbar { display: none; }
 .v10 .chip { padding: 2.5px 9px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28); background: rgba(10,8,4,.3); backdrop-filter: blur(6px); white-space: nowrap; flex-shrink: 0; }
@@ -80,9 +80,9 @@
 .v10 .cta.primary { background: linear-gradient(135deg,#d9b96e,var(--gold-deep)); color: #1a1405; box-shadow: 0 6px 24px rgba(196,163,90,.4); }
 .v10 .cta.primary:hover { transform: translateY(-2px); }
 .v10 .hero-stats { display: flex; gap: 14px; font-size: 10px; flex-wrap: wrap; margin-top: 12px; }
-.v10 .hstat b { display: block; font-size: 16px; font-weight: 700; letter-spacing: -.02em; color: #fff; }
-.v10 .hstat b small { font-size: 10px; font-weight: 600; opacity: .7; margin-left: 2px; }
-.v10 .hstat span { opacity: .72; }
+.v10 .hstat b { display: block; font-size: 16px; font-weight: 700; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.75); }
+.v10 .hstat b small { font-size: 10px; font-weight: 600; opacity: .75; margin-left: 2px; }
+.v10 .hstat span { opacity: .9; text-shadow: 0 1px 8px rgba(0,0,0,.85); }
 
 /* ─────── Tab 容器 ─────── */
 .v10 main { padding: 18px 14px 30px; }
@@ -96,30 +96,7 @@
 .v10 .p-sub { font-size: 12px; color: var(--mut); margin-bottom: 12px; }
 .v10 .sec-gap { margin-top: 18px; }
 
-/* ─────── Hype Wave ─────── */
-.v10 .wave-box { position: relative; }
-.v10 svg.wave { display: block; width: 100%; height: 190px; cursor: crosshair; }
-.v10 .wv-band { fill: color-mix(in oklab, var(--ink) 2.5%, transparent); }
-.v10 .wv-band.alt { fill: color-mix(in oklab, var(--ink) 5%, transparent); }
-.v10 .wv-band-lbl { font-size: 9.5px; fill: var(--mut); letter-spacing: .04em; }
-.v10 .wv-area-dim { fill: url(#v10gDim); }
-.v10 .wv-area-lit { fill: url(#v10gLit); }
-.v10 .wv-line-dim { fill: none; stroke: var(--wv-dim); stroke-width: 1.5; }
-.v10 .wv-line-lit { fill: none; stroke: var(--accent); stroke-width: 2.5; filter: drop-shadow(0 0 8px color-mix(in oklab, var(--accent) 55%, transparent)); }
-.v10 .wv-peak { cursor: pointer; }
-.v10 .wv-peak circle { fill: var(--card); stroke: var(--accent2); stroke-width: 2.5; }
-.v10 .wv-peak.hi circle { fill: var(--accent2); }
-.v10 .wv-peak.future circle { stroke: color-mix(in oklab, var(--mut) 55%, transparent); fill: var(--card); }
-.v10 .wv-peak text { font-size: 10px; fill: var(--ink); text-anchor: middle; font-weight: 600; }
-.v10 .wv-peak.future text { fill: var(--mut); }
-.v10.guard .wv-peak.future text { opacity: 0; }
-.v10 .wv-boss { font-size: 10.5px; text-anchor: middle; cursor: pointer; fill: var(--ink); }
-.v10 .wv-boss.future { opacity: .38; }
-.v10 .wv-now { stroke: var(--gold); stroke-width: 2; stroke-dasharray: 4 4; }
-.v10 .wv-now-lbl { font-size: 10.5px; fill: var(--gold-deep); font-weight: 700; text-anchor: middle; }
-.v10.dark .wv-now-lbl { fill: var(--gold); }
-
-/* 坐标轴渐变条 */
+/* ─────── 坐标轴渐变条（v10 动态轴，挂在 v9 波形下方） ─────── */
 .v10 .axis { position: relative; margin: 4px 0 4px; }
 .v10 .axis .bar { position: relative; height: 16px; border-radius: 8px; background: var(--panel2); border: 1px solid var(--line); overflow: visible; }
 .v10 .axis .fillclip { position: absolute; inset: 0; border-radius: 8px; overflow: hidden; }
@@ -251,12 +228,13 @@
 .v10 .you .yl { position: absolute; left: 42px; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 10.5px; font-weight: 800; color: #fff; background: var(--accent); padding: 4px 10px; border-radius: 999px; }
 .v10 .you .yl::before { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%) rotate(45deg); width: 9px; height: 9px; background: var(--accent); }
 
-/* ─────── v9 HypeProgress 在 v10 内的小优化（只加样式，不动 v9 组件） ─────── */
-.v10 .node.n-boss { width: 16px; height: 16px; display: grid; place-items: center; }
-.v10 .node.n-boss::after { content: '⚔'; font-size: 8.5px; line-height: 1; color: #fff; }
-.v10 .leg.n-climax, .v10 .leg.n-char { display: none; }   /* 图例只留 Boss战 + 推荐起点 */
+/* ─────── V10Hype（v9 波形复刻版）的小优化样式 ─────── */
+.v10 .node.n-boss { width: 18px; height: 18px; display: grid; place-items: center; }
+.v10 .node .nsw { font-size: 10px; line-height: 1; color: #fff; pointer-events: none; font-family: 'Segoe UI Symbol', sans-serif; }
+.v10 .node.n-boss.upcoming .nsw { color: var(--g-accent2); }
 .v10 .node-legend { margin-top: 10px; padding: 7px 12px; gap: 7px 14px; }
 .v10 .leg { font-size: 11px; }
+.v10 .leg.n-boss .leg-dot { width: 15px; height: 15px; display: grid; place-items: center; color: #fff; font-size: 8.5px; line-height: 1; }
 
 /* 简介 chips（自 Hero 挪入） */
 .v10 .v10-chiprow { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 10px; }

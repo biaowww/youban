@@ -147,6 +147,155 @@ function V10Journey({ game, value, openBoss, openEntry }) {
   );
 }
 
+/* ───────── 进度 Tab：V10Hype —— v9 HypeProgress 复刻版（v9 原件不动）
+   与 v9 的差异仅三处（王彪 2026-07 反馈）：
+   ① 静止/拖动都只显示当前前后各 1 个节点（v9 是静止 6 个/拖动 ±3）
+   ② Boss 节点内嵌 ⚔ 字形
+   ③ 图例只留 Boss战 + 推荐起点，字号缩小 ───────── */
+function V10Hype({ game, value, onChange, onBoss, onEntry, idBase }) {
+  const ref = useRef(null);
+  const [drag, setDrag] = useState(false);
+  const [tapped, setTapped] = useState(null);
+  const gid = idBase || ('v10-' + game.id);
+  const pk = game.hype;
+  const nodes = React.useMemo(() => buildNodes(game), [game.id]);
+  const entries = (game.entries || []).filter(e => e.pct > 0);
+
+  /* 波形：与 v9 完全一致 */
+  const Y = (s) => 100 - (Math.max(0, Math.min(10, s)) / 10) * 86 - 7;
+  const cps = [{ x: 0, s: 1.1 }];
+  pk.forEach((p, i) => {
+    if (i > 0) {
+      const pr = pk[i - 1];
+      const valley = Math.max(0.8, Math.min(pr.score, p.score) - 3.6 - (i % 2) * 0.8);
+      cps.push({ x: (pr.pct + p.pct) / 2, s: valley });
+    }
+    cps.push({ x: p.pct, s: p.score });
+  });
+  cps.push({ x: 100, s: 1.1 });
+  const wpts = cps.map(c => ({ x: c.x, y: Y(c.s) }));
+  const line = smoothPath(wpts);
+  const area = line + ' L 100 100 L 0 100 Z';
+
+  const setFromX = useCallback((clientX) => {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    let pct = ((clientX - r.left) / r.width) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    for (const p of pk) if (Math.abs(p.pct - pct) < 1.6) pct = p.pct;
+    onChange(Math.round(pct));
+  }, [pk, onChange]);
+
+  useEffect(() => {
+    if (!drag) return;
+    const mv = (e) => { e.preventDefault(); setFromX(e.touches ? e.touches[0].clientX : e.clientX); };
+    const up = () => setDrag(false);
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up);
+    return () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); };
+  }, [drag, setFromX]);
+
+  /* 差异①：可见节点 = 当前前后各 1 个 */
+  const before = nodes.filter(n => n.pct <= value).slice(-1);
+  const after = nodes.filter(n => n.pct > value).slice(0, 1);
+  const visKeys = new Set([...before, ...after].map(n => n.pct + n.type));
+
+  const tapNode = (n, e) => {
+    e.stopPropagation();
+    if (n.type === 'boss') { onBoss && onBoss(n.boss); }
+    else { setTapped(t => (t && t.pct === n.pct) ? null : n); }
+  };
+
+  return (
+    <div>
+      <div className="hype" ref={ref} onPointerDown={(e) => { setTapped(null); setDrag(true); setFromX(e.clientX); }}>
+        <svg className="wave" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id={'wg-' + gid} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="var(--g-accent)" stopOpacity=".5" />
+              <stop offset="58%" stopColor="var(--g-accent)" stopOpacity=".14" />
+              <stop offset="100%" stopColor="var(--g-accent)" stopOpacity=".02" />
+            </linearGradient>
+            <clipPath id={'wc-' + gid}><rect x="0" y="0" width={value} height="100" /></clipPath>
+          </defs>
+          <path d={area} fill={'url(#wg-' + gid + ')'} opacity=".34" />
+          <path d={area} fill={'url(#wg-' + gid + ')'} clipPath={'url(#wc-' + gid + ')'} />
+          <path d={line} fill="none" stroke="var(--g-accent)" strokeWidth=".8" strokeOpacity=".3" vectorEffect="non-scaling-stroke" />
+          <path d={line} fill="none" stroke="var(--g-accent)" strokeWidth="1.6" clipPath={'url(#wc-' + gid + ')'} vectorEffect="non-scaling-stroke" />
+        </svg>
+
+        <div className="baseline" />
+        <div className="fill" style={{ width: value + '%' }} />
+        {game.chapters.slice(0, -1).map((c, i) => <div key={i} className="tick" style={{ left: c.end + '%' }} />)}
+
+        {entries.map((e, i) => (
+          <div key={'e' + i} className="enode" style={{ left: e.pct + '%' }}
+            onPointerDown={(ev) => ev.stopPropagation()} onClick={(ev) => { ev.stopPropagation(); onEntry && onEntry(e); }}>
+            <Icon name="star" size={12} />
+          </div>
+        ))}
+
+        {nodes.map((n, i) => (
+          <div key={i}
+            className={'node n-' + NODE_TYPES[n.type].cls + (n.pct < value ? ' passed' : ' upcoming') + (visKeys.has(n.pct + n.type) ? '' : ' hidden') + (tapped && tapped.pct === n.pct ? ' on' : '')}
+            style={{ left: n.pct + '%' }}
+            onPointerDown={(e) => e.stopPropagation()} onClick={(e) => tapNode(n, e)}>
+            {n.type === 'boss' && <span className="nsw">{'⚔︎'}</span>}
+          </div>
+        ))}
+
+        {tapped && (
+          <div className={'node-cap n-' + NODE_TYPES[tapped.type].cls} style={{ left: Math.min(80, Math.max(16, tapped.pct)) + '%' }}>
+            <i className="nc-ic"><Icon name={NODE_TYPES[tapped.type].icon} size={11} /></i>
+            <span><b>{NODE_TYPES[tapped.type].label}</b>{tapped.label}</span>
+          </div>
+        )}
+
+        <div className="thumb" style={{ left: value + '%' }} onPointerDown={(e) => { e.stopPropagation(); setTapped(null); setDrag(true); }} />
+        <div className="thumb-flag" style={{ left: value + '%' }}>{value}%</div>
+      </div>
+
+      <div className="hype-ends"><span>开场</span><span></span><span>终章</span></div>
+
+      {/* 差异③：图例只留两项 */}
+      <div className="node-legend">
+        <span className="leg n-boss"><i className="leg-dot">{'⚔︎'}</i>Boss 战</span>
+        <span className="leg n-entry"><i className="leg-dot leg-star"><Icon name="star" size={9} /></i>推荐起点</span>
+      </div>
+    </div>
+  );
+}
+
+/* ───────── 进度 Tab：V10Axis —— v10 动态渐变坐标轴（拖动显示当前章节/位置） ───────── */
+function V10Axis({ game, value, setValue, openEntry }) {
+  const barRef = useRef(null);
+  const chapters = game.chapters;
+  const entries = game.entries || [];
+  const curCh = chapters.find(c => value >= c.start && value < c.end) || chapters[chapters.length - 1];
+  const shortName = (c) => c.name.split(/[：:]/)[0];
+  return (
+    <div className="axis">
+      <div ref={barRef} className="bar" onClick={(e) => {
+        if (e.target !== barRef.current && !e.target.classList.contains('fill') && !e.target.classList.contains('fillclip')) return;
+        const r = barRef.current.getBoundingClientRect();
+        setValue(Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100))));
+      }}>
+        <div className="fillclip"><div className="fill" style={{ width: value + '%' }} /></div>
+        {chapters.slice(1).map((c, i) => <div key={i} className="tick" style={{ left: c.start + '%' }} />)}
+        {entries.map((en, i) => (
+          <div key={i} className={'entry' + (en.pct <= value ? ' done' : '')} style={{ left: en.pct + '%' }}
+            title={`🎁 ${en.label}（${en.pct}%）`} onClick={() => openEntry && openEntry(en)} />
+        ))}
+        <div className="youmk" style={{ left: value + '%' }} />
+      </div>
+      <div className="axis-cap">
+        <span>{shortName(chapters[0])}</span>
+        <b className="mono">{value}% · {curCh.name}</b>
+        <span>{shortName(chapters[chapters.length - 1])}</span>
+      </div>
+    </div>
+  );
+}
+
 /* ───────── 进度 Tab：高潮节点前后小卡（v9 HypeProgress 的 v10 补充件） ───────── */
 function V10PrevNext({ game, value }) {
   /* 事件源 = ⚔Boss + 🔥名场面（score>=8），只取当前前后各一个 */
@@ -245,8 +394,9 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
               <Overview game={game} />
             </div>
             <div className="panel sec-gap">
-              <div className="p-head"><span className="k">Hype Wave</span><h2>剧情张力曲线</h2><span className="note">拖动预览</span></div>
-              <HypeProgress game={game} value={value} onChange={setValue} onBoss={openBoss} onEntry={openEntry} idBase={'v10-' + game.id} />
+              <div className="p-head"><span className="k">Progress</span><h2>流程进度</h2><span className="note">拖动预览</span></div>
+              <V10Hype game={game} value={value} onChange={setValue} onBoss={openBoss} onEntry={openEntry} idBase={'v10-' + game.id} />
+              <V10Axis game={game} value={value} setValue={setValue} openEntry={openEntry} />
               <V10PrevNext game={game} value={value} />
             </div>
             <div className="panel sec-gap">
@@ -284,4 +434,4 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
   );
 }
 
-Object.assign(window, { V10App, V10Journey, V10PrevNext });
+Object.assign(window, { V10App, V10Journey, V10Hype, V10Axis, V10PrevNext });

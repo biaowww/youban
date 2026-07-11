@@ -254,6 +254,287 @@ function V10Journey({
   }));
 }
 
+/* ───────── 进度 Tab：V10Hype —— v9 HypeProgress 复刻版（v9 原件不动）
+   与 v9 的差异仅三处（王彪 2026-07 反馈）：
+   ① 静止/拖动都只显示当前前后各 1 个节点（v9 是静止 6 个/拖动 ±3）
+   ② Boss 节点内嵌 ⚔ 字形
+   ③ 图例只留 Boss战 + 推荐起点，字号缩小 ───────── */
+function V10Hype({
+  game,
+  value,
+  onChange,
+  onBoss,
+  onEntry,
+  idBase
+}) {
+  const ref = useRef(null);
+  const [drag, setDrag] = useState(false);
+  const [tapped, setTapped] = useState(null);
+  const gid = idBase || 'v10-' + game.id;
+  const pk = game.hype;
+  const nodes = React.useMemo(() => buildNodes(game), [game.id]);
+  const entries = (game.entries || []).filter(e => e.pct > 0);
+
+  /* 波形：与 v9 完全一致 */
+  const Y = s => 100 - Math.max(0, Math.min(10, s)) / 10 * 86 - 7;
+  const cps = [{
+    x: 0,
+    s: 1.1
+  }];
+  pk.forEach((p, i) => {
+    if (i > 0) {
+      const pr = pk[i - 1];
+      const valley = Math.max(0.8, Math.min(pr.score, p.score) - 3.6 - i % 2 * 0.8);
+      cps.push({
+        x: (pr.pct + p.pct) / 2,
+        s: valley
+      });
+    }
+    cps.push({
+      x: p.pct,
+      s: p.score
+    });
+  });
+  cps.push({
+    x: 100,
+    s: 1.1
+  });
+  const wpts = cps.map(c => ({
+    x: c.x,
+    y: Y(c.s)
+  }));
+  const line = smoothPath(wpts);
+  const area = line + ' L 100 100 L 0 100 Z';
+  const setFromX = useCallback(clientX => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    let pct = (clientX - r.left) / r.width * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    for (const p of pk) if (Math.abs(p.pct - pct) < 1.6) pct = p.pct;
+    onChange(Math.round(pct));
+  }, [pk, onChange]);
+  useEffect(() => {
+    if (!drag) return;
+    const mv = e => {
+      e.preventDefault();
+      setFromX(e.touches ? e.touches[0].clientX : e.clientX);
+    };
+    const up = () => setDrag(false);
+    window.addEventListener('pointermove', mv);
+    window.addEventListener('pointerup', up);
+    return () => {
+      window.removeEventListener('pointermove', mv);
+      window.removeEventListener('pointerup', up);
+    };
+  }, [drag, setFromX]);
+
+  /* 差异①：可见节点 = 当前前后各 1 个 */
+  const before = nodes.filter(n => n.pct <= value).slice(-1);
+  const after = nodes.filter(n => n.pct > value).slice(0, 1);
+  const visKeys = new Set([...before, ...after].map(n => n.pct + n.type));
+  const tapNode = (n, e) => {
+    e.stopPropagation();
+    if (n.type === 'boss') {
+      onBoss && onBoss(n.boss);
+    } else {
+      setTapped(t => t && t.pct === n.pct ? null : n);
+    }
+  };
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "hype",
+    ref: ref,
+    onPointerDown: e => {
+      setTapped(null);
+      setDrag(true);
+      setFromX(e.clientX);
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "wave",
+    viewBox: "0 0 100 100",
+    preserveAspectRatio: "none"
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: 'wg-' + gid,
+    x1: "0",
+    y1: "0",
+    x2: "0",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    offset: "0%",
+    stopColor: "var(--g-accent)",
+    stopOpacity: ".5"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "58%",
+    stopColor: "var(--g-accent)",
+    stopOpacity: ".14"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "100%",
+    stopColor: "var(--g-accent)",
+    stopOpacity: ".02"
+  })), /*#__PURE__*/React.createElement("clipPath", {
+    id: 'wc-' + gid
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "0",
+    y: "0",
+    width: value,
+    height: "100"
+  }))), /*#__PURE__*/React.createElement("path", {
+    d: area,
+    fill: 'url(#wg-' + gid + ')',
+    opacity: ".34"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: area,
+    fill: 'url(#wg-' + gid + ')',
+    clipPath: 'url(#wc-' + gid + ')'
+  }), /*#__PURE__*/React.createElement("path", {
+    d: line,
+    fill: "none",
+    stroke: "var(--g-accent)",
+    strokeWidth: ".8",
+    strokeOpacity: ".3",
+    vectorEffect: "non-scaling-stroke"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: line,
+    fill: "none",
+    stroke: "var(--g-accent)",
+    strokeWidth: "1.6",
+    clipPath: 'url(#wc-' + gid + ')',
+    vectorEffect: "non-scaling-stroke"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "baseline"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "fill",
+    style: {
+      width: value + '%'
+    }
+  }), game.chapters.slice(0, -1).map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "tick",
+    style: {
+      left: c.end + '%'
+    }
+  })), entries.map((e, i) => /*#__PURE__*/React.createElement("div", {
+    key: 'e' + i,
+    className: "enode",
+    style: {
+      left: e.pct + '%'
+    },
+    onPointerDown: ev => ev.stopPropagation(),
+    onClick: ev => {
+      ev.stopPropagation();
+      onEntry && onEntry(e);
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "star",
+    size: 12
+  }))), nodes.map((n, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: 'node n-' + NODE_TYPES[n.type].cls + (n.pct < value ? ' passed' : ' upcoming') + (visKeys.has(n.pct + n.type) ? '' : ' hidden') + (tapped && tapped.pct === n.pct ? ' on' : ''),
+    style: {
+      left: n.pct + '%'
+    },
+    onPointerDown: e => e.stopPropagation(),
+    onClick: e => tapNode(n, e)
+  }, n.type === 'boss' && /*#__PURE__*/React.createElement("span", {
+    className: "nsw"
+  }, '⚔︎'))), tapped && /*#__PURE__*/React.createElement("div", {
+    className: 'node-cap n-' + NODE_TYPES[tapped.type].cls,
+    style: {
+      left: Math.min(80, Math.max(16, tapped.pct)) + '%'
+    }
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "nc-ic"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: NODE_TYPES[tapped.type].icon,
+    size: 11
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, NODE_TYPES[tapped.type].label), tapped.label)), /*#__PURE__*/React.createElement("div", {
+    className: "thumb",
+    style: {
+      left: value + '%'
+    },
+    onPointerDown: e => {
+      e.stopPropagation();
+      setTapped(null);
+      setDrag(true);
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "thumb-flag",
+    style: {
+      left: value + '%'
+    }
+  }, value, "%")), /*#__PURE__*/React.createElement("div", {
+    className: "hype-ends"
+  }, /*#__PURE__*/React.createElement("span", null, "\u5F00\u573A"), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null, "\u7EC8\u7AE0")), /*#__PURE__*/React.createElement("div", {
+    className: "node-legend"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg n-boss"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "leg-dot"
+  }, '⚔︎'), "Boss \u6218"), /*#__PURE__*/React.createElement("span", {
+    className: "leg n-entry"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "leg-dot leg-star"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "star",
+    size: 9
+  })), "\u63A8\u8350\u8D77\u70B9")));
+}
+
+/* ───────── 进度 Tab：V10Axis —— v10 动态渐变坐标轴（拖动显示当前章节/位置） ───────── */
+function V10Axis({
+  game,
+  value,
+  setValue,
+  openEntry
+}) {
+  const barRef = useRef(null);
+  const chapters = game.chapters;
+  const entries = game.entries || [];
+  const curCh = chapters.find(c => value >= c.start && value < c.end) || chapters[chapters.length - 1];
+  const shortName = c => c.name.split(/[：:]/)[0];
+  return /*#__PURE__*/React.createElement("div", {
+    className: "axis"
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: barRef,
+    className: "bar",
+    onClick: e => {
+      if (e.target !== barRef.current && !e.target.classList.contains('fill') && !e.target.classList.contains('fillclip')) return;
+      const r = barRef.current.getBoundingClientRect();
+      setValue(Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100))));
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fillclip"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fill",
+    style: {
+      width: value + '%'
+    }
+  })), chapters.slice(1).map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "tick",
+    style: {
+      left: c.start + '%'
+    }
+  })), entries.map((en, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: 'entry' + (en.pct <= value ? ' done' : ''),
+    style: {
+      left: en.pct + '%'
+    },
+    title: `🎁 ${en.label}（${en.pct}%）`,
+    onClick: () => openEntry && openEntry(en)
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "youmk",
+    style: {
+      left: value + '%'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "axis-cap"
+  }, /*#__PURE__*/React.createElement("span", null, shortName(chapters[0])), /*#__PURE__*/React.createElement("b", {
+    className: "mono"
+  }, value, "% \xB7 ", curCh.name), /*#__PURE__*/React.createElement("span", null, shortName(chapters[chapters.length - 1]))));
+}
+
 /* ───────── 进度 Tab：高潮节点前后小卡（v9 HypeProgress 的 v10 补充件） ───────── */
 function V10PrevNext({
   game,
@@ -416,15 +697,20 @@ function V10App({
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "k"
-  }, "Hype Wave"), /*#__PURE__*/React.createElement("h2", null, "\u5267\u60C5\u5F20\u529B\u66F2\u7EBF"), /*#__PURE__*/React.createElement("span", {
+  }, "Progress"), /*#__PURE__*/React.createElement("h2", null, "\u6D41\u7A0B\u8FDB\u5EA6"), /*#__PURE__*/React.createElement("span", {
     className: "note"
-  }, "\u62D6\u52A8\u9884\u89C8")), /*#__PURE__*/React.createElement(HypeProgress, {
+  }, "\u62D6\u52A8\u9884\u89C8")), /*#__PURE__*/React.createElement(V10Hype, {
     game: game,
     value: value,
     onChange: setValue,
     onBoss: openBoss,
     onEntry: openEntry,
     idBase: 'v10-' + game.id
+  }), /*#__PURE__*/React.createElement(V10Axis, {
+    game: game,
+    value: value,
+    setValue: setValue,
+    openEntry: openEntry
   }), /*#__PURE__*/React.createElement(V10PrevNext, {
     game: game,
     value: value
@@ -472,5 +758,7 @@ function V10App({
 Object.assign(window, {
   V10App,
   V10Journey,
+  V10Hype,
+  V10Axis,
   V10PrevNext
 });
