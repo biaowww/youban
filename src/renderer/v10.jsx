@@ -152,7 +152,7 @@ function V10Journey({ game, value, openBoss, openEntry }) {
    ① 静止/拖动都只显示当前前后各 1 个节点（v9 是静止 6 个/拖动 ±3）
    ② Boss 节点内嵌 ⚔ 字形
    ③ 图例只留 Boss战 + 推荐起点，字号缩小 ───────── */
-function V10Hype({ game, value, onChange, onBoss, onEntry, idBase }) {
+function V10Hype({ game, value, onChange, onBoss, onEntry, idBase, guard }) {
   const ref = useRef(null);
   const [drag, setDrag] = useState(false);
   const [tapped, setTapped] = useState(null);
@@ -201,9 +201,11 @@ function V10Hype({ game, value, onChange, onBoss, onEntry, idBase }) {
 
   const tapNode = (n, e) => {
     e.stopPropagation();
-    if (n.type === 'boss') { onBoss && onBoss(n.boss); }
+    /* 防剧透：未到的 Boss 不直接开抽屉（会剧透），改弹匿名气泡 */
+    if (n.type === 'boss' && !(guard && n.pct > value)) { onBoss && onBoss(n.boss); }
     else { setTapped(t => (t && t.pct === n.pct) ? null : n); }
   };
+  const capLabel = (n) => (guard && n.pct > value) ? '？？？（防剧透）' : n.label;
 
   return (
     <div>
@@ -246,7 +248,7 @@ function V10Hype({ game, value, onChange, onBoss, onEntry, idBase }) {
         {tapped && (
           <div className={'node-cap n-' + NODE_TYPES[tapped.type].cls} style={{ left: Math.min(80, Math.max(16, tapped.pct)) + '%' }}>
             <i className="nc-ic"><Icon name={NODE_TYPES[tapped.type].icon} size={11} /></i>
-            <span><b>{NODE_TYPES[tapped.type].label}</b>{tapped.label}</span>
+            <span><b>{NODE_TYPES[tapped.type].label}</b>{capLabel(tapped)}</span>
           </div>
         )}
 
@@ -330,6 +332,7 @@ function V10PrevNext({ game, value }) {
 function V10Chapters({ game, value, openBoss }) {
   /* 无每章配图 → 用 banner 按章节序号取不同焦点位，营造差异 */
   const posFor = (i) => `${(i * 37) % 70 + 15}% ${(i * 29) % 50 + 20}%`;
+  const [peeked, setPeeked] = useState({});
   return (
     <div className="ch-grid">
       {game.chapters.map((c, i) => {
@@ -337,7 +340,8 @@ function V10Chapters({ game, value, openBoss }) {
         const state = value >= c.end ? 'done' : value >= c.start ? 'current' : 'future';
         const fillW = state === 'done' ? 100 : state === 'current' ? Math.round((value - c.start) / Math.max(1, c.end - c.start) * 100) : 0;
         return (
-          <div key={i} className={'ch-card ' + state}>
+          <div key={i} className={'ch-card ' + state + (peeked[i] ? ' peeked' : '')}>
+            {state === 'future' && <span className="peek" onClick={() => setPeeked(p => ({ ...p, [i]: !p[i] }))}>偷看一眼 👀</span>}
             <div className="ch-thumb">
               <img src={game.banner} style={{ objectPosition: posFor(i) }} alt="" onError={e => { e.target.style.display = 'none'; }} />
               <div className="tint" />
@@ -377,12 +381,21 @@ function V10Chapters({ game, value, openBoss }) {
 }
 
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
-function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry }) {
+function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry, theme, setTheme }) {
   const [tab, setTab] = useState('progress');
   const [guard, setGuard] = useState(true);     // 防剧透默认开（原型默认 body.guard）
-  const [dark, setDark] = useState(false);      // 浅色暖调默认
   const [solid, setSolid] = useState(false);    // 顶栏滚动加底
+  const [greet, setGreet] = useState(true);     // 进入游戏后的打招呼 toast（自动消失）
   const rootRef = useRef(null);
+  /* 深色 = v9 的「游戏主题色」机制（同一状态，切 v9/v10 保持一致） */
+  const dark = theme === 'game';
+  const toggleTheme = () => setTheme && setTheme(dark ? 'light' : 'game');
+
+  useEffect(() => {
+    setGreet(true);
+    const t = setTimeout(() => setGreet(false), 3900);
+    return () => clearTimeout(t);
+  }, [game.id]);
 
   const onScroll = () => {
     const el = rootRef.current; if (!el) return;
@@ -408,16 +421,17 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
           ))}
         </div>
         <button className="t-ctl guard-t" title={guard ? '防剧透：开' : '防剧透：关'} onClick={() => setGuard(g => !g)}>🛡<span className="sw" /></button>
-        <button className="t-ctl" title="浅色 / 游戏主题色" onClick={() => setDark(d => !d)}>{dark ? '☀' : '🌙'}</button>
+        <button className="t-ctl" title={dark ? '切浅色' : '切游戏主题色'} onClick={toggleTheme}>{dark ? '☀' : '🌙'}</button>
         <button className="t-ctl" title="切回旧版界面" onClick={onSwitchToV9}>v9</button>
       </nav>
+
+      {greet && <div className="greet-toast" key={game.id}><span className="dot" />欢迎回来 · 继续陪 <b>{game.short}</b> 走这段路</div>}
 
       {/* Hero：v9 banner 基底 + 打招呼 + 数据面板（信息精简，标签挪简介） */}
       <header className="hero">
         <img className="bg" src={game.banner} alt="" onError={e => { e.target.style.display = 'none'; }} />
         <div className="scrim" />
         <div className="inner">
-          <div className="greet"><span className="dot" />欢迎回来 · 继续陪 <b>{game.short}</b> 走这段路</div>
           <h1>{game.titleMain}</h1>
           <div className="sub">{game.titleSub}</div>
           <div className="hero-stats">
@@ -445,7 +459,7 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
             </div>
             <div className="panel sec-gap">
               <div className="p-head"><span className="k">Progress</span><h2>流程进度</h2><span className="note">拖动预览</span></div>
-              <V10Hype game={game} value={value} onChange={setValue} onBoss={openBoss} onEntry={openEntry} idBase={'v10-' + game.id} />
+              <V10Hype game={game} value={value} onChange={setValue} onBoss={openBoss} onEntry={openEntry} idBase={'v10-' + game.id} guard={guard} />
               <V10Axis game={game} value={value} setValue={setValue} openEntry={openEntry} />
               <V10PrevNext game={game} value={value} />
             </div>

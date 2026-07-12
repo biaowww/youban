@@ -213,7 +213,9 @@ function YBApp({
     onBack: () => setView('library'),
     onSwitchToV9: () => switchV10(false),
     openBoss: setBoss,
-    openEntry: setEntry
+    openEntry: setEntry,
+    theme: theme,
+    setTheme: setTheme
   })), /*#__PURE__*/React.createElement(BossDrawer, {
     game: game,
     boss: boss,

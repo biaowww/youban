@@ -265,7 +265,8 @@ function V10Hype({
   onChange,
   onBoss,
   onEntry,
-  idBase
+  idBase,
+  guard
 }) {
   const ref = useRef(null);
   const [drag, setDrag] = useState(false);
@@ -335,12 +336,14 @@ function V10Hype({
   const visKeys = new Set([...before, ...after].map(n => n.pct + n.type));
   const tapNode = (n, e) => {
     e.stopPropagation();
-    if (n.type === 'boss') {
+    /* 防剧透：未到的 Boss 不直接开抽屉（会剧透），改弹匿名气泡 */
+    if (n.type === 'boss' && !(guard && n.pct > value)) {
       onBoss && onBoss(n.boss);
     } else {
       setTapped(t => t && t.pct === n.pct ? null : n);
     }
   };
+  const capLabel = n => guard && n.pct > value ? '？？？（防剧透）' : n.label;
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "hype",
     ref: ref,
@@ -447,7 +450,7 @@ function V10Hype({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: NODE_TYPES[tapped.type].icon,
     size: 11
-  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, NODE_TYPES[tapped.type].label), tapped.label)), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, NODE_TYPES[tapped.type].label), capLabel(tapped))), /*#__PURE__*/React.createElement("div", {
     className: "thumb",
     style: {
       left: value + '%'
@@ -592,6 +595,7 @@ function V10Chapters({
 }) {
   /* 无每章配图 → 用 banner 按章节序号取不同焦点位，营造差异 */
   const posFor = i => `${i * 37 % 70 + 15}% ${i * 29 % 50 + 20}%`;
+  const [peeked, setPeeked] = useState({});
   return /*#__PURE__*/React.createElement("div", {
     className: "ch-grid"
   }, game.chapters.map((c, i) => {
@@ -600,8 +604,14 @@ function V10Chapters({
     const fillW = state === 'done' ? 100 : state === 'current' ? Math.round((value - c.start) / Math.max(1, c.end - c.start) * 100) : 0;
     return /*#__PURE__*/React.createElement("div", {
       key: i,
-      className: 'ch-card ' + state
-    }, /*#__PURE__*/React.createElement("div", {
+      className: 'ch-card ' + state + (peeked[i] ? ' peeked' : '')
+    }, state === 'future' && /*#__PURE__*/React.createElement("span", {
+      className: "peek",
+      onClick: () => setPeeked(p => ({
+        ...p,
+        [i]: !p[i]
+      }))
+    }, "\u5077\u770B\u4E00\u773C \uD83D\uDC40"), /*#__PURE__*/React.createElement("div", {
       className: "ch-thumb"
     }, /*#__PURE__*/React.createElement("img", {
       src: game.banner,
@@ -669,13 +679,23 @@ function V10App({
   onBack,
   onSwitchToV9,
   openBoss,
-  openEntry
+  openEntry,
+  theme,
+  setTheme
 }) {
   const [tab, setTab] = useState('progress');
   const [guard, setGuard] = useState(true); // 防剧透默认开（原型默认 body.guard）
-  const [dark, setDark] = useState(false); // 浅色暖调默认
   const [solid, setSolid] = useState(false); // 顶栏滚动加底
+  const [greet, setGreet] = useState(true); // 进入游戏后的打招呼 toast（自动消失）
   const rootRef = useRef(null);
+  /* 深色 = v9 的「游戏主题色」机制（同一状态，切 v9/v10 保持一致） */
+  const dark = theme === 'game';
+  const toggleTheme = () => setTheme && setTheme(dark ? 'light' : 'game');
+  useEffect(() => {
+    setGreet(true);
+    const t = setTimeout(() => setGreet(false), 3900);
+    return () => clearTimeout(t);
+  }, [game.id]);
   const onScroll = () => {
     const el = rootRef.current;
     if (!el) return;
@@ -712,13 +732,18 @@ function V10App({
     className: "sw"
   })), /*#__PURE__*/React.createElement("button", {
     className: "t-ctl",
-    title: "\u6D45\u8272 / \u6E38\u620F\u4E3B\u9898\u8272",
-    onClick: () => setDark(d => !d)
+    title: dark ? '切浅色' : '切游戏主题色',
+    onClick: toggleTheme
   }, dark ? '☀' : '🌙'), /*#__PURE__*/React.createElement("button", {
     className: "t-ctl",
     title: "\u5207\u56DE\u65E7\u7248\u754C\u9762",
     onClick: onSwitchToV9
-  }, "v9")), /*#__PURE__*/React.createElement("header", {
+  }, "v9")), greet && /*#__PURE__*/React.createElement("div", {
+    className: "greet-toast",
+    key: game.id
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }), "\u6B22\u8FCE\u56DE\u6765 \xB7 \u7EE7\u7EED\u966A ", /*#__PURE__*/React.createElement("b", null, game.short), " \u8D70\u8FD9\u6BB5\u8DEF"), /*#__PURE__*/React.createElement("header", {
     className: "hero"
   }, /*#__PURE__*/React.createElement("img", {
     className: "bg",
@@ -731,11 +756,7 @@ function V10App({
     className: "scrim"
   }), /*#__PURE__*/React.createElement("div", {
     className: "inner"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "greet"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }), "\u6B22\u8FCE\u56DE\u6765 \xB7 \u7EE7\u7EED\u966A ", /*#__PURE__*/React.createElement("b", null, game.short), " \u8D70\u8FD9\u6BB5\u8DEF"), /*#__PURE__*/React.createElement("h1", null, game.titleMain), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("h1", null, game.titleMain), /*#__PURE__*/React.createElement("div", {
     className: "sub"
   }, game.titleSub), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats"
@@ -781,7 +802,8 @@ function V10App({
     onChange: setValue,
     onBoss: openBoss,
     onEntry: openEntry,
-    idBase: 'v10-' + game.id
+    idBase: 'v10-' + game.id,
+    guard: guard
   }), /*#__PURE__*/React.createElement(V10Axis, {
     game: game,
     value: value,

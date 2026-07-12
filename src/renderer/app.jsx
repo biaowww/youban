@@ -100,7 +100,7 @@ function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, 
           <V10Boundary onCrash={() => switchV10(false)}>
             <V10App game={game} games={games} value={value} setValue={setValue}
               onBack={() => setView('library')} onSwitchToV9={() => switchV10(false)}
-              openBoss={setBoss} openEntry={setEntry} />
+              openBoss={setBoss} openEntry={setEntry} theme={theme} setTheme={setTheme} />
           </V10Boundary>
           <BossDrawer game={game} boss={boss} onClose={() => setBoss(null)} />
           <EntryDetail game={game} entry={entry} onClose={() => setEntry(null)} onStart={setValue} />
