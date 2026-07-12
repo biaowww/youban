@@ -43,6 +43,7 @@ jobs:
           cp src/renderer/mock-data.js       _site/mock-data.js
           cp src/renderer/app.css            _site/app.css
           cp src/renderer/screens.css        _site/screens.css
+          cp src/renderer/v10.css            _site/v10.css
           cp src/renderer/desktop.css        _site/desktop.css
           cp src/renderer/preview.html       _site/preview.html
           cp src/renderer/preview-multi.html _site/preview-multi.html
