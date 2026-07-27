@@ -29,7 +29,7 @@ describe('progressFromAchievements · 由成就推进度', () => {
     expect(p.source).toBe('steam');
     expect(p.unlockedCount).toBe(5);
     expect(p.totalCount).toBe(10);
-    expect(p.matchedAchievement.steamId).toBe('ACH_STORY_NINTH');
+    expect(p.matchedAchievement.steamId).toBe('Achievement_GOSCC_13'); // Her Name Was Masana Tide（真值，2026-07-28 核实）
     expect(p.matchedAchievement.progressPct).toBe(44);
     expect(typeof p.matchedAchievement.unlocktime).toBe('number');
     expect(p.error).toBeUndefined();
@@ -48,7 +48,7 @@ describe('progressFromAchievements · 由成就推进度', () => {
     expect(p.currentPct).toBe(100);
     expect(p.unlockedCount).toBe(10);
     expect(p.matchedAchievement.progressPct).toBe(100);
-    expect(p.matchedAchievement.steamId).toBe('ACH_STORY_END');
+    expect(p.matchedAchievement.steamId).toBe('Achievement_GOSCC_6'); // Trust Only In The Force（真值，2026-07-28 核实）
   });
 
   it('无任何解锁 → 0，matched 为 null（无 error，仅是还没玩）', () => {

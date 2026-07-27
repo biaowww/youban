@@ -58,8 +58,30 @@ function LibraryScreen({ games, gi, enter, onProfile }) {
 function ProgressInput({ game, value, setValue }) {
   const [m, setM] = useState('manual');
   const [sid, setSid] = useState('');
-  const [synced, setSynced] = useState(false);
-  const maxAch = Math.max(...game.ach.filter(a => a.pct < 100).map(a => a.pct));
+  /* Steam 地板模型（2026-07-28 拍板）：成就 = 进度下界证据，单向使用。
+     floor.pct > 玩家选择 → 出可拒绝的校正提示；否则静默佐证。永不自动覆盖指针。 */
+  const [floor, setFloor] = useState(null);      // 引擎结果（floorPct/unlocked/matched/error）
+  const [floorBusy, setFloorBusy] = useState(false);
+  const [floorErr, setFloorErr] = useState('');
+  const [dismissed, setDismissed] = useState(false); // 玩家点了「保持不变」
+  const FLOOR_MIN_MAP = 5;                       // 映射密度阈值：低于此只做橱窗、不画地板线
+  const canFloor = game.ach.length >= FLOOR_MIN_MAP;
+  const readSteam = async () => {
+    setFloorErr(''); setFloor(null); setDismissed(false);
+    const client = window.__YB_STEAM_MOCK__;
+    const engine = window.YBSteamProgress;
+    if (!client || !engine) { setFloorErr('Steam 数据通道未就绪'); return; }
+    if (!/^\d{17}$/.test(sid.trim())) { setFloorErr('请输入 17 位 SteamID64（演示：76561190000000001）'); return; }
+    setFloorBusy(true);
+    try {
+      const resp = await client.getPlayerAchievements(sid.trim(), game.appId);
+      const raw = { achievements: game.ach.map(a => ({ steamId: a.id, name: a.name, progressPct: a.pct })) };
+      setFloor(engine.progressFromAchievements(raw, resp));
+    } catch (e) {
+      setFloorErr('档案未找到（Mock 演示 ID 见占位符）');
+    } finally { setFloorBusy(false); }
+  };
+  const chapterOf = (pct) => { const c = game.chapters.find(c => pct >= c.start && pct < c.end); return c ? c.name : null; };
   const tabs = [['manual', '手动选章节', 'pin'], ['steam', 'Steam 成就', 'trophy'], ['ai', '截图识别', 'camera']];
   return (
     <div className="input-card">
@@ -81,10 +103,41 @@ function ProgressInput({ game, value, setValue }) {
         {m === 'steam' && (
           <div>
             <div className="steam-row">
-              <input className="text-input" value={sid} onChange={e => setSid(e.target.value)} placeholder="Steam ID64: 76561198XXXXXXXXX" />
-              <button className="btn btn-primary" onClick={() => { setValue(maxAch); setSynced(true); }}>读取</button>
+              <input className="text-input" value={sid} onChange={e => setSid(e.target.value)} placeholder="Steam ID64: 76561190000000001（演示）" />
+              <button className="btn btn-primary" disabled={floorBusy} onClick={readSteam}>{floorBusy ? '读取中…' : '读取'}</button>
             </div>
-            <div className={'sync-note' + (synced ? ' ok' : '')}>{synced ? '✓ ' + game.achNote : '需要 Steam 档案公开 · 点「读取」体验模拟同步'}</div>
+            {floorErr && <div className="sync-note">{floorErr}</div>}
+            {!floor && !floorErr && <div className="sync-note">需要 Steam 档案公开 · 读取后成就仅作佐证，不会覆盖你的进度</div>}
+            {floor && floor.error === 'PROFILE_PRIVATE' && (
+              <div className="sync-note">该档案为私密，读不到成就 · 手动进度不受影响</div>
+            )}
+            {floor && !floor.error && (
+              <div className="steam-floor">
+                <div className="sync-note ok">
+                  ✓ 已解锁 {floor.unlockedCount}/{floor.totalCount}
+                  {floor.matchedAchievement ? ` · 最近里程碑：${floor.matchedAchievement.name}` : ' · 暂无剧情里程碑解锁'}
+                </div>
+                {/* 单向校正：只有证据下界高于玩家选择时才发声，且可拒绝 */}
+                {canFloor && floor.floorPct > value && !dismissed && (
+                  <div className="floor-prompt">
+                    <div className="fp-text">
+                      Steam 显示你已解锁「{floor.matchedAchievement.name}」，进度至少 {floor.floorPct}%
+                      {chapterOf(floor.floorPct) ? `（${chapterOf(floor.floorPct)}）` : ''}。
+                    </div>
+                    <div className="fp-actions">
+                      <button className="btn btn-primary" onClick={() => setValue(floor.floorPct)}>更新到 {floor.floorPct}%</button>
+                      <button className="btn" onClick={() => setDismissed(true)}>保持不变</button>
+                    </div>
+                  </div>
+                )}
+                {canFloor && floor.floorPct <= value && floor.unlockedCount > 0 && (
+                  <div className="sync-note">与你的进度一致（成就下界 {floor.floorPct}%）</div>
+                )}
+                {!canFloor && (
+                  <div className="sync-note">该作剧情成就较少（{floor.totalCount} 条），仅作成就展示、不推算进度</div>
+                )}
+              </div>
+            )}
           </div>
         )}
         {m === 'ai' && (

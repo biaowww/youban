@@ -270,54 +270,64 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_CH1_ENTER",
-      "name": "踏上征途",
-      "progressPct": 3
+      "steamId": "81001",
+      "name": "下降尘凡第一难（踏上征途）",
+      "progressPct": 3,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述「听罢老猴子的故事，该起程了」"
     },
     {
-      "steamId": "ACH_BLACK_BEAR",
-      "name": "黑风山已无妖风",
-      "progressPct": 14
+      "steamId": "81010",
+      "name": "黑熊烧山第十难（击败黑熊精）",
+      "progressPct": 14,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；BWIKI 攻略确认=击败黑熊精（一回目终）"
     },
     {
-      "steamId": "ACH_YELLOW_WIND",
-      "name": "黄沙散尽",
-      "progressPct": 28
+      "steamId": "81023",
+      "name": "好大风呵二十三难（击败黄风大圣）",
+      "progressPct": 28,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；BWIKI 攻略确认=击败黄风大圣（二回目终）"
     },
     {
       "steamId": "ACH_SPIDER",
-      "name": "蛛丝断",
-      "progressPct": 40
+      "name": "蛛丝断（盘丝岭·击败百眼魔君）",
+      "progressPct": 40,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；候选：开眼闭情四十八难=81048"
     },
     {
       "steamId": "ACH_HUANGMEI",
-      "name": "小雷音已空",
-      "progressPct": 47
+      "name": "小雷音已空（击败黄眉）",
+      "progressPct": 47,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）"
     },
     {
       "steamId": "ACH_CH4_CLEAR",
       "name": "流沙已平",
-      "progressPct": 63
+      "progressPct": 63,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；注意：原标签与实际章节名不符，语义本身待考"
     },
     {
       "steamId": "ACH_BULL_KING",
-      "name": "火焰山熄",
-      "progressPct": 77
+      "name": "火焰山熄（击败红孩儿）",
+      "progressPct": 77,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；候选：无火无经五十九难=81059"
     },
     {
       "steamId": "ACH_MACAQUE",
       "name": "真假已辨",
-      "progressPct": 88
+      "progressPct": 88,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）"
     },
     {
-      "steamId": "ACH_END_NORMAL",
-      "name": "踏破灵山",
-      "progressPct": 92
+      "steamId": "81072",
+      "name": "万相归真七十二难（击败大圣残躯）",
+      "progressPct": 92,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；BWIKI 攻略确认=击败大圣残躯（终战）"
     },
     {
-      "steamId": "ACH_END_TRUE",
-      "name": "天命所归",
-      "progressPct": 100
+      "steamId": "81081",
+      "name": "全始全终八十一难（八十一难全达成）",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述「九九归真，难满功成」，解锁必已 100%"
     }
   ],
   "bossSaves": [

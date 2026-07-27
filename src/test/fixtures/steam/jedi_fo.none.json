@@ -4,52 +4,52 @@
     "gameName": "Star Wars Jedi: Fallen Order",
     "achievements": [
       {
-        "apiname": "ACH_STORY_MANTIS",
+        "apiname": "Achievement_GOSCC_7",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_BOGANO",
+        "apiname": "Achievement_GOSCC_8",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_EILRAM",
+        "apiname": "Achievement_GOSCC_9",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_WOOKIE",
+        "apiname": "Achievement_GOSCC_12",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_NINTH",
+        "apiname": "Achievement_GOSCC_13",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_MIKTRULL",
+        "apiname": "Achievement_GOSCC_10",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_SABER",
+        "apiname": "Achievement_GOSCC_16",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_TRILLA",
+        "apiname": "Achievement_GOSCC_17",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_VAULT",
+        "apiname": "Achievement_GOSCC_11",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_STORY_END",
+        "apiname": "Achievement_GOSCC_6",
         "achieved": 0,
         "unlocktime": 0
       }

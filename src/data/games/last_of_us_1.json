@@ -325,36 +325,10 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_TLOU1_PROLOGUE",
-      "progressPct": 5
-    },
-    {
-      "steamId": "ACH_TLOU1_BOSTON",
-      "progressPct": 18
-    },
-    {
-      "steamId": "ACH_TLOU1_LINCOLN",
-      "progressPct": 34
-    },
-    {
-      "steamId": "ACH_TLOU1_PITTSBURGH",
-      "progressPct": 52
-    },
-    {
-      "steamId": "ACH_TLOU1_TOMMY",
-      "progressPct": 60
-    },
-    {
-      "steamId": "ACH_TLOU1_UNIVERSITY",
-      "progressPct": 68
-    },
-    {
-      "steamId": "ACH_TLOU1_WINTER",
-      "progressPct": 90
-    },
-    {
-      "steamId": "ACH_TLOU1_SPRING",
-      "progressPct": 100
+      "steamId": "284b17b75ee9e837",
+      "name": "No Matter What（通关 Part I）",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述 Complete Part 1，全球 50.7% 与哈希表逐位对齐"
     }
   ],
   "playerSentiment": {

@@ -69,6 +69,7 @@
     if (!norm.success) {
       return {
         currentPct: 0,
+        floorPct: 0,
         source: 'steam',
         unlockedCount: 0,
         totalCount: totalCount,
@@ -81,6 +82,7 @@
     if (totalCount === 0) {
       return {
         currentPct: 0,
+        floorPct: 0,
         source: 'steam',
         unlockedCount: 0,
         totalCount: 0,
@@ -114,8 +116,13 @@
       }
     }
 
+    // 语义正名（2026-07-28 地板模型）：成就是单向证据——解锁 X ⇒ 必然通过 X 所在节点，
+    // 反之不成立。故这里算出的是进度**下界**（floor），不是"当前进度"。
+    // floorPct 为正名字段；currentPct 保留为兼容别名（同值），调用方应迁向 floorPct。
+    var floor = best ? best.pct : 0;
     return {
-      currentPct: best ? best.pct : 0,
+      currentPct: floor,
+      floorPct: floor,
       source: 'steam',
       unlockedCount: unlockedCount,
       totalCount: totalCount,

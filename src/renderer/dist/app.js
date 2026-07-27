@@ -291,6 +291,11 @@ function Root() {
         window.YB = {
           games: adapted
         };
+        /* Steam Mock 客户端（离线演示）：由原始映射表构建 fixtures。
+           接真 BFF 时（code-youban-2026-07-10）把这里换成 HttpSteamClient 即可，契约同名。 */
+        if (window.YBSteamClient && window.YBSteamFixtures) {
+          window.__YB_STEAM_MOCK__ = new window.YBSteamClient.MockSteamClient(window.YBSteamFixtures.buildFixtures(raws));
+        }
         setGames(adapted);
         setValue(adapted[0].currentPct);
       } catch (e) {

@@ -4,54 +4,54 @@
     "gameName": "Star Wars Jedi: Fallen Order",
     "achievements": [
       {
-        "apiname": "ACH_STORY_MANTIS",
+        "apiname": "Achievement_GOSCC_7",
         "achieved": 1,
         "unlocktime": 1700036000
       },
       {
-        "apiname": "ACH_STORY_BOGANO",
+        "apiname": "Achievement_GOSCC_8",
         "achieved": 1,
         "unlocktime": 1700046800
       },
       {
-        "apiname": "ACH_STORY_EILRAM",
+        "apiname": "Achievement_GOSCC_9",
+        "achieved": 1,
+        "unlocktime": 1700057600
+      },
+      {
+        "apiname": "Achievement_GOSCC_12",
+        "achieved": 1,
+        "unlocktime": 1700068400
+      },
+      {
+        "apiname": "Achievement_GOSCC_13",
+        "achieved": 1,
+        "unlocktime": 1700079200
+      },
+      {
+        "apiname": "Achievement_GOSCC_10",
+        "achieved": 1,
+        "unlocktime": 1700090000
+      },
+      {
+        "apiname": "Achievement_GOSCC_16",
         "achieved": 1,
         "unlocktime": 1700100800
       },
       {
-        "apiname": "ACH_STORY_WOOKIE",
+        "apiname": "Achievement_GOSCC_17",
         "achieved": 1,
-        "unlocktime": 1700154800
+        "unlocktime": 1700111600
       },
       {
-        "apiname": "ACH_STORY_NINTH",
+        "apiname": "Achievement_GOSCC_11",
         "achieved": 1,
-        "unlocktime": 1700158400
+        "unlocktime": 1700122400
       },
       {
-        "apiname": "ACH_STORY_MIKTRULL",
+        "apiname": "Achievement_GOSCC_6",
         "achieved": 1,
-        "unlocktime": 1700205200
-      },
-      {
-        "apiname": "ACH_STORY_SABER",
-        "achieved": 1,
-        "unlocktime": 1700237600
-      },
-      {
-        "apiname": "ACH_STORY_TRILLA",
-        "achieved": 1,
-        "unlocktime": 1700280800
-      },
-      {
-        "apiname": "ACH_STORY_VAULT",
-        "achieved": 1,
-        "unlocktime": 1700306000
-      },
-      {
-        "apiname": "ACH_STORY_END",
-        "achieved": 1,
-        "unlocktime": 1700360000
+        "unlocktime": 1700133200
       }
     ],
     "success": true

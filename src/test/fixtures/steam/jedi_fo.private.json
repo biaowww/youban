@@ -1,6 +1,8 @@
 {
   "playerstats": {
-    "error": "Profile is not public",
-    "success": false
+    "steamID": "76561190000000003",
+    "gameName": "Star Wars Jedi: Fallen Order",
+    "success": false,
+    "error": "Profile is not public"
   }
 }

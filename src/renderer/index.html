@@ -65,6 +65,10 @@
 
 <!-- 数据适配层（普通脚本，不经 build:ui；须在 dist/app.js 之前） -->
 <script src="adapt.js"></script>
+<!-- Steam 同步管线（进度下界引擎 + Mock 客户端 + 浏览器 fixtures；均双环境普通脚本） -->
+<script src="../services/steam/progress.js"></script>
+<script src="../services/steam/client.js"></script>
+<script src="steam-fixtures.js"></script>
 
 <!-- 预编译产物（由 src/renderer/*.jsx 经 npm run build:ui 生成；运行时无需 Babel） -->
 <script src="dist/components.js"></script>

@@ -310,32 +310,10 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_TLOU2_JACKSON",
-      "progressPct": 10
-    },
-    {
-      "steamId": "ACH_TLOU2_SEATTLE1",
-      "progressPct": 35
-    },
-    {
-      "steamId": "ACH_TLOU2_AQUARIUM",
-      "progressPct": 50
-    },
-    {
-      "steamId": "ACH_TLOU2_ABBY1",
-      "progressPct": 65
-    },
-    {
-      "steamId": "ACH_TLOU2_THEATER",
-      "progressPct": 75
-    },
-    {
-      "steamId": "ACH_TLOU2_FARM",
-      "progressPct": 88
-    },
-    {
-      "steamId": "ACH_TLOU2_ENDING",
-      "progressPct": 100
+      "steamId": "1138aa8adde81250",
+      "name": "What I Had to Do（通关）",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述 Complete the story，按解锁率序位对齐（55.1↔55.2 漂移内）"
     }
   ],
   "playerSentiment": {

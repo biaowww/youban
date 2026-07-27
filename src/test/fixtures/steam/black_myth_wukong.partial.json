@@ -1,27 +1,27 @@
 {
   "playerstats": {
     "steamID": "76561190000000001",
-    "gameName": "黑神话：悟空",
+    "gameName": "Black Myth: Wukong",
     "achievements": [
       {
-        "apiname": "ACH_CH1_ENTER",
+        "apiname": "81001",
         "achieved": 1,
-        "unlocktime": 1700010800
+        "unlocktime": 1700036000
       },
       {
-        "apiname": "ACH_BLACK_BEAR",
+        "apiname": "81010",
         "achieved": 1,
-        "unlocktime": 1700050400
+        "unlocktime": 1700046800
       },
       {
-        "apiname": "ACH_YELLOW_WIND",
+        "apiname": "81023",
         "achieved": 1,
-        "unlocktime": 1700100800
+        "unlocktime": 1700057600
       },
       {
         "apiname": "ACH_SPIDER",
         "achieved": 1,
-        "unlocktime": 1700144000
+        "unlocktime": 1700068400
       },
       {
         "apiname": "ACH_HUANGMEI",
@@ -44,12 +44,12 @@
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_END_NORMAL",
+        "apiname": "81072",
         "achieved": 0,
         "unlocktime": 0
       },
       {
-        "apiname": "ACH_END_TRUE",
+        "apiname": "81081",
         "achieved": 0,
         "unlocktime": 0
       }

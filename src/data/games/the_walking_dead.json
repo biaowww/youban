@@ -234,29 +234,34 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_EP1_DONE",
-      "name": "熬过第一天",
-      "progressPct": 20
+      "steamId": "com.telltalegames.WalkingDead101.episodeComplete",
+      "name": "第一章完（A New Day）",
+      "progressPct": 20,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；语义 apiname"
     },
     {
-      "steamId": "ACH_EP2_DONE",
-      "name": "逃出奶牛农场",
-      "progressPct": 40
+      "steamId": "com.telltalegames.WalkingDead102.ch.08",
+      "name": "第二章完（Starved for Help）",
+      "progressPct": 40,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；ep2 末节"
     },
     {
-      "steamId": "ACH_EP3_DONE",
-      "name": "驶向萨凡纳",
-      "progressPct": 60
+      "steamId": "com.telltalegames.WalkingDead103.ch.08",
+      "name": "第三章完（Long Road Ahead）",
+      "progressPct": 60,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；ep3 末节"
     },
     {
-      "steamId": "ACH_EP4_DONE",
-      "name": "萨凡纳的阴影",
-      "progressPct": 80
+      "steamId": "com.telltalegames.WalkingDead104.ch.08",
+      "name": "第四章完（Around Every Corner）",
+      "progressPct": 80,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；ep4 末节"
     },
     {
-      "steamId": "ACH_EP5_DONE",
-      "name": "时日无多",
-      "progressPct": 100
+      "steamId": "com.telltalegames.WalkingDead105.ch.08",
+      "name": "第五章完（No Time Left）",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；ep5 末节=时日无多"
     }
   ],
   "bossSaves": [

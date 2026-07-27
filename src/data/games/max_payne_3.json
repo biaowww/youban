@@ -230,39 +230,22 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_CH3_CLEAR",
-      "name": "Just Another Friday Night",
-      "progressPct": 22
+      "steamId": "SP_PART_I_COMPLETE",
+      "name": "Part I Complete（第一部完）",
+      "progressPct": 30,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述 Complete Part I Of The Story"
     },
     {
-      "steamId": "ACH_CH6_CLEAR",
-      "name": "A Dame, A Dork, and A Drunk",
-      "progressPct": 43
+      "steamId": "SP_PART_II_COMPLETE",
+      "name": "Part II Complete（第二部完）",
+      "progressPct": 64,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述 Complete Part II Of The Story"
     },
     {
-      "steamId": "ACH_STADIUM",
-      "name": "Ain't No Reprieve",
-      "progressPct": 57
-    },
-    {
-      "steamId": "ACH_CH9_CLEAR",
-      "name": "Halfway Down the World",
-      "progressPct": 64
-    },
-    {
-      "steamId": "ACH_CH11_CLEAR",
-      "name": "Sun Tan Oil",
-      "progressPct": 79
-    },
-    {
-      "steamId": "ACH_BECKER",
-      "name": "One Card Left to Play",
-      "progressPct": 93
-    },
-    {
-      "steamId": "ACH_END",
-      "name": "Out the Window",
-      "progressPct": 100
+      "steamId": "SP_PART_III_COMPLETE",
+      "name": "Part III Complete（第三部完·通关）",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；描述 Complete Part III Of The Story"
     }
   ],
   "bossSaves": [

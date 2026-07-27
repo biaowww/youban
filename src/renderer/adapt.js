@@ -78,6 +78,7 @@
         quotes: (ps.testimonials || []).map(q => ({ text: q.text, author: q.author, up: q.upvotes })),
       },
       ach: (g.achievements || []).map(a => ({ id: a.steamId, name: a.name, pct: a.progressPct })),
+      appId: g.steamAppId,
       achNote: '已读取 Steam 成就，进度已同步至最近解锁节点',
       save: sd ? {
         steps: (sd.instructions || '').split('\n').map(s => s.replace(/^\d+\.\s*/, '')).filter(Boolean),

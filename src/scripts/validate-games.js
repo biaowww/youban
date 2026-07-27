@@ -86,6 +86,30 @@ function validateGame(game, fileName) {
     }
   }
 
+  /* —— achievements（Steam 成就 → 进度下界映射表）——
+     地板模型（2026-07-28）：成就是进度**下界**证据，唯一危险方向是「地板偏高」。
+     故此处硬校验映射表自洽：progressPct 严格升序（顺序错 = max 取值即偏高）、
+     steamId 非空且不重复、数值在界。映射表允许为空/缺失（该作无章节成就时合法降级）。 */
+  if (game.achievements !== undefined) {
+    if (!isArr(game.achievements)) E('achievements 存在但非数组');
+    else {
+      const seen = new Set();
+      game.achievements.forEach((a, i) => {
+        const at = `achievements[${i}]`;
+        if (!isObj(a)) { E(`${at} 非对象`); return; }
+        if (!isStr(a.steamId)) E(`${at}.steamId 缺失或空`);
+        else if (seen.has(a.steamId)) E(`${at}.steamId 重复：${a.steamId}`);
+        else seen.add(a.steamId);
+        if (!isStr(a.name)) E(`${at}.name 缺失`);
+        if (!isNum(a.progressPct)) E(`${at}.progressPct 非数值`);
+        else if (a.progressPct < 0 || a.progressPct > 100) E(`${at}.progressPct ${a.progressPct} 越界，应 0..100`);
+        if (i > 0 && isNum(a.progressPct) && isNum(game.achievements[i - 1].progressPct)
+            && a.progressPct <= game.achievements[i - 1].progressPct)
+          E(`${at} progressPct 非严格升序：${game.achievements[i - 1].progressPct} → ${a.progressPct}（顺序错会抬高进度下界）`);
+      });
+    }
+  }
+
   /* —— bossSaves —— */
   if (!isArr(game.bossSaves)) E('缺少 bossSaves[]');
   else game.bossSaves.forEach((b, i) => {

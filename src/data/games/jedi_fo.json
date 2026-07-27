@@ -276,54 +276,64 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_STORY_MANTIS",
+      "steamId": "Achievement_GOSCC_7",
       "name": "The Mantis",
-      "progressPct": 10
+      "progressPct": 10,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_BOGANO",
+      "steamId": "Achievement_GOSCC_8",
       "name": "A Long Time Ago",
-      "progressPct": 13
+      "progressPct": 13,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_EILRAM",
-      "name": "The Obstacle Is the Way",
-      "progressPct": 28
+      "steamId": "Achievement_GOSCC_9",
+      "name": "The Obstacle is the Way",
+      "progressPct": 28,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_WOOKIE",
+      "steamId": "Achievement_GOSCC_12",
       "name": "Happy Go Wookiee",
-      "progressPct": 43
+      "progressPct": 43,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_NINTH",
+      "steamId": "Achievement_GOSCC_13",
       "name": "Her Name Was Masana Tide",
-      "progressPct": 44
+      "progressPct": 44,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；注意：全球解锁率 38.8% 低于下一条的 41.8%，剧情先后待核"
     },
     {
-      "steamId": "ACH_STORY_MIKTRULL",
-      "name": "Everything Is Connected",
-      "progressPct": 57
+      "steamId": "Achievement_GOSCC_10",
+      "name": "Everything is Connected",
+      "progressPct": 57,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_SABER",
+      "steamId": "Achievement_GOSCC_16",
       "name": "For A More Civilized Age",
-      "progressPct": 66
+      "progressPct": 66,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_TRILLA",
+      "steamId": "Achievement_GOSCC_17",
       "name": "I Knew He Was No Good",
-      "progressPct": 78
+      "progressPct": 78,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_VAULT",
+      "steamId": "Achievement_GOSCC_11",
       "name": "The Holocron Awaits",
-      "progressPct": 85
+      "progressPct": 85,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     },
     {
-      "steamId": "ACH_STORY_END",
-      "name": "Trust Only In the Force",
-      "progressPct": 100
+      "steamId": "Achievement_GOSCC_6",
+      "name": "Trust Only In The Force",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）"
     }
   ],
   "bossSaves": [

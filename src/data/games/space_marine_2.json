@@ -254,29 +254,34 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_SM2_PRIMARIS",
-      "name": "命运已定（重生为 Primaris）",
-      "progressPct": 12
+      "steamId": "STORY_INTRO",
+      "name": "命运已定（重生为 Primaris·序章）",
+      "progressPct": 12,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；语义 apiname，序章剧情"
     },
     {
-      "steamId": "ACH_SM2_HIVESHIP",
-      "name": "怒炮轰鸣（击落泰伦母舰）",
-      "progressPct": 30
+      "steamId": "STORY_CANNON",
+      "name": "怒炮轰鸣（Skyfire·击落泰伦母舰）",
+      "progressPct": 30,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；语义 apiname 与任务名直接对应"
     },
     {
       "steamId": "ACH_SM2_AVARAX",
       "name": "Avarax 的余烬",
-      "progressPct": 58
+      "progressPct": 58,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；候选 STORY_SKYLAB/STORY_RESCUE/STORY_TOWER"
     },
     {
       "steamId": "ACH_SM2_DEMERIUM",
       "name": "踏上墓星",
-      "progressPct": 85
+      "progressPct": 85,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；候选 STORY_BLACKSTONE"
     },
     {
-      "steamId": "ACH_SM2_IMURAH",
+      "steamId": "STORY_FINALE",
       "name": "永无止境的责任（通关）",
-      "progressPct": 100
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；语义 apiname=战役终章"
     }
   ],
   "bossSaves": [

@@ -270,29 +270,34 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_SPM_KINGPIN",
+      "steamId": "knockingdownkingpin",
       "name": "擒下金并",
-      "progressPct": 8
+      "progressPct": 8,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；语义 apiname 逐字对应"
     },
     {
       "steamId": "ACH_SPM_TRAIN",
       "name": "火车对决黑心",
-      "progressPct": 35
+      "progressPct": 35,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）"
     },
     {
-      "steamId": "ACH_SPM_SINISTER",
+      "steamId": "thesixassemble",
       "name": "邪恶集结",
-      "progressPct": 58
+      "progressPct": 58,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；语义 apiname=The Six Assemble"
     },
     {
       "steamId": "ACH_SPM_BREAKOUT",
       "name": "六人组越狱",
-      "progressPct": 80
+      "progressPct": 80,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）"
     },
     {
       "steamId": "ACH_SPM_END",
       "name": "责任的重量（通关）",
-      "progressPct": 100
+      "progressPct": 100,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；候选 endgame（48.4%）"
     }
   ],
   "bossSaves": [

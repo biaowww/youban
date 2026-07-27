@@ -108,8 +108,49 @@ function ProgressInput({
 }) {
   const [m, setM] = useState('manual');
   const [sid, setSid] = useState('');
-  const [synced, setSynced] = useState(false);
-  const maxAch = Math.max(...game.ach.filter(a => a.pct < 100).map(a => a.pct));
+  /* Steam 地板模型（2026-07-28 拍板）：成就 = 进度下界证据，单向使用。
+     floor.pct > 玩家选择 → 出可拒绝的校正提示；否则静默佐证。永不自动覆盖指针。 */
+  const [floor, setFloor] = useState(null); // 引擎结果（floorPct/unlocked/matched/error）
+  const [floorBusy, setFloorBusy] = useState(false);
+  const [floorErr, setFloorErr] = useState('');
+  const [dismissed, setDismissed] = useState(false); // 玩家点了「保持不变」
+  const FLOOR_MIN_MAP = 5; // 映射密度阈值：低于此只做橱窗、不画地板线
+  const canFloor = game.ach.length >= FLOOR_MIN_MAP;
+  const readSteam = async () => {
+    setFloorErr('');
+    setFloor(null);
+    setDismissed(false);
+    const client = window.__YB_STEAM_MOCK__;
+    const engine = window.YBSteamProgress;
+    if (!client || !engine) {
+      setFloorErr('Steam 数据通道未就绪');
+      return;
+    }
+    if (!/^\d{17}$/.test(sid.trim())) {
+      setFloorErr('请输入 17 位 SteamID64（演示：76561190000000001）');
+      return;
+    }
+    setFloorBusy(true);
+    try {
+      const resp = await client.getPlayerAchievements(sid.trim(), game.appId);
+      const raw = {
+        achievements: game.ach.map(a => ({
+          steamId: a.id,
+          name: a.name,
+          progressPct: a.pct
+        }))
+      };
+      setFloor(engine.progressFromAchievements(raw, resp));
+    } catch (e) {
+      setFloorErr('档案未找到（Mock 演示 ID 见占位符）');
+    } finally {
+      setFloorBusy(false);
+    }
+  };
+  const chapterOf = pct => {
+    const c = game.chapters.find(c => pct >= c.start && pct < c.end);
+    return c ? c.name : null;
+  };
   const tabs = [['manual', '手动选章节', 'pin'], ['steam', 'Steam 成就', 'trophy'], ['ai', '截图识别', 'camera']];
   return /*#__PURE__*/React.createElement("div", {
     className: "input-card"
@@ -151,16 +192,38 @@ function ProgressInput({
     className: "text-input",
     value: sid,
     onChange: e => setSid(e.target.value),
-    placeholder: "Steam ID64: 76561198XXXXXXXXX"
+    placeholder: "Steam ID64: 76561190000000001\uFF08\u6F14\u793A\uFF09"
   }), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
-    onClick: () => {
-      setValue(maxAch);
-      setSynced(true);
-    }
-  }, "\u8BFB\u53D6")), /*#__PURE__*/React.createElement("div", {
-    className: 'sync-note' + (synced ? ' ok' : '')
-  }, synced ? '✓ ' + game.achNote : '需要 Steam 档案公开 · 点「读取」体验模拟同步')), m === 'ai' && /*#__PURE__*/React.createElement("div", {
+    disabled: floorBusy,
+    onClick: readSteam
+  }, floorBusy ? '读取中…' : '读取')), floorErr && /*#__PURE__*/React.createElement("div", {
+    className: "sync-note"
+  }, floorErr), !floor && !floorErr && /*#__PURE__*/React.createElement("div", {
+    className: "sync-note"
+  }, "\u9700\u8981 Steam \u6863\u6848\u516C\u5F00 \xB7 \u8BFB\u53D6\u540E\u6210\u5C31\u4EC5\u4F5C\u4F50\u8BC1\uFF0C\u4E0D\u4F1A\u8986\u76D6\u4F60\u7684\u8FDB\u5EA6"), floor && floor.error === 'PROFILE_PRIVATE' && /*#__PURE__*/React.createElement("div", {
+    className: "sync-note"
+  }, "\u8BE5\u6863\u6848\u4E3A\u79C1\u5BC6\uFF0C\u8BFB\u4E0D\u5230\u6210\u5C31 \xB7 \u624B\u52A8\u8FDB\u5EA6\u4E0D\u53D7\u5F71\u54CD"), floor && !floor.error && /*#__PURE__*/React.createElement("div", {
+    className: "steam-floor"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sync-note ok"
+  }, "\u2713 \u5DF2\u89E3\u9501 ", floor.unlockedCount, "/", floor.totalCount, floor.matchedAchievement ? ` · 最近里程碑：${floor.matchedAchievement.name}` : ' · 暂无剧情里程碑解锁'), canFloor && floor.floorPct > value && !dismissed && /*#__PURE__*/React.createElement("div", {
+    className: "floor-prompt"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fp-text"
+  }, "Steam \u663E\u793A\u4F60\u5DF2\u89E3\u9501\u300C", floor.matchedAchievement.name, "\u300D\uFF0C\u8FDB\u5EA6\u81F3\u5C11 ", floor.floorPct, "%", chapterOf(floor.floorPct) ? `（${chapterOf(floor.floorPct)}）` : '', "\u3002"), /*#__PURE__*/React.createElement("div", {
+    className: "fp-actions"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: () => setValue(floor.floorPct)
+  }, "\u66F4\u65B0\u5230 ", floor.floorPct, "%"), /*#__PURE__*/React.createElement("button", {
+    className: "btn",
+    onClick: () => setDismissed(true)
+  }, "\u4FDD\u6301\u4E0D\u53D8"))), canFloor && floor.floorPct <= value && floor.unlockedCount > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "sync-note"
+  }, "\u4E0E\u4F60\u7684\u8FDB\u5EA6\u4E00\u81F4\uFF08\u6210\u5C31\u4E0B\u754C ", floor.floorPct, "%\uFF09"), !canFloor && /*#__PURE__*/React.createElement("div", {
+    className: "sync-note"
+  }, "\u8BE5\u4F5C\u5267\u60C5\u6210\u5C31\u8F83\u5C11\uFF08", floor.totalCount, " \u6761\uFF09\uFF0C\u4EC5\u4F5C\u6210\u5C31\u5C55\u793A\u3001\u4E0D\u63A8\u7B97\u8FDB\u5EA6"))), m === 'ai' && /*#__PURE__*/React.createElement("div", {
     className: "ai-panel"
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "camera",

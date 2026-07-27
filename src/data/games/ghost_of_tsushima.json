@@ -250,29 +250,34 @@
   ],
   "achievements": [
     {
-      "steamId": "ACH_GOT_ACT1",
-      "name": "救出志村（第一幕终）",
-      "progressPct": 33
+      "steamId": "_autoGenTrophy_0005",
+      "name": "家人团聚（救出志村·第一幕终）",
+      "progressPct": 33,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；按解锁率对齐=家人团聚 60.7%"
     },
     {
       "steamId": "ACH_GOT_RYUZO",
       "name": "旧友的背叛",
-      "progressPct": 50
+      "progressPct": 50,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）"
     },
     {
       "steamId": "ACH_GOT_ACT2",
       "name": "夺回志村城（第二幕终）",
-      "progressPct": 72
+      "progressPct": 72,
+      "source": "待核（合成占位，本轮零凭证核实未能确认对应真实成就；勿当真值用）；候选 战鬼=_autoGenTrophy_0009 / 余烬将熄=_autoGenTrophy_0008"
     },
     {
-      "steamId": "ACH_GOT_KHAN",
-      "name": "斩杀胡通汗",
-      "progressPct": 90
+      "steamId": "_autoGenTrophy_0011",
+      "name": "统治终结（斩杀可汗）",
+      "progressPct": 90,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；按解锁率对齐=统治终结 37.5%"
     },
     {
-      "steamId": "ACH_GOT_END",
-      "name": "冥人的传说（通关）",
-      "progressPct": 100
+      "steamId": "_autoGenTrophy_0012",
+      "name": "物哀（通关）",
+      "progressPct": 100,
+      "source": "percent-join 核实 2026-07-28（GetGlobalAchievementPercentagesForApp × steamcommunity/stats）；按解锁率对齐=物哀 36.9%，GOT 终章剧情成就"
     }
   ],
   "bossSaves": [
