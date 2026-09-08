@@ -92,9 +92,9 @@ function expectClean(compName, props) {
 }
 
 describe('界面冒烟渲染 · 每款游戏 × 每个界面', () => {
-  it('已注入 React 且加载 5 款游戏', () => {
+  it('已注入 React 且加载 11 款游戏', () => {
     expect(typeof win.React.createElement).toBe('function');
-    expect(games.length).toBe(9);
+    expect(games.length).toBe(11);
   });
 
   games.forEach((game, idx) => {
