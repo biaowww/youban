@@ -833,7 +833,7 @@ function EntryDetail({
     className: "ed-stat"
   }, /*#__PURE__*/React.createElement("b", {
     className: "mono"
-  }, bossesPassed), /*#__PURE__*/React.createElement("span", null, "\u5DF2\u4E86\u7ED3 Boss"))), /*#__PURE__*/React.createElement("div", {
+  }, bossesPassed), /*#__PURE__*/React.createElement("span", null, "\u5DF2\u4E86\u7ED3 ", (game.bossTerm || 'Boss').replace(/战$/, '').trim()))), /*#__PURE__*/React.createElement("div", {
     className: "ed-sec"
   }, /*#__PURE__*/React.createElement("div", {
     className: "ed-sh"

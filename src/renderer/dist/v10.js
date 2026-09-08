@@ -768,7 +768,7 @@ function V10App({
     className: "hstat"
   }, /*#__PURE__*/React.createElement("b", null, Math.max(0, game.hoursMain - played).toFixed(1), /*#__PURE__*/React.createElement("small", null, "h")), /*#__PURE__*/React.createElement("span", null, "\u5269\u4F59(\u4E3B\u7EBF)")), /*#__PURE__*/React.createElement("div", {
     className: "hstat"
-  }, /*#__PURE__*/React.createElement("b", null, bossPassed, /*#__PURE__*/React.createElement("small", null, "/", game.bosses.length)), /*#__PURE__*/React.createElement("span", null, "Boss \u5DF2\u8FC7"))))), /*#__PURE__*/React.createElement("main", null, tab === 'progress' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ProgressInput, {
+  }, /*#__PURE__*/React.createElement("b", null, bossPassed, /*#__PURE__*/React.createElement("small", null, "/", game.bosses.length)), /*#__PURE__*/React.createElement("span", null, (game.bossTerm || 'Boss').replace(/战$/, '').trim(), " \u5DF2\u8FC7"))))), /*#__PURE__*/React.createElement("main", null, tab === 'progress' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ProgressInput, {
     game: game,
     value: value,
     setValue: setValue
@@ -818,7 +818,7 @@ function V10App({
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "k"
-  }, "Chapters"), /*#__PURE__*/React.createElement("h2", null, "\u7AE0\u8282\u5899"), /*#__PURE__*/React.createElement("span", {
+  }, "Chapters"), /*#__PURE__*/React.createElement("h2", null, "\u7AE0\u8282\u5899"), !!(game.bosses && game.bosses.length) && /*#__PURE__*/React.createElement("span", {
     className: "note"
   }, "\u2694 \u5B58\u6863\u5728\u5404\u7AE0\u5361\u5185")), /*#__PURE__*/React.createElement(V10Chapters, {
     game: game,

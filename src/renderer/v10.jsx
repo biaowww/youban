@@ -439,7 +439,8 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
             <div className="hstat"><b>{value}<small>%</small></b><span>完成度</span></div>
             <div className="hstat"><b>{played.toFixed(1)}<small>h</small></b><span>已陪跑</span></div>
             <div className="hstat"><b>{Math.max(0, game.hoursMain - played).toFixed(1)}<small>h</small></b><span>剩余(主线)</span></div>
-            <div className="hstat"><b>{bossPassed}<small>/{game.bosses.length}</small></b><span>Boss 已过</span></div>
+            {/* 统计口径用短名（"Boss 战"→"Boss"、"关键抉择"不变），避免"Boss 战 已过"这种啰嗦 */}
+            <div className="hstat"><b>{bossPassed}<small>/{game.bosses.length}</small></b><span>{(game.bossTerm || 'Boss').replace(/战$/, '').trim()} 已过</span></div>
           </div>
         </div>
       </header>
@@ -465,7 +466,8 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
               <V10PrevNext game={game} value={value} />
             </div>
             <div className="panel sec-gap">
-              <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2><span className="note">⚔ 存档在各章卡内</span></div>
+              <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2>
+                {!!(game.bosses && game.bosses.length) && <span className="note">⚔ 存档在各章卡内</span>}</div>
               <V10Chapters game={game} value={value} openBoss={openBoss} />
             </div>
           </>

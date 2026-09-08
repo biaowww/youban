@@ -416,7 +416,7 @@ function EntryDetail({ game, entry, onClose, onStart }) {
           <div className="ed-stats">
             <div className="ed-stat"><b className="mono">{pct}%</b><span>起始进度</span></div>
             <div className="ed-stat"><b className="mono">{skipped.length}</b><span>跳过章节</span></div>
-            <div className="ed-stat"><b className="mono">{bossesPassed}</b><span>已了结 Boss</span></div>
+            <div className="ed-stat"><b className="mono">{bossesPassed}</b><span>已了结 {(game.bossTerm || 'Boss').replace(/战$/, '').trim()}</span></div>
           </div>
 
           {/* 前情提要 */}
