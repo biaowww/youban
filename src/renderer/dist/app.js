@@ -61,31 +61,38 @@ function GameTopBar({
   setTheme,
   onV10
 }) {
+  /* 与 v10 顶栏统一语言：无框返回键 + 游戏名（点开切换）+ 右侧一组小圆钮。
+     原先是 4 个大小不一的厚胶囊，挤且杂（王彪 2026-09 反馈）。 */
+  const dark = theme === 'game';
   return /*#__PURE__*/React.createElement("div", {
     className: "gtopbar"
   }, /*#__PURE__*/React.createElement("button", {
-    className: "gt-btn",
+    className: "gt-back",
     onClick: onBack
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "back",
-    size: 16
+    size: 15
   }), "\u6E38\u620F\u5E93"), /*#__PURE__*/React.createElement("button", {
-    className: "gt-btn",
-    onClick: onSwitch
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "gt-name"
+    className: "gt-title",
+    onClick: onSwitch,
+    title: "\u5207\u6362\u6E38\u620F"
   }, game.short, /*#__PURE__*/React.createElement(Icon, {
     name: "chevd",
-    size: 14
-  }))), onV10 && /*#__PURE__*/React.createElement("button", {
-    className: "gt-btn",
+    size: 13
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "gt-ctls"
+  }, onV10 && /*#__PURE__*/React.createElement("button", {
+    className: "gt-ctl",
     onClick: onV10,
     title: "\u5207\u5230 v10 \u65B0\u7248\u754C\u9762"
-  }, "v10"), /*#__PURE__*/React.createElement(ThemeToggle, {
-    theme: theme,
-    setTheme: setTheme,
-    game: game
-  }));
+  }, "v10"), /*#__PURE__*/React.createElement("button", {
+    className: "gt-ctl",
+    onClick: () => setTheme(dark ? 'light' : 'game'),
+    title: dark ? '当前：游戏主题色' : '当前：浅色'
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: dark ? 'swatch' : 'sun',
+    size: 13
+  }))));
 }
 
 /* ───────── 切换游戏底部面板 ───────── */

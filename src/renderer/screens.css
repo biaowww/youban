@@ -399,11 +399,50 @@
 .yb-app.light .save-path { background: rgba(20,16,10,.05); }
 
 /* ════════════ 游戏内顶栏 ════════════ */
-.gtopbar { position: absolute; top: 50px; left: 14px; right: 14px; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.gt-btn { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px 0 10px; border-radius: 99px; background: color-mix(in oklab, var(--g-bg) 55%, transparent); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.12); color: #f3ecdd; cursor: pointer; font-family: var(--font-sans); font-size: 13px; font-weight: 600; white-space: nowrap; }
-.yb-app.light .gt-btn { background: color-mix(in oklab, #fff 58%, transparent); border-color: rgba(20,16,10,.1); color: #1c1813; }
-.gt-name { display: inline-flex; align-items: center; gap: 5px; }
-.gt-name svg { opacity: .6; }
+/* 顶栏：与 v10 统一语言——无框返回键 + 居中游戏名 + 右侧小圆钮。
+   （旧版是 4 个厚胶囊并排，大小不一显得挤。） */
+.gtopbar {
+  position: absolute; top: 50px; left: 14px; right: 14px; z-index: 40;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border-radius: 999px;
+  color: #f3ecdd; font-family: var(--font-sans);
+  /* 整条一个玻璃底：顶栏会浮在 banner 图上，也会浮在舆情页那种纯色背景上，
+     自带底才能两种情况都可读（旧版靠每个按钮各自的胶囊，显得挤）。 */
+  background: color-mix(in oklab, var(--g-bg) 58%, transparent);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.yb-app.light .gtopbar {
+  color: #1c1813;
+  background: color-mix(in oklab, #fff 62%, transparent);
+  border-color: rgba(20,16,10,.1);
+}
+.gt-back {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font-family: inherit; font-size: 13px; font-weight: 600;
+  opacity: .85; transition: opacity .2s; white-space: nowrap;
+}
+.gt-back:hover { opacity: 1; }
+.gt-title {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font-family: inherit; font-size: 13px; font-weight: 700;
+  max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin-left: 10px;
+}
+.gt-title svg { opacity: .55; flex-shrink: 0; }
+.gt-ctls { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+/* 条内的控件不再各自带胶囊，只留极轻描边，避免「胶囊套胶囊」 */
+.gt-ctl {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  min-width: 26px; height: 26px; padding: 0 7px;
+  border-radius: 999px; cursor: pointer;
+  background: none; border: 1px solid currentColor;
+  color: inherit; font-family: inherit; font-size: 11px; font-weight: 600;
+  opacity: .6; transition: opacity .2s, border-color .2s;
+}
+.gt-ctl:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
 
 /* 游戏切换 sheet */
 .gsheet-list { padding: 6px 18px 28px; }

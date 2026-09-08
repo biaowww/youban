@@ -258,9 +258,11 @@
 }
 .pf-tags.compact .pf-tag { padding: 4px; gap: 0; border-radius: 8px; }
 
-/* 游戏库封面上的紧凑角标：深色玻璃底 + 纯白图标，压在图上也看得清 */
+/* 游戏库封面上的紧凑角标：深色玻璃底 + 纯白图标，压在图上也看得清。
+   放右上角——左上角是进度徽章（.poster .badge）的位置，别互相遮挡。 */
 .poster .pf-tags.compact {
-  position: absolute; top: 7px; left: 7px; z-index: 3; gap: 4px;
+  position: absolute; top: 7px; right: 7px; z-index: 3; gap: 4px;
+  justify-content: flex-end;
 }
 .poster .pf-tags.compact .pf-tag {
   background: rgba(6,5,4,.5); border-color: rgba(255,255,255,.16);

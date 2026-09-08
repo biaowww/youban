@@ -39,12 +39,22 @@ class V10Boundary extends React.Component {
 
 /* ───────── 游戏内顶栏 ───────── */
 function GameTopBar({ game, onBack, onSwitch, theme, setTheme, onV10 }) {
+  /* 与 v10 顶栏统一语言：无框返回键 + 游戏名（点开切换）+ 右侧一组小圆钮。
+     原先是 4 个大小不一的厚胶囊，挤且杂（王彪 2026-09 反馈）。 */
+  const dark = theme === 'game';
   return (
     <div className="gtopbar">
-      <button className="gt-btn" onClick={onBack}><Icon name="back" size={16} />游戏库</button>
-      <button className="gt-btn" onClick={onSwitch}><span className="gt-name">{game.short}<Icon name="chevd" size={14} /></span></button>
-      {onV10 && <button className="gt-btn" onClick={onV10} title="切到 v10 新版界面">v10</button>}
-      <ThemeToggle theme={theme} setTheme={setTheme} game={game} />
+      <button className="gt-back" onClick={onBack}><Icon name="back" size={15} />游戏库</button>
+      <button className="gt-title" onClick={onSwitch} title="切换游戏">
+        {game.short}<Icon name="chevd" size={13} />
+      </button>
+      <div className="gt-ctls">
+        {onV10 && <button className="gt-ctl" onClick={onV10} title="切到 v10 新版界面">v10</button>}
+        <button className="gt-ctl" onClick={() => setTheme(dark ? 'light' : 'game')}
+          title={dark ? '当前：游戏主题色' : '当前：浅色'}>
+          <Icon name={dark ? 'swatch' : 'sun'} size={13} />
+        </button>
+      </div>
     </div>
   );
 }

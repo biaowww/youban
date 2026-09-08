@@ -58,8 +58,8 @@ function Logo({ size = 40, glyph = false }) {
 
 /* ───────── 平台标签（买手店定位：主机独占也收，界面上要看得出在哪能玩） ───────── */
 const PLATFORM_META = {
-  /* pc 用 Steam 字形（PC 端主力商店）。注：D2R 这类只在 Battle.net 的作品
-     届时需要单独处理商店口径，届时再加 store 字段，别让图标说谎。 */
+  /* pc 用 Steam 字形。王彪核实：D2R 也在 Steam（只是大陆区因代理+版号未上架），
+     PC 单机基本都在 Steam，非 Steam 的多为网游/电竞——故不再为商店差异做特例。 */
   pc:          { label: 'PC',     icon: 'pf-pc' },
   playstation: { label: 'PS',     icon: 'pf-playstation' },
   xbox:        { label: 'Xbox',   icon: 'pf-xbox' },
