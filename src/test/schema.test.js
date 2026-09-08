@@ -42,12 +42,40 @@ describe('校验器本身能抓出问题（负向用例）', () => {
     expect(errs.join('\n')).toContain('currentPct');
   });
 
-  it('steamScore 越界 → 报错', () => {
+  it('playerScore 越界 → 报错', () => {
     const base = loadGameFiles()[0].game;
     const broken = JSON.parse(JSON.stringify(base));
-    broken.playerSentiment.steamScore = 200;
+    broken.playerSentiment.playerScore.value = 200;
     const errs = validateGame(broken, 'broken.json');
-    expect(errs.join('\n')).toContain('steamScore');
+    expect(errs.join('\n')).toContain('playerScore');
+  });
+
+  it('评分口径 origin 非法 → 报错（防止把媒体分冒充成 Steam 好评率）', () => {
+    const base = loadGameFiles()[0].game;
+    const broken = JSON.parse(JSON.stringify(base));
+    broken.playerSentiment.playerScore.origin = 'wechat';
+    const errs = validateGame(broken, 'broken.json');
+    expect(errs.join('\n')).toContain('origin');
+  });
+
+  it('两种评分都缺 → 报错（legacy steamScore 仍接受）', () => {
+    const base = loadGameFiles()[0].game;
+    const broken = JSON.parse(JSON.stringify(base));
+    delete broken.playerSentiment.playerScore;
+    delete broken.playerSentiment.mediaScore;
+    expect(validateGame(broken, 'broken.json').join('\n')).toContain('缺少评分');
+    /* 线上库仍是旧结构 → legacy steamScore 必须继续被接受 */
+    broken.playerSentiment.steamScore = 88;
+    expect(validateGame(broken, 'broken.json').join('\n')).not.toContain('缺少评分');
+  });
+
+  it('platforms 缺失 / 非法值 → 报错', () => {
+    const base = loadGameFiles()[0].game;
+    const broken = JSON.parse(JSON.stringify(base));
+    delete broken.platforms;
+    expect(validateGame(broken, 'broken.json').join('\n')).toContain('platforms');
+    broken.platforms = ['pc', 'sega'];
+    expect(validateGame(broken, 'broken.json').join('\n')).toContain('sega');
   });
 
   it('章节出现缺口 → 报不连续', () => {

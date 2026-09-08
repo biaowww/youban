@@ -128,6 +128,9 @@ const NODE_TYPES = {
   climax: { label: '剧情高潮', icon: 'flame', cls: 'climax' },
   char:   { label: '关键人物', icon: 'mask', cls: 'char' },
 };
+/* 并非所有游戏都有 Boss：叙事向（行尸走肉）= 关键抉择、恐怖类 = 高压遭遇。
+   术语随游戏数据的 bossTerm 走，缺省仍是 "Boss 战"。 */
+const nodeLabel = (type, game) => (type === 'boss' && game && game.bossTerm) ? game.bossTerm : NODE_TYPES[type].label;
 function buildNodes(game) {
   const out = [];
   game.bosses.forEach(b => out.push({ pct: b.pct, type: 'boss', label: b.name, boss: b, w: b.hi ? 3 : 2 }));
@@ -252,7 +255,7 @@ function HypeProgress({ game, value, onChange, onBoss, onEntry, idBase }) {
         {tapped && (
           <div className={'node-cap n-' + NODE_TYPES[tapped.type].cls} style={{ left: Math.min(80, Math.max(16, tapped.pct)) + '%' }}>
             <i className="nc-ic"><Icon name={NODE_TYPES[tapped.type].icon} size={11} /></i>
-            <span><b>{NODE_TYPES[tapped.type].label}</b>{tapped.label}</span>
+            <span><b>{nodeLabel(tapped.type, game)}</b>{tapped.label}</span>
           </div>
         )}
 
@@ -264,9 +267,12 @@ function HypeProgress({ game, value, onChange, onBoss, onEntry, idBase }) {
 
       {/* 图例 */}
       <div className="node-legend">
-        {Object.values(NODE_TYPES).map(t => (
-          <span key={t.cls} className={'leg n-' + t.cls}><i className="leg-dot" />{t.label}</span>
-        ))}
+        {Object.entries(NODE_TYPES)
+          /* 该作没有 Boss 类节点时，图例不显示这一项 */
+          .filter(([k]) => k !== 'boss' || (game.bosses && game.bosses.length))
+          .map(([k, t]) => (
+            <span key={t.cls} className={'leg n-' + t.cls}><i className="leg-dot" />{nodeLabel(k, game)}</span>
+          ))}
         <span className="leg n-entry"><i className="leg-dot leg-star"><Icon name="star" size={9} /></i>推荐起点</span>
       </div>
     </div>

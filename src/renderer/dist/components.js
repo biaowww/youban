@@ -426,6 +426,9 @@ const NODE_TYPES = {
     cls: 'char'
   }
 };
+/* 并非所有游戏都有 Boss：叙事向（行尸走肉）= 关键抉择、恐怖类 = 高压遭遇。
+   术语随游戏数据的 bossTerm 走，缺省仍是 "Boss 战"。 */
+const nodeLabel = (type, game) => type === 'boss' && game && game.bossTerm ? game.bossTerm : NODE_TYPES[type].label;
 function buildNodes(game) {
   const out = [];
   game.bosses.forEach(b => out.push({
@@ -662,7 +665,7 @@ function HypeProgress({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: NODE_TYPES[tapped.type].icon,
     size: 11
-  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, NODE_TYPES[tapped.type].label), tapped.label)), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, nodeLabel(tapped.type, game)), tapped.label)), /*#__PURE__*/React.createElement("div", {
     className: "thumb",
     style: {
       left: value + '%'
@@ -681,12 +684,13 @@ function HypeProgress({
     className: "hype-ends"
   }, /*#__PURE__*/React.createElement("span", null, "\u5F00\u573A"), /*#__PURE__*/React.createElement("span", null, drag ? '显示当前位置前后节点' : '高光节点 · 拖动查看更多'), /*#__PURE__*/React.createElement("span", null, "\u7EC8\u7AE0")), /*#__PURE__*/React.createElement("div", {
     className: "node-legend"
-  }, Object.values(NODE_TYPES).map(t => /*#__PURE__*/React.createElement("span", {
+  }, Object.entries(NODE_TYPES)
+  /* 该作没有 Boss 类节点时，图例不显示这一项 */.filter(([k]) => k !== 'boss' || game.bosses && game.bosses.length).map(([k, t]) => /*#__PURE__*/React.createElement("span", {
     key: t.cls,
     className: 'leg n-' + t.cls
   }, /*#__PURE__*/React.createElement("i", {
     className: "leg-dot"
-  }), t.label)), /*#__PURE__*/React.createElement("span", {
+  }), nodeLabel(k, game))), /*#__PURE__*/React.createElement("span", {
     className: "leg n-entry"
   }, /*#__PURE__*/React.createElement("i", {
     className: "leg-dot leg-star"

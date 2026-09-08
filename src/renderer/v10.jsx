@@ -248,7 +248,7 @@ function V10Hype({ game, value, onChange, onBoss, onEntry, idBase, guard }) {
         {tapped && (
           <div className={'node-cap n-' + NODE_TYPES[tapped.type].cls} style={{ left: Math.min(80, Math.max(16, tapped.pct)) + '%' }}>
             <i className="nc-ic"><Icon name={NODE_TYPES[tapped.type].icon} size={11} /></i>
-            <span><b>{NODE_TYPES[tapped.type].label}</b>{capLabel(tapped)}</span>
+            <span><b>{nodeLabel(tapped.type, game)}</b>{capLabel(tapped)}</span>
           </div>
         )}
 
@@ -258,9 +258,10 @@ function V10Hype({ game, value, onChange, onBoss, onEntry, idBase, guard }) {
 
       <div className="hype-ends"><span>开场</span><span></span><span>终章</span></div>
 
-      {/* 差异③：图例只留两项 */}
+      {/* 差异③：图例只留两项；该作无 Boss 类节点时不显示那一项 */}
       <div className="node-legend">
-        <span className="leg n-boss"><i className="leg-dot">{'⚔︎'}</i>Boss 战</span>
+        {!!(game.bosses && game.bosses.length) &&
+          <span className="leg n-boss"><i className="leg-dot">{'⚔︎'}</i>{nodeLabel('boss', game)}</span>}
         <span className="leg n-entry"><i className="leg-dot leg-star"><Icon name="star" size={9} /></i>推荐起点</span>
       </div>
     </div>
@@ -302,7 +303,7 @@ function V10Axis({ game, value, setValue, openEntry }) {
 function V10PrevNext({ game, value }) {
   /* 事件源 = ⚔Boss + 🔥名场面（score>=8），只取当前前后各一个 */
   const evs = React.useMemo(() => [
-    ...(game.bosses || []).map(b => ({ pct: b.pct, n: b.name, t: 'Boss 战', ic: '⚔' })),
+    ...(game.bosses || []).map(b => ({ pct: b.pct, n: b.name, t: game.bossTerm || 'Boss 战', ic: '⚔' })),
     ...(game.hype || []).filter(p => p.score >= 8).map(p => ({ pct: p.pct, n: p.label, t: '名场面', ic: '🔥' })),
   ].sort((a, b) => a.pct - b.pct), [game.id]);
   const prev = [...evs].reverse().find(e => e.pct <= value);

@@ -450,7 +450,7 @@ function V10Hype({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: NODE_TYPES[tapped.type].icon,
     size: 11
-  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, NODE_TYPES[tapped.type].label), capLabel(tapped))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", null, nodeLabel(tapped.type, game)), capLabel(tapped))), /*#__PURE__*/React.createElement("div", {
     className: "thumb",
     style: {
       left: value + '%'
@@ -469,11 +469,11 @@ function V10Hype({
     className: "hype-ends"
   }, /*#__PURE__*/React.createElement("span", null, "\u5F00\u573A"), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null, "\u7EC8\u7AE0")), /*#__PURE__*/React.createElement("div", {
     className: "node-legend"
-  }, /*#__PURE__*/React.createElement("span", {
+  }, !!(game.bosses && game.bosses.length) && /*#__PURE__*/React.createElement("span", {
     className: "leg n-boss"
   }, /*#__PURE__*/React.createElement("i", {
     className: "leg-dot"
-  }, '⚔︎'), "Boss \u6218"), /*#__PURE__*/React.createElement("span", {
+  }, '⚔︎'), nodeLabel('boss', game)), /*#__PURE__*/React.createElement("span", {
     className: "leg n-entry"
   }, /*#__PURE__*/React.createElement("i", {
     className: "leg-dot leg-star"
@@ -547,7 +547,7 @@ function V10PrevNext({
   const evs = React.useMemo(() => [...(game.bosses || []).map(b => ({
     pct: b.pct,
     n: b.name,
-    t: 'Boss 战',
+    t: game.bossTerm || 'Boss 战',
     ic: '⚔'
   })), ...(game.hype || []).filter(p => p.score >= 8).map(p => ({
     pct: p.pct,

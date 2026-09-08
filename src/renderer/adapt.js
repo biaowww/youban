@@ -25,6 +25,23 @@
     throw new Error("无可用数据源（Tauri / gameAPI / __YB_RAW__ 均不可用）");
   }
 
+  /* 评分口径 → 展示标签。非 Steam 游戏（主机独占）绝不冒充 Steam 好评率。 */
+  const SCORE_LABEL = {
+    steam: 'Steam 好评率', psn: 'PS Store 评分', nintendo: 'Nintendo eShop 评分',
+    metacritic: 'Metacritic 媒体均分', opencritic: 'OpenCritic 媒体均分',
+    douban: '豆瓣评分', ign: 'IGN 评分', other: '综合评分',
+  };
+  /* 取评分：新结构 {value,origin,note} 优先；legacy 数字回退为 steam 口径（线上库仍是旧结构） */
+  function pickScore(o, legacy) {
+    if (o && typeof o.value === 'number') {
+      return { value: o.value, origin: o.origin || 'other', label: SCORE_LABEL[o.origin] || SCORE_LABEL.other, note: o.note || '' };
+    }
+    if (typeof legacy === 'number') {
+      return { value: legacy, origin: 'steam', label: SCORE_LABEL.steam, note: '' };
+    }
+    return null;
+  }
+
   /* ───────── 适配器：src JSON → 视图模型 ───────── */
   function adaptGame(g) {
     const t = g.gameTheme || {};
@@ -72,8 +89,15 @@
       journey: (g.protagonistJourney || []).map(j => ({
         pct: j.progressPct, event: j.event, desc: j.description, unlocks: j.unlocks || [],
       })),
+      platforms: g.platforms && g.platforms.length ? g.platforms : ['pc'],
+      bossTerm: g.bossTerm || 'Boss 战',
       sentiment: {
-        score: ps.steamScore || 0, source: ps.source || '', note: ps.note || '',
+        /* 玩家分 / 媒体分分离（schema v2）；线上库仍是旧结构，故保留 steamScore 回退。
+           score 保持为「主展示分」——有玩家分用玩家分，否则用媒体分，兼容既有 UI。 */
+        player: pickScore(ps.playerScore, ps.steamScore),
+        media: pickScore(ps.mediaScore, null),
+        score: (pickScore(ps.playerScore, ps.steamScore) || pickScore(ps.mediaScore, null) || {}).value || 0,
+        source: ps.source || '', note: ps.note || '',
         praise: kw.praise || [], criticism: kw.criticism || [], hot: kw.hot || [],
         quotes: (ps.testimonials || []).map(q => ({ text: q.text, author: q.author, up: q.upvotes })),
       },

@@ -12,6 +12,12 @@ const path = require('path');
 
 const GAMES_DIR = path.join(__dirname, '..', 'data', 'games');
 
+/* ───────── 枚举 ───────── */
+/* 可玩平台（游戏在哪些机器上能玩） */
+const PLATFORMS = ['pc', 'playstation', 'xbox', 'switch', 'mobile'];
+/* 评分口径来源（玩家侧 / 媒体侧共用此表，界面据此显示"Steam 好评率"/"Metacritic 均分"等） */
+const SCORE_ORIGINS = ['steam', 'psn', 'nintendo', 'metacritic', 'opencritic', 'douban', 'ign', 'other'];
+
 /* ───────── 小工具 ───────── */
 const isStr = (v) => typeof v === 'string' && v.length > 0;
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -37,6 +43,20 @@ function validateGame(game, fileName) {
   if (!isStr(game.posterUrl)) E('缺少 posterUrl (string)');
   if (!isNum(game.currentPct)) E('缺少 currentPct (number)');
   else if (game.currentPct < 0 || game.currentPct > 100) E(`currentPct 越界 (${game.currentPct})，应 0..100`);
+
+  /* —— platforms（schema v2）——
+     游伴是「买手店」式精选，不是 Steam 库：主机独占只要够经典也收。
+     故平台是一等字段，产品功能不得强依赖 Steam。steamAppId 有则可绑 Steam
+     读成就/时长（增益功能），无则纯手动选章节，一样能用。 */
+  if (!isArr(game.platforms) || game.platforms.length === 0) E('缺少 platforms[]（如 ["pc","playstation"]）');
+  else game.platforms.forEach((p, i) => {
+    if (!PLATFORMS.includes(p)) E(`platforms[${i}] 非法值 "${p}"，应为 ${PLATFORMS.join('/')} 之一`);
+  });
+
+  /* —— bossTerm（可选）——
+     并非所有游戏都有 Boss（叙事向如《行尸走肉》= 关键抉择、恐怖类 = 高压遭遇），
+     界面文案随此字段走，缺省 "Boss 战"。 */
+  if (game.bossTerm !== undefined && !isStr(game.bossTerm)) E('bossTerm 存在但非字符串');
 
   /* —— gameTheme —— */
   const t = game.gameTheme;
@@ -158,10 +178,26 @@ function validateGame(game, fileName) {
 
   /* —— playerSentiment —— */
   const ps = game.playerSentiment;
-  if (!isObj(ps)) E('缺少 playerSentiment {steamScore,keywords,testimonials}');
+  if (!isObj(ps)) E('缺少 playerSentiment {playerScore|mediaScore,keywords,testimonials}');
   else {
-    if (!isNum(ps.steamScore)) E('playerSentiment.steamScore 非数值');
-    else if (ps.steamScore < 0 || ps.steamScore > 100) E(`playerSentiment.steamScore ${ps.steamScore} 越界，应 0..100`);
+    /* 评分（schema v2）：玩家侧与媒体侧分离，各自标明口径 origin。
+       非 Steam 游戏（主机独占）走 psn/nintendo/douban/metacritic 等，
+       绝不把媒体分冒充成 Steam 好评率。二者至少有一个；
+       legacy steamScore 仍接受（线上库尚是旧结构，客户端要兼容）。 */
+    const checkScore = (o, tag) => {
+      if (!isObj(o)) { E(`${tag} 非对象`); return; }
+      if (!isNum(o.value)) E(`${tag}.value 非数值`);
+      else if (o.value < 0 || o.value > 100) E(`${tag}.value ${o.value} 越界，应 0..100`);
+      if (!isStr(o.origin)) E(`${tag}.origin 缺失`);
+      else if (!SCORE_ORIGINS.includes(o.origin)) E(`${tag}.origin 非法值 "${o.origin}"，应为 ${SCORE_ORIGINS.join('/')} 之一`);
+    };
+    const hasNew = ps.playerScore !== undefined || ps.mediaScore !== undefined;
+    if (ps.playerScore !== undefined) checkScore(ps.playerScore, 'playerSentiment.playerScore');
+    if (ps.mediaScore !== undefined) checkScore(ps.mediaScore, 'playerSentiment.mediaScore');
+    if (!hasNew) {
+      if (!isNum(ps.steamScore)) E('playerSentiment 缺少评分：需 playerScore 或 mediaScore（或 legacy steamScore）');
+      else if (ps.steamScore < 0 || ps.steamScore > 100) E(`playerSentiment.steamScore ${ps.steamScore} 越界，应 0..100`);
+    }
     const kw = ps.keywords;
     if (!isObj(kw)) E('playerSentiment.keywords 缺失');
     else ['praise', 'criticism', 'hot'].forEach(k => { if (!isArr(kw[k])) E(`playerSentiment.keywords.${k}[] 缺失`); });
@@ -192,7 +228,7 @@ function validateAll(dir) {
   return loadGameFiles(dir).map(({ file, game }) => ({ file, errors: validateGame(game, file) }));
 }
 
-module.exports = { GAMES_DIR, validateGame, loadGameFiles, validateAll, isStr, isNum, isArr, isObj };
+module.exports = { GAMES_DIR, PLATFORMS, SCORE_ORIGINS, validateGame, loadGameFiles, validateAll, isStr, isNum, isArr, isObj };
 
 /* ───────── CLI ───────── */
 if (require.main === module) {

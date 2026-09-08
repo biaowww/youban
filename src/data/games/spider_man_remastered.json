@@ -393,7 +393,11 @@
     }
   ],
   "playerSentiment": {
-    "steamScore": 96,
+    "playerScore": {
+      "value": 96,
+      "origin": "steam",
+      "note": "Steam 全语言用户评测好评率"
+    },
     "source": "Steam 用户评测 & Metacritic & Reddit",
     "note": "Steam「好评如潮」（约 96%）；摆荡手感与 Otto 反转广受赞誉，MJ/潜行段落与公式化收集为主要争议",
     "keywords": {
@@ -439,5 +443,9 @@
         "upvotes": 2900
       }
     ]
-  }
+  },
+  "platforms": [
+    "pc",
+    "playstation"
+  ]
 }
