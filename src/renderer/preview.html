@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>游伴 YouBan · 浏览器预览</title>
 
 <link rel="stylesheet" href="tokens/fonts.css" />
@@ -50,6 +50,54 @@
   .boot-card span { font-family: 'Space Mono', monospace; font-size: 12.5px; line-height: 1.5; }
   .boot-spin { width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid rgba(196,163,90,.25); border-top-color: #C4A35A; animation: bootspin .8s linear infinite; }
   @keyframes bootspin { to { transform: rotate(360deg); } }
+
+  /* ─────────────────────────────────────────────────────────────
+     真机全屏模式（手机浏览器 / 微信内置浏览器）
+
+     桌面预览用的是「手机模型框」：.yb-app 固定 402×874 + 圆角 + 假灵动岛
+     / 假状态栏 / 假 Home 条，body 再用 flex 居中。真机上视口比框小
+     （实测 389×843），框被撑到 top:-31px、left:-13px 溢出视口外，而 flex
+     居中的顶部溢出**滚不到**（scrollY 恒 0）→ 顶栏（返回 / 三个 Tab /
+     防剧透 / 主题 / v9）整条被吃掉，微信再叠一层原生导航栏更糟。
+     另外 body 那点可滚区和内层 .v10 两层滚动打架 + 地址栏收放 → 回弹。
+
+     所以小屏下改为：铺满真实视口、取消外层滚动、隐藏假外壳、
+     把上下留白交还系统安全区（env(safe-area-inset-*)）。
+     仅作用于 web demo，不影响 Electron（index.html 不含本段）。
+     ───────────────────────────────────────────────────────────── */
+  @media (max-width: 520px) {
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      display: block; padding: 0; min-height: 0;
+      height: 100vh; height: 100dvh;      /* dvh 治地址栏收放导致的抖动 */
+      background: #0a0907;
+    }
+    body::before { display: none; }       /* 桌面用的背景纹理，真机省掉 */
+    #root { height: 100vh; height: 100dvh; }
+
+    /* 手机外壳 → 铺满真实视口 */
+    .yb-app {
+      width: 100%; height: 100vh; height: 100dvh;
+      border-radius: 0; box-shadow: none;
+    }
+    /* 假灵动岛 / 假状态栏 / 假 Home 条：真机上由系统提供，隐藏 */
+    .yb-island, .yb-status, .yb-home { display: none; }
+
+    /* 顶栏：原本的 48px / top:50px 是为了让开「假状态栏」，
+       真机改用系统安全区（刘海 / 挖孔 / 微信导航栏之下） */
+    .yb-app .v10 .topbar { padding-top: calc(env(safe-area-inset-top, 0px) + 10px); }
+    .yb-app .gtopbar     { top: calc(env(safe-area-inset-top, 0px) + 10px); }
+
+    /* 底部：拖动条与 v9 Tab 栏让开 Home 指示条 */
+    .yb-app .v10 .sim  { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+    .yb-app .yb-tabbar { padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
+
+    /* 只让内层滚：杀掉橡皮筋回弹与双层滚动打架 */
+    .yb-app .v10, .yb-app .yb-scroll { overscroll-behavior: contain; }
+
+    /* 启动占位同步铺满，避免加载瞬间闪一个小方框 */
+    .boot { width: 100%; height: 100vh; height: 100dvh; border-radius: 0; border: 0; box-shadow: none; }
+  }
 </style>
 </head>
 <body>

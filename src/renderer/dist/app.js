@@ -8,6 +8,28 @@
 /* 数据层 adaptGame / loadRawGames 已抽到 renderer/adapt.js（普通脚本，先于 dist/app.js 引入），
    这里直接复用全局 adaptGame / loadRawGames。改游戏 JSON 字段名时去 adapt.js 同步。 */
 
+/* ───────── 进度持久化（localStorage）─────────
+   语义（王彪 2026-09 拍板）：拖到哪存到哪 —— 波形/滑块拖动即视为「我的进度」。
+   载入时把存档值回填进 adaptGame 产出的 currentPct，让游戏库卡片、Hero 数据、
+   防剧透基准与实际进度同一口径（否则库里 61% 进去 88% 会割裂）。
+   存储不可用（隐私模式 / 被禁用）时静默降级为不记忆，不影响功能。 */
+const PROGRESS_KEY = 'yb_progress';
+function loadProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+function saveProgress(id, pct) {
+  if (!id) return;
+  try {
+    const all = loadProgress();
+    all[id] = pct;
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+  } catch (e) {/* noop */}
+}
+
 /* ───────── v10 保险丝：v10 运行时崩溃 → 自动回落 v9，绝不白屏 ───────── */
 class V10Boundary extends React.Component {
   constructor(props) {
@@ -287,10 +309,11 @@ function Root() {
       try {
         const raws = await loadRawGames();
         if (!raws || !raws.length) throw new Error('未发现任何游戏数据 (src/data/games/*.json)');
-        const adapted = raws.map(adaptGame);
-        window.YB = {
-          games: adapted
-        };
+        /* 存档进度覆盖 JSON 默认值（无存档的游戏保持数据里的 currentPct） */
+        const stored = loadProgress();
+        const adapted = raws.map(adaptGame).map(g => typeof stored[g.id] === 'number' ? Object.assign({}, g, {
+          currentPct: stored[g.id]
+        }) : g);
         /* Steam Mock 客户端（离线演示）：由原始映射表构建 fixtures。
            接真 BFF 时（code-youban-2026-07-10）把这里换成 HttpSteamClient 即可，契约同名。 */
         if (window.YBSteamClient && window.YBSteamFixtures) {
@@ -303,6 +326,28 @@ function Root() {
       }
     })();
   }, []);
+
+  /* 进度落盘：停手 300ms 后写 localStorage 并同步回游戏对象。
+     防抖是为了拖动过程不狂写存储、不逐帧重渲染整棵树。 */
+  useEffect(() => {
+    if (!games) return;
+    const g = games[gi];
+    if (!g || g.currentPct === value) return;
+    const t = setTimeout(() => {
+      saveProgress(g.id, value);
+      setGames(prev => prev.map((x, i) => i === gi ? Object.assign({}, x, {
+        currentPct: value
+      }) : x));
+    }, 300);
+    return () => clearTimeout(t);
+  }, [value, gi, games]);
+
+  /* 调试用全局快照，跟随最新进度 */
+  useEffect(() => {
+    if (games) window.YB = {
+      games
+    };
+  }, [games]);
   if (err) return /*#__PURE__*/React.createElement("div", {
     className: "boot"
   }, /*#__PURE__*/React.createElement("div", {
