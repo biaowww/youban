@@ -270,10 +270,8 @@
 /* 简介区「可玩平台」一行 */
 .v10 .v10-pfrow { display: flex; align-items: center; gap: 8px; margin: 8px 0 2px; flex-wrap: wrap; }
 .v10 .v10-pfrow .pf-lead { font-size: 11px; color: var(--mut); letter-spacing: .04em; }
-.v10 .v10-pfrow .pf-tag { background: var(--panel2); border-color: var(--line); color: var(--mut); }
-.v10 .v10-pfrow .pf-tag.pf-playstation { color: #5b8fd6; }
-.v10 .v10-pfrow .pf-tag.pf-xbox { color: #5fa336; }
-.v10 .v10-pfrow .pf-tag.pf-switch { color: #cf5b4f; }
+/* 简介行：跟随主题文字色（浅色主题深字、游戏主题色下浅字），不写死颜色 */
+.v10 .v10-pfrow .pf-tag { background: var(--panel2); border-color: var(--line); color: var(--ink); }
 
 /* 章节卡可点：跳关说明入口 */
 .v10 .ch-card.clickable .ch-thumb,
