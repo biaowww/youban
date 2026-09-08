@@ -37,6 +37,14 @@ function Icon({ name, size, style }) {
     case 'star': return wrap(<path d="M12 3l2.6 5.6 6.1.7-4.5 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.3 9.3l6.1-.7L12 3z" fill="currentColor"/>);
     case 'sun': return wrap(<>{P('M12 4V2M12 22v-2M4 12H2M22 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4')}<circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.8"/></>);
     case 'swatch': return wrap(<>{P('M12 3a9 9 0 0 0 0 18 3 3 0 0 0 3-3 2 2 0 0 1 2-2h1a3 3 0 0 0 3-3 9 9 0 0 0-9-9z')}<circle cx="7.5" cy="11" r="1.2" fill="currentColor"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor"/><circle cx="16.5" cy="11" r="1.2" fill="currentColor"/></>);
+    /* ─── 平台标识：本地内联 SVG，不走 CDN ───
+       项目已因「国内直连卡」把字体与封面全部本地化，平台图标同理，
+       且离线可用。用中性几何字形，不复制厂商商标。 */
+    case 'pf-pc': return wrap(<><rect x="3" y="5" width="18" height="11" rx="1.8" fill="none" stroke="currentColor" strokeWidth="1.8"/>{P('M9 20h6M12 16v4')}</>);
+    case 'pf-playstation': return wrap(<>{P('M12 3.4l2.2 3.6h-4.4z')}<circle cx="18" cy="12" r="2.1" fill="none" stroke="currentColor" strokeWidth="1.8"/><rect x="3.8" y="9.9" width="4.2" height="4.2" rx=".7" fill="none" stroke="currentColor" strokeWidth="1.8"/>{P('M10.4 15.6l3.2 3.2M13.6 15.6l-3.2 3.2')}</>);
+    case 'pf-xbox': return wrap(<><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" strokeWidth="1.8"/>{P('M8.4 6.8C10 8.8 14 13.2 15.6 17.2')}{P('M15.6 6.8C14 8.8 10 13.2 8.4 17.2')}</>);
+    case 'pf-switch': return wrap(<><rect x="3.2" y="4" width="6.2" height="16" rx="2.7" fill="none" stroke="currentColor" strokeWidth="1.8"/><rect x="14.6" y="4" width="6.2" height="16" rx="2.7" fill="none" stroke="currentColor" strokeWidth="1.8"/><circle cx="6.3" cy="8.4" r="1.15" fill="currentColor"/><circle cx="17.7" cy="15.6" r="1.15" fill="currentColor"/></>);
+    case 'pf-mobile': return wrap(<><rect x="6.5" y="2.6" width="11" height="18.8" rx="2.4" fill="none" stroke="currentColor" strokeWidth="1.8"/>{P('M10.4 18.4h3.2')}</>);
     default: return wrap(null);
   }
 }
@@ -44,6 +52,31 @@ function Icon({ name, size, style }) {
 /* ───────── 品牌 Logo ───────── */
 function Logo({ size = 40, glyph = false }) {
   return <img src={glyph ? 'assets/youban-glyph.svg' : 'assets/youban-mark.svg'} width={size} height={size} alt="游伴 YouBan" style={{ display: 'block', borderRadius: glyph ? 0 : size * 0.24 }} />;
+}
+
+/* ───────── 平台标签（买手店定位：主机独占也收，界面上要看得出在哪能玩） ───────── */
+const PLATFORM_META = {
+  pc:          { label: 'PC',     icon: 'pf-pc' },
+  playstation: { label: 'PS',     icon: 'pf-playstation' },
+  xbox:        { label: 'Xbox',   icon: 'pf-xbox' },
+  switch:      { label: 'Switch', icon: 'pf-switch' },
+  mobile:      { label: '手机',   icon: 'pf-mobile' },
+};
+/* compact = 只出图标不出字（游戏库小卡位置紧张时用） */
+function PlatformTags({ platforms, compact = false, size = 12 }) {
+  if (!platforms || !platforms.length) return null;
+  return (
+    <div className={'pf-tags' + (compact ? ' compact' : '')}>
+      {platforms.map(p => {
+        const m = PLATFORM_META[p];
+        return m ? (
+          <span key={p} className={'pf-tag pf-' + p} title={m.label}>
+            <Icon name={m.icon} size={size} />{compact ? null : m.label}
+          </span>
+        ) : null;
+      })}
+    </div>
+  );
 }
 
 /* ───────── 平台真实 Logo（Simple Icons CDN，带降级） ───────── */
@@ -294,4 +327,4 @@ function ScoreRing({ score }) {
   );
 }
 
-Object.assign(window, { Icon, Logo, PlatformLogo, StatusBar, TabBar, TABS, ThemeToggle, HypeProgress, ScoreRing, remainHours, tierOf });
+Object.assign(window, { Icon, Logo, PlatformLogo, PlatformTags, PLATFORM_META, StatusBar, TabBar, TABS, ThemeToggle, HypeProgress, ScoreRing, remainHours, tierOf, nodeLabel });

@@ -330,7 +330,7 @@ function V10PrevNext({ game, value }) {
 }
 
 /* ───────── 进度 Tab：章节墙（步骤 4，v10-C 大卡 + ⚔ 存档集成，不做独立 Boss 列表） ───────── */
-function V10Chapters({ game, value, openBoss }) {
+function V10Chapters({ game, value, openBoss, openEntry, guard }) {
   /* 无每章配图 → 用 banner 按章节序号取不同焦点位，营造差异 */
   const posFor = (i) => `${(i * 37) % 70 + 15}% ${(i * 29) % 50 + 20}%`;
   const [peeked, setPeeked] = useState({});
@@ -340,10 +340,17 @@ function V10Chapters({ game, value, openBoss }) {
         const saves = (game.bosses || []).filter(b => b.pct >= c.start && b.pct < c.end);
         const state = value >= c.end ? 'done' : value >= c.start ? 'current' : 'future';
         const fillW = state === 'done' ? 100 : state === 'current' ? Math.round((value - c.start) / Math.max(1, c.end - c.start) * 100) : 0;
+        /* 章节可点 → 跳关说明（复用「推荐起点」那套抽屉）。
+           防剧透开着且该章未抵达时先不放行，得先「偷看一眼」——否则等于绕过防剧透。 */
+        const blocked = guard && state === 'future' && !peeked[i];
+        const openCh = () => {
+          if (blocked || !openEntry) return;
+          openEntry({ pct: c.start, label: c.name, reason: c.key || c.plot || '', fromChapter: true });
+        };
         return (
-          <div key={i} className={'ch-card ' + state + (peeked[i] ? ' peeked' : '')}>
+          <div key={i} className={'ch-card ' + state + (peeked[i] ? ' peeked' : '') + (blocked ? '' : ' clickable')}>
             {state === 'future' && <span className="peek" onClick={() => setPeeked(p => ({ ...p, [i]: !p[i] }))}>偷看一眼 👀</span>}
-            <div className="ch-thumb">
+            <div className="ch-thumb" onClick={openCh}>
               <img src={game.banner} style={{ objectPosition: posFor(i) }} alt="" onError={e => { e.target.style.display = 'none'; }} />
               <div className="tint" />
               <span className="ch-badge">{state === 'done' ? '✓ 已走过' : state === 'current' ? '⟡ 你在这里' : '🔒 未抵达'}</span>
@@ -351,11 +358,14 @@ function V10Chapters({ game, value, openBoss }) {
               <span className="range mono">{c.start}–{c.end}%</span>
             </div>
             <div className="ch-body">
-              <h3>{c.name}</h3>
-              <div className="ch-key">{c.key}</div>
-              <div className="ch-foot">
-                {c.hype ? <span className="hype-n">🔥 热度 {c.hype}</span> : null}
-                <div className="ch-fill"><i style={{ width: fillW + '%' }} /></div>
+              <div className="ch-tap" onClick={openCh}>
+                <h3>{c.name}</h3>
+                <div className="ch-key">{c.key}</div>
+                <div className="ch-foot">
+                  {c.hype ? <span className="hype-n">🔥 热度 {c.hype}</span> : null}
+                  <div className="ch-fill"><i style={{ width: fillW + '%' }} /></div>
+                </div>
+                {!blocked && <span className="ch-jump">跳关说明 →</span>}
               </div>
               {saves.length > 0 && (
                 <div className="ch-saves">
@@ -457,6 +467,8 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
                 {game.genre ? <span className="vchip">{game.genre}</span> : null}
                 {game.hoursMain > 0 ? <span className="vchip">主线约 {game.hoursMain}h</span> : null}
               </div>
+              {/* 在哪能玩：主机独占也收录，所以这条要明说 */}
+              <div className="v10-pfrow"><span className="pf-lead">可玩平台</span><PlatformTags platforms={game.platforms} size={13} /></div>
               <Overview game={game} />
             </div>
             <div className="panel sec-gap">
@@ -468,7 +480,7 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
             <div className="panel sec-gap">
               <div className="p-head"><span className="k">Chapters</span><h2>章节墙</h2>
                 {!!(game.bosses && game.bosses.length) && <span className="note">⚔ 存档在各章卡内</span>}</div>
-              <V10Chapters game={game} value={value} openBoss={openBoss} />
+              <V10Chapters game={game} value={value} openBoss={openBoss} openEntry={openEntry} guard={guard} />
             </div>
           </>
         )}

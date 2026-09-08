@@ -11,7 +11,7 @@ function LibraryScreen({ games, gi, enter, onProfile }) {
   return (
     <div className="yb-scroll">
       <div className="appbar lib-bar">
-        <div><div className="ttl">我的游戏库</div><div className="sub">{games.length} 款 · 已同步</div></div>
+        <div><div className="ttl">我的游戏库</div><div className="sub">{games.length} 款 · 精选</div></div>
         <button className="avatar-btn" onClick={onProfile}>
           <img src={AVATAR} alt="我的" onError={e => { e.target.style.display = 'none'; e.target.parentNode.classList.add('mono-fallback'); }} />
         </button>
@@ -29,13 +29,15 @@ function LibraryScreen({ games, gi, enter, onProfile }) {
           </div>
         </div>
 
-        <div className="lib-sec-h"><div className="t">全部游戏</div><div className="c mono">已同步 Steam · WeGame</div></div>
+        {/* 买手店定位：精选而非「我的 Steam 库」，文案不再挂平台名 */}
+        <div className="lib-sec-h"><div className="t">全部游戏</div><div className="c mono">精选 · 多平台</div></div>
 
         <div className="lib-grid">
           {games.map((g, i) => (
             <div key={g.id} className={'poster' + (i === gi ? ' sel' : '')} onClick={() => enter(i)}>
               <img src={g.poster} alt={g.titleMain} onError={e => { e.target.style.opacity = 0; }} />
               <div className="grad" />
+              <PlatformTags platforms={g.platforms} compact size={11} />
               <div className="badge">{g.currentPct === 0 ? '未开始' : g.currentPct + '%'}</div>
               <div className="meta">
                 <div className="nm">{g.short}</div>
@@ -45,8 +47,8 @@ function LibraryScreen({ games, gi, enter, onProfile }) {
           ))}
           <div className="poster add-tile">
             <Icon name="grid" size={24} />
-            <div className="t">连接平台</div>
-            <div className="m mono">Steam · WeGame</div>
+            <div className="t">绑定账号</div>
+            <div className="m mono">Steam · PS · Switch</div>
           </div>
         </div>
       </div>
@@ -82,15 +84,22 @@ function ProgressInput({ game, value, setValue }) {
     } finally { setFloorBusy(false); }
   };
   const chapterOf = (pct) => { const c = game.chapters.find(c => pct >= c.start && pct < c.end); return c ? c.name : null; };
-  const tabs = [['manual', '手动选章节', 'pin'], ['steam', 'Steam 成就', 'trophy'], ['ai', '截图识别', 'camera']];
+  /* 进度输入 = 手动选章节 / 拖滑块（核心方式）。
+     截图识别已下线：实测不可靠，不做。
+     Steam 成就只是「有则更省事」的佐证，故仅当该作确有 Steam 版时才出现这一页——
+     主机独占（如 Bloodborne / Switch 作品）不该看到一个用不了的 Tab。 */
+  const tabs = [['manual', '手动选章节', 'pin']];
+  if (game.appId) tabs.push(['steam', 'Steam 成就', 'trophy']);
+  /* 切到无 Steam 版的游戏时，模式可能卡在已消失的那一页 → 回落手动 */
+  const mode = (m === 'steam' && !game.appId) ? 'manual' : m;
   return (
     <div className="input-card">
       <div className="ic-head"><Icon name="progress" size={15} /><span>更新进度</span></div>
       <div className="seg input-seg">
-        {tabs.map(([k, n, ic]) => <button key={k} className={m === k ? 'on' : ''} onClick={() => setM(k)}><Icon name={ic} size={14} />{n}</button>)}
+        {tabs.map(([k, n, ic]) => <button key={k} className={mode === k ? 'on' : ''} onClick={() => setM(k)}><Icon name={ic} size={14} />{n}</button>)}
       </div>
       <div className="ic-body">
-        {m === 'manual' && (
+        {mode === 'manual' && (
           <label className="select-wrap">
             <select value={game.chapters.find(c => value >= c.start && value < c.end)?.start ?? ''} onChange={e => setValue(parseInt(e.target.value))}>
               <option value="" disabled>— 选择当前所在章节 —</option>
@@ -100,7 +109,7 @@ function ProgressInput({ game, value, setValue }) {
             <Icon name="chevd" size={16} />
           </label>
         )}
-        {m === 'steam' && (
+        {mode === 'steam' && (
           <div>
             <div className="steam-row">
               <input className="text-input" value={sid} onChange={e => setSid(e.target.value)} placeholder="Steam ID64: 76561190000000001（演示）" />
@@ -138,12 +147,6 @@ function ProgressInput({ game, value, setValue }) {
                 )}
               </div>
             )}
-          </div>
-        )}
-        {m === 'ai' && (
-          <div className="ai-panel">
-            <Icon name="camera" size={22} />
-            <div><b>截图 AI 识别 · MVP 后期</b><span>上传游戏截图，接入 Claude Vision 自动识别当前进度</span></div>
           </div>
         )}
       </div>
@@ -278,10 +281,16 @@ function SentimentScreen({ game }) {
     <div className="yb-scroll">
       <div className="appbar"><div><div className="sub">PLAYER SENTIMENT</div><div className="ttl">玩家舆情</div></div></div>
       <div className="senti">
+        {/* 玩家分 vs 媒体分分开呈现，各自标明口径——非 Steam 游戏走 PS Store /
+            豆瓣 / Metacritic，绝不把媒体分冒充成 Steam 好评率。缺的一侧不显示。 */}
         <div className="score-hero">
           <ScoreRing score={s.score} />
-          <div className="score-meta"><div className="lvl" style={{ color: tier.c }}>{tier.t}</div>
-            <div className="src mono">{s.source}</div><div className="note">{s.note}</div></div>
+          <div className="score-meta">
+            <div className="lvl" style={{ color: tier.c }}>{tier.t}</div>
+            {s.player && <div className="score-line"><span className="sl-k">{s.player.label}</span><b className="mono">{s.player.value}</b></div>}
+            {s.media && <div className="score-line"><span className="sl-k">{s.media.label}</span><b className="mono">{s.media.value}</b></div>}
+            <div className="src mono">{s.source}</div><div className="note">{s.note}</div>
+          </div>
         </div>
 
         <div className="sec-h"><div className="t">玩家怎么说</div><div className="ln" /><div className="n mono">TOP 3</div></div>
@@ -394,7 +403,8 @@ function EntryDetail({ game, entry, onClose, onStart }) {
   const chars = seen.slice(0, 8);
   // 已了结的 Boss
   const bossesPassed = game.bosses.filter(b => b.pct < pct).length;
-  const hasDL = !!game.save;
+  /* 同一抽屉服务两个入口：波形上的「推荐起点」，以及章节墙上点开的任意章节 */
+  const eyebrow = entry.fromChapter ? `章节跳关说明 · 从 ${pct}% 进入` : `入场点推荐 · 从 ${pct}% 开始`;
 
   return (
     <>
@@ -405,7 +415,7 @@ function EntryDetail({ game, entry, onClose, onStart }) {
           <button className="round-btn ed-close" onClick={onClose}><Icon name="x" size={16} /></button>
           <div className="ed-hours"><b className="mono">{remainHours(game, pct)}</b><span>小时通关</span></div>
           <div className="ed-titles">
-            <div className="ed-eyebrow">入场点推荐 · 从 {pct}% 开始</div>
+            <div className="ed-eyebrow">{eyebrow}</div>
             <h3>{entry.label}</h3>
             <div className="ed-entering mono"><Icon name="pin" size={12} />进入《{entering.name}》</div>
           </div>
@@ -457,11 +467,19 @@ function EntryDetail({ game, entry, onClose, onStart }) {
             <p className="ed-reason">{entry.reason}</p>
           </div>
 
-          <div className="ed-tip"><Icon name="lock" size={12} /> {hasDL ? '可下载社区存档一键跳至此进度，或手动游玩至该节点。' : '本作暂无社区存档包，可使用游戏内章节选择直达该节点。'}</div>
+          {/* 玩家云存档：规划中，不作为本期核心功能开发。
+              方向是玩家上传存档、他人下载并评分（类 UU 云存档），游伴不提供官方存档。 */}
+          <div className="ed-sec">
+            <div className="ed-sh"><Icon name="dl" size={14} /><span>跳到这里的存档</span></div>
+            <div className="future-card">
+              <span className="fc-badge">即将开放</span>
+              <p>玩家上传的存档将在这里共享，可直接下载跳到本节点，并由社区打分排序。
+                当前版本请用<b>游戏内章节选择</b>直达，或手动游玩至此。</p>
+            </div>
+          </div>
         </div>
 
         <div className="drawer-cta">
-          {hasDL && <button className="btn btn-ghost"><Icon name="dl" size={16} /> 下载存档</button>}
           <button className="btn btn-primary" style={{ flex: 1 }} onClick={() => { onStart(pct); onClose(); }}><Icon name="play" size={15} /> 从这里开始预览</button>
         </div>
       </div>
@@ -542,10 +560,11 @@ function SplashScreen({ onEnter }) {
 
 /* ════════════ 登录页 ════════════ */
 function LoginScreen({ onLogin }) {
+  /* 登录只走手机号 + 微信 OAuth（王彪 2026-09 定）。
+     Steam / PlayStation / Nintendo 是登录之后的「账号绑定」——用于读取游玩数据
+     解锁增益功能，不是登录方式：产品功能不得强依赖绑定任何游戏平台。 */
   const methods = [
     { id: 'wechat', n: '微信登录', c: '#07c160', primary: true },
-    { id: 'steam', n: 'Steam 登录', logo: 'steam', c: '#9bc1d6' },
-    { id: 'apple', n: 'Apple 登录', c: '#e8e0d0' },
     { id: 'phone', n: '手机号登录', c: '#b0a090' },
   ];
   return (
@@ -553,15 +572,18 @@ function LoginScreen({ onLogin }) {
       <div className="login-top">
         <Logo size={66} glyph />
         <div className="login-h">欢迎来到游伴</div>
-        <div className="login-sub">连接你的游戏平台，开启进度陪伴</div>
+        <div className="login-sub">精选经典，陪你走完每一段旅程</div>
       </div>
       <div className="login-methods">
         {methods.map(m => (
           <button key={m.id} className={'login-btn' + (m.primary ? ' wechat' : '')} onClick={onLogin}>
-            {m.logo ? <PlatformLogo id="steam" color={m.c} size={20} /> : <span className="login-dot" style={{ background: m.c }} />}
+            <span className="login-dot" style={{ background: m.c }} />
             {m.n}
           </button>
         ))}
+      </div>
+      <div className="login-bind-note">
+        登录后可绑定 Steam / PlayStation / Nintendo 账号，自动读取游玩数据（可选）
       </div>
       <div className="login-terms">登录即代表同意《用户协议》与《隐私政策》</div>
     </div>

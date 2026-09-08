@@ -266,3 +266,21 @@
 /* v9 舆情组件嵌入时的容器修正 */
 .v10 .v9-senti-host { background: transparent; }
 .v10 .v9-senti-host .yb-scroll { position: static; height: auto; overflow: visible; }
+
+/* 简介区「可玩平台」一行 */
+.v10 .v10-pfrow { display: flex; align-items: center; gap: 8px; margin: 8px 0 2px; flex-wrap: wrap; }
+.v10 .v10-pfrow .pf-lead { font-size: 11px; color: var(--mut); letter-spacing: .04em; }
+.v10 .v10-pfrow .pf-tag { background: var(--panel2); border-color: var(--line); color: var(--mut); }
+.v10 .v10-pfrow .pf-tag.pf-playstation { color: #5b8fd6; }
+.v10 .v10-pfrow .pf-tag.pf-xbox { color: #5fa336; }
+.v10 .v10-pfrow .pf-tag.pf-switch { color: #cf5b4f; }
+
+/* 章节卡可点：跳关说明入口 */
+.v10 .ch-card.clickable .ch-thumb,
+.v10 .ch-card.clickable .ch-tap { cursor: pointer; }
+.v10 .ch-jump {
+  display: inline-block; margin-top: 8px; font-size: 11.5px; font-weight: 600;
+  color: var(--gold-deep); letter-spacing: .02em;
+}
+.v10.dark .ch-jump { color: var(--gold); }
+.v10 .ch-card.clickable:hover .ch-jump { text-decoration: underline; }

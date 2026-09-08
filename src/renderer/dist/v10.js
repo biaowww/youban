@@ -591,7 +591,9 @@ function V10PrevNext({
 function V10Chapters({
   game,
   value,
-  openBoss
+  openBoss,
+  openEntry,
+  guard
 }) {
   /* 无每章配图 → 用 banner 按章节序号取不同焦点位，营造差异 */
   const posFor = i => `${i * 37 % 70 + 15}% ${i * 29 % 50 + 20}%`;
@@ -602,9 +604,21 @@ function V10Chapters({
     const saves = (game.bosses || []).filter(b => b.pct >= c.start && b.pct < c.end);
     const state = value >= c.end ? 'done' : value >= c.start ? 'current' : 'future';
     const fillW = state === 'done' ? 100 : state === 'current' ? Math.round((value - c.start) / Math.max(1, c.end - c.start) * 100) : 0;
+    /* 章节可点 → 跳关说明（复用「推荐起点」那套抽屉）。
+       防剧透开着且该章未抵达时先不放行，得先「偷看一眼」——否则等于绕过防剧透。 */
+    const blocked = guard && state === 'future' && !peeked[i];
+    const openCh = () => {
+      if (blocked || !openEntry) return;
+      openEntry({
+        pct: c.start,
+        label: c.name,
+        reason: c.key || c.plot || '',
+        fromChapter: true
+      });
+    };
     return /*#__PURE__*/React.createElement("div", {
       key: i,
-      className: 'ch-card ' + state + (peeked[i] ? ' peeked' : '')
+      className: 'ch-card ' + state + (peeked[i] ? ' peeked' : '') + (blocked ? '' : ' clickable')
     }, state === 'future' && /*#__PURE__*/React.createElement("span", {
       className: "peek",
       onClick: () => setPeeked(p => ({
@@ -612,7 +626,8 @@ function V10Chapters({
         [i]: !p[i]
       }))
     }, "\u5077\u770B\u4E00\u773C \uD83D\uDC40"), /*#__PURE__*/React.createElement("div", {
-      className: "ch-thumb"
+      className: "ch-thumb",
+      onClick: openCh
     }, /*#__PURE__*/React.createElement("img", {
       src: game.banner,
       style: {
@@ -632,6 +647,9 @@ function V10Chapters({
       className: "range mono"
     }, c.start, "\u2013", c.end, "%")), /*#__PURE__*/React.createElement("div", {
       className: "ch-body"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ch-tap",
+      onClick: openCh
     }, /*#__PURE__*/React.createElement("h3", null, c.name), /*#__PURE__*/React.createElement("div", {
       className: "ch-key"
     }, c.key), /*#__PURE__*/React.createElement("div", {
@@ -644,7 +662,9 @@ function V10Chapters({
       style: {
         width: fillW + '%'
       }
-    }))), saves.length > 0 && /*#__PURE__*/React.createElement("div", {
+    }))), !blocked && /*#__PURE__*/React.createElement("span", {
+      className: "ch-jump"
+    }, "\u8DF3\u5173\u8BF4\u660E \u2192")), saves.length > 0 && /*#__PURE__*/React.createElement("div", {
       className: "ch-saves"
     }, saves.map(b => {
       const locked = b.pct > value;
@@ -786,7 +806,14 @@ function V10App({
     className: "vchip"
   }, game.genre) : null, game.hoursMain > 0 ? /*#__PURE__*/React.createElement("span", {
     className: "vchip"
-  }, "\u4E3B\u7EBF\u7EA6 ", game.hoursMain, "h") : null), /*#__PURE__*/React.createElement(Overview, {
+  }, "\u4E3B\u7EBF\u7EA6 ", game.hoursMain, "h") : null), /*#__PURE__*/React.createElement("div", {
+    className: "v10-pfrow"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "pf-lead"
+  }, "\u53EF\u73A9\u5E73\u53F0"), /*#__PURE__*/React.createElement(PlatformTags, {
+    platforms: game.platforms,
+    size: 13
+  })), /*#__PURE__*/React.createElement(Overview, {
     game: game
   })), /*#__PURE__*/React.createElement("div", {
     className: "panel sec-gap"
@@ -823,7 +850,9 @@ function V10App({
   }, "\u2694 \u5B58\u6863\u5728\u5404\u7AE0\u5361\u5185")), /*#__PURE__*/React.createElement(V10Chapters, {
     game: game,
     value: value,
-    openBoss: openBoss
+    openBoss: openBoss,
+    openEntry: openEntry,
+    guard: guard
   }))), tab === 'journey' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "p-head"
   }, /*#__PURE__*/React.createElement("span", {

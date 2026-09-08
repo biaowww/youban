@@ -190,6 +190,88 @@ function Icon({
         r: "1.2",
         fill: "currentColor"
       })));
+    /* ─── 平台标识：本地内联 SVG，不走 CDN ───
+       项目已因「国内直连卡」把字体与封面全部本地化，平台图标同理，
+       且离线可用。用中性几何字形，不复制厂商商标。 */
+    case 'pf-pc':
+      return wrap(/*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("rect", {
+        x: "3",
+        y: "5",
+        width: "18",
+        height: "11",
+        rx: "1.8",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), P('M9 20h6M12 16v4')));
+    case 'pf-playstation':
+      return wrap(/*#__PURE__*/React.createElement(React.Fragment, null, P('M12 3.4l2.2 3.6h-4.4z'), /*#__PURE__*/React.createElement("circle", {
+        cx: "18",
+        cy: "12",
+        r: "2.1",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), /*#__PURE__*/React.createElement("rect", {
+        x: "3.8",
+        y: "9.9",
+        width: "4.2",
+        height: "4.2",
+        rx: ".7",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), P('M10.4 15.6l3.2 3.2M13.6 15.6l-3.2 3.2')));
+    case 'pf-xbox':
+      return wrap(/*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("circle", {
+        cx: "12",
+        cy: "12",
+        r: "8.6",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), P('M8.4 6.8C10 8.8 14 13.2 15.6 17.2'), P('M15.6 6.8C14 8.8 10 13.2 8.4 17.2')));
+    case 'pf-switch':
+      return wrap(/*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("rect", {
+        x: "3.2",
+        y: "4",
+        width: "6.2",
+        height: "16",
+        rx: "2.7",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), /*#__PURE__*/React.createElement("rect", {
+        x: "14.6",
+        y: "4",
+        width: "6.2",
+        height: "16",
+        rx: "2.7",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "6.3",
+        cy: "8.4",
+        r: "1.15",
+        fill: "currentColor"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "17.7",
+        cy: "15.6",
+        r: "1.15",
+        fill: "currentColor"
+      })));
+    case 'pf-mobile':
+      return wrap(/*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("rect", {
+        x: "6.5",
+        y: "2.6",
+        width: "11",
+        height: "18.8",
+        rx: "2.4",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1.8"
+      }), P('M10.4 18.4h3.2')));
     default:
       return wrap(null);
   }
@@ -210,6 +292,51 @@ function Logo({
       borderRadius: glyph ? 0 : size * 0.24
     }
   });
+}
+
+/* ───────── 平台标签（买手店定位：主机独占也收，界面上要看得出在哪能玩） ───────── */
+const PLATFORM_META = {
+  pc: {
+    label: 'PC',
+    icon: 'pf-pc'
+  },
+  playstation: {
+    label: 'PS',
+    icon: 'pf-playstation'
+  },
+  xbox: {
+    label: 'Xbox',
+    icon: 'pf-xbox'
+  },
+  switch: {
+    label: 'Switch',
+    icon: 'pf-switch'
+  },
+  mobile: {
+    label: '手机',
+    icon: 'pf-mobile'
+  }
+};
+/* compact = 只出图标不出字（游戏库小卡位置紧张时用） */
+function PlatformTags({
+  platforms,
+  compact = false,
+  size = 12
+}) {
+  if (!platforms || !platforms.length) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'pf-tags' + (compact ? ' compact' : '')
+  }, platforms.map(p => {
+    const m = PLATFORM_META[p];
+    return m ? /*#__PURE__*/React.createElement("span", {
+      key: p,
+      className: 'pf-tag pf-' + p,
+      title: m.label
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: m.icon,
+      size: size
+    }), compact ? null : m.label) : null;
+  }));
 }
 
 /* ───────── 平台真实 Logo（Simple Icons CDN，带降级） ───────── */
@@ -743,6 +870,8 @@ Object.assign(window, {
   Icon,
   Logo,
   PlatformLogo,
+  PlatformTags,
+  PLATFORM_META,
   StatusBar,
   TabBar,
   TABS,
@@ -750,5 +879,6 @@ Object.assign(window, {
   HypeProgress,
   ScoreRing,
   remainHours,
-  tierOf
+  tierOf,
+  nodeLabel
 });

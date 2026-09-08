@@ -244,3 +244,31 @@
   .fade-up { animation: fadeUp .5s var(--ease, cubic-bezier(.16,1,.3,1)) both; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 }
+
+/* ───────── 平台标签（PlatformTags） ─────────
+   游伴是「买手店」式精选而非 Steam 库，主机独占同样收录，
+   故界面上要一眼看出「这游戏在哪能玩」。图标为本地内联 SVG，不走 CDN。 */
+.pf-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pf-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px 3px 6px; border-radius: 999px;
+  background: var(--chip); border: 1px solid var(--hairline);
+  color: var(--txt-2); font-size: 11px; font-weight: 600; line-height: 1.4;
+  white-space: nowrap;
+}
+.pf-tags.compact .pf-tag { padding: 3px; gap: 0; border-radius: 7px; }
+/* 各平台一点辨识色（克制，不喧宾夺主） */
+.pf-tag.pf-playstation { color: #6f9fe0; }
+.pf-tag.pf-xbox        { color: #6fb53e; }
+.pf-tag.pf-switch      { color: #d4675c; }
+.pf-tag.pf-pc          { color: var(--txt-2); }
+.pf-tag.pf-mobile      { color: var(--txt-2); }
+
+/* 游戏库小卡右上角的紧凑平台角标 */
+.poster .pf-tags.compact {
+  position: absolute; top: 6px; left: 6px; z-index: 3; gap: 3px;
+}
+.poster .pf-tags.compact .pf-tag {
+  background: rgba(8,6,4,.55); border-color: rgba(255,255,255,.14);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}

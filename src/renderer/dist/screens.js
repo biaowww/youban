@@ -21,7 +21,7 @@ function LibraryScreen({
     className: "ttl"
   }, "\u6211\u7684\u6E38\u620F\u5E93"), /*#__PURE__*/React.createElement("div", {
     className: "sub"
-  }, games.length, " \u6B3E \xB7 \u5DF2\u540C\u6B65")), /*#__PURE__*/React.createElement("button", {
+  }, games.length, " \u6B3E \xB7 \u7CBE\u9009")), /*#__PURE__*/React.createElement("button", {
     className: "avatar-btn",
     onClick: onProfile
   }, /*#__PURE__*/React.createElement("img", {
@@ -61,7 +61,7 @@ function LibraryScreen({
     className: "t"
   }, "\u5168\u90E8\u6E38\u620F"), /*#__PURE__*/React.createElement("div", {
     className: "c mono"
-  }, "\u5DF2\u540C\u6B65 Steam \xB7 WeGame")), /*#__PURE__*/React.createElement("div", {
+  }, "\u7CBE\u9009 \xB7 \u591A\u5E73\u53F0")), /*#__PURE__*/React.createElement("div", {
     className: "lib-grid"
   }, games.map((g, i) => /*#__PURE__*/React.createElement("div", {
     key: g.id,
@@ -75,6 +75,10 @@ function LibraryScreen({
     }
   }), /*#__PURE__*/React.createElement("div", {
     className: "grad"
+  }), /*#__PURE__*/React.createElement(PlatformTags, {
+    platforms: g.platforms,
+    compact: true,
+    size: 11
   }), /*#__PURE__*/React.createElement("div", {
     className: "badge"
   }, g.currentPct === 0 ? '未开始' : g.currentPct + '%'), /*#__PURE__*/React.createElement("div", {
@@ -95,9 +99,9 @@ function LibraryScreen({
     size: 24
   }), /*#__PURE__*/React.createElement("div", {
     className: "t"
-  }, "\u8FDE\u63A5\u5E73\u53F0"), /*#__PURE__*/React.createElement("div", {
+  }, "\u7ED1\u5B9A\u8D26\u53F7"), /*#__PURE__*/React.createElement("div", {
     className: "m mono"
-  }, "Steam \xB7 WeGame")))));
+  }, "Steam \xB7 PS \xB7 Switch")))));
 }
 
 /* ════════════ 进度输入（手动 / Steam / 截图） ════════════ */
@@ -151,7 +155,14 @@ function ProgressInput({
     const c = game.chapters.find(c => pct >= c.start && pct < c.end);
     return c ? c.name : null;
   };
-  const tabs = [['manual', '手动选章节', 'pin'], ['steam', 'Steam 成就', 'trophy'], ['ai', '截图识别', 'camera']];
+  /* 进度输入 = 手动选章节 / 拖滑块（核心方式）。
+     截图识别已下线：实测不可靠，不做。
+     Steam 成就只是「有则更省事」的佐证，故仅当该作确有 Steam 版时才出现这一页——
+     主机独占（如 Bloodborne / Switch 作品）不该看到一个用不了的 Tab。 */
+  const tabs = [['manual', '手动选章节', 'pin']];
+  if (game.appId) tabs.push(['steam', 'Steam 成就', 'trophy']);
+  /* 切到无 Steam 版的游戏时，模式可能卡在已消失的那一页 → 回落手动 */
+  const mode = m === 'steam' && !game.appId ? 'manual' : m;
   return /*#__PURE__*/React.createElement("div", {
     className: "input-card"
   }, /*#__PURE__*/React.createElement("div", {
@@ -163,14 +174,14 @@ function ProgressInput({
     className: "seg input-seg"
   }, tabs.map(([k, n, ic]) => /*#__PURE__*/React.createElement("button", {
     key: k,
-    className: m === k ? 'on' : '',
+    className: mode === k ? 'on' : '',
     onClick: () => setM(k)
   }, /*#__PURE__*/React.createElement(Icon, {
     name: ic,
     size: 14
   }), n))), /*#__PURE__*/React.createElement("div", {
     className: "ic-body"
-  }, m === 'manual' && /*#__PURE__*/React.createElement("label", {
+  }, mode === 'manual' && /*#__PURE__*/React.createElement("label", {
     className: "select-wrap"
   }, /*#__PURE__*/React.createElement("select", {
     value: game.chapters.find(c => value >= c.start && value < c.end)?.start ?? '',
@@ -186,7 +197,7 @@ function ProgressInput({
   }, "\u901A\u5173 \u2713")), /*#__PURE__*/React.createElement(Icon, {
     name: "chevd",
     size: 16
-  })), m === 'steam' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  })), mode === 'steam' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "steam-row"
   }, /*#__PURE__*/React.createElement("input", {
     className: "text-input",
@@ -223,12 +234,7 @@ function ProgressInput({
     className: "sync-note"
   }, "\u4E0E\u4F60\u7684\u8FDB\u5EA6\u4E00\u81F4\uFF08\u6210\u5C31\u4E0B\u754C ", floor.floorPct, "%\uFF09"), !canFloor && /*#__PURE__*/React.createElement("div", {
     className: "sync-note"
-  }, "\u8BE5\u4F5C\u5267\u60C5\u6210\u5C31\u8F83\u5C11\uFF08", floor.totalCount, " \u6761\uFF09\uFF0C\u4EC5\u4F5C\u6210\u5C31\u5C55\u793A\u3001\u4E0D\u63A8\u7B97\u8FDB\u5EA6"))), m === 'ai' && /*#__PURE__*/React.createElement("div", {
-    className: "ai-panel"
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "camera",
-    size: 22
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "\u622A\u56FE AI \u8BC6\u522B \xB7 MVP \u540E\u671F"), /*#__PURE__*/React.createElement("span", null, "\u4E0A\u4F20\u6E38\u620F\u622A\u56FE\uFF0C\u63A5\u5165 Claude Vision \u81EA\u52A8\u8BC6\u522B\u5F53\u524D\u8FDB\u5EA6")))));
+  }, "\u8BE5\u4F5C\u5267\u60C5\u6210\u5C31\u8F83\u5C11\uFF08", floor.totalCount, " \u6761\uFF09\uFF0C\u4EC5\u4F5C\u6210\u5C31\u5C55\u793A\u3001\u4E0D\u63A8\u7B97\u8FDB\u5EA6")))));
 }
 
 /* ════════════ 游戏简介 ════════════ */
@@ -516,7 +522,19 @@ function SentimentScreen({
     style: {
       color: tier.c
     }
-  }, tier.t), /*#__PURE__*/React.createElement("div", {
+  }, tier.t), s.player && /*#__PURE__*/React.createElement("div", {
+    className: "score-line"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "sl-k"
+  }, s.player.label), /*#__PURE__*/React.createElement("b", {
+    className: "mono"
+  }, s.player.value)), s.media && /*#__PURE__*/React.createElement("div", {
+    className: "score-line"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "sl-k"
+  }, s.media.label), /*#__PURE__*/React.createElement("b", {
+    className: "mono"
+  }, s.media.value)), /*#__PURE__*/React.createElement("div", {
     className: "src mono"
   }, s.source), /*#__PURE__*/React.createElement("div", {
     className: "note"
@@ -782,7 +800,8 @@ function EntryDetail({
   const chars = seen.slice(0, 8);
   // 已了结的 Boss
   const bossesPassed = game.bosses.filter(b => b.pct < pct).length;
-  const hasDL = !!game.save;
+  /* 同一抽屉服务两个入口：波形上的「推荐起点」，以及章节墙上点开的任意章节 */
+  const eyebrow = entry.fromChapter ? `章节跳关说明 · 从 ${pct}% 进入` : `入场点推荐 · 从 ${pct}% 开始`;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "scrim show",
     onClick: onClose,
@@ -812,7 +831,7 @@ function EntryDetail({
     className: "ed-titles"
   }, /*#__PURE__*/React.createElement("div", {
     className: "ed-eyebrow"
-  }, "\u5165\u573A\u70B9\u63A8\u8350 \xB7 \u4ECE ", pct, "% \u5F00\u59CB"), /*#__PURE__*/React.createElement("h3", null, entry.label), /*#__PURE__*/React.createElement("div", {
+  }, eyebrow), /*#__PURE__*/React.createElement("h3", null, entry.label), /*#__PURE__*/React.createElement("div", {
     className: "ed-entering mono"
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "pin",
@@ -898,18 +917,19 @@ function EntryDetail({
   }), /*#__PURE__*/React.createElement("span", null, "\u4E3A\u4EC0\u4E48\u4ECE\u8FD9\u91CC\u5F00\u59CB")), /*#__PURE__*/React.createElement("p", {
     className: "ed-reason"
   }, entry.reason)), /*#__PURE__*/React.createElement("div", {
-    className: "ed-tip"
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "lock",
-    size: 12
-  }), " ", hasDL ? '可下载社区存档一键跳至此进度，或手动游玩至该节点。' : '本作暂无社区存档包，可使用游戏内章节选择直达该节点。')), /*#__PURE__*/React.createElement("div", {
-    className: "drawer-cta"
-  }, hasDL && /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-ghost"
+    className: "ed-sec"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ed-sh"
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "dl",
-    size: 16
-  }), " \u4E0B\u8F7D\u5B58\u6863"), /*#__PURE__*/React.createElement("button", {
+    size: 14
+  }), /*#__PURE__*/React.createElement("span", null, "\u8DF3\u5230\u8FD9\u91CC\u7684\u5B58\u6863")), /*#__PURE__*/React.createElement("div", {
+    className: "future-card"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "fc-badge"
+  }, "\u5373\u5C06\u5F00\u653E"), /*#__PURE__*/React.createElement("p", null, "\u73A9\u5BB6\u4E0A\u4F20\u7684\u5B58\u6863\u5C06\u5728\u8FD9\u91CC\u5171\u4EAB\uFF0C\u53EF\u76F4\u63A5\u4E0B\u8F7D\u8DF3\u5230\u672C\u8282\u70B9\uFF0C\u5E76\u7531\u793E\u533A\u6253\u5206\u6392\u5E8F\u3002 \u5F53\u524D\u7248\u672C\u8BF7\u7528", /*#__PURE__*/React.createElement("b", null, "\u6E38\u620F\u5185\u7AE0\u8282\u9009\u62E9"), "\u76F4\u8FBE\uFF0C\u6216\u624B\u52A8\u6E38\u73A9\u81F3\u6B64\u3002")))), /*#__PURE__*/React.createElement("div", {
+    className: "drawer-cta"
+  }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     style: {
       flex: 1
@@ -1070,20 +1090,14 @@ function SplashScreen({
 function LoginScreen({
   onLogin
 }) {
+  /* 登录只走手机号 + 微信 OAuth（王彪 2026-09 定）。
+     Steam / PlayStation / Nintendo 是登录之后的「账号绑定」——用于读取游玩数据
+     解锁增益功能，不是登录方式：产品功能不得强依赖绑定任何游戏平台。 */
   const methods = [{
     id: 'wechat',
     n: '微信登录',
     c: '#07c160',
     primary: true
-  }, {
-    id: 'steam',
-    n: 'Steam 登录',
-    logo: 'steam',
-    c: '#9bc1d6'
-  }, {
-    id: 'apple',
-    n: 'Apple 登录',
-    c: '#e8e0d0'
   }, {
     id: 'phone',
     n: '手机号登录',
@@ -1100,22 +1114,20 @@ function LoginScreen({
     className: "login-h"
   }, "\u6B22\u8FCE\u6765\u5230\u6E38\u4F34"), /*#__PURE__*/React.createElement("div", {
     className: "login-sub"
-  }, "\u8FDE\u63A5\u4F60\u7684\u6E38\u620F\u5E73\u53F0\uFF0C\u5F00\u542F\u8FDB\u5EA6\u966A\u4F34")), /*#__PURE__*/React.createElement("div", {
+  }, "\u7CBE\u9009\u7ECF\u5178\uFF0C\u966A\u4F60\u8D70\u5B8C\u6BCF\u4E00\u6BB5\u65C5\u7A0B")), /*#__PURE__*/React.createElement("div", {
     className: "login-methods"
   }, methods.map(m => /*#__PURE__*/React.createElement("button", {
     key: m.id,
     className: 'login-btn' + (m.primary ? ' wechat' : ''),
     onClick: onLogin
-  }, m.logo ? /*#__PURE__*/React.createElement(PlatformLogo, {
-    id: "steam",
-    color: m.c,
-    size: 20
-  }) : /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", {
     className: "login-dot",
     style: {
       background: m.c
     }
   }), m.n))), /*#__PURE__*/React.createElement("div", {
+    className: "login-bind-note"
+  }, "\u767B\u5F55\u540E\u53EF\u7ED1\u5B9A Steam / PlayStation / Nintendo \u8D26\u53F7\uFF0C\u81EA\u52A8\u8BFB\u53D6\u6E38\u73A9\u6570\u636E\uFF08\u53EF\u9009\uFF09"), /*#__PURE__*/React.createElement("div", {
     className: "login-terms"
   }, "\u767B\u5F55\u5373\u4EE3\u8868\u540C\u610F\u300A\u7528\u6237\u534F\u8BAE\u300B\u4E0E\u300A\u9690\u79C1\u653F\u7B56\u300B"));
 }
