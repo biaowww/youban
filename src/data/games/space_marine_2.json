@@ -352,6 +352,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 82,
+      "origin": "metacritic",
+      "note": "Metacritic 82"
+    },
     "source": "Steam 用户评测 & Metacritic & Reddit",
     "note": "发售即「特别好评」；战役偏短与 Epic 在线服务/隐私争议是主要槽点，但\"星际战士爽感\"获广泛认可（数值随时间小幅波动，待核）",
     "keywords": {

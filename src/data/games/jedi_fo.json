@@ -524,6 +524,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 79,
+      "origin": "metacritic",
+      "note": "Metacritic 79；媒体普遍认可设计、扣分多在发售期性能问题"
+    },
     "source": "Steam 用户评测 & Metacritic & Reddit",
     "note": "EA发行商负面情绪影响了早期口碑，游戏本体高度认可",
     "keywords": {

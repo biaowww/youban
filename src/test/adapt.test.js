@@ -10,7 +10,7 @@ const files = loadGameFiles();
 
 describe('adaptGame · 真实游戏数据', () => {
   it('能加载到 9 款游戏', () => {
-    expect(files.length).toBe(11);
+    expect(files.length).toBe(17);
   });
 
   for (const { file, game } of files) {

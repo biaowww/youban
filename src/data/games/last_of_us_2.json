@@ -322,6 +322,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 93,
+      "origin": "metacritic",
+      "note": "Metacritic 93（121 家媒体）；但用户分仅 5.9（16.8 万人），媒体与玩家撕裂最剧烈的一作"
+    },
     "source": "Steam 用户评测 & Metacritic & PS5玩家评分 & Reddit",
     "note": "主机版首发口碑两极（艾比线为争议焦点），PC 版（2025）发售时风波已沉淀，Steam 稳居「特别好评」",
     "keywords": {

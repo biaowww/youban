@@ -25,19 +25,31 @@
     throw new Error("无可用数据源（Tauri / gameAPI / __YB_RAW__ 均不可用）");
   }
 
-  /* 评分口径 → 展示标签。非 Steam 游戏（主机独占）绝不冒充 Steam 好评率。 */
+  /* 评分口径 → 展示标签。非 Steam 游戏（主机独占）绝不冒充 Steam 好评率。
+     同一来源在「玩家侧 / 媒体侧」两个槽位含义不同（Metacritic 既有媒体均分也有
+     用户评分），故标签同时取决于 origin 与槽位 kind。 */
   const SCORE_LABEL = {
-    steam: 'Steam 好评率', psn: 'PS Store 评分', nintendo: 'Nintendo eShop 评分',
-    metacritic: 'Metacritic 媒体均分', opencritic: 'OpenCritic 媒体均分',
-    douban: '豆瓣评分', ign: 'IGN 评分', other: '综合评分',
+    steam:      { player: 'Steam 好评率' },
+    psn:        { player: 'PS Store 评分' },
+    nintendo:   { player: 'Nintendo eShop 评分' },
+    douban:     { player: '豆瓣评分' },
+    metacritic: { player: 'Metacritic 用户评分', media: 'Metacritic 媒体均分' },
+    opencritic: { player: 'OpenCritic 用户评分', media: 'OpenCritic 媒体均分' },
+    ign:        { media: 'IGN 评分' },
+    other:      { player: '玩家综合评分', media: '媒体综合评分' },
+  };
+  const labelOf = (origin, kind) => {
+    const e = SCORE_LABEL[origin] || SCORE_LABEL.other;
+    return e[kind] || e.player || e.media || SCORE_LABEL.other[kind];
   };
   /* 取评分：新结构 {value,origin,note} 优先；legacy 数字回退为 steam 口径（线上库仍是旧结构） */
-  function pickScore(o, legacy) {
+  function pickScore(o, legacy, kind) {
+    kind = kind || 'player';
     if (o && typeof o.value === 'number') {
-      return { value: o.value, origin: o.origin || 'other', label: SCORE_LABEL[o.origin] || SCORE_LABEL.other, note: o.note || '' };
+      return { value: o.value, origin: o.origin || 'other', label: labelOf(o.origin || 'other', kind), note: o.note || '' };
     }
     if (typeof legacy === 'number') {
-      return { value: legacy, origin: 'steam', label: SCORE_LABEL.steam, note: '' };
+      return { value: legacy, origin: 'steam', label: labelOf('steam', 'player'), note: '' };
     }
     return null;
   }
@@ -94,9 +106,9 @@
       sentiment: {
         /* 玩家分 / 媒体分分离（schema v2）；线上库仍是旧结构，故保留 steamScore 回退。
            score 保持为「主展示分」——有玩家分用玩家分，否则用媒体分，兼容既有 UI。 */
-        player: pickScore(ps.playerScore, ps.steamScore),
-        media: pickScore(ps.mediaScore, null),
-        score: (pickScore(ps.playerScore, ps.steamScore) || pickScore(ps.mediaScore, null) || {}).value || 0,
+        player: pickScore(ps.playerScore, ps.steamScore, 'player'),
+        media: pickScore(ps.mediaScore, null, 'media'),
+        score: (pickScore(ps.playerScore, ps.steamScore, 'player') || pickScore(ps.mediaScore, null, 'media') || {}).value || 0,
         source: ps.source || '', note: ps.note || '',
         praise: kw.praise || [], criticism: kw.criticism || [], hot: kw.hot || [],
         quotes: (ps.testimonials || []).map(q => ({ text: q.text, author: q.author, up: q.upvotes })),

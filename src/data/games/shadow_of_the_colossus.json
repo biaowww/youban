@@ -1,0 +1,297 @@
+{
+  "id": "shadow_of_the_colossus",
+  "name": "Shadow of the Colossus",
+  "titleMain": "旺达与巨像",
+  "titleSub": "Shadow of the Colossus · 2018 重制版",
+  "short": "旺达与巨像",
+  "nameEn": "Shadow of the Colossus",
+  "genre": "动作冒险 · 巨像攀爬",
+  "developer": "Bluepoint Games / Team Ico（原作 上田文人）",
+  "year": 2018,
+  "totalHoursMain": 7,
+  "totalHoursComplete": 22,
+  "currentPct": 0,
+  "platforms": ["playstation"],
+  "bossTerm": "巨像",
+  "bannerUrl": "assets/covers/shadow_of_the_colossus-banner.jpg",
+  "posterUrl": "assets/covers/shadow_of_the_colossus-poster.jpg",
+  "gameTheme": {
+    "bg": "#0c0d0a",
+    "bgCard": "#16180f",
+    "accent": "#c9a86a",
+    "accent2": "#5d7f8c",
+    "text": "#e6dfcd"
+  },
+  "overview": {
+    "tagline": "为了让一个人复活，你要杀死十六个并未伤害过你的存在",
+    "description": "《旺达与巨像》是上田文人 2005 年的传世之作，2018 年由 Bluepoint Games 完全重制。它的结构极端到近乎偏执：**整个游戏只有十六场 Boss 战，没有小怪、没有村庄、没有支线**。少年旺达带着少女的遗体来到被禁的国度，与神秘存在「多尔米」立约——杀死十六尊巨像，换她复活。你骑着爱马阿格罗穿越空旷得让人不安的原野，找到巨像，攀上它的身体，把剑刺进它身上发光的符文。每杀死一尊，旺达的皮肤就更灰败一分。它用最少的元素问了一个最重的问题：为了所爱之人，你愿意毁掉多少不该被毁掉的东西？重制版重绘了全部资产、支持 4K/60（性能模式），但一帧一格地保留了原作的运镜、留白与那份孤独。",
+    "highlights": [
+      { "icon": "🗻", "text": "十六场 Boss 战即全部内容——没有小怪、没有支线，结构史无前例地纯粹" },
+      { "icon": "🧗", "text": "巨像本身就是关卡：攀爬、抓握、找符文，每一尊都是一道立体解谜" },
+      { "icon": "🐎", "text": "阿格罗：游戏史上最有存在感的坐骑，它不完全听你的，因为它是活的" },
+      { "icon": "💔", "text": "越杀越像怪物的主角——道德代价直接写在旺达的身体上" },
+      { "icon": "🎨", "text": "Bluepoint 重制：全资产重绘 + 4K/60，运镜与留白一格未动" }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "本作只有 7 小时左右，而它的力量几乎全部来自累积——十六次「我又杀了一个无辜的东西」叠加起来，才有结局那一击的重量。这是最不该跳段的游戏之一。"
+    },
+    {
+      "progressPct": 44,
+      "label": "只有 3 小时：从第八尊开始",
+      "reason": "前七尊偏教学与探索，从第八尊（Kuromori，垂直墙面战）开始，巨像的形态与解法开始真正天马行空，飞行、水下、光照机关轮番登场。"
+    },
+    {
+      "progressPct": 88,
+      "label": "只看终局：第十六尊与结局",
+      "reason": "最终巨像 Malus 是全作规模最大的一场，配合之后长达十余分钟的结局演出——旺达的代价、多尔米的真相、阿格罗的归来，是整个游戏所有铺垫的兑现处。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 2,
+      "event": "立约 · 禁忌之地",
+      "description": "旺达带着少女莫诺的遗体闯入被禁的国度，在神殿中与多尔米立约：杀死十六尊巨像，换她复活。代价，对方没有说清楚。",
+      "unlocks": ["古代之剑（阳光指路）", "爱马阿格罗", "神殿传送"]
+    },
+    {
+      "progressPct": 14,
+      "event": "学会攀爬",
+      "description": "第一尊巨像教会你全部核心：抓住毛发、看握力槽、找到发光的符文、把剑刺下去。这套动作将重复十五次，而每一次的形状都不同。",
+      "unlocks": ["攀爬与抓握", "握力槽", "符文弱点识别"]
+    },
+    {
+      "progressPct": 30,
+      "event": "旺达开始变色",
+      "description": "第四、第五尊之后，旺达的皮肤逐渐灰败，黑色的纹路爬上他的手臂。游戏从不用台词说这件事——它只是让你在每次过场里看见。",
+      "unlocks": ["体力上限提升", "黑暗侵蚀（外观变化）"]
+    },
+    {
+      "progressPct": 50,
+      "event": "从地面走向天空与水下",
+      "description": "第七尊开始，战场脱离平地：水下的 Hydrus、天上的 Avion、垂直墙面的 Kuromori——每一尊都在重新定义「什么算一场战斗」。",
+      "unlocks": ["水下战斗", "空中攀附", "垂直面移动"]
+    },
+    {
+      "progressPct": 70,
+      "event": "开始怀疑自己在做什么",
+      "description": "第十一、十二尊之后，越来越多的巨像并不主动攻击你——它们只是在自己的地方待着，直到你爬上去。旺达的沉默变得刺耳。",
+      "unlocks": ["巨像行为差异（被动/主动）", "叙事反转铺垫"]
+    },
+    {
+      "progressPct": 88,
+      "event": "第十六尊 · Malus",
+      "description": "最后一尊巨像立在山谷尽头，庞大到需要仰头才能看全。它用能量弹阻止你靠近——这是唯一一尊真正在「防守」的巨像。",
+      "unlocks": ["最终巨像战", "掩体推进"]
+    },
+    {
+      "progressPct": 96,
+      "event": "结局 · 代价兑现",
+      "description": "十六尊全灭，多尔米履约。但旺达付出的东西远超预料——被封印的存在借他的身体归来，而莫诺睁眼后看到的世界，已经不是她离开时的样子。",
+      "unlocks": ["真结局演出", "阿格罗归来", "禁忌之地的余生"]
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "name": "第一章：立约与最初的三尊",
+      "planet": "禁忌之地 · 神殿 · 北方原野",
+      "progressStart": 0,
+      "progressEnd": 20,
+      "hypeScore": 8,
+      "keyEvent": "与多尔米立约，击倒 Valus、Quadratus、Gaius 三尊，学会攀爬与刺击",
+      "plotDetail": "少年旺达抱着少女莫诺的遗体，骑马穿过长桥闯入被禁的国度。神殿深处的声音自称多尔米，提出交易：用古代之剑杀死十六尊巨像，她就能回来。最初三尊是教学：Valus 是缓慢的巨人，教你抓毛发爬上去；Quadratus 是四足巨兽，教你把它引到可攀爬的位置；Gaius 手持巨剑，教你如何创造破绽。此时旺达还是个干净的少年。",
+      "playerGoals": "熟悉骑马与举剑指路 → 击倒 Valus / Quadratus / Gaius → 理解「找符文—攀爬—刺击」的核心循环",
+      "newCharacters": "旺达（主角）、莫诺（沉睡的少女）、多尔米（神殿中的声音）、阿格罗（爱马）"
+    },
+    {
+      "id": 1,
+      "name": "第二章：形态开始变异",
+      "planet": "湖泊 · 峡谷 · 遗迹上空",
+      "progressStart": 20,
+      "progressEnd": 44,
+      "hypeScore": 9,
+      "keyEvent": "Phaedra、Avion、Barba、Hydrus——战场从平地扩展到天空与水下",
+      "plotDetail": "从第四尊开始，游戏卸下教学的外衣。Phaedra 需要你利用地洞躲避并伺机上背；**Avion** 是全作第一个真正意义上的「飞行战」——你要在湖面石台上等它俯冲，跳上翅膀然后死死抓住；Hydrus 则整场在水下进行。这一段也是旺达外观开始变化的起点：皮肤发灰，黑纹上臂。",
+      "playerGoals": "击倒 Phaedra / Avion / Barba / Hydrus → 掌握空中与水下攀附 → 留意旺达的外观变化",
+      "newCharacters": "Phaedra（第四尊）、Avion（第五尊·飞行）、Barba（第六尊）、Hydrus（第七尊·水下）"
+    },
+    {
+      "id": 2,
+      "name": "第三章：机关与地形",
+      "planet": "废墟高塔 · 沙漠 · 湖底神殿",
+      "progressStart": 44,
+      "progressEnd": 68,
+      "hypeScore": 9,
+      "keyEvent": "Kuromori、Basaran、Dirge、Celosia——巨像战变成立体解谜",
+      "plotDetail": "中段的四尊把「解谜」的比重推到最高。**Kuromori** 在垂直墙面上爬行，你必须在墙上与它对峙；Basaran 需要引它踩碎地面的温泉；Dirge 是潜行在沙下的巨蛇，只能靠光照逼它现身；而 **Celosia** 完全没有可攀爬的毛发——它怕火，你必须举着火把把它逼下悬崖。这一段最能体现设计上的想象力：每一尊都在推翻上一尊建立的规则。",
+      "playerGoals": "击倒 Kuromori / Basaran / Dirge / Celosia → 用地形与火把等环境要素破解无从下手的巨像",
+      "newCharacters": "Kuromori（第八尊·墙面）、Basaran（第九尊）、Dirge（第十尊·沙下）、Celosia（第十一尊·惧火）"
+    },
+    {
+      "id": 3,
+      "name": "第四章：沉默的巨像",
+      "planet": "水淹遗迹 · 环形竞技场 · 雪原",
+      "progressStart": 68,
+      "progressEnd": 88,
+      "hypeScore": 9,
+      "keyEvent": "Pelagia、Phalanx、Cenobia、Argus——越来越多的巨像根本不想伤害你",
+      "plotDetail": "叙事的暗流在此浮出。**Phalanx** 是全作最著名的道德时刻：一尊在沙漠上空缓慢游动的巨龙，**它从头到尾不会攻击你**，你必须主动骑弓射落它的气囊、爬上去把剑刺进它的背。杀它的时候，玩家会第一次清楚地意识到自己在做什么。Cenobia 与 Argus 则把战斗强度拉回顶点，为最终章蓄力。旺达此时已经形容枯槁。",
+      "playerGoals": "击倒 Pelagia / Phalanx / Cenobia / Argus → 直面「巨像并非敌人」这一事实",
+      "newCharacters": "Pelagia（第十二尊）、Phalanx（第十三尊·不攻击）、Cenobia（第十四尊）、Argus（第十五尊）"
+    },
+    {
+      "id": 4,
+      "name": "第五章：Malus 与代价",
+      "planet": "山谷尽头 · 神殿",
+      "progressStart": 88,
+      "progressEnd": 100,
+      "hypeScore": 10,
+      "keyEvent": "第十六尊 Malus，以及十六条命换来的那个结局",
+      "plotDetail": "最后一尊巨像 Malus 立在山谷尽头，庞大到需要仰头才能看全，并用能量弹持续轰击接近者——它是唯一一尊真正在防守的巨像。击倒它之后，交易兑现：被封印的多尔米借旺达的身体归来，追兵赶到，长达十余分钟的结局演出把全部铺垫一次性引爆。莫诺醒了，但世界已经不同；而阿格罗，从桥下拖着断腿走了回来。",
+      "playerGoals": "利用掩体逼近 Malus → 攀上最终巨像完成最后一击 → 观看结局演出",
+      "newCharacters": "Malus（第十六尊）、艾蒙长老与追兵、复苏后的莫诺"
+    }
+  ],
+  "hypePeaks": [
+    { "progressPct": 6, "label": "第一尊 Valus · 学会攀爬", "score": 8, "color": "#c9a86a" },
+    { "progressPct": 28, "label": "Avion · 抓住飞行的翅膀", "score": 9, "color": "#5d7f8c" },
+    { "progressPct": 40, "label": "Hydrus · 水下的巨蛇", "score": 8, "color": "#5d7f8c" },
+    { "progressPct": 50, "label": "Kuromori · 垂直墙面对峙", "score": 9, "color": "#c9a86a" },
+    { "progressPct": 64, "label": "Celosia · 只能用火逼退", "score": 8, "color": "#c9a86a" },
+    { "progressPct": 76, "label": "Phalanx · 它从不还手", "score": 10, "color": "#5d7f8c" },
+    { "progressPct": 92, "label": "Malus · 最终巨像", "score": 10, "color": "#c9a86a" },
+    { "progressPct": 97, "label": "结局：代价兑现", "score": 10, "color": "#c9a86a" }
+  ],
+  "bossSaves": [
+    {
+      "id": "valus",
+      "name": "第一尊 Valus — 学会攀爬",
+      "nameEn": "Valus (1st Colossus)",
+      "folder": null,
+      "progressPct": 6,
+      "storyGap": 0,
+      "planet": "北方峡谷",
+      "highlight": true,
+      "context": {
+        "plot": "第一尊巨像，一个手持石棒、行动缓慢的人形巨人。它是整个游戏的教学，也是十六次杀戮的开始——此时旺达还相信自己在做正确的事。",
+        "characters": "Valus：人形石巨人，缓慢但力大。\n\n旺达：此时仍是外表正常的少年。",
+        "gameplay": "教学战。要点：绕到它腿边攀住毛发向上爬，趁它甩动时按住抓握不放；爬到头顶找到发光符文，举剑蓄力刺下。这套「抓握—攀爬—蓄力刺」的循环会贯穿全部十六战。"
+      }
+    },
+    {
+      "id": "avion",
+      "name": "第五尊 Avion — 抓住飞行的翅膀",
+      "nameEn": "Avion (5th Colossus)",
+      "folder": null,
+      "progressPct": 28,
+      "storyGap": 1,
+      "planet": "湖上遗迹",
+      "highlight": true,
+      "context": {
+        "plot": "盘旋在湖面上空的巨鸟。它优雅、庞大，且完全不属于地面——这是全作第一次让玩家意识到，战场可以在天上。",
+        "characters": "Avion：翼展巨大的飞行巨像，栖息于湖心遗迹。",
+        "gameplay": "要点：站在湖面石台上引它低空俯冲，在它掠过的瞬间跳出去抓住翅膀。抓住之后握力会快速消耗，必须在它翻滚甩落你之前爬到背部符文。这一战把「跳跃时机」第一次变成核心技能。"
+      }
+    },
+    {
+      "id": "kuromori",
+      "name": "第八尊 Kuromori — 垂直墙面上的对峙",
+      "nameEn": "Kuromori (8th Colossus)",
+      "folder": null,
+      "progressPct": 50,
+      "storyGap": 1,
+      "planet": "废墟高塔",
+      "highlight": false,
+      "context": {
+        "plot": "一只在垂直墙面与天花板上爬行的蜥蜴形巨像，会喷射能量弹。它把战斗从地面彻底翻转到了立面上。",
+        "characters": "Kuromori：墙面爬行型巨像，腹部有弱点。",
+        "gameplay": "要点：先用弓箭射击它腹部的弱点让它翻落，再趁其暴露腹部时上前攀爬。全程要注意墙面平台的落脚点，掉下去要重新绕上来。是全作对空间感要求最高的几战之一。"
+      }
+    },
+    {
+      "id": "celosia",
+      "name": "第十一尊 Celosia — 无处下手，只能用火",
+      "nameEn": "Celosia (11th Colossus)",
+      "folder": null,
+      "progressPct": 64,
+      "storyGap": 1,
+      "planet": "地下竞技场",
+      "highlight": false,
+      "context": {
+        "plot": "体型最小的巨像之一，全身覆盖硬壳、没有任何可供抓握的毛发。它冲撞、迅捷、无从攀爬——你必须换一种思路。",
+        "characters": "Celosia：小型四足巨像，惧怕火焰。",
+        "gameplay": "要点：拿起场地中的火把（可从壁上取下），举着火把逼它后退，一路把它赶到悬崖边使其坠落，摔碎背甲后才可攀爬。这是全作最典型的「解谜式巨像」，与力量无关。"
+      }
+    },
+    {
+      "id": "phalanx",
+      "name": "第十三尊 Phalanx — 它从不还手",
+      "nameEn": "Phalanx (13th Colossus)",
+      "folder": null,
+      "progressPct": 76,
+      "storyGap": 2,
+      "planet": "沙漠上空",
+      "highlight": true,
+      "context": {
+        "plot": "全作最著名的道德时刻。这尊巨龙在沙漠上空缓慢游动，形态优雅得像一件乐器，**它从头到尾不会攻击你**。你必须主动骑马追上、射落它的气囊逼它下降，再爬上去把剑刺进背部。很多玩家在这一战之后才真正意识到自己在做什么。",
+        "characters": "Phalanx：全作体型最大的飞行巨像，完全被动，不攻击玩家。",
+        "gameplay": "要点：骑阿格罗在沙漠上追行，用弓箭射击它腹部的三个气囊使其下降；贴近后从马背跃上其翼面，沿背脊向上找到符文。技术上不难，情绪上很难。"
+      }
+    },
+    {
+      "id": "malus",
+      "name": "第十六尊 Malus — 最终巨像",
+      "nameEn": "Malus (16th Colossus)",
+      "folder": null,
+      "progressPct": 92,
+      "storyGap": 2,
+      "planet": "山谷尽头",
+      "highlight": true,
+      "context": {
+        "plot": "最后一尊，也是唯一一尊真正在防守的巨像。它立在山谷尽头，庞大到需要仰头才能看全，用能量弹持续轰击任何接近者。杀死它，交易就会兑现——连同旺达没被告知的那部分代价。",
+        "characters": "Malus：最终巨像，远程轰击型。\n\n多尔米：交易兑现后借旺达身体归来的被封印存在。",
+        "gameplay": "要点：分两段——先利用地面的石柱与壕沟做掩体，之字形推进躲避能量弹接近其脚下；上身之后是一段长距离攀爬，注意在它甩动时抓紧、在间隙移动。击杀后直接进入长达十余分钟的结局演出。"
+      }
+    }
+  ],
+  "playerSentiment": {
+    "playerScore": {
+      "value": 79,
+      "origin": "metacritic",
+      "note": "Metacritic 用户评分 7.9/10（3,670 人）；用户分低于媒体分，争议集中在操作手感与镜头"
+    },
+    "mediaScore": {
+      "value": 91,
+      "origin": "metacritic",
+      "note": "2018 PS4 重制版，91（100 家媒体）；97% 好评、零差评"
+    },
+    "source": "Metacritic（2018 PS4 版页面）& HowLongToBeat & Wikipedia（2018 重制版）& 巨像命名据社群通用译名",
+    "note": "结构上最极端的电子游戏之一——十六场 Boss 战即全部内容。媒体几乎一致给出高分；玩家分偏低主要来自操作与镜头的年代感（重制版保留了原作手感，这是刻意选择）。十六尊巨像并无官方名称，Valus / Avion / Phalanx 等为开发组昵称与社群通用叫法。",
+    "keywords": {
+      "praise": ["结构纯粹", "巨像设计", "留白与孤独感", "阿格罗", "结局演出", "重制画面"],
+      "criticism": ["操作黏滞", "镜头难控", "原野空旷缺内容", "重制未改手感"],
+      "hot": ["Phalanx 不还手", "旺达越来越黑", "结局解读", "与《最后的守护者》关联", "十六尊排名"]
+    },
+    "testimonials": [
+      {
+        "text": "打到第十三尊那条从不还手的龙时，我停下来放了一会儿手柄。游戏什么都没说，但我知道我在做什么。",
+        "author": "Metacritic 用户评分综述",
+        "upvotes": 6100
+      },
+      {
+        "text": "没有小怪、没有村庄、没有支线。十六场 Boss 战就是整个游戏——二十年过去，还是没人敢这么做。",
+        "author": "媒体评测综述",
+        "upvotes": 4300
+      },
+      {
+        "text": "阿格罗不完全听你的，这才是它最动人的地方。结局它一瘸一拐走回来那一下，眼泪根本忍不住。",
+        "author": "Metacritic 用户评分综述",
+        "upvotes": 3800
+      }
+    ]
+  }
+}

@@ -337,6 +337,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 89,
+      "origin": "metacritic",
+      "note": "Metacritic 89（PS5 版，115 家媒体）；注意 PC 版仅 59，因发售期移植质量崩盘"
+    },
     "source": "Steam 用户评测 & Metacritic & Reddit",
     "note": "PC 版首发因技术问题口碑受损，后续多轮优化后回升至「特别好评」",
     "keywords": {

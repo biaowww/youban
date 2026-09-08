@@ -331,6 +331,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 86,
+      "origin": "metacritic",
+      "note": "Metacritic 86（80 家媒体）"
+    },
     "source": "Steam 用户评测 & Metacritic & Reddit",
     "note": "首发备受好评，随年代沉淀评价愈发正面，子弹时间系统被视为同类天花板",
     "keywords": {

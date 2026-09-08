@@ -363,6 +363,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 83,
+      "origin": "metacritic",
+      "note": "Metacritic 83（122 家媒体，PS4 版）；用户分 9.1，玩家远比媒体买账"
+    },
     "source": "Steam 用户评测 & Metacritic & Wikipedia",
     "note": "PC 版 2024 发售，Steam 总体「特别好评」（近期「好评如潮」）；黑泽美学与决斗广受赞誉，育碧式开放世界公式化为主要槽点",
     "keywords": {

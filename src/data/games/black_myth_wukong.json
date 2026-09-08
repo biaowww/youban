@@ -488,6 +488,11 @@
       "origin": "steam",
       "note": "Steam 全语言用户评测好评率"
     },
+    "mediaScore": {
+      "value": 81,
+      "origin": "metacritic",
+      "note": "Metacritic 81；国内外评价分化明显（Steam 好评率远高于媒体分）"
+    },
     "source": "Steam 用户评测（全语言）& B站 & 微博 & Reddit",
     "note": "国产3A首款里程碑作品，Steam 全球评价「好评如潮」，国内情怀加成明显",
     "keywords": {

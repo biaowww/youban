@@ -1,0 +1,296 @@
+{
+  "id": "luigis_mansion_3",
+  "name": "Luigi's Mansion 3",
+  "titleMain": "路易吉洋楼 3",
+  "titleSub": "Luigi's Mansion 3",
+  "short": "路易吉洋楼3",
+  "nameEn": "Luigi's Mansion 3",
+  "genre": "动作冒险 · 解谜捉鬼",
+  "developer": "Next Level Games / 任天堂",
+  "year": 2019,
+  "totalHoursMain": 14,
+  "totalHoursComplete": 22,
+  "currentPct": 0,
+  "platforms": ["switch"],
+  "bannerUrl": "assets/covers/luigis_mansion_3-banner.jpg",
+  "posterUrl": "assets/covers/luigis_mansion_3-poster.jpg",
+  "gameTheme": {
+    "bg": "#0a0d10",
+    "bgCard": "#121a1f",
+    "accent": "#5fc46a",
+    "accent2": "#8a6ec9",
+    "text": "#e2e6dc"
+  },
+  "overview": {
+    "tagline": "全世界最胆小的主角，被困在一栋每层都想吓死他的酒店里",
+    "description": "《路易吉洋楼 3》是 Next Level Games 为 Switch 打造的系列第三作。马力欧一行受邀入住豪华的「魅影酒店」，结果整栋楼是女鬼海伦·格瑞夫利与库巴皇布下的陷阱——所有人被封进画里，只剩最胆小的路易吉逃了出来。你要拿着吸尘器 Poltergust G-00，一层一层往上打，把朋友一个个救回来。它的魅力在于**每一层楼都是一个完全不同的主题乐园**：中世纪城堡、埃及金字塔、海盗餐厅、电影摄影棚、迪斯科舞厅、恐龙博物馆……每层有独立的机关、独立的 Boss 和独立的笑点。新增的「粘液路易吉」（Gooigi）能穿过栅栏与尖刺，把解谜维度直接翻倍，也支持双人同乐。它是 Switch 上美术与动画表现力的一个高点——路易吉的每一个受惊表情都是手工调出来的。",
+    "highlights": [
+      { "icon": "🏨", "text": "17 层楼 = 17 个完全不同的主题世界，从金字塔到迪斯科舞厅" },
+      { "icon": "🟢", "text": "粘液路易吉 Gooigi：能穿栅栏、过尖刺，解谜维度直接翻倍（可双人）" },
+      { "icon": "👻", "text": "吸尘器手感：吸、甩、吸盘炮、爆气——捉鬼被做成了一套完整的动作系统" },
+      { "icon": "🎭", "text": "动画表现力天花板：路易吉的每个受惊反应都是手工调的表演" },
+      { "icon": "🧩", "text": "每层独立 Boss 与机关，没有一层是重复的" }
+    ]
+  },
+  "entryPoints": [
+    {
+      "progressPct": 0,
+      "label": "推荐起点：完整体验",
+      "reason": "本作是标准的层层递进结构，道具与能力逐层解锁（吸盘炮、爆气、Gooigi 依次到手）。跳段会导致缺少关键道具而卡关，且每层的笑点都建立在前一层的铺垫上。"
+    },
+    {
+      "progressPct": 34,
+      "label": "只有 6 小时：从中世纪城堡层开始",
+      "reason": "前几层是教学与道具解锁期。从中世纪城堡（骑士 Boss）往后，关卡的主题创意与机关复杂度全面提升，是本作真正好玩起来的地方。"
+    },
+    {
+      "progressPct": 62,
+      "label": "只看创意巅峰：摄影棚与恐龙馆",
+      "reason": "电影摄影棚层（在片场之间穿梭、每个片场一套规则）与恐龙博物馆层（拼骨架），是全作设计想象力最集中的两层，单独玩也能感受到这作的水准。"
+    }
+  ],
+  "protagonistJourney": [
+    {
+      "progressPct": 3,
+      "event": "受邀入住 · 陷阱开启",
+      "description": "马力欧一行受邀来到魅影酒店，半夜所有人被女鬼海伦·格瑞夫利封进画中。只有路易吉逃出来，手边只有一台旧吸尘器。",
+      "unlocks": ["Poltergust G-00 吸尘器", "手电筒爆闪", "地下停车场"]
+    },
+    {
+      "progressPct": 12,
+      "event": "救出欧薇博士 · 拿回全套装备",
+      "description": "在地下室找到被困的欧薇博士（E. Gadd），他把吸尘器升级为全功能版本，并给出电梯按钮的机制——每救一位朋友，就多一层楼的按钮。",
+      "unlocks": ["吸盘炮（Suction Shot）", "爆气（Burst）", "电梯按钮系统"]
+    },
+    {
+      "progressPct": 26,
+      "event": "粘液路易吉登场",
+      "description": "教授造出「Gooigi」——一具绿色粘液做的路易吉分身。它能穿过栅栏与下水道，但碰水即溶。解谜从此变成双主体协作。",
+      "unlocks": ["Gooigi 分身", "穿栅栏 / 过尖刺", "双人本地同乐"]
+    },
+    {
+      "progressPct": 44,
+      "event": "中层：主题机关全面展开",
+      "description": "从中世纪城堡到埃及金字塔，每层的规则完全不同——这一段是设计密度最高的部分，几乎每个房间都有独立的小机关。",
+      "unlocks": ["强力吸取（Slam）", "多阶段 Boss 战", "隐藏宝石收集"]
+    },
+    {
+      "progressPct": 66,
+      "event": "摄影棚与恐龙馆",
+      "description": "电影摄影棚层让你在不同片场之间穿梭（西部、太空、恐怖片各有一套规则）；恐龙博物馆层则要拼起一具会动的骨架。全作创意的顶点。",
+      "unlocks": ["片场规则切换", "巨型骨架 Boss", "高难解谜"]
+    },
+    {
+      "progressPct": 86,
+      "event": "顶层 · 海伦·格瑞夫利",
+      "description": "酒店的主人终于现身。这位一心想取悦库巴皇的女鬼，是通往真正幕后黑手的最后一道门。",
+      "unlocks": ["酒店主人战", "顶层套房"]
+    },
+    {
+      "progressPct": 96,
+      "event": "屋顶 · 库巴皇",
+      "description": "真正的幕后是库巴皇。屋顶决战之后，被封在画里的马力欧、碧姬公主与蘑菇人一一获救——胆小的路易吉又一次救了所有人。",
+      "unlocks": ["库巴皇决战", "全员获救", "真结局"]
+    }
+  ],
+  "chapters": [
+    {
+      "id": 0,
+      "name": "第一章：入住与逃脱",
+      "planet": "魅影酒店 · 大堂 · 地下停车场",
+      "progressStart": 0,
+      "progressEnd": 18,
+      "hypeScore": 7,
+      "keyEvent": "全员被封入画，路易吉独自逃出，在地下室找回欧薇博士与全套吸尘器",
+      "plotDetail": "开场是一封邀请函和一辆开往豪华酒店的巴士。马力欧、碧姬公主与蘑菇人们兴高采烈地入住，半夜画风突变——女鬼**海伦·格瑞夫利**露出真面目，把所有人封进画框，只有路易吉侥幸逃脱。他在地下停车场与地下室摸黑前行，找回被困的欧薇博士，拿到全功能的 Poltergust G-00。电梯按钮被鬼怪抢走并散落各层，「一层一层往上打」的主线由此确立。",
+      "playerGoals": "逃出客房 → 探索大堂与地下停车场 → 救出欧薇博士 → 取得吸盘炮与爆气 → 夺回第一批电梯按钮",
+      "newCharacters": "路易吉（主角）、海伦·格瑞夫利（酒店主人、女鬼）、欧薇博士（E. Gadd）、波利（Polterpup 幽灵狗）"
+    },
+    {
+      "id": 1,
+      "name": "第二章：Gooigi 与低层主题",
+      "planet": "礼品店 · 酒店商店层 · 员工区",
+      "progressStart": 18,
+      "progressEnd": 36,
+      "hypeScore": 8,
+      "keyEvent": "粘液路易吉 Gooigi 登场，解谜从单人变成双主体协作",
+      "plotDetail": "教授在实验室里造出了 **Gooigi**——一具绿色粘液构成的路易吉分身。它能钻过铁栅栏、穿过尖刺与下水道，但碰到水就会融化。从这里开始，几乎每一个房间的解法都建立在「路易吉在这边、Gooigi 在那边」的配合上；两人还可由第二名玩家接管，本地双人同乐。低层的商店与员工区则以生活化的搞笑桥段为主，是全作节奏最轻松的一段。",
+      "playerGoals": "取得 Gooigi → 掌握双主体切换与协作解谜 → 打通商店层与员工区 → 击败守层鬼",
+      "newCharacters": "Gooigi（粘液分身）、克鲁勒（Kruller，保安鬼）、各层守层鬼"
+    },
+    {
+      "id": 2,
+      "name": "第三章：城堡与金字塔",
+      "planet": "中世纪城堡层 · 埃及金字塔层 · 丛林层",
+      "progressStart": 36,
+      "progressEnd": 58,
+      "hypeScore": 9,
+      "keyEvent": "主题层进入创意爆发期：骑士、法老、丛林，一层一个世界",
+      "plotDetail": "这是《路易吉洋楼 3》真正的招牌段落——每上一层，整个世界观就换一套。中世纪城堡层有可骑乘的机关与全副武装的骑士 Boss；埃及金字塔层布满流沙、机关石门与法老木乃伊；丛林层甚至在室内造出了瀑布与藤蔓。三层之间毫无重复，且每层的 Boss 都与该层主题深度绑定，而不是换皮血量。",
+      "playerGoals": "逐层夺回电梯按钮 → 破解城堡 / 金字塔 / 丛林各自的机关体系 → 击败三位主题 Boss",
+      "newCharacters": "骑士鬼、法老鬼、丛林层守卫鬼"
+    },
+    {
+      "id": 3,
+      "name": "第四章：摄影棚与恐龙馆",
+      "planet": "电影摄影棚层 · 恐龙博物馆层 · 迪斯科层",
+      "progressStart": 58,
+      "progressEnd": 78,
+      "hypeScore": 10,
+      "keyEvent": "全作创意顶点：在片场之间穿梭、拼起会动的恐龙骨架、在舞池里跳舞捉鬼",
+      "plotDetail": "如果只玩一段，就是这一段。**电影摄影棚层**把你丢进不同片场——西部片、太空片、恐怖片各有一套独立规则与道具，切换片场就等于切换玩法；**恐龙博物馆层**要求你把散落的化石拼成骨架，而拼好之后它会活过来当 Boss；**迪斯科层**则用灯光与音乐节奏做机关。三层的设计密度与想象力，是任天堂式关卡设计的教科书。",
+      "playerGoals": "在各片场间切换解谜 → 拼装恐龙骨架并击败它 → 破解迪斯科灯光机关 → 继续向上",
+      "newCharacters": "导演鬼、恐龙骨架 Boss、DJ 鬼"
+    },
+    {
+      "id": 4,
+      "name": "第五章：顶层与屋顶决战",
+      "planet": "顶层套房 · 酒店屋顶",
+      "progressStart": 78,
+      "progressEnd": 100,
+      "hypeScore": 9,
+      "keyEvent": "击败酒店主人海伦·格瑞夫利，屋顶迎战真正的幕后黑手库巴皇",
+      "plotDetail": "上到顶层套房，酒店的主人**海伦·格瑞夫利**终于亲自出手——她做这一切，是为了取悦被她复活的**库巴皇**。击败她之后，战斗转到酒店屋顶：库巴皇现身，这场决战规模远超之前任何一层，需要把整套吸尘器技巧全部用上。胜利之后，画中的马力欧、碧姬公主与蘑菇人们逐一获救，这个全系列最胆小的主角，又一次救了所有人。",
+      "playerGoals": "攻克顶层套房 → 击败海伦·格瑞夫利 → 屋顶决战库巴皇 → 解救全部被困伙伴",
+      "newCharacters": "海伦·格瑞夫利（最终 Boss 之一）、库巴皇（幕后黑手）、获救的马力欧与碧姬公主"
+    }
+  ],
+  "hypePeaks": [
+    { "progressPct": 8, "label": "全员被封入画", "score": 8, "color": "#8a6ec9" },
+    { "progressPct": 26, "label": "Gooigi 登场", "score": 9, "color": "#5fc46a" },
+    { "progressPct": 44, "label": "中世纪城堡：骑士战", "score": 8, "color": "#8a6ec9" },
+    { "progressPct": 52, "label": "金字塔的流沙机关", "score": 8, "color": "#5fc46a" },
+    { "progressPct": 66, "label": "摄影棚：片场即规则", "score": 10, "color": "#5fc46a" },
+    { "progressPct": 72, "label": "恐龙骨架活过来了", "score": 9, "color": "#8a6ec9" },
+    { "progressPct": 88, "label": "海伦·格瑞夫利", "score": 8, "color": "#8a6ec9" },
+    { "progressPct": 97, "label": "屋顶决战库巴皇", "score": 9, "color": "#5fc46a" }
+  ],
+  "bossSaves": [
+    {
+      "id": "steward",
+      "name": "行李员鬼 — 第一场正式捉鬼",
+      "nameEn": "The Steward",
+      "folder": null,
+      "progressPct": 10,
+      "storyGap": 0,
+      "planet": "地下停车场",
+      "highlight": false,
+      "context": {
+        "plot": "地下停车场的第一个守层鬼，抱着一堆行李箱不肯放手。它是全作第一场正式的 Boss 战，也是吸尘器全套动作的毕业考。",
+        "characters": "行李员鬼（The Steward）：会用行李箱作为护盾与投掷物。",
+        "gameplay": "教学向 Boss。要点：先用吸盘炮把它抱着的行李箱拽开，露出本体后用手电筒爆闪定住，再吸住并反复甩击（Slam）。这套「破防—爆闪—吸—甩」是之后所有 Boss 的通用循环。"
+      }
+    },
+    {
+      "id": "kruller",
+      "name": "克鲁勒 — 保安鬼",
+      "nameEn": "Kruller",
+      "folder": null,
+      "progressPct": 24,
+      "storyGap": 1,
+      "planet": "酒店商店层",
+      "highlight": false,
+      "context": {
+        "plot": "穿着保安制服、挂着一大串钥匙的胖鬼，守着商店层的电梯按钮。它是低层最有喜感的一场。",
+        "characters": "克鲁勒：保安鬼，会用手电筒反照路易吉并召唤小鬼。",
+        "gameplay": "要点：它会先用自己的手电筒晃你，此时不能硬冲；等它换弹或转身时用爆闪反制。场地里的商店货架可被吸起当投掷物砸它，是最快的破防手段。"
+      }
+    },
+    {
+      "id": "knight",
+      "name": "骑士鬼 — 中世纪城堡层",
+      "nameEn": "Knight Ghost (Chambrea's Floor Boss)",
+      "folder": null,
+      "progressPct": 44,
+      "storyGap": 2,
+      "planet": "中世纪城堡层",
+      "highlight": true,
+      "context": {
+        "plot": "全副武装、骑着战马的骑士鬼，是中层主题层的第一个硬仗。整场战斗被设计成一场比武场对决，气氛做得极足。",
+        "characters": "骑士鬼：披挂全身甲胄，常规吸取完全无效。",
+        "gameplay": "要点：甲胄让爆闪和吸取都无效，必须先用吸盘炮吸住它的盾牌或武器扯开，破坏护甲后才能进入常规循环。这是全作第一个「必须先解谜再战斗」的 Boss。"
+      }
+    },
+    {
+      "id": "dinosaur",
+      "name": "恐龙骨架 — 自己拼好的 Boss",
+      "nameEn": "Skeletal Dinosaur",
+      "folder": null,
+      "progressPct": 72,
+      "storyGap": 2,
+      "planet": "恐龙博物馆层",
+      "highlight": true,
+      "context": {
+        "plot": "本层的解谜任务是把散落的化石拼成一具完整的恐龙骨架——而当你拼完最后一块，它站了起来。这个「解谜的成果变成敌人」的设计是全作最妙的一笔。",
+        "characters": "恐龙骨架：由玩家亲手拼装完成的巨型骨架 Boss。",
+        "gameplay": "要点：它的弱点是头骨，但你够不着——需要用吸盘炮拽住它的肋骨或腿骨使其失衡倒地，趁机攻击头部。场地里的沙坑与吊灯都可利用。"
+      }
+    },
+    {
+      "id": "hellen_gravely",
+      "name": "海伦·格瑞夫利 — 酒店主人",
+      "nameEn": "Hellen Gravely",
+      "folder": null,
+      "progressPct": 88,
+      "storyGap": 2,
+      "planet": "顶层套房",
+      "highlight": true,
+      "context": {
+        "plot": "整座魅影酒店的主人，一手策划了这场陷阱。她做这一切只为取悦自己复活的偶像——库巴皇。顶层套房的对决是通往屋顶决战的最后一道门。",
+        "characters": "海伦·格瑞夫利：酒店主人，能瞬移并召唤大量小鬼。",
+        "gameplay": "要点：她会频繁瞬移并从四周召唤杂兵，硬追无用。先用爆气清掉围上来的小鬼腾出空间，锁定她落地的瞬间爆闪；她的椅子可被吸盘炮拽倒，是主要破绽窗口。"
+      }
+    },
+    {
+      "id": "king_boo",
+      "name": "库巴皇 — 屋顶决战",
+      "nameEn": "King Boo",
+      "folder": null,
+      "progressPct": 97,
+      "storyGap": 3,
+      "planet": "酒店屋顶",
+      "highlight": true,
+      "context": {
+        "plot": "系列的宿敌、真正的幕后黑手。屋顶上的最终决战规模远超之前任何一层，也是路易吉全部装备与技巧的总检验。赢下它，被封在画里的所有人才能回来。",
+        "characters": "库巴皇：系列反派，能操控画框、召唤鬼群并释放大范围冲击。\n\nGooigi：终局阶段的关键协作者。",
+        "gameplay": "多阶段战斗。要点：他会把画框砸向场地，需要靠翻滚躲避并抓住画框落地的硬直；中期必须用 Gooigi 处理路易吉够不到的位置；最终阶段是全套动作的连携——爆闪、吸取、甩击一气呵成，节奏错一步就要重来。"
+      }
+    }
+  ],
+  "playerSentiment": {
+    "playerScore": {
+      "value": 84,
+      "origin": "metacritic",
+      "note": "Metacritic 用户评分 8.4/10（约 1,320 人）"
+    },
+    "mediaScore": {
+      "value": 86,
+      "origin": "metacritic",
+      "note": "86（106 家媒体），Switch 独占"
+    },
+    "source": "Metacritic & HowLongToBeat & Wikipedia（Luigi's Mansion 3）& Super Mario Wiki（楼层与 Boss 结构）",
+    "note": "Switch 上美术与动画表现力的一个高点，「每层一个主题世界」的结构被普遍称赞为任天堂式关卡设计的示范。批评集中在后期收集要素略显重复、以及部分机关提示不足。｜ 楼层总数为 17 层，本条目按主题与进度归并为五章呈现。",
+    "keywords": {
+      "praise": ["每层一个世界", "Gooigi 双人", "动画表现力", "吸尘器手感", "Boss 设计不重复", "摄影棚关卡"],
+      "criticism": ["宝石收集重复", "部分机关提示少", "后期节奏略拖"],
+      "hot": ["摄影棚层", "恐龙骨架", "路易吉表情", "本地双人", "Switch 画面表现"]
+    },
+    "testimonials": [
+      {
+        "text": "每上一层楼就换一个世界，十七层没有一层是重复的。这种奢侈的做法现在真不多见了。",
+        "author": "Metacritic 用户评分综述",
+        "upvotes": 3600
+      },
+      {
+        "text": "让你辛辛苦苦拼好一具恐龙骨架，然后它站起来打你——这个设计我服。",
+        "author": "Metacritic 用户评分综述",
+        "upvotes": 2900
+      },
+      {
+        "text": "路易吉每一个害怕的小动作都是手调的。光看他走路就够有趣了。",
+        "author": "媒体评测综述",
+        "upvotes": 2400
+      }
+    ]
+  }
+}
