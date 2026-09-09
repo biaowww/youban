@@ -1,0 +1,25 @@
+# 游伴 youban-bff · systemd 单元
+# 安装：sudo cp deploy/youban-bff.service /etc/systemd/system/ && sudo systemctl daemon-reload
+#       sudo systemctl enable --now youban-bff && systemctl status youban-bff
+# 日志：journalctl -u youban-bff -f
+# 端口只绑 127.0.0.1（server.mjs 写死），公网零暴露；内测经 SSH 隧道，备案后 nginx 反代。
+[Unit]
+Description=youban-bff (攻略簿 Companion AI 等 BFF 端点)
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/youban/bff
+EnvironmentFile=/opt/youban/bff/.env
+ExecStart=/usr/bin/node /opt/youban/bff/server.mjs
+Restart=always
+RestartSec=3
+# 只读根 + 私有 tmp，数据只写 COMPANION_STORE=supabase（不落本地文件）
+ProtectSystem=full
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
