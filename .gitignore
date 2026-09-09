@@ -41,3 +41,6 @@ desktop.ini
 # 效率/工具插件产物（非本项目文件，勿入库）
 dashboard.html
 TASKS.md
+
+# youban-bff 本地簿数据（个人对话记录，勿入库）
+backend/bff/data/

@@ -47,6 +47,8 @@ node /opt/youban/repo/backend/scripts/seed-games.mjs   # 哈希比对幂等，�
 
 ## 下一步
 
-- [ ] `youban-bff` 骨架（Node/Fastify + systemd）：`/api/auth/wechat`、`/api/auth/steam/*`、`/api/steam/*`（复用 `src/services/steam/`）
+- [x] `youban-bff` 骨架已立（`backend/bff/`，零依赖 Node，2026-09-09）——首批端点是**攻略簿 Companion AI**（`/api/companion/*`，SSE 流式 + 状态卡记忆），见 `backend/bff/README.md`
+- [ ] BFF 补 `/api/auth/wechat`、`/api/auth/steam/*`、`/api/steam/*`（复用 `src/services/steam/`）
+- [ ] 服务器部署 bff（systemd + .env）+ 跑 `0002_companion.sql`
 - [ ] 客户端 `loadRawGames()` 加线上源（anon key + version 缓存 + 离线回落）
 - [ ] 备案下来后：nginx 挂 `api.<域名>` + certbot TLS，替换开发期隧道

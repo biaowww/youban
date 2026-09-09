@@ -1,0 +1,12 @@
+{
+  "name": "youban-bff",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "游伴 YouBan · BFF（攻略簿 Companion AI 等服务端端点，零依赖）",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "dev": "node --env-file-if-exists=.env --watch server.mjs"
+  },
+  "engines": { "node": ">=22.9" }
+}
