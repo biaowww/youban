@@ -50,6 +50,13 @@ jobs:
           cp src/renderer/preview-multi.html _site/preview-multi.html
           # 入口：手机端 App demo
           cp src/renderer/preview.html       _site/index.html
+          # ── 此前漏拷的三样（线上一直 404：字体回退系统字、Steam 成就页不可用）──
+          cp -r src/renderer/fonts           _site/fonts
+          cp src/renderer/steam-fixtures.js  _site/steam-fixtures.js
+          mkdir -p _site/services && cp -r src/services/steam _site/services/steam
+          # preview.html 用 ../services/ 引 Steam 引擎（本地 http-server 从 src/ 起服务时成立）；
+          # Pages 站根是 /youban/，../ 会逃出站点 → 组站时改写成站内路径
+          sed -i 's#"\.\./services/#"services/#g' _site/preview.html _site/index.html
           # 关闭 Jekyll，避免 _ 前缀等被吞
           touch _site/.nojekyll
           echo "assembled:" && ls _site
