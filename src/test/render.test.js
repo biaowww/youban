@@ -44,6 +44,8 @@ beforeAll(() => {
 
   // 捕获 React/组件在该 window 上下文打出的 console.error
   win.console.error = (...args) => { errors.push(args.map(String).join(' ')); };
+  // 攻略簿组件挂载即探测 bff；jsdom 无网络 → 桩为拒绝，组件应稳定落到「未连接」态
+  win.fetch = () => Promise.reject(new Error('no network in jsdom'));
 
   const inject = (code) => {
     const s = win.document.createElement('script');
@@ -59,6 +61,7 @@ beforeAll(() => {
   inject(read('dist/screens.js'));
   inject(read('dist/desktop.js'));
   inject(read('dist/v10.js'));
+  inject(read('dist/companion.js'));
 
   if (!win.React || !win.ReactDOM) {
     throw new Error('React/ReactDOM 未挂载到 window —— 注入失败');
@@ -129,6 +132,9 @@ describe('界面冒烟渲染 · 每款游戏 × 每个界面', () => {
       });
       it('V10Hype (v9复刻波形)', () => {
         expectClean('V10Hype', { game, value: game.currentPct, onChange: noop, onBoss: noop, onEntry: noop });
+      });
+      it('CompanionPane (攻略簿)', () => {
+        expectClean('CompanionPane', { game, value: game.currentPct, guard: true });
       });
       it('V10Chapters (章节墙)', () => {
         expectClean('V10Chapters', { game, value: game.currentPct, openBoss: noop });

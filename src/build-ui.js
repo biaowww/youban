@@ -13,7 +13,7 @@ const DIST = path.join(RENDERER, 'dist');
 const GAMES = path.join(__dirname, 'data', 'games');
 
 // 顺序很重要：components 先声明全局 hooks，其余复用之
-const FILES = ['components.jsx', 'screens.jsx', 'app.jsx', 'desktop.jsx', 'preview-multi.jsx', 'v10.jsx'];
+const FILES = ['components.jsx', 'screens.jsx', 'app.jsx', 'desktop.jsx', 'preview-multi.jsx', 'v10.jsx', 'companion.jsx'];
 
 fs.mkdirSync(DIST, { recursive: true });
 

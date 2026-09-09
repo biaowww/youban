@@ -724,6 +724,8 @@ function V10App({
   const played = value / 100 * game.hoursMain;
   const bossPassed = game.bosses.filter(b => b.pct <= value).length;
   const Senti = window.SentimentScreen;
+  const Companion = window.CompanionPane; // 攻略簿（companion.jsx），运行时取，缺失则降级提示
+
   return /*#__PURE__*/React.createElement("div", {
     ref: rootRef,
     className: 'v10' + (dark ? ' dark' : '') + (guard ? ' guard' : ''),
@@ -740,7 +742,7 @@ function V10App({
     alt: "\u6E38\u4F34"
   }), /*#__PURE__*/React.createElement("b", null, game.short)), /*#__PURE__*/React.createElement("div", {
     className: "t-tabs"
-  }, [['progress', '进度'], ['journey', '历程'], ['senti', '舆情']].map(([k, n]) => /*#__PURE__*/React.createElement("button", {
+  }, [['progress', '进度'], ['journey', '历程'], ['senti', '舆情'], ['notebook', '攻略簿']].map(([k, n]) => /*#__PURE__*/React.createElement("button", {
     key: k,
     className: 't-tab' + (tab === k ? ' on' : ''),
     onClick: () => setTab(k)
@@ -864,7 +866,13 @@ function V10App({
     openEntry: openEntry
   }) : /*#__PURE__*/React.createElement("div", {
     className: "panel ph"
-  }, /*#__PURE__*/React.createElement("p", null, "\u672C\u4F5C\u6682\u65E0\u6210\u957F\u5386\u7A0B\u6570\u636E"))), tab === 'senti' && (Senti ? /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("p", null, "\u672C\u4F5C\u6682\u65E0\u6210\u957F\u5386\u7A0B\u6570\u636E"))), tab === 'notebook' && (Companion ? /*#__PURE__*/React.createElement(Companion, {
+    game: game,
+    value: value,
+    guard: guard
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "panel ph"
+  }, /*#__PURE__*/React.createElement("p", null, "\u653B\u7565\u7C3F\u7EC4\u4EF6\u672A\u52A0\u8F7D"))), tab === 'senti' && (Senti ? /*#__PURE__*/React.createElement("div", {
     className: "v9-senti-host"
   }, /*#__PURE__*/React.createElement(Senti, {
     game: game

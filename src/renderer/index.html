@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Security-Policy"
-  content="default-src 'self'; img-src 'self' https: data:; font-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self'; connect-src 'self' https:;" />
+  content="default-src 'self'; img-src 'self' https: data:; font-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self'; connect-src 'self' https: http://127.0.0.1:* http://localhost:*;" />
+<!-- connect-src 放行本机 http：攻略簿走本地 youban-bff（backend/bff，默认 127.0.0.1:8787）；线上经 https 反代后仍受 https: 覆盖 -->
 <title>游伴 YouBan</title>
 
 <link rel="stylesheet" href="tokens/fonts.css" />
@@ -15,6 +16,7 @@
 <link rel="stylesheet" href="app.css" />
 <link rel="stylesheet" href="screens.css" />
 <link rel="stylesheet" href="v10.css" />
+<link rel="stylesheet" href="companion.css" />
 
 <style>
   * { box-sizing: border-box; }
@@ -74,6 +76,7 @@
 <script src="dist/components.js"></script>
 <script src="dist/screens.js"></script>
 <script src="dist/v10.js"></script>
+<script src="dist/companion.js"></script>
 <script src="dist/app.js"></script>
 </body>
 </html>

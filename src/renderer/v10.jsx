@@ -416,6 +416,7 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
   const played = value / 100 * game.hoursMain;
   const bossPassed = game.bosses.filter(b => b.pct <= value).length;
   const Senti = window.SentimentScreen;
+  const Companion = window.CompanionPane;   // 攻略簿（companion.jsx），运行时取，缺失则降级提示
 
   return (
     <div ref={rootRef} className={'v10' + (dark ? ' dark' : '') + (guard ? ' guard' : '')} onScroll={onScroll}>
@@ -427,7 +428,7 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
           <b>{game.short}</b>
         </div>
         <div className="t-tabs">
-          {[['progress', '进度'], ['journey', '历程'], ['senti', '舆情']].map(([k, n]) => (
+          {[['progress', '进度'], ['journey', '历程'], ['senti', '舆情'], ['notebook', '攻略簿']].map(([k, n]) => (
             <button key={k} className={'t-tab' + (tab === k ? ' on' : '')} onClick={() => setTab(k)}>{n}</button>
           ))}
         </div>
@@ -493,6 +494,13 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
               ? <V10Journey game={game} value={value} openBoss={openBoss} openEntry={openEntry} />
               : <div className="panel ph"><p>本作暂无成长历程数据</p></div>}
           </>
+        )}
+
+        {/* 攻略簿 Tab：一款游戏一本簿，进度与防剧透随请求带上，服务端切简报 */}
+        {tab === 'notebook' && (
+          Companion
+            ? <Companion game={game} value={value} guard={guard} />
+            : <div className="panel ph"><p>攻略簿组件未加载</p></div>
         )}
 
         {/* 舆情 Tab：沿用 v9（铁律 4，只接入口） */}
