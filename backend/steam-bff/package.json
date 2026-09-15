@@ -1,0 +1,16 @@
+{
+  "name": "youban-bff",
+  "version": "0.1.0",
+  "private": true,
+  "description": "游伴 YouBan BFF —— Steam 绑定 + 玩家公开数据（127.0.0.1 only，公网暴露待备案）",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "fastify": "^4.28.1"
+  }
+}

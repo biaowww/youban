@@ -1,0 +1,27 @@
+[Unit]
+Description=YouBan BFF (loopback only, Steam link + player public data)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=youban
+Group=youban
+WorkingDirectory=/opt/youban/bff
+EnvironmentFile=/opt/youban/bff/.env
+ExecStart=/usr/bin/node src/server.js
+Restart=always
+RestartSec=3
+
+# 加固：非 root、私有 tmp、只读系统、无新权限
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
