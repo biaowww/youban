@@ -9,7 +9,7 @@
 | 服务器 | 腾讯云 `ap-beijing`（**大陆，可出备案授权码**）· S5.LARGE8 4核8G · Ubuntu 24.04 |
 | Supabase | 自托管 docker compose，**11 服务全 healthy**（Postgres 17 / GoTrue / PostgREST / Kong / Studio / Storage / Realtime / Supavisor …） |
 | 目录 | compose+密钥：`/opt/youban/supabase`（`.env` 600，密钥只在服务器）；迁移/seed/数据镜像：`/opt/youban/repo` |
-| 数据 | `0001_init.sql` 已执行；**6 款游戏已 seed**，anon REST 可读，RLS 验证过（anon 写 → 401） |
+| 数据 | `0001_init.sql` 已执行；**17 款游戏已 seed（2026-09-16 v2 schema，旧 9 款 version+1）**，anon REST 可读，RLS 验证过（anon 写 → 401） |
 | 暴露面 | **全部端口绑 127.0.0.1，公网零暴露**（Kong 8000/8443、PG 5432、Pooler 6543）；备案下域名后再由 nginx 反代 + TLS |
 | BFF ① | `youban-bff`（Fastify，**8302**，`/opt/youban/bff`，systemd `youban-bff`，用户 youban）：Steam OpenID 绑定 + owned/progress 原始数据，2026-07-28 起运行。代码已入库：`backend/steam-bff/`（2026-09-16 收回，含 README + systemd 单元 + `.env.example`；`.env` 只在服务器） |
 | BFF ② | `youban-companion`（零依赖 Node，**8787**，`/opt/youban/companion`，systemd `youban-companion`，用户 youban）：攻略簿 Companion AI，2026-09-16 上线，存储走 Supabase（`0002_companion.sql`）。见 `bff/deploy/DEPLOY.md` |
@@ -52,6 +52,7 @@ node /opt/youban/repo/backend/scripts/seed-games.mjs   # 哈希比对幂等，�
 - [x] `youban-companion` 已上线（2026-09-16，独立于服务器既有 `youban-bff`）
 - [x] 服务器 `/opt/youban/bff`（Steam BFF）代码收进仓库（2026-09-16，`backend/steam-bff/`）
 - [x] `youban-bff` 骨架已立（`backend/bff/`，零依赖 Node，2026-09-09）——首批端点是**攻略簿 Companion AI**（`/api/companion/*`，SSE 流式 + 状态卡记忆），见 `backend/bff/README.md`
+- [ ] 截图提问（视觉模型 GLM-5V）——**推迟到未来版本**（2026-09-16 决定）
 - [ ] BFF 补 `/api/auth/wechat`、`/api/auth/steam/*`、`/api/steam/*`（复用 `src/services/steam/`）
 - [x] 服务器部署 companion（systemd + .env）+ 跑 `0002_companion.sql`（2026-09-16）；`GLM_API_KEY` 待王彪填
 - [ ] 客户端 `loadRawGames()` 加线上源（anon key + version 缓存 + 离线回落）
