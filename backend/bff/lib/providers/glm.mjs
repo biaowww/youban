@@ -6,9 +6,15 @@
      stream({...同上})                                        → async 迭代 delta 字符串
    ============================================================ */
 
-export function createGlmProvider({ apiKey, baseUrl = 'https://open.bigmodel.cn/api/paas/v4', fetchImpl = fetch }) {
+export function createGlmProvider({ apiKey, baseUrl = 'https://open.bigmodel.cn/api/paas/v4', fetchImpl = fetch, reasoningEffort = 'low' }) {
   if (!apiKey) throw new Error('GLM_API_KEY 未配置');
   const url = baseUrl.replace(/\/$/, '') + '/chat/completions';
+
+  /* GLM-5.x（含 5.3）：thinking 不可关闭，reasoning_effort 决定快慢与花费（默认 max）。
+     攻略簿是对话场景，默认 low；4.x（如 glm-4.7-flash）不认这两个参数，不带。 */
+  const thinkingParams = (model) => (/^glm-5/i.test(String(model))
+    ? { thinking: { type: 'enabled' }, reasoning_effort: reasoningEffort }
+    : {});
 
   async function request(body, signal) {
     const r = await fetchImpl(url, {
@@ -27,13 +33,13 @@ export function createGlmProvider({ apiKey, baseUrl = 'https://open.bigmodel.cn/
   return {
     name: 'glm',
     async chat({ model, messages, temperature = 0.7, maxTokens, signal }) {
-      const r = await request({ model, messages, temperature, max_tokens: maxTokens, stream: false }, signal);
+      const r = await request({ model, messages, temperature, max_tokens: maxTokens, stream: false, ...thinkingParams(model) }, signal);
       const j = await r.json();
       const text = j?.choices?.[0]?.message?.content || '';
       return { text, usage: j.usage || null };
     },
     async *stream({ model, messages, temperature = 0.7, maxTokens, signal }) {
-      const r = await request({ model, messages, temperature, max_tokens: maxTokens, stream: true }, signal);
+      const r = await request({ model, messages, temperature, max_tokens: maxTokens, stream: true, ...thinkingParams(model) }, signal);
       yield* parseSse(r.body);
     },
   };

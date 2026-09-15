@@ -51,12 +51,10 @@ lib/store/            file（本地 JSON）| supabase（service_role 经 REST）
 
 ## 上线（offcircle-cloud）
 
-1. `scp -r backend/bff offcircle-cloud:/opt/youban/bff`；服务器上建 `/opt/youban/bff/.env`（600）：`GLM_API_KEY`、`COMPANION_STORE=supabase`、`SUPABASE_URL=http://127.0.0.1:8000`、`SERVICE_ROLE_KEY=…`、`GAMES_DIR=/opt/youban/repo/src/data/games`
-2. 跑迁移 `backend/supabase/migrations/0002_companion.sql`，然后 `NOTIFY pgrst, 'reload schema';`
-3. systemd：`ExecStart=/usr/bin/node --env-file=/opt/youban/bff/.env /opt/youban/bff/server.mjs`，`Restart=always`
-4. 端口仍只绑 `127.0.0.1`；个人内测经 `ssh -L 8787:127.0.0.1:8787 offcircle-cloud`，备案后再由 nginx 反代 + TLS
+按 `deploy/DEPLOY.md` 走。要点：服务器上已有一个 **`youban-bff`（Fastify，8302，Steam 绑定，7 月产物，不在 git）**，攻略簿**不动它**、作为独立服务 `youban-companion` 部署到 `/opt/youban/companion`、端口 8787、用户 `youban`、只绑 `127.0.0.1`；个人内测经 `ssh -L 8787:127.0.0.1:8787 offcircle-cloud`，备案后再 nginx 反代 + TLS。Node 20 可跑（systemd 用 `EnvironmentFile`，不依赖 `--env-file`）。
 
 ## 已知边界
 
-- **GLM-5 目前只收文本**（官方文档：输入模态=文本）。截图提问要另接视觉模型，走同一 provider 接口加一个实现即可。
-- `GLM_MODEL_LITE` 默认 `glm-4.5-flash`，按控制台实际可用模型名改。
+- **GLM-5.x 只收文本**（官方文档：输入模态=文本）。截图提问要另接视觉模型（GLM-5V 系），走同一 provider 接口加一个实现即可。
+- **GLM-5.x 的 thinking 不可关闭**，`reasoning_effort` 默认 `max`——对话场景必须显式 `low`（已默认），否则每句又慢又贵；4.x 模型不认这两个参数，provider 按模型名前缀决定是否附带。
+- 模型 id（2026-09-16 核实）：对话 `glm-5.3`，便宜档 `glm-4.7-flash`（官方免费）。

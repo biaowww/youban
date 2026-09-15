@@ -13,7 +13,7 @@ export function getProvider(config) {
       console.warn('[provider] GLM_API_KEY 未配置 → 回退为 mock（对话为本地假回复）');
       return createMockProvider();
     }
-    return createGlmProvider({ apiKey: config.glm.apiKey, baseUrl: config.glm.baseUrl });
+    return createGlmProvider({ apiKey: config.glm.apiKey, baseUrl: config.glm.baseUrl, reasoningEffort: config.glm.reasoningEffort });
   }
   throw new Error(`未知 PROVIDER=${config.provider}`);
 }

@@ -20,8 +20,9 @@ export const config = {
   glm: {
     apiKey: env('GLM_API_KEY', ''),
     baseUrl: env('GLM_BASE_URL', 'https://open.bigmodel.cn/api/paas/v4'),
-    modelChat: env('GLM_MODEL_CHAT', 'glm-5'),          // 对话：付费旗舰
-    modelLite: env('GLM_MODEL_LITE', 'glm-4.5-flash'),  // 状态卡合并：便宜/免费档（按控制台实际可用改）
+    modelChat: env('GLM_MODEL_CHAT', 'glm-5.3'),        // 对话：付费旗舰（2026-09 核实 id）
+    modelLite: env('GLM_MODEL_LITE', 'glm-4.7-flash'),  // 状态卡合并：官方免费档（2026-09 核实 id）
+    reasoningEffort: env('GLM_REASONING_EFFORT', 'low'),// glm-5.x 专用：low | high | max；对话取 low
   },
 
   /* 记忆策略 */

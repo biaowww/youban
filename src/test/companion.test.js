@@ -13,7 +13,7 @@ import { buildGameBrief, deriveState } from '../../backend/bff/lib/gameBrief.mjs
 import { buildMessages } from '../../backend/bff/lib/promptBuilder.mjs';
 import { emptyCard, normalizeCard, mergeCard, parseCardJson, buildCardUpdateMessages } from '../../backend/bff/lib/profile.mjs';
 import { renderReport } from '../../backend/bff/lib/report.mjs';
-import { parseSse } from '../../backend/bff/lib/providers/glm.mjs';
+import { parseSse, createGlmProvider } from '../../backend/bff/lib/providers/glm.mjs';
 import { createMockProvider } from '../../backend/bff/lib/providers/mock.mjs';
 import { createFileStore } from '../../backend/bff/lib/store/file.mjs';
 
@@ -135,6 +135,23 @@ describe('providers', () => {
     const out = [];
     for await (const d of parseSse(body)) out.push(d);
     expect(out.join('')).toBe('你好');
+  });
+  it('glm provider：5.x 带 thinking+reasoning_effort，4.x 不带；Bearer 头与端点正确', async () => {
+    const calls = [];
+    const fetchImpl = async (url, init) => {
+      calls.push({ url, headers: init.headers, body: JSON.parse(init.body) });
+      return { ok: true, json: async () => ({ choices: [{ message: { content: 'ok' } }], usage: { total_tokens: 1 } }) };
+    };
+    const p = createGlmProvider({ apiKey: 'k', fetchImpl, reasoningEffort: 'low' });
+    await p.chat({ model: 'glm-5.3', messages: [{ role: 'user', content: 'hi' }] });
+    await p.chat({ model: 'glm-4.7-flash', messages: [{ role: 'user', content: 'hi' }] });
+    expect(calls[0].url).toBe('https://open.bigmodel.cn/api/paas/v4/chat/completions');
+    expect(calls[0].headers.Authorization).toBe('Bearer k');
+    expect(calls[0].body.thinking).toEqual({ type: 'enabled' });
+    expect(calls[0].body.reasoning_effort).toBe('low');
+    expect(calls[0].body.stream).toBe(false);
+    expect(calls[1].body.thinking).toBeUndefined();
+    expect(calls[1].body.reasoning_effort).toBeUndefined();
   });
   it('mock provider 会复述进度与下一个 Boss', async () => {
     const p = createMockProvider();

@@ -1,0 +1,26 @@
+# 游伴 youban-companion · 攻略簿（Companion AI）systemd 单元
+# 与服务器上已有的 youban-bff（Fastify，8302，Steam 绑定）并存，互不干扰。
+# 安装：cp deploy/youban-companion.service /etc/systemd/system/ && systemctl daemon-reload
+#       systemctl enable --now youban-companion && systemctl status youban-companion
+# 日志：journalctl -u youban-companion -f
+# 端口只绑 127.0.0.1（server.mjs 写死）；内测经 SSH 隧道，备案后 nginx 反代。
+[Unit]
+Description=youban-companion (攻略簿 Companion AI, loopback only)
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=youban
+Group=youban
+WorkingDirectory=/opt/youban/companion
+EnvironmentFile=/opt/youban/companion/.env
+ExecStart=/usr/bin/env node /opt/youban/companion/server.mjs
+Restart=always
+RestartSec=3
+ProtectSystem=full
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
