@@ -10,6 +10,20 @@
    hooks 来自 components.jsx 全局；本文件经 build:ui 编译进 dist/companion.js。
    ============================================================ */
 
+/* 网页版一次性配置：打开 …/?bff=<服务地址> 即写入 localStorage 并从地址栏抹掉；?bff=clear 清除 */
+const YB_LOCAL_DEFAULT = 'http://127.0.0.1:8787';
+function ybBootstrapFromUrl() {
+  try {
+    const u = new URL(window.location.href);
+    if (!u.searchParams.has('bff')) return;
+    const v = String(u.searchParams.get('bff') || '').trim();
+    if (!v || v === 'clear') localStorage.removeItem('yb_bff');else if (/^https?:\/\//.test(v)) localStorage.setItem('yb_bff', v.replace(/\/$/, ''));
+    u.searchParams.delete('bff');
+    if (window.history && window.history.replaceState) window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+  } catch (e) {/* noop */}
+}
+ybBootstrapFromUrl();
+
 /* BFF 地址：window.__YB_BFF__ > localStorage yb_bff > 本机默认 */
 function ybBffBase() {
   if (window.__YB_BFF__) return String(window.__YB_BFF__).replace(/\/$/, '');
@@ -17,7 +31,20 @@ function ybBffBase() {
     const v = localStorage.getItem('yb_bff');
     if (v) return v.replace(/\/$/, '');
   } catch (e) {/* noop */}
-  return 'http://127.0.0.1:8787';
+  return YB_LOCAL_DEFAULT;
+}
+/* 网页里手动改服务地址（prompt 简单可靠，手机也能用） */
+function ybSetBase() {
+  try {
+    const cur = ybBffBase();
+    const v = window.prompt('攻略簿服务地址（含 https:// ，留空恢复本机默认）', cur === YB_LOCAL_DEFAULT ? '' : cur);
+    if (v === null) return false;
+    const t = String(v).trim();
+    if (!t) localStorage.removeItem('yb_bff');else if (/^https?:\/\//.test(t)) localStorage.setItem('yb_bff', t.replace(/\/$/, ''));else return false;
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 /* 设备 ID：首次生成后固定；存储不可用时给个会话级临时值 */
@@ -273,14 +300,27 @@ function CompanionPane({
       className: "cp-off-t"
     }, "\u653B\u7565\u7C3F\u670D\u52A1\u672A\u8FDE\u63A5\u3002"), /*#__PURE__*/React.createElement("p", {
       className: "cp-off-d"
-    }, "\u8FD9\u662F\u4E00\u672C\u968F\u4F60\u8FDB\u5EA6\u8D70\u3001\u4E0D\u5267\u900F\u7684\u79C1\u6709\u653B\u7565\u7C3F\uFF1A\u95EE\u8DEF\u3001\u95EE Boss\u3001\u8BB0\u6D41\u6D3E\u4E0E\u5361\u70B9\uFF0C\u5B83\u90FD\u8BB0\u5F97\u3002"), /*#__PURE__*/React.createElement("p", {
-      className: "cp-off-h mono"
-    }, "\u672C\u673A\u542F\u52A8\uFF1A", /*#__PURE__*/React.createElement("code", null, "cd backend/bff && npm run dev"), "\uFF08\u9ED8\u8BA4 ", base, "\uFF09"), /*#__PURE__*/React.createElement("div", {
+    }, "\u8FD9\u662F\u4E00\u672C\u968F\u4F60\u8FDB\u5EA6\u8D70\u3001\u4E0D\u5267\u900F\u7684\u79C1\u6709\u653B\u7565\u7C3F\uFF1A\u95EE\u8DEF\u3001\u95EE Boss\u3001\u8BB0\u6D41\u6D3E\u4E0E\u5361\u70B9\uFF0C\u5B83\u90FD\u8BB0\u5F97\u3002"), base === YB_LOCAL_DEFAULT ? /*#__PURE__*/React.createElement("p", {
+      className: "cp-off-h"
+    }, "\u7F51\u9875\u7248\u9700\u8981\u6307\u5B9A\u670D\u52A1\u5730\u5740\uFF1A\u70B9\u300C\u8BBE\u7F6E\u670D\u52A1\u5730\u5740\u300D\u7C98\u8D34\u5185\u6D4B\u5730\u5740\uFF0C\u6216\u7528\u5E26 ", /*#__PURE__*/React.createElement("code", {
+      className: "mono"
+    }, "?bff=\u2026"), " \u7684\u94FE\u63A5\u6253\u5F00\u4E00\u6B21\u5373\u53EF\u8BB0\u4F4F\u3002\u672C\u673A\u5F00\u53D1\uFF1A", /*#__PURE__*/React.createElement("code", {
+      className: "mono"
+    }, "cd backend/bff && npm run dev")) : /*#__PURE__*/React.createElement("p", {
+      className: "cp-off-h"
+    }, "\u5F53\u524D\u5730\u5740\uFF1A", /*#__PURE__*/React.createElement("code", {
+      className: "mono"
+    }, base), " \u65E0\u54CD\u5E94\u3002\u68C0\u67E5\u7F51\u7EDC\uFF0C\u6216\u91CD\u65B0\u8BBE\u7F6E\u5730\u5740\u3002"), /*#__PURE__*/React.createElement("div", {
       className: "cp-actions"
     }, /*#__PURE__*/React.createElement("button", {
       className: "cp-btn",
       onClick: load
-    }, "\u91CD\u8BD5\u8FDE\u63A5")));
+    }, "\u91CD\u8BD5\u8FDE\u63A5"), /*#__PURE__*/React.createElement("button", {
+      className: "cp-btn",
+      onClick: () => {
+        if (ybSetBase()) window.location.reload();
+      }
+    }, "\u8BBE\u7F6E\u670D\u52A1\u5730\u5740")));
   }
   return /*#__PURE__*/React.createElement("div", {
     className: "cp"

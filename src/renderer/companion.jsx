@@ -10,11 +10,39 @@
    hooks 来自 components.jsx 全局；本文件经 build:ui 编译进 dist/companion.js。
    ============================================================ */
 
+/* 网页版一次性配置：打开 …/?bff=<服务地址> 即写入 localStorage 并从地址栏抹掉；?bff=clear 清除 */
+const YB_LOCAL_DEFAULT = 'http://127.0.0.1:8787';
+function ybBootstrapFromUrl() {
+  try {
+    const u = new URL(window.location.href);
+    if (!u.searchParams.has('bff')) return;
+    const v = String(u.searchParams.get('bff') || '').trim();
+    if (!v || v === 'clear') localStorage.removeItem('yb_bff');
+    else if (/^https?:\/\//.test(v)) localStorage.setItem('yb_bff', v.replace(/\/$/, ''));
+    u.searchParams.delete('bff');
+    if (window.history && window.history.replaceState) window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+  } catch (e) { /* noop */ }
+}
+ybBootstrapFromUrl();
+
 /* BFF 地址：window.__YB_BFF__ > localStorage yb_bff > 本机默认 */
 function ybBffBase() {
   if (window.__YB_BFF__) return String(window.__YB_BFF__).replace(/\/$/, '');
   try { const v = localStorage.getItem('yb_bff'); if (v) return v.replace(/\/$/, ''); } catch (e) { /* noop */ }
-  return 'http://127.0.0.1:8787';
+  return YB_LOCAL_DEFAULT;
+}
+/* 网页里手动改服务地址（prompt 简单可靠，手机也能用） */
+function ybSetBase() {
+  try {
+    const cur = ybBffBase();
+    const v = window.prompt('攻略簿服务地址（含 https:// ，留空恢复本机默认）', cur === YB_LOCAL_DEFAULT ? '' : cur);
+    if (v === null) return false;
+    const t = String(v).trim();
+    if (!t) localStorage.removeItem('yb_bff');
+    else if (/^https?:\/\//.test(t)) localStorage.setItem('yb_bff', t.replace(/\/$/, ''));
+    else return false;
+    return true;
+  } catch (e) { return false; }
 }
 
 /* 设备 ID：首次生成后固定；存储不可用时给个会话级临时值 */
@@ -184,8 +212,13 @@ function CompanionPane({ game, value, guard }) {
         <div className="p-head"><span className="k">Companion</span><h2>攻略簿</h2></div>
         <p className="cp-off-t">攻略簿服务未连接。</p>
         <p className="cp-off-d">这是一本随你进度走、不剧透的私有攻略簿：问路、问 Boss、记流派与卡点，它都记得。</p>
-        <p className="cp-off-h mono">本机启动：<code>cd backend/bff && npm run dev</code>（默认 {base}）</p>
-        <div className="cp-actions"><button className="cp-btn" onClick={load}>重试连接</button></div>
+        {base === YB_LOCAL_DEFAULT
+          ? <p className="cp-off-h">网页版需要指定服务地址：点「设置服务地址」粘贴内测地址，或用带 <code className="mono">?bff=…</code> 的链接打开一次即可记住。本机开发：<code className="mono">cd backend/bff && npm run dev</code></p>
+          : <p className="cp-off-h">当前地址：<code className="mono">{base}</code> 无响应。检查网络，或重新设置地址。</p>}
+        <div className="cp-actions">
+          <button className="cp-btn" onClick={load}>重试连接</button>
+          <button className="cp-btn" onClick={() => { if (ybSetBase()) window.location.reload(); }}>设置服务地址</button>
+        </div>
       </div>
     );
   }
