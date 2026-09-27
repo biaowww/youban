@@ -10,7 +10,7 @@
 | Supabase | 自托管 docker compose，**11 服务全 healthy**（Postgres 17 / GoTrue / PostgREST / Kong / Studio / Storage / Realtime / Supavisor …） |
 | 目录 | compose+密钥：`/opt/youban/supabase`（`.env` 600，密钥只在服务器）；迁移/seed/数据镜像：`/opt/youban/repo` |
 | 数据 | `0001_init.sql` 已执行；**17 款游戏已 seed（2026-09-16 v2 schema，旧 9 款 version+1）**，anon REST 可读，RLS 验证过（anon 写 → 401） |
-| 暴露面 | **全部端口绑 127.0.0.1，公网零暴露**（Kong 8000/8443、PG 5432、Pooler 6543）；备案下域名后再由 nginx 反代 + TLS |
+| 暴露面 | 端口全绑 127.0.0.1（Kong 8000/8443、PG 5432、Pooler 6543）。**唯一公网入口（2026-09-27）：`https://comfyui-internal.offcircle-studios.com/youban-api/` → 攻略簿 8787**（nginx `sites-enabled/mcp-connectors`，限流 30r/m/IP；BFF 每设备每日 60 轮）。网页 / Electron 写死此地址，零配置直连。换独立子域只需 1 条 A 记录 + 改客户端一个常量 |
 | BFF ① | `youban-bff`（Fastify，**8302**，`/opt/youban/bff`，systemd `youban-bff`，用户 youban）：Steam OpenID 绑定 + owned/progress 原始数据，2026-07-28 起运行。代码已入库：`backend/steam-bff/`（2026-09-16 收回，含 README + systemd 单元 + `.env.example`；`.env` 只在服务器） |
 | BFF ② | `youban-companion`（零依赖 Node，**8787**，`/opt/youban/companion`，systemd `youban-companion`，用户 youban）：攻略簿 Companion AI，2026-09-16 上线，存储走 Supabase（`0002_companion.sql`）。见 `bff/deploy/DEPLOY.md` |
 
