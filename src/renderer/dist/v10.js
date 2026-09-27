@@ -701,10 +701,18 @@ function V10App({
   openBoss,
   openEntry,
   theme,
-  setTheme
+  setTheme,
+  desk,
+  guard: guardProp,
+  setGuard: setGuardProp
 }) {
   const [tab, setTab] = useState('progress');
-  const [guard, setGuard] = useState(true); // 防剧透默认开（原型默认 body.guard）
+  /* 防剧透默认开（原型默认 body.guard）；桌面壳（DesktopShell）把它提到外层受控，好与右栏攻略簿共用 */
+  const [guardS, setGuardS] = useState(true);
+  const guard = guardProp === undefined ? guardS : guardProp;
+  const setGuard = setGuardProp || setGuardS;
+  /* 桌面壳里：游戏库在左栏常驻、攻略簿在右栏常驻、v9 不提供 → 顶栏去掉这三个入口 */
+  const tabs = [['progress', '进度'], ['journey', '历程'], ['senti', '舆情']].concat(desk ? [] : [['notebook', '攻略簿']]);
   const [solid, setSolid] = useState(false); // 顶栏滚动加底
   const [greet, setGreet] = useState(true); // 进入游戏后的打招呼 toast（自动消失）
   const rootRef = useRef(null);
@@ -732,7 +740,7 @@ function V10App({
     onScroll: onScroll
   }, /*#__PURE__*/React.createElement("nav", {
     className: 'topbar' + (solid ? ' solid' : '')
-  }, /*#__PURE__*/React.createElement("button", {
+  }, !desk && /*#__PURE__*/React.createElement("button", {
     className: "t-back",
     onClick: onBack
   }, "\u2190"), /*#__PURE__*/React.createElement("div", {
@@ -742,7 +750,7 @@ function V10App({
     alt: "\u6E38\u4F34"
   }), /*#__PURE__*/React.createElement("b", null, game.short)), /*#__PURE__*/React.createElement("div", {
     className: "t-tabs"
-  }, [['progress', '进度'], ['journey', '历程'], ['senti', '舆情'], ['notebook', '攻略簿']].map(([k, n]) => /*#__PURE__*/React.createElement("button", {
+  }, tabs.map(([k, n]) => /*#__PURE__*/React.createElement("button", {
     key: k,
     className: 't-tab' + (tab === k ? ' on' : ''),
     onClick: () => setTab(k)
@@ -756,7 +764,7 @@ function V10App({
     className: "t-ctl",
     title: dark ? '切浅色' : '切游戏主题色',
     onClick: toggleTheme
-  }, dark ? '☀' : '🌙'), /*#__PURE__*/React.createElement("button", {
+  }, dark ? '☀' : '🌙'), !desk && /*#__PURE__*/React.createElement("button", {
     className: "t-ctl",
     title: "\u5207\u56DE\u65E7\u7248\u754C\u9762",
     onClick: onSwitchToV9
@@ -790,7 +798,9 @@ function V10App({
     className: "hstat"
   }, /*#__PURE__*/React.createElement("b", null, Math.max(0, game.hoursMain - played).toFixed(1), /*#__PURE__*/React.createElement("small", null, "h")), /*#__PURE__*/React.createElement("span", null, "\u5269\u4F59(\u4E3B\u7EBF)")), /*#__PURE__*/React.createElement("div", {
     className: "hstat"
-  }, /*#__PURE__*/React.createElement("b", null, bossPassed, /*#__PURE__*/React.createElement("small", null, "/", game.bosses.length)), /*#__PURE__*/React.createElement("span", null, (game.bossTerm || 'Boss').replace(/战$/, '').trim(), " \u5DF2\u8FC7"))))), /*#__PURE__*/React.createElement("main", null, tab === 'progress' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ProgressInput, {
+  }, /*#__PURE__*/React.createElement("b", null, bossPassed, /*#__PURE__*/React.createElement("small", null, "/", game.bosses.length)), /*#__PURE__*/React.createElement("span", null, (game.bossTerm || 'Boss').replace(/战$/, '').trim(), " \u5DF2\u8FC7"))))), /*#__PURE__*/React.createElement("main", {
+    className: 'tab-' + tab
+  }, tab === 'progress' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ProgressInput, {
     game: game,
     value: value,
     setValue: setValue

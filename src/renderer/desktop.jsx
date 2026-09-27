@@ -251,3 +251,99 @@ function DesktopApp({ games, gi, enter, value, setValue, theme, setTheme, onProf
 }
 
 Object.assign(window, { DesktopApp, ScaledFrame });
+
+/* ============================================================
+   DesktopShell —— 网页 / 桌面宽屏（≥1024px）的正式布局（2026-09-27）
+   与上面的 DesktopApp（6 月 v9 原型，仅 preview-multi 展示）不同：
+   中栏直接挂 v10 游戏视图（进度 / 历程 / 舆情），右栏常驻攻略簿，
+   左栏游戏库。手机 / Electron 窄窗仍走 YBApp，互不影响。
+   ============================================================ */
+function DesktopShell({ games, gi, enter, value, setValue, theme, setTheme, stage, setStage }) {
+  const game = games[gi];
+  const [guard, setGuard] = useStateD(true);
+  const [boss, setBoss] = useStateD(null);
+  const [entry, setEntry] = useStateD(null);
+  const [profile, setProfile] = useStateD(false);
+  const [connect, setConnect] = useStateD(null);
+  const th = game.theme;
+  const vars = { '--g-bg': th.bg, '--g-card': th.card, '--g-accent': th.accent, '--g-accent2': th.accent2, '--g-text': th.text };
+  const light = theme === 'light';
+  const Companion = window.CompanionPane;
+  const V10 = window.V10App;
+
+  /* 开屏 / 登录：铺满窗口，内容居中（样式见 desktop.css .desk-full.brand） */
+  if (stage !== 'app') {
+    return (
+      <div className="yb-app yb-desk desk-full brand" style={vars}>
+        {stage === 'splash'
+          ? <SplashScreen onEnter={() => setStage('login')} />
+          : <LoginScreen onLogin={() => setStage('app')} />}
+      </div>
+    );
+  }
+
+  return (
+    <div className={'yb-app yb-desk desk-full' + (light ? ' light' : '')} style={vars}>
+      <div className="desk-titlebar">
+        <div className="desk-brand"><Logo size={22} glyph /><b>游伴 YouBan</b><span className="div" /><span className="gname">{game.titleMain}</span></div>
+        <div className="desk-tb-spacer" />
+        <ThemeToggle theme={theme} setTheme={setTheme} game={game} />
+      </div>
+
+      <div className="desk-grid desk-grid-v10">
+        {/* 左：游戏库 */}
+        <div className="desk-col">
+          <div className="desk-side-h">游戏库 · {games.length} · 精选多平台</div>
+          <div className="desk-scroll">
+            {games.map((g, i) => (
+              <div key={g.id} className={'desk-game' + (i === gi ? ' on' : '')} onClick={() => enter(i, true)}>
+                <img src={g.poster} alt="" onError={e => e.target.style.opacity = .25} />
+                <div className="gi"><div className="nm">{g.short}</div>
+                  <div className="pb"><i style={{ width: Math.max(3, g.currentPct) + '%' }} /></div>
+                  <div className="pc">{g.currentPct === 0 ? '未开始' : g.currentPct + '%'} · {g.hoursMain}h</div></div>
+              </div>
+            ))}
+          </div>
+          <div className="desk-profile" onClick={() => setProfile(true)}>
+            <div className="av"><img src="assets/avatar-default.svg" alt="" /></div>
+            <div className="pm"><div className="n">我的</div><div className="s">账号 · 绑定 · 设置</div></div>
+            <Icon name="set" size={16} style={{ color: 'var(--txt-3)' }} />
+          </div>
+        </div>
+
+        {/* 中：v10 游戏视图（去掉返回 / v9 / 攻略簿 Tab，攻略簿在右栏常驻） */}
+        <div className="desk-col mid desk-mid-v10">
+          {V10
+            ? <V10 game={game} games={games} value={value} setValue={setValue} desk
+                guard={guard} setGuard={setGuard}
+                onBack={() => {}} onSwitchToV9={() => {}}
+                openBoss={setBoss} openEntry={setEntry} theme={theme} setTheme={setTheme} />
+            : <div className="boot-card" style={{ padding: 40 }}>v10 组件未加载</div>}
+        </div>
+
+        {/* 右：攻略簿常驻 */}
+        <div className="desk-col desk-right-v10">
+          <div className={'v10 desk-cp' + (light ? '' : ' dark') + (guard ? ' guard' : '')}>
+            {Companion
+              ? <Companion game={game} value={value} guard={guard} />
+              : <div className="panel ph"><p>攻略簿组件未加载</p></div>}
+          </div>
+        </div>
+      </div>
+
+      {/* 抽屉 / 弹层：复用手机端组件，桌面下由 CSS 收成居中面板 */}
+      <BossDrawer game={game} boss={boss} onClose={() => setBoss(null)} />
+      <EntryDetail game={game} entry={entry} onClose={() => setEntry(null)} onStart={setValue} />
+      {profile && (
+        <div className="desk-modal-scrim" onClick={() => setProfile(false)}>
+          <div className={'desk-modal yb-app' + (light ? ' light' : '')} style={vars} onClick={e => e.stopPropagation()}>
+            <MeScreen games={games} onClose={() => setProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={(p) => setConnect(p)} />
+            {connect && <PlatformConnect platform={connect} onClose={() => setConnect(null)} onDone={() => setConnect(null)} />}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+Object.assign(window, { DesktopShell });

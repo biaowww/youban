@@ -635,3 +635,181 @@ Object.assign(window, {
   DesktopApp,
   ScaledFrame
 });
+
+/* ============================================================
+   DesktopShell —— 网页 / 桌面宽屏（≥1024px）的正式布局（2026-09-27）
+   与上面的 DesktopApp（6 月 v9 原型，仅 preview-multi 展示）不同：
+   中栏直接挂 v10 游戏视图（进度 / 历程 / 舆情），右栏常驻攻略簿，
+   左栏游戏库。手机 / Electron 窄窗仍走 YBApp，互不影响。
+   ============================================================ */
+function DesktopShell({
+  games,
+  gi,
+  enter,
+  value,
+  setValue,
+  theme,
+  setTheme,
+  stage,
+  setStage
+}) {
+  const game = games[gi];
+  const [guard, setGuard] = useStateD(true);
+  const [boss, setBoss] = useStateD(null);
+  const [entry, setEntry] = useStateD(null);
+  const [profile, setProfile] = useStateD(false);
+  const [connect, setConnect] = useStateD(null);
+  const th = game.theme;
+  const vars = {
+    '--g-bg': th.bg,
+    '--g-card': th.card,
+    '--g-accent': th.accent,
+    '--g-accent2': th.accent2,
+    '--g-text': th.text
+  };
+  const light = theme === 'light';
+  const Companion = window.CompanionPane;
+  const V10 = window.V10App;
+
+  /* 开屏 / 登录：铺满窗口，内容居中（样式见 desktop.css .desk-full.brand） */
+  if (stage !== 'app') {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "yb-app yb-desk desk-full brand",
+      style: vars
+    }, stage === 'splash' ? /*#__PURE__*/React.createElement(SplashScreen, {
+      onEnter: () => setStage('login')
+    }) : /*#__PURE__*/React.createElement(LoginScreen, {
+      onLogin: () => setStage('app')
+    }));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'yb-app yb-desk desk-full' + (light ? ' light' : ''),
+    style: vars
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "desk-titlebar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "desk-brand"
+  }, /*#__PURE__*/React.createElement(Logo, {
+    size: 22,
+    glyph: true
+  }), /*#__PURE__*/React.createElement("b", null, "\u6E38\u4F34 YouBan"), /*#__PURE__*/React.createElement("span", {
+    className: "div"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "gname"
+  }, game.titleMain)), /*#__PURE__*/React.createElement("div", {
+    className: "desk-tb-spacer"
+  }), /*#__PURE__*/React.createElement(ThemeToggle, {
+    theme: theme,
+    setTheme: setTheme,
+    game: game
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "desk-grid desk-grid-v10"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "desk-col"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "desk-side-h"
+  }, "\u6E38\u620F\u5E93 \xB7 ", games.length, " \xB7 \u7CBE\u9009\u591A\u5E73\u53F0"), /*#__PURE__*/React.createElement("div", {
+    className: "desk-scroll"
+  }, games.map((g, i) => /*#__PURE__*/React.createElement("div", {
+    key: g.id,
+    className: 'desk-game' + (i === gi ? ' on' : ''),
+    onClick: () => enter(i, true)
+  }, /*#__PURE__*/React.createElement("img", {
+    src: g.poster,
+    alt: "",
+    onError: e => e.target.style.opacity = .25
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "gi"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "nm"
+  }, g.short), /*#__PURE__*/React.createElement("div", {
+    className: "pb"
+  }, /*#__PURE__*/React.createElement("i", {
+    style: {
+      width: Math.max(3, g.currentPct) + '%'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "pc"
+  }, g.currentPct === 0 ? '未开始' : g.currentPct + '%', " \xB7 ", g.hoursMain, "h"))))), /*#__PURE__*/React.createElement("div", {
+    className: "desk-profile",
+    onClick: () => setProfile(true)
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "av"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/avatar-default.svg",
+    alt: ""
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "pm"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "n"
+  }, "\u6211\u7684"), /*#__PURE__*/React.createElement("div", {
+    className: "s"
+  }, "\u8D26\u53F7 \xB7 \u7ED1\u5B9A \xB7 \u8BBE\u7F6E")), /*#__PURE__*/React.createElement(Icon, {
+    name: "set",
+    size: 16,
+    style: {
+      color: 'var(--txt-3)'
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "desk-col mid desk-mid-v10"
+  }, V10 ? /*#__PURE__*/React.createElement(V10, {
+    game: game,
+    games: games,
+    value: value,
+    setValue: setValue,
+    desk: true,
+    guard: guard,
+    setGuard: setGuard,
+    onBack: () => {},
+    onSwitchToV9: () => {},
+    openBoss: setBoss,
+    openEntry: setEntry,
+    theme: theme,
+    setTheme: setTheme
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "boot-card",
+    style: {
+      padding: 40
+    }
+  }, "v10 \u7EC4\u4EF6\u672A\u52A0\u8F7D")), /*#__PURE__*/React.createElement("div", {
+    className: "desk-col desk-right-v10"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: 'v10 desk-cp' + (light ? '' : ' dark') + (guard ? ' guard' : '')
+  }, Companion ? /*#__PURE__*/React.createElement(Companion, {
+    game: game,
+    value: value,
+    guard: guard
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "panel ph"
+  }, /*#__PURE__*/React.createElement("p", null, "\u653B\u7565\u7C3F\u7EC4\u4EF6\u672A\u52A0\u8F7D"))))), /*#__PURE__*/React.createElement(BossDrawer, {
+    game: game,
+    boss: boss,
+    onClose: () => setBoss(null)
+  }), /*#__PURE__*/React.createElement(EntryDetail, {
+    game: game,
+    entry: entry,
+    onClose: () => setEntry(null),
+    onStart: setValue
+  }), profile && /*#__PURE__*/React.createElement("div", {
+    className: "desk-modal-scrim",
+    onClick: () => setProfile(false)
+  }, /*#__PURE__*/React.createElement("div", {
+    className: 'desk-modal yb-app' + (light ? ' light' : ''),
+    style: vars,
+    onClick: e => e.stopPropagation()
+  }, /*#__PURE__*/React.createElement(MeScreen, {
+    games: games,
+    onClose: () => setProfile(false),
+    theme: theme,
+    setTheme: setTheme,
+    game: game,
+    onConnect: p => setConnect(p)
+  }), connect && /*#__PURE__*/React.createElement(PlatformConnect, {
+    platform: connect,
+    onClose: () => setConnect(null),
+    onDone: () => setConnect(null)
+  }))));
+}
+Object.assign(window, {
+  DesktopShell
+});

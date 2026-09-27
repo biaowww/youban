@@ -14,9 +14,19 @@
 <link rel="stylesheet" href="screens.css" />
 <link rel="stylesheet" href="v10.css" />
 <link rel="stylesheet" href="companion.css" />
+<link rel="stylesheet" href="desktop.css" />
 
 <style>
   * { box-sizing: border-box; }
+
+  /* 宽屏（≥1024px）：DesktopShell 铺满视口，去掉手机模型框的居中与留白 */
+  @media (min-width: 1024px) {
+    html, body { height: 100%; overflow: hidden; }
+    body { display: block; padding: 0; min-height: 0; height: 100vh; height: 100dvh; }
+    body::before { display: none; }
+    #root { height: 100vh; height: 100dvh; }
+    .boot { width: 100%; height: 100vh; height: 100dvh; border-radius: 0; border: 0; box-shadow: none; }
+  }
   html, body { margin: 0; height: 100%; }
   body {
     background:
@@ -119,6 +129,7 @@
 <script src="dist/components.js"></script>
 <script src="dist/screens.js"></script>
 <script src="dist/v10.js"></script>
+<script src="dist/desktop.js"></script>
 <script>/* 攻略簿线上入口（零配置）。开发时想连本机：localStorage.setItem('yb_bff','http://127.0.0.1:8787') 或 ?bff= */
 window.__YB_BFF__ = 'https://comfyui-internal.offcircle-studios.com/youban-api';</script>
 <script src="dist/companion.js"></script>

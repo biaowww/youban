@@ -392,9 +392,14 @@ function V10Chapters({ game, value, openBoss, openEntry, guard }) {
 }
 
 /* ───────── 全局态：防剧透 / 主题（步骤 6 会统一各模块模糊规则） ───────── */
-function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry, theme, setTheme }) {
+function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, openEntry, theme, setTheme, desk, guard: guardProp, setGuard: setGuardProp }) {
   const [tab, setTab] = useState('progress');
-  const [guard, setGuard] = useState(true);     // 防剧透默认开（原型默认 body.guard）
+  /* 防剧透默认开（原型默认 body.guard）；桌面壳（DesktopShell）把它提到外层受控，好与右栏攻略簿共用 */
+  const [guardS, setGuardS] = useState(true);
+  const guard = guardProp === undefined ? guardS : guardProp;
+  const setGuard = setGuardProp || setGuardS;
+  /* 桌面壳里：游戏库在左栏常驻、攻略簿在右栏常驻、v9 不提供 → 顶栏去掉这三个入口 */
+  const tabs = [['progress', '进度'], ['journey', '历程'], ['senti', '舆情']].concat(desk ? [] : [['notebook', '攻略簿']]);
   const [solid, setSolid] = useState(false);    // 顶栏滚动加底
   const [greet, setGreet] = useState(true);     // 进入游戏后的打招呼 toast（自动消失）
   const rootRef = useRef(null);
@@ -422,19 +427,19 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
     <div ref={rootRef} className={'v10' + (dark ? ' dark' : '') + (guard ? ' guard' : '')} onScroll={onScroll}>
       {/* 顶栏 */}
       <nav className={'topbar' + (solid ? ' solid' : '')}>
-        <button className="t-back" onClick={onBack}>←</button>
+        {!desk && <button className="t-back" onClick={onBack}>←</button>}
         <div className="t-brand">
           <img src="assets/youban-mark.svg" alt="游伴" />
           <b>{game.short}</b>
         </div>
         <div className="t-tabs">
-          {[['progress', '进度'], ['journey', '历程'], ['senti', '舆情'], ['notebook', '攻略簿']].map(([k, n]) => (
+          {tabs.map(([k, n]) => (
             <button key={k} className={'t-tab' + (tab === k ? ' on' : '')} onClick={() => setTab(k)}>{n}</button>
           ))}
         </div>
         <button className="t-ctl guard-t" title={guard ? '防剧透：开' : '防剧透：关'} onClick={() => setGuard(g => !g)}>🛡<span className="sw" /></button>
         <button className="t-ctl" title={dark ? '切浅色' : '切游戏主题色'} onClick={toggleTheme}>{dark ? '☀' : '🌙'}</button>
-        <button className="t-ctl" title="切回旧版界面" onClick={onSwitchToV9}>v9</button>
+        {!desk && <button className="t-ctl" title="切回旧版界面" onClick={onSwitchToV9}>v9</button>}
       </nav>
 
       {greet && <div className="greet-toast" key={game.id}><span className="dot" />欢迎回来 · 继续陪 <b>{game.short}</b> 走这段路</div>}
@@ -456,7 +461,7 @@ function V10App({ game, games, value, setValue, onBack, onSwitchToV9, openBoss, 
         </div>
       </header>
 
-      <main>
+      <main className={'tab-' + tab}>
         {/* 进度 Tab：进度输入(v9) → 游戏简介(v9+chips) → HypeWave(v9组件) + 前后小卡 → 章节墙(步骤4) */}
         {tab === 'progress' && (
           <>

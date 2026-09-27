@@ -37,6 +37,29 @@ class V10Boundary extends React.Component {
   render() { return this.state.err ? null : this.props.children; }
 }
 
+/* ───────── 宽屏判定：≥1024px 用桌面三栏壳（DesktopShell），否则手机壳 ─────────
+   跟随窗口实时切换；localStorage.yb_layout = 'phone' | 'desk' 可强制（演示 / 调试）。
+   测试环境（jsdom）无 matchMedia → 恒为窄屏，既有用例不受影响。 */
+const WIDE_QUERY = '(min-width: 1024px)';
+function useWideLayout() {
+  const forced = () => { try { return localStorage.getItem('yb_layout'); } catch (e) { return null; } };
+  const calc = () => {
+    const f = forced();
+    if (f === 'phone') return false;
+    if (f === 'desk') return true;
+    return !!(window.matchMedia && window.matchMedia(WIDE_QUERY).matches);
+  };
+  const [wide, setWide] = useState(calc);
+  useEffect(() => {
+    if (!window.matchMedia) return undefined;
+    const mq = window.matchMedia(WIDE_QUERY);
+    const on = () => setWide(calc());
+    if (mq.addEventListener) mq.addEventListener('change', on); else mq.addListener(on);
+    return () => { if (mq.removeEventListener) mq.removeEventListener('change', on); else mq.removeListener(on); };
+  }, []);
+  return wide;
+}
+
 /* ───────── 游戏内顶栏 ───────── */
 function GameTopBar({ game, onBack, onSwitch, theme, setTheme, onV10 }) {
   /* 与 v10 顶栏统一语言：无框返回键 + 游戏名（点开切换）+ 右侧一组小圆钮。
@@ -162,6 +185,7 @@ function Root() {
   const [value, setValue] = useState(0);
   const [theme, setTheme] = useState('light');
   const [stage, setStage] = useState('splash');
+  const wide = useWideLayout();
 
   useEffect(() => {
     (async () => {
@@ -207,6 +231,17 @@ function Root() {
   if (!games) return <div className="boot"><div className="boot-card"><span className="boot-spin" />加载中…</div></div>;
 
   const enter = (i, keepTab) => { setGi(i); setValue(games[i].currentPct); setView('game'); if (!keepTab) setTab('progress'); };
+
+  /* 宽屏（≥1024px，网页 / 桌面窗口）走 DesktopShell 三栏；手机与 Electron 窄窗走手机壳。
+     调试可强制：localStorage.yb_layout = 'phone' | 'desk' */
+  if (wide && window.DesktopShell) {
+    return (
+      <DesktopShell
+        games={games} gi={gi} enter={enter} value={value} setValue={setValue}
+        theme={theme} setTheme={setTheme} stage={stage} setStage={setStage}
+      />
+    );
+  }
 
   return (
     <YBApp

@@ -105,3 +105,60 @@
 .desk-modal-scrim { position: fixed; inset: 0; z-index: 200; background: rgba(6,5,4,.6); backdrop-filter: blur(3px); display: grid; place-items: center; }
 .desk-modal { position: relative; width: 440px; height: 680px; border-radius: 18px; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,.6); }
 .desk-modal.yb-app { width: 440px; height: 680px; }
+
+/* ============================================================
+   DesktopShell（2026-09-27）：≥1024px 网页 / 桌面正式布局
+   .desk-full = 铺满视口的根；中栏挂 v10，右栏常驻攻略簿
+   ============================================================ */
+.yb-app.desk-full {
+  width: 100vw; height: 100vh; height: 100dvh; flex: none;
+  border-radius: 0; box-shadow: none; display: flex; flex-direction: column;
+  background: var(--g-bg);
+}
+.yb-app.desk-full.light { background: #f3efe6; }
+.desk-full .desk-grid { flex: 1; min-height: 0; }
+.desk-grid-v10 { grid-template-columns: 236px minmax(0, 1fr) clamp(360px, 30vw, 440px); }
+.desk-mid-v10, .desk-right-v10 { position: relative; }
+.desk-right-v10 { border-left: 1px solid var(--hairline); }
+
+/* 中栏 v10：去掉手机专属的假状态栏留白，顶栏改常规高度 */
+.desk-full .v10 .topbar { padding: 10px 16px 8px; margin-bottom: -50px; gap: 8px; }
+.desk-full .v10 .t-brand b { display: inline; max-width: 200px; }
+.desk-full .v10 .greet-toast { top: 60px; }
+.desk-full .v10 .hero { height: 380px; }
+.desk-full .v10 .hero .inner { padding: 0 28px 24px; }
+.desk-full .v10 .hero h1 { font-size: clamp(24px, 2.6vw, 34px); }
+.desk-full .v10 .hero .sub { font-size: 13px; }
+.desk-full .v10 .hero-stats { gap: 22px; font-size: 11px; padding: 11px 18px; }
+.desk-full .v10 .hstat b { font-size: 19px; }
+.desk-full .v10 main { padding: 22px 28px 40px; }
+.desk-full .v10 .sim { margin-right: 22px; }
+/* 进度页两栏：进度输入 + 简介 在左，流程进度在右，章节墙通栏 */
+@media (min-width: 1380px) {
+  .desk-full .v10 main.tab-progress { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 20px; align-items: start; }
+  .desk-full .v10 main.tab-progress > .sec-gap { margin-top: 0; }
+  .desk-full .v10 main.tab-progress > :nth-child(1) { grid-column: 1; }
+  .desk-full .v10 main.tab-progress > :nth-child(2) { grid-column: 1; }
+  .desk-full .v10 main.tab-progress > :nth-child(3) { grid-column: 2; grid-row: 1 / span 2; }
+  .desk-full .v10 main.tab-progress > :nth-child(4) { grid-column: 1 / -1; }
+}
+.desk-full .v10 main.tab-journey, .desk-full .v10 main.tab-senti { max-width: 860px; margin: 0 auto; }
+
+/* 右栏攻略簿：.v10 作用域只借样式，布局改为占满右栏 */
+.desk-cp { position: absolute; inset: 0; overflow-y: auto; padding: 16px 16px 20px; scroll-behavior: auto; }
+.desk-cp .cp { padding-bottom: 16px; }
+.desk-cp .cp-list { max-height: calc(100vh - 380px); min-height: 240px; }
+.desk-cp .cp-card .note { font-size: 10.5px; }
+
+/* 抽屉 → 居中面板 */
+.desk-full .drawer { left: 50%; right: auto; width: min(720px, 92vw); max-height: 86%; transform: translate(-50%, 102%); border-radius: 22px 22px 0 0; }
+.desk-full .drawer.show { transform: translate(-50%, 0); }
+
+/* 开屏 / 登录：铺满视口、内容居中收窄 */
+.desk-full.brand { display: block; }
+.desk-full.brand .splash, .desk-full.brand .login { align-items: center; }
+.desk-full.brand .splash { padding: 18vh 32px 10vh; }
+.desk-full.brand .login { padding: 16vh 32px 8vh; }
+.desk-full.brand .login-methods, .desk-full.brand .login-bind-note, .desk-full.brand .login-terms { width: min(420px, 100%); }
+.desk-full.brand .login-methods { margin-top: 48px; }
+.desk-full.brand .splash-btn { max-width: 300px; }
