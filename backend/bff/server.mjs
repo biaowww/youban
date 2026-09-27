@@ -25,6 +25,7 @@ import { loadGames, listGames } from './lib/games.mjs';
 import { buildMessages } from './lib/promptBuilder.mjs';
 import { updateCardWithLLM, mergeCard } from './lib/profile.mjs';
 import { renderReport } from './lib/report.mjs';
+import { createQuota } from './lib/quota.mjs';
 import { getProvider } from './lib/providers/index.mjs';
 import { getStore } from './lib/store/index.mjs';
 
@@ -84,6 +85,8 @@ async function maybeRefreshCard({ sessionId, game, turns }) {
   return true;
 }
 
+const quota = createQuota({ dailyTurns: config.dailyTurns });
+
 /* ───────── 路由 ───────── */
 async function handle(req, res) {
   cors(res);
@@ -138,6 +141,8 @@ async function handle(req, res) {
     if (message.length > config.maxMessageChars) return json(res, 400, { error: `message 超长（>${config.maxMessageChars}）` });
     const pct = clampPct(body.pct);
     const guard = toBool(body.guard);
+    const q = quota.take(identity.deviceId);
+    if (!q.ok) return json(res, 429, { error: `今天的 ${q.limit} 轮已用完，明天再来。（内测期每台设备每日上限）` });
 
     const s = await store.openSession(identity, gameId);
     const messages = buildMessages({

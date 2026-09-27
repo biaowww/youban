@@ -16,6 +16,23 @@ import { renderReport } from '../../backend/bff/lib/report.mjs';
 import { parseSse, createGlmProvider } from '../../backend/bff/lib/providers/glm.mjs';
 import { createMockProvider } from '../../backend/bff/lib/providers/mock.mjs';
 import { createFileStore } from '../../backend/bff/lib/store/file.mjs';
+import { createQuota } from '../../backend/bff/lib/quota.mjs';
+
+describe('quota · 每设备每日轮数上限', () => {
+  it('到上限即拒绝且不计数；跨日重置；0 = 不限', () => {
+    let t = Date.parse('2026-09-23T10:00:00+08:00');
+    const q = createQuota({ dailyTurns: 2, now: () => t });
+    expect(q.take('a').ok).toBe(true);
+    expect(q.take('a').ok).toBe(true);
+    const r = q.take('a');
+    expect(r.ok).toBe(false); expect(r.used).toBe(2); expect(r.limit).toBe(2);
+    expect(q.take('b').ok).toBe(true);           // 别的设备不受影响
+    t = Date.parse('2026-09-24T00:01:00+08:00'); // 北京时间跨日
+    expect(q.take('a').ok).toBe(true);
+    const free = createQuota({ dailyTurns: 0 });
+    for (let i = 0; i < 5; i++) expect(free.take('x').ok).toBe(true);
+  });
+});
 
 const { loadGameFiles } = validator;
 const games = loadGameFiles().map(x => x.game);

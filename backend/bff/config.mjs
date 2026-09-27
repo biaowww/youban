@@ -30,6 +30,7 @@ export const config = {
   profileEveryTurns: num('PROFILE_EVERY_TURNS', 3), // 每几轮助手回复后刷新一次状态卡
   briefMaxChars: num('BRIEF_MAX_CHARS', 3200),
   maxMessageChars: num('MAX_MESSAGE_CHARS', 4000),
+  dailyTurns: num('COMPANION_DAILY_TURNS', 60),  // 每设备每日对话轮数上限（0 = 不限）；公网入口的滥用护栏
 
   /* 存储：file（默认，本地 JSON）| supabase（线上，service_role 经 REST） */
   store: env('COMPANION_STORE', 'file'),

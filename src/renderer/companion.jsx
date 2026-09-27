@@ -25,10 +25,10 @@ function ybBootstrapFromUrl() {
 }
 ybBootstrapFromUrl();
 
-/* BFF 地址：window.__YB_BFF__ > localStorage yb_bff > 本机默认 */
+/* BFF 地址：localStorage yb_bff（开发覆盖） > window.__YB_BFF__（页面写死的线上默认，零配置） > 本机默认 */
 function ybBffBase() {
-  if (window.__YB_BFF__) return String(window.__YB_BFF__).replace(/\/$/, '');
   try { const v = localStorage.getItem('yb_bff'); if (v) return v.replace(/\/$/, ''); } catch (e) { /* noop */ }
+  if (window.__YB_BFF__) return String(window.__YB_BFF__).replace(/\/$/, '');
   return YB_LOCAL_DEFAULT;
 }
 /* 网页里手动改服务地址（prompt 简单可靠，手机也能用） */
