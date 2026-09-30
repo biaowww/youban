@@ -21,7 +21,7 @@ const OUT = path.join(SRC, 'web-dist');
 const DIRS = ['dist', 'vendor', 'assets', 'tokens', 'fonts'];
 const FILES = [
   'app.css', 'screens.css', 'v10.css', 'companion.css', 'desktop.css',
-  'adapt.js', 'mock-data.js', 'steam-fixtures.js',
+  'adapt.js', 'account.js', 'mock-data.js', 'steam-fixtures.js',
 ];
 // 不进包的文件（体积大且运行时不用）
 const SKIP = new Set(['babel.min.js', 'preview-multi.js']);
