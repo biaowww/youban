@@ -44,3 +44,6 @@ TASKS.md
 
 # youban-bff 本地簿数据（个人对话记录，勿入库）
 backend/bff/data/
+
+# Tauri 前端暂存目录（scripts/stage-web.js 产物）
+src/web-dist/

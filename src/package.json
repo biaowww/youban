@@ -7,7 +7,10 @@
     "start": "electron .",
     "build:ui": "node build-ui.js",
     "build": "electron-builder --win --x64",
+    "stage:web": "node scripts/stage-web.js",
     "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
     "test": "vitest run",
     "lint": "eslint .",
     "validate:games": "node scripts/validate-games.js"
