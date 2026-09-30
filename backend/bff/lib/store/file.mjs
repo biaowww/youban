@@ -72,5 +72,25 @@ export function createFileStore(dir) {
     async resetSession(id) {
       await fs.rm(file(id), { force: true });
     },
+
+    /* 与 supabase.mjs 同规则：账号已有该游戏的簿则保留账号的，否则设备簿改名归账号 */
+    async claimDevice(userId, deviceId) {
+      const claimed = [], kept = [];
+      let names = [];
+      try { names = await fs.readdir(dir); } catch { return { claimed, kept }; }
+      const prefix = `d_${safe(deviceId)}__`;
+      for (const n of names.filter(x => x.startsWith(prefix) && x.endsWith('.json'))) {
+        const gamePart = n.slice(prefix.length, -'.json'.length);
+        const target = `u_${safe(userId)}__${gamePart}`;
+        if (await read(target)) { kept.push(gamePart); continue; }
+        const s = await read(n.slice(0, -'.json'.length));
+        if (!s) continue;
+        s.sessionId = target; s.identity = { userId };
+        await write(target, s);
+        await fs.rm(path.join(dir, n), { force: true });
+        claimed.push(s.gameId || gamePart);
+      }
+      return { claimed, kept };
+    },
   };
 }

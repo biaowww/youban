@@ -33,7 +33,7 @@ export function createSupabaseStore({ url, serviceKey, fetchImpl = fetch }) {
           { Prefer: 'return=representation' }));
       }
       const prof = one(await q('GET', `companion_profiles?select=card&session_id=eq.${s.id}&limit=1`));
-      const msgs = await q('GET', `companion_messages?select=role,content,pct,created_at&session_id=eq.${s.id}&order=created_at.desc&limit=50`) || [];
+      const msgs = await q('GET', `companion_messages?select=role,content,pct,created_at&session_id=eq.${s.id}&order=id.desc&limit=50`) || [];
       return {
         sessionId: s.id,
         card: normalizeCard(prof ? prof.card : emptyCard()),
@@ -60,7 +60,7 @@ export function createSupabaseStore({ url, serviceKey, fetchImpl = fetch }) {
     async getFull(id) {
       const s = one(await q('GET', `companion_sessions?select=turns&id=eq.${id}&limit=1`));
       const prof = one(await q('GET', `companion_profiles?select=card&session_id=eq.${id}&limit=1`));
-      const msgs = await q('GET', `companion_messages?select=role,content,pct,created_at&session_id=eq.${id}&order=created_at.asc&limit=1000`) || [];
+      const msgs = await q('GET', `companion_messages?select=role,content,pct,created_at&session_id=eq.${id}&order=id.asc&limit=1000`) || [];
       return { card: normalizeCard(prof ? prof.card : emptyCard()), turns: s?.turns || 0,
         messages: msgs.map(m => ({ role: m.role, content: m.content, pct: m.pct, at: m.created_at })) };
     },
@@ -68,6 +68,23 @@ export function createSupabaseStore({ url, serviceKey, fetchImpl = fetch }) {
     async resetSession(id) {
       /* 级联删除：删 session 即清 messages + profile */
       await q('DELETE', `companion_sessions?id=eq.${id}`, undefined, { Prefer: 'return=minimal' });
+    },
+
+    /* 登录后认领：把这台设备上「未登录时写的簿」归到账号名下。
+       规则：账号在该游戏已有簿 → 保留账号的，设备簿原样不动（不合并、不覆盖、不删）；
+             账号没有 → 设备簿改挂 user_id（device_id 置空）。幂等。 */
+    async claimDevice(userId, deviceId) {
+      const dev = await q('GET', `companion_sessions?select=id,game_id&device_id=eq.${encodeURIComponent(deviceId)}`) || [];
+      if (!dev.length) return { claimed: [], kept: [] };
+      const mine = await q('GET', `companion_sessions?select=game_id&user_id=eq.${userId}`) || [];
+      const has = new Set(mine.map(r => r.game_id));
+      const claimed = [], kept = [];
+      for (const s of dev) {
+        if (has.has(s.game_id)) { kept.push(s.game_id); continue; }
+        await q('PATCH', `companion_sessions?id=eq.${s.id}`, { user_id: userId, device_id: null }, { Prefer: 'return=minimal' });
+        claimed.push(s.game_id);
+      }
+      return { claimed, kept };
     },
   };
 }

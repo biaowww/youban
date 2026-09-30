@@ -158,7 +158,7 @@
 .desk-full.brand { display: block; }
 .desk-full.brand .splash, .desk-full.brand .login { align-items: center; }
 .desk-full.brand .splash { padding: 18vh 32px 10vh; }
-.desk-full.brand .login { padding: 16vh 32px 8vh; }
-.desk-full.brand .login-methods, .desk-full.brand .login-bind-note, .desk-full.brand .login-terms { width: min(420px, 100%); }
-.desk-full.brand .login-methods { margin-top: 48px; }
+.desk-full.brand .login { padding: 9vh 32px 6vh; }
+.desk-full.brand .login-form, .desk-full.brand .login-methods, .desk-full.brand .login-bind-note, .desk-full.brand .login-terms { width: min(420px, 100%); }
+.desk-full.brand .login-methods { margin-top: 18px; }
 .desk-full.brand .splash-btn { max-width: 300px; }

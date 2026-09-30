@@ -40,6 +40,7 @@ jobs:
           cp -r src/renderer/assets          _site/assets
           cp -r src/renderer/tokens          _site/tokens
           cp src/renderer/adapt.js           _site/adapt.js
+          cp src/renderer/account.js         _site/account.js
           cp src/renderer/mock-data.js       _site/mock-data.js
           cp src/renderer/app.css            _site/app.css
           cp src/renderer/screens.css        _site/screens.css

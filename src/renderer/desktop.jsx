@@ -258,7 +258,7 @@ Object.assign(window, { DesktopApp, ScaledFrame });
    中栏直接挂 v10 游戏视图（进度 / 历程 / 舆情），右栏常驻攻略簿，
    左栏游戏库。手机 / Electron 窄窗仍走 YBApp，互不影响。
    ============================================================ */
-function DesktopShell({ games, gi, enter, value, setValue, theme, setTheme, stage, setStage }) {
+function DesktopShell({ games, gi, enter, value, setValue, theme, setTheme, stage, setStage, user, onLogin, onLogout }) {
   const game = games[gi];
   const [guard, setGuard] = useStateD(true);
   const [boss, setBoss] = useStateD(null);
@@ -277,7 +277,7 @@ function DesktopShell({ games, gi, enter, value, setValue, theme, setTheme, stag
       <div className="yb-app yb-desk desk-full brand" style={vars}>
         {stage === 'splash'
           ? <SplashScreen onEnter={() => setStage('login')} />
-          : <LoginScreen onLogin={() => setStage('app')} />}
+          : <LoginScreen onLogin={onLogin || (() => setStage('app'))} />}
       </div>
     );
   }
@@ -306,7 +306,7 @@ function DesktopShell({ games, gi, enter, value, setValue, theme, setTheme, stag
           </div>
           <div className="desk-profile" onClick={() => setProfile(true)}>
             <div className="av"><img src="assets/avatar-default.svg" alt="" /></div>
-            <div className="pm"><div className="n">我的</div><div className="s">账号 · 绑定 · 设置</div></div>
+            <div className="pm"><div className="n">{user ? (user.nickname || user.account) : '游客'}</div><div className="s">{user ? '已登录 · 跨端同步' : '未登录 · 点此登录'}</div></div>
             <Icon name="set" size={16} style={{ color: 'var(--txt-3)' }} />
           </div>
         </div>
@@ -337,7 +337,8 @@ function DesktopShell({ games, gi, enter, value, setValue, theme, setTheme, stag
       {profile && (
         <div className="desk-modal-scrim" onClick={() => setProfile(false)}>
           <div className={'desk-modal yb-app' + (light ? ' light' : '')} style={vars} onClick={e => e.stopPropagation()}>
-            <MeScreen games={games} onClose={() => setProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={(p) => setConnect(p)} />
+            <MeScreen games={games} onClose={() => setProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={(p) => setConnect(p)}
+              onLogout={() => { setProfile(false); if (onLogout) onLogout(); }} />
             {connect && <PlatformConnect platform={connect} onClose={() => setConnect(null)} onDone={() => setConnect(null)} />}
           </div>
         </div>

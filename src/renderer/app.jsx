@@ -105,7 +105,7 @@ function GameSwitchSheet({ games, gi, onPick, onClose }) {
 }
 
 /* ───────── 应用主体（手机外壳 + 屏幕状态机） ───────── */
-function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, setTheme, enter, stage, setStage, mp }) {
+function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, setTheme, enter, stage, setStage, mp, onLogin, onLogout }) {
   const game = games[gi];
   const [boss, setBoss] = useState(null);
   const [entry, setEntry] = useState(null);
@@ -127,7 +127,7 @@ function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, 
         <StatusBar />
         {stage === 'splash'
           ? <SplashScreen onEnter={() => setStage('login')} />
-          : <LoginScreen onLogin={() => setStage('app')} />}
+          : <LoginScreen onLogin={onLogin || (() => setStage('app'))} />}
         <div className="yb-home" />
       </div>
     );
@@ -168,7 +168,7 @@ function YBApp({ games, gi, view, setView, tab, setTab, value, setValue, theme, 
           {switcher && <GameSwitchSheet games={games} gi={gi} onPick={(i) => { enter(i, true); setSwitcher(false); }} onClose={() => setSwitcher(false)} />}
         </>
       )}
-      {profile && <div className="profile-overlay"><MeScreen games={games} onClose={() => setProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={(p) => setConnect(p)} /></div>}
+      {profile && <div className="profile-overlay"><MeScreen games={games} onClose={() => setProfile(false)} theme={theme} setTheme={setTheme} game={game} onConnect={(p) => setConnect(p)} onLogout={() => { setProfile(false); if (onLogout) onLogout(); }} /></div>}
       {connect && <PlatformConnect platform={connect} onClose={() => setConnect(null)} onDone={() => setConnect(null)} />}
       <div className="yb-home" />
     </div>
@@ -184,7 +184,11 @@ function Root() {
   const [tab, setTab] = useState('progress');
   const [value, setValue] = useState(0);
   const [theme, setTheme] = useState('light');
-  const [stage, setStage] = useState('splash');
+  /* 已登录（本机存有会话）→ 跳过开屏与登录，直接进应用 */
+  const A = window.YBAccount;
+  const [stage, setStage] = useState(() => ((A && A.current && A.current()) ? 'app' : 'splash'));
+  const [user, setUser] = useState(() => ((A && A.current) ? A.current() : null));
+  useEffect(() => ((A && A.onChange) ? A.onChange(setUser) : undefined), []);
   const wide = useWideLayout();
 
   useEffect(() => {
@@ -219,10 +223,36 @@ function Root() {
     if (!g || g.currentPct === value) return;
     const t = setTimeout(() => {
       saveProgress(g.id, value);
+      /* 已登录 → 同步到云端（断网会进待发队列，下次联网补发）；游客只存本机 */
+      if (A && A.current && A.current()) A.pushProgress(g.id, value).catch(() => {});
       setGames(prev => prev.map((x, i) => (i === gi ? Object.assign({}, x, { currentPct: value }) : x)));
     }, 300);
     return () => clearTimeout(t);
   }, [value, gi, games]);
+
+  /* 登录后对账：云端进度为准，本机独有的推上去；顺带把这台设备上未登录时写的攻略簿认领到账号名下。
+     已登录账号没有记录的游戏一律从 0 起（游戏 JSON 里的 currentPct 只是演示默认值，不是这个人的进度）。 */
+  const gamesReady = !!games;
+  const uid = user ? user.id : '';
+  useEffect(() => {
+    if (!gamesReady || !uid || !A) return undefined;
+    let dead = false;
+    (async () => {
+      try {
+        const merged = await A.syncProgress(loadProgress());
+        if (dead || !merged) return;
+        try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(merged)); } catch (e) { /* noop */ }
+        const pctOf = (id) => (typeof merged[id] === 'number' ? merged[id] : 0);
+        setGames(prev => prev.map(g => Object.assign({}, g, { currentPct: pctOf(g.id) })));
+        setGi(i => { setValue(pctOf(games[i].id)); return i; });
+        A.claimDevice().catch(() => {});
+      } catch (e) { /* 离线或服务不可达：继续用本机数据，下次再对账 */ }
+    })();
+    return () => { dead = true; };
+  }, [gamesReady, uid]);
+
+  const onLogin = () => setStage('app');
+  const onLogout = () => { setView('library'); setStage('login'); };
 
   /* 调试用全局快照，跟随最新进度 */
   useEffect(() => { if (games) window.YB = { games }; }, [games]);
@@ -239,6 +269,7 @@ function Root() {
       <DesktopShell
         games={games} gi={gi} enter={enter} value={value} setValue={setValue}
         theme={theme} setTheme={setTheme} stage={stage} setStage={setStage}
+        user={user} onLogin={onLogin} onLogout={onLogout}
       />
     );
   }
@@ -248,6 +279,7 @@ function Root() {
       games={games} gi={gi} view={view} setView={setView} tab={tab} setTab={setTab}
       value={value} setValue={setValue} theme={theme} setTheme={setTheme}
       enter={enter} stage={stage} setStage={setStage}
+      onLogin={onLogin} onLogout={onLogout}
     />
   );
 }

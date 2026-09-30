@@ -592,33 +592,38 @@ function MeScreen({
   theme,
   setTheme,
   game,
-  onConnect
+  onConnect,
+  onLogout
 }) {
+  /* 平台绑定尚未接通客户端（Steam 后端已就绪，见 backend/steam-bff），如实显示为未连接 */
   const platforms = [{
     id: 'steam',
     n: 'Steam',
-    d: '已连接 · 自动同步成就',
-    on: true,
+    d: '绑定入口接入中',
+    on: false,
     c: '#9bc1d6'
-  }, {
-    id: 'wegame',
-    n: 'WeGame',
-    d: '已连接',
-    on: true,
-    c: '#ea5413'
   }, {
     id: 'playstation',
     n: 'PlayStation',
-    d: '点击授权奖杯同步',
+    d: '规划中',
     on: false,
     c: '#4f8fde'
   }, {
+    id: 'wegame',
+    n: 'WeGame',
+    d: '规划中',
+    on: false,
+    c: '#ea5413'
+  }, {
     id: 'epicgames',
     n: 'Epic Games',
-    d: '点击授权',
+    d: '规划中',
     on: false,
     c: '#cfcfcf'
   }];
+  const A = window.YBAccount;
+  const me = A && A.current ? A.current() : null;
+  const started = games.filter(g => g.currentPct > 0).length;
   return /*#__PURE__*/React.createElement("div", {
     className: "yb-scroll"
   }, /*#__PURE__*/React.createElement("div", {
@@ -658,12 +663,25 @@ function MeScreen({
     }
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "lvl"
-  }, "\u5929\u547D\u73A9\u5BB6"), /*#__PURE__*/React.createElement("div", {
+  }, me ? me.nickname || me.account : '游客'), /*#__PURE__*/React.createElement("div", {
     className: "note",
     style: {
       marginTop: 4
     }
-  }, "\u966A\u4F34 ", games.length, " \u6B3E \xB7 \u7D2F\u8BA1\u7701\u53BB\u7EA6 18 \u5C0F\u65F6\u6478\u7D22"))), /*#__PURE__*/React.createElement("div", {
+  }, me ? `@${me.account} · 已开始 ${started} / ${games.length} 款 · 数据已跨端同步` : `已开始 ${started} / ${games.length} 款 · 数据只存在这台设备`))), /*#__PURE__*/React.createElement("div", {
+    className: "me-acct"
+  }, me ? /*#__PURE__*/React.createElement("button", {
+    className: "me-acct-btn",
+    onClick: () => {
+      A.logout();
+      onLogout && onLogout();
+    }
+  }, "\u9000\u51FA\u767B\u5F55") : /*#__PURE__*/React.createElement("button", {
+    className: "me-acct-btn primary",
+    onClick: () => {
+      onLogout && onLogout();
+    }
+  }, "\u767B\u5F55 / \u6CE8\u518C\uFF0C\u5F00\u542F\u8DE8\u7AEF\u540C\u6B65")), /*#__PURE__*/React.createElement("div", {
     className: "sec-h"
   }, /*#__PURE__*/React.createElement("div", {
     className: "t"
@@ -1093,16 +1111,47 @@ function LoginScreen({
   /* 登录只走手机号 + 微信 OAuth（王彪 2026-09 定）。
      Steam / PlayStation / Nintendo 是登录之后的「账号绑定」——用于读取游玩数据
      解锁增益功能，不是登录方式：产品功能不得强依赖绑定任何游戏平台。 */
-  const methods = [{
-    id: 'wechat',
-    n: '微信登录',
-    c: '#07c160',
-    primary: true
-  }, {
-    id: 'phone',
-    n: '手机号登录',
-    c: '#b0a090'
-  }];
+  /* 内测期（2026-09-30 起）：微信 / 手机号需要开放平台与短信资质，尚未接通，如实标「即将开放」；
+     真正可用的是「内测账号」= 账号名 + 密码 + 邀请码，走 BFF → Supabase Auth，跨端数据互通。
+     也可以不登录先逛：数据只存本机，之后登录会自动带上。 */
+  const A = window.YBAccount;
+  const [mode, setMode] = useState('login'); // login | signup
+  const [f, setF] = useState({
+    account: '',
+    password: '',
+    invite: '',
+    nickname: ''
+  });
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+  const set = k => e => setF(prev => Object.assign({}, prev, {
+    [k]: e.target.value
+  }));
+  const canSubmit = !!A && f.account.trim().length >= 3 && f.password.length >= 8 && (mode === 'login' || f.invite.trim().length > 0);
+  const submit = async e => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!canSubmit || busy) return;
+    setBusy(true);
+    setErr('');
+    try {
+      if (mode === 'signup') await A.signup({
+        account: f.account,
+        password: f.password,
+        invite: f.invite,
+        nickname: f.nickname
+      });else await A.login({
+        account: f.account,
+        password: f.password
+      });
+      onLogin && onLogin({
+        guest: false
+      });
+    } catch (ex) {
+      setErr(ex && ex.message || '登录失败，请稍后再试');
+    } finally {
+      setBusy(false);
+    }
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "login"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1114,20 +1163,84 @@ function LoginScreen({
     className: "login-h"
   }, "\u6B22\u8FCE\u6765\u5230\u6E38\u4F34"), /*#__PURE__*/React.createElement("div", {
     className: "login-sub"
-  }, "\u7CBE\u9009\u7ECF\u5178\uFF0C\u966A\u4F60\u8D70\u5B8C\u6BCF\u4E00\u6BB5\u65C5\u7A0B")), /*#__PURE__*/React.createElement("div", {
-    className: "login-methods"
-  }, methods.map(m => /*#__PURE__*/React.createElement("button", {
-    key: m.id,
-    className: 'login-btn' + (m.primary ? ' wechat' : ''),
-    onClick: onLogin
+  }, "\u7CBE\u9009\u7ECF\u5178\uFF0C\u966A\u4F60\u8D70\u5B8C\u6BCF\u4E00\u6BB5\u65C5\u7A0B")), /*#__PURE__*/React.createElement("form", {
+    className: "login-form",
+    onSubmit: submit
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "login-seg"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: mode === 'login' ? 'on' : '',
+    onClick: () => {
+      setMode('login');
+      setErr('');
+    }
+  }, "\u767B\u5F55"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: mode === 'signup' ? 'on' : '',
+    onClick: () => {
+      setMode('signup');
+      setErr('');
+    }
+  }, "\u6CE8\u518C\u5185\u6D4B\u8D26\u53F7")), /*#__PURE__*/React.createElement("input", {
+    className: "login-input",
+    placeholder: "\u8D26\u53F7\uFF083\u201320 \u4F4D\u5B57\u6BCD / \u6570\u5B57 / \u4E0B\u5212\u7EBF\uFF09",
+    autoComplete: "username",
+    autoCapitalize: "none",
+    spellCheck: "false",
+    value: f.account,
+    onChange: set('account')
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "login-input",
+    type: "password",
+    placeholder: "\u5BC6\u7801\uFF08\u81F3\u5C11 8 \u4F4D\uFF09",
+    autoComplete: mode === 'signup' ? 'new-password' : 'current-password',
+    value: f.password,
+    onChange: set('password')
+  }), mode === 'signup' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("input", {
+    className: "login-input",
+    placeholder: "\u6635\u79F0\uFF08\u9009\u586B\uFF09",
+    value: f.nickname,
+    onChange: set('nickname')
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "login-input",
+    placeholder: "\u9080\u8BF7\u7801",
+    autoCapitalize: "characters",
+    spellCheck: "false",
+    value: f.invite,
+    onChange: set('invite')
+  })), err ? /*#__PURE__*/React.createElement("div", {
+    className: "login-err"
+  }, err) : null, /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    className: "login-btn primary",
+    disabled: !canSubmit || busy
+  }, busy ? '请稍候…' : mode === 'signup' ? '注册并进入' : '登录')), /*#__PURE__*/React.createElement("div", {
+    className: "login-methods soon"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "login-btn",
+    disabled: true
   }, /*#__PURE__*/React.createElement("span", {
     className: "login-dot",
     style: {
-      background: m.c
+      background: '#07c160'
     }
-  }), m.n))), /*#__PURE__*/React.createElement("div", {
+  }), "\u5FAE\u4FE1\u767B\u5F55 \xB7 \u5373\u5C06\u5F00\u653E"), /*#__PURE__*/React.createElement("button", {
+    className: "login-btn",
+    disabled: true
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "login-dot",
+    style: {
+      background: '#b0a090'
+    }
+  }), "\u624B\u673A\u53F7\u767B\u5F55 \xB7 \u5373\u5C06\u5F00\u653E")), /*#__PURE__*/React.createElement("button", {
+    className: "login-guest",
+    onClick: () => onLogin && onLogin({
+      guest: true
+    })
+  }, "\u5148\u901B\u901B\uFF08\u4E0D\u767B\u5F55\uFF0C\u6570\u636E\u53EA\u5B58\u5728\u8FD9\u53F0\u8BBE\u5907\uFF09"), /*#__PURE__*/React.createElement("div", {
     className: "login-bind-note"
-  }, "\u767B\u5F55\u540E\u53EF\u7ED1\u5B9A Steam / PlayStation / Nintendo \u8D26\u53F7\uFF0C\u81EA\u52A8\u8BFB\u53D6\u6E38\u73A9\u6570\u636E\uFF08\u53EF\u9009\uFF09"), /*#__PURE__*/React.createElement("div", {
+  }, "\u767B\u5F55\u540E\u6570\u636E\u8DE8\u8BBE\u5907\u4E92\u901A\uFF1B\u4E4B\u540E\u53EF\u7ED1\u5B9A Steam / PlayStation / Nintendo \u8BFB\u53D6\u6E38\u73A9\u6570\u636E\uFF08\u53EF\u9009\uFF09"), /*#__PURE__*/React.createElement("div", {
     className: "login-terms"
   }, "\u767B\u5F55\u5373\u4EE3\u8868\u540C\u610F\u300A\u7528\u6237\u534F\u8BAE\u300B\u4E0E\u300A\u9690\u79C1\u653F\u7B56\u300B"));
 }
