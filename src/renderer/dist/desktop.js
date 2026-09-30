@@ -651,7 +651,10 @@ function DesktopShell({
   theme,
   setTheme,
   stage,
-  setStage
+  setStage,
+  user,
+  onLogin,
+  onLogout
 }) {
   const game = games[gi];
   const [guard, setGuard] = useStateD(true);
@@ -679,7 +682,7 @@ function DesktopShell({
     }, stage === 'splash' ? /*#__PURE__*/React.createElement(SplashScreen, {
       onEnter: () => setStage('login')
     }) : /*#__PURE__*/React.createElement(LoginScreen, {
-      onLogin: () => setStage('app')
+      onLogin: onLogin || (() => setStage('app'))
     }));
   }
   return /*#__PURE__*/React.createElement("div", {
@@ -742,9 +745,9 @@ function DesktopShell({
     className: "pm"
   }, /*#__PURE__*/React.createElement("div", {
     className: "n"
-  }, "\u6211\u7684"), /*#__PURE__*/React.createElement("div", {
+  }, user ? user.nickname || user.account : '游客'), /*#__PURE__*/React.createElement("div", {
     className: "s"
-  }, "\u8D26\u53F7 \xB7 \u7ED1\u5B9A \xB7 \u8BBE\u7F6E")), /*#__PURE__*/React.createElement(Icon, {
+  }, user ? '已登录 · 跨端同步' : '未登录 · 点此登录')), /*#__PURE__*/React.createElement(Icon, {
     name: "set",
     size: 16,
     style: {
@@ -803,7 +806,11 @@ function DesktopShell({
     theme: theme,
     setTheme: setTheme,
     game: game,
-    onConnect: p => setConnect(p)
+    onConnect: p => setConnect(p),
+    onLogout: () => {
+      setProfile(false);
+      if (onLogout) onLogout();
+    }
   }), connect && /*#__PURE__*/React.createElement(PlatformConnect, {
     platform: connect,
     onClose: () => setConnect(null),

@@ -474,6 +474,27 @@
 .login-btn.wechat { background: #07c160; border-color: #07c160; color: #fff; }
 .login-dot { width: 18px; height: 18px; border-radius: 5px; display: inline-block; }
 .login-terms { text-align: center; font-size: 11px; color: #6a6050; line-height: 1.6; }
+/* 内测账号表单（2026-09-30）：真实可用的登录方式；微信 / 手机号标「即将开放」 */
+.login { overflow-y: auto; scrollbar-width: none; padding-top: 96px; }
+.login::-webkit-scrollbar { display: none; }
+.login-form { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+.login-seg { display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); margin-bottom: 4px; }
+.login-seg button { flex: 1; height: 34px; border-radius: 9px; border: 0; background: none; color: #8a8070; font-family: var(--font-sans); font-size: 13px; font-weight: 600; cursor: pointer; transition: .2s; }
+.login-seg button.on { background: rgba(196,163,90,.18); color: #e8c547; }
+.login-input { height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: #e8e0d0; padding: 0 14px; font-family: var(--font-sans); font-size: 15px; outline: none; transition: border-color .2s; }
+.login-input::placeholder { color: #6a6050; }
+.login-input:focus { border-color: rgba(196,163,90,.7); }
+.login-err { font-size: 12.5px; color: #ff8a7a; padding: 2px 4px; line-height: 1.5; }
+.login-btn.primary { background: linear-gradient(135deg,#E8C547,#C4A35A); border-color: transparent; color: #0b0a08; margin-top: 4px; }
+.login-btn:disabled { opacity: .45; cursor: default; }
+.login-btn:disabled:active { transform: none; }
+.login-methods.soon { margin-top: 18px; margin-bottom: 10px; gap: 8px; }
+.login-methods.soon .login-btn { height: 42px; font-size: 13px; font-weight: 500; }
+.login-guest { background: none; border: 0; color: #b0a090; font-family: var(--font-sans); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 8px; margin-bottom: 8px; }
+/* 我的 · 账号操作 */
+.me-acct { margin: 12px 0 4px; }
+.me-acct-btn { width: 100%; height: 44px; border-radius: 12px; border: 1px solid var(--hairline); background: var(--chip); color: var(--txt-2); font-family: var(--font-sans); font-size: 14px; font-weight: 600; cursor: pointer; }
+.me-acct-btn.primary { background: var(--accent); border-color: transparent; color: var(--accent-ink); }
 
 /* ════════════ 平台连接 ════════════ */
 .connect-head { display: flex; align-items: center; gap: 14px; padding: 4px 22px 0; }

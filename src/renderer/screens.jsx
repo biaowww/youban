@@ -315,13 +315,17 @@ function SentimentScreen({ game }) {
 }
 
 /* ════════════ 我的（平台同步） ════════════ */
-function MeScreen({ games, onClose, theme, setTheme, game, onConnect }) {
+function MeScreen({ games, onClose, theme, setTheme, game, onConnect, onLogout }) {
+  /* 平台绑定尚未接通客户端（Steam 后端已就绪，见 backend/steam-bff），如实显示为未连接 */
   const platforms = [
-    { id: 'steam', n: 'Steam', d: '已连接 · 自动同步成就', on: true, c: '#9bc1d6' },
-    { id: 'wegame', n: 'WeGame', d: '已连接', on: true, c: '#ea5413' },
-    { id: 'playstation', n: 'PlayStation', d: '点击授权奖杯同步', on: false, c: '#4f8fde' },
-    { id: 'epicgames', n: 'Epic Games', d: '点击授权', on: false, c: '#cfcfcf' },
+    { id: 'steam', n: 'Steam', d: '绑定入口接入中', on: false, c: '#9bc1d6' },
+    { id: 'playstation', n: 'PlayStation', d: '规划中', on: false, c: '#4f8fde' },
+    { id: 'wegame', n: 'WeGame', d: '规划中', on: false, c: '#ea5413' },
+    { id: 'epicgames', n: 'Epic Games', d: '规划中', on: false, c: '#cfcfcf' },
   ];
+  const A = window.YBAccount;
+  const me = A && A.current ? A.current() : null;
+  const started = games.filter(g => g.currentPct > 0).length;
   return (
     <div className="yb-scroll">
       <div className="appbar me-bar"><button className="round-btn" onClick={onClose}><Icon name="back" size={18} /></button>
@@ -330,7 +334,17 @@ function MeScreen({ games, onClose, theme, setTheme, game, onConnect }) {
       <div className="senti">
         <div className="profile-hero">
           <div className="avatar-lg"><img src={AVATAR} alt="" onError={e => { e.target.style.display = 'none'; e.target.parentNode.textContent = '游'; }} /></div>
-          <div><div className="lvl">天命玩家</div><div className="note" style={{ marginTop: 4 }}>陪伴 {games.length} 款 · 累计省去约 18 小时摸索</div></div>
+          <div>
+            <div className="lvl">{me ? (me.nickname || me.account) : '游客'}</div>
+            <div className="note" style={{ marginTop: 4 }}>
+              {me ? `@${me.account} · 已开始 ${started} / ${games.length} 款 · 数据已跨端同步` : `已开始 ${started} / ${games.length} 款 · 数据只存在这台设备`}
+            </div>
+          </div>
+        </div>
+        <div className="me-acct">
+          {me
+            ? <button className="me-acct-btn" onClick={() => { A.logout(); onLogout && onLogout(); }}>退出登录</button>
+            : <button className="me-acct-btn primary" onClick={() => { onLogout && onLogout(); }}>登录 / 注册，开启跨端同步</button>}
         </div>
 
         <div className="sec-h"><div className="t">外观主题</div><div className="ln" /></div>
@@ -563,10 +577,30 @@ function LoginScreen({ onLogin }) {
   /* 登录只走手机号 + 微信 OAuth（王彪 2026-09 定）。
      Steam / PlayStation / Nintendo 是登录之后的「账号绑定」——用于读取游玩数据
      解锁增益功能，不是登录方式：产品功能不得强依赖绑定任何游戏平台。 */
-  const methods = [
-    { id: 'wechat', n: '微信登录', c: '#07c160', primary: true },
-    { id: 'phone', n: '手机号登录', c: '#b0a090' },
-  ];
+  /* 内测期（2026-09-30 起）：微信 / 手机号需要开放平台与短信资质，尚未接通，如实标「即将开放」；
+     真正可用的是「内测账号」= 账号名 + 密码 + 邀请码，走 BFF → Supabase Auth，跨端数据互通。
+     也可以不登录先逛：数据只存本机，之后登录会自动带上。 */
+  const A = window.YBAccount;
+  const [mode, setMode] = useState('login');          // login | signup
+  const [f, setF] = useState({ account: '', password: '', invite: '', nickname: '' });
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+  const set = (k) => (e) => setF(prev => Object.assign({}, prev, { [k]: e.target.value }));
+  const canSubmit = !!A && f.account.trim().length >= 3 && f.password.length >= 8 && (mode === 'login' || f.invite.trim().length > 0);
+
+  const submit = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!canSubmit || busy) return;
+    setBusy(true); setErr('');
+    try {
+      if (mode === 'signup') await A.signup({ account: f.account, password: f.password, invite: f.invite, nickname: f.nickname });
+      else await A.login({ account: f.account, password: f.password });
+      onLogin && onLogin({ guest: false });
+    } catch (ex) {
+      setErr((ex && ex.message) || '登录失败，请稍后再试');
+    } finally { setBusy(false); }
+  };
+
   return (
     <div className="login">
       <div className="login-top">
@@ -574,16 +608,36 @@ function LoginScreen({ onLogin }) {
         <div className="login-h">欢迎来到游伴</div>
         <div className="login-sub">精选经典，陪你走完每一段旅程</div>
       </div>
-      <div className="login-methods">
-        {methods.map(m => (
-          <button key={m.id} className={'login-btn' + (m.primary ? ' wechat' : '')} onClick={onLogin}>
-            <span className="login-dot" style={{ background: m.c }} />
-            {m.n}
-          </button>
-        ))}
+
+      <form className="login-form" onSubmit={submit}>
+        <div className="login-seg">
+          <button type="button" className={mode === 'login' ? 'on' : ''} onClick={() => { setMode('login'); setErr(''); }}>登录</button>
+          <button type="button" className={mode === 'signup' ? 'on' : ''} onClick={() => { setMode('signup'); setErr(''); }}>注册内测账号</button>
+        </div>
+        <input className="login-input" placeholder="账号（3–20 位字母 / 数字 / 下划线）" autoComplete="username"
+          autoCapitalize="none" spellCheck="false" value={f.account} onChange={set('account')} />
+        <input className="login-input" type="password" placeholder="密码（至少 8 位）"
+          autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} value={f.password} onChange={set('password')} />
+        {mode === 'signup' && (
+          <>
+            <input className="login-input" placeholder="昵称（选填）" value={f.nickname} onChange={set('nickname')} />
+            <input className="login-input" placeholder="邀请码" autoCapitalize="characters" spellCheck="false" value={f.invite} onChange={set('invite')} />
+          </>
+        )}
+        {err ? <div className="login-err">{err}</div> : null}
+        <button type="submit" className="login-btn primary" disabled={!canSubmit || busy}>
+          {busy ? '请稍候…' : (mode === 'signup' ? '注册并进入' : '登录')}
+        </button>
+      </form>
+
+      <div className="login-methods soon">
+        <button className="login-btn" disabled><span className="login-dot" style={{ background: '#07c160' }} />微信登录 · 即将开放</button>
+        <button className="login-btn" disabled><span className="login-dot" style={{ background: '#b0a090' }} />手机号登录 · 即将开放</button>
       </div>
+
+      <button className="login-guest" onClick={() => onLogin && onLogin({ guest: true })}>先逛逛（不登录，数据只存在这台设备）</button>
       <div className="login-bind-note">
-        登录后可绑定 Steam / PlayStation / Nintendo 账号，自动读取游玩数据（可选）
+        登录后数据跨设备互通；之后可绑定 Steam / PlayStation / Nintendo 读取游玩数据（可选）
       </div>
       <div className="login-terms">登录即代表同意《用户协议》与《隐私政策》</div>
     </div>

@@ -40,6 +40,15 @@ export const config = {
     serviceKey: env('SERVICE_ROLE_KEY', ''),
   },
 
+  /* 账号（Supabase Auth 作底座，BFF 是唯一入口）。三项齐全才启用；缺任一项 → 账号端点回 503，
+     攻略簿仍可按设备号匿名使用。INVITE_CODES 逗号分隔；留空 = 开放注册（内测期务必填）。 */
+  auth: {
+    anonKey: env('ANON_KEY', ''),
+    jwtSecret: env('JWT_SECRET', ''),
+    inviteCodes: String(env('INVITE_CODES', '')).split(',').map(s => s.trim()).filter(Boolean),
+    emailDomain: env('AUTH_EMAIL_DOMAIN', 'u.youban.app'),
+  },
+
   /* 游戏内容：读仓库 JSON（服务器上 /opt/youban/repo 也有一份），与客户端同一真相源 */
   gamesDir: env('GAMES_DIR', path.join(HERE, '..', '..', 'src', 'data', 'games')),
 };

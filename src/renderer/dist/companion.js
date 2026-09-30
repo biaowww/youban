@@ -68,6 +68,27 @@ function ybHeaders(json) {
   return h;
 }
 
+/* 带身份的请求：已登录 → Bearer token（快过期先续期；被拒 401 再强制续一次重试）；
+   未登录 → 只带设备号（匿名簿）。账号模块 account.js 缺失时自动退回设备号模式。 */
+async function ybFetch(url, init, json) {
+  const A = window.YBAccount;
+  const authed = !!(A && A.current && A.current());
+  const mk = tok => {
+    const h = ybHeaders(json);
+    if (tok) h.Authorization = 'Bearer ' + tok;
+    return Object.assign({}, init || {}, {
+      headers: h
+    });
+  };
+  let tok = authed ? await A.ensureFresh() : null;
+  let r = await fetch(url, mk(tok));
+  if (r.status === 401 && authed) {
+    tok = await A.ensureFresh(true);
+    r = await fetch(url, mk(tok));
+  }
+  return r;
+}
+
 /* 解析 SSE（data: <json>），逐条产出对象 */
 async function* ybSse(res) {
   const reader = res.body.getReader();
@@ -137,6 +158,17 @@ function CompanionPane({
   const listRef = useRef(null);
   const aliveRef = useRef(true);
   const base = ybBffBase();
+  /* 账号变了（登录 / 退出 / 换号）→ 这本簿要换一本，重新拉 */
+  const [who, setWho] = useState(() => {
+    const A = window.YBAccount;
+    const u = A && A.current && A.current();
+    return u ? u.id : '';
+  });
+  useEffect(() => {
+    const A = window.YBAccount;
+    if (!A || !A.onChange) return undefined;
+    return A.onChange(u => setWho(u ? u.id : ''));
+  }, []);
 
   /* 拉这本簿 */
   const load = useCallback(async () => {
@@ -154,9 +186,7 @@ function CompanionPane({
       });
       if (t) clearTimeout(t);
       if (!h.ok) throw new Error('health ' + h.status);
-      const r = await fetch(`${base}/api/companion/${game.id}`, {
-        headers: ybHeaders()
-      });
+      const r = await ybFetch(`${base}/api/companion/${game.id}`);
       if (!r.ok) throw new Error('load ' + r.status);
       const j = await r.json();
       if (!aliveRef.current) return;
@@ -168,7 +198,7 @@ function CompanionPane({
       if (!aliveRef.current) return;
       setStatus('offline');
     }
-  }, [base, game.id]);
+  }, [base, game.id, who]);
   useEffect(() => {
     aliveRef.current = true;
     setStatus('checking');
@@ -199,15 +229,14 @@ function CompanionPane({
     }]);
     let full = '';
     try {
-      const r = await fetch(`${base}/api/companion/${game.id}/chat`, {
+      const r = await ybFetch(`${base}/api/companion/${game.id}/chat`, {
         method: 'POST',
-        headers: ybHeaders(true),
         body: JSON.stringify({
           message: text,
           pct: value,
           guard: !!guard
         })
-      });
+      }, true);
       if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'HTTP ' + r.status);
       let refreshing = false;
       for await (const ev of ybSse(r)) {
@@ -229,9 +258,7 @@ function CompanionPane({
       /* 状态卡在服务端后台刷新，稍后回读一次 */
       if (refreshing) setTimeout(async () => {
         try {
-          const rr = await fetch(`${base}/api/companion/${game.id}`, {
-            headers: ybHeaders()
-          });
+          const rr = await ybFetch(`${base}/api/companion/${game.id}`);
           if (rr.ok && aliveRef.current) {
             const j = await rr.json();
             setCard(j.card);
@@ -253,9 +280,7 @@ function CompanionPane({
   }, [input, busy, status, base, game.id, value, guard]);
   const exportMd = useCallback(async () => {
     try {
-      const r = await fetch(`${base}/api/companion/${game.id}/export.md?pct=${value}&guard=${guard ? 1 : 0}`, {
-        headers: ybHeaders()
-      });
+      const r = await ybFetch(`${base}/api/companion/${game.id}/export.md?pct=${value}&guard=${guard ? 1 : 0}`);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const blob = await r.blob();
       const a = document.createElement('a');
@@ -272,9 +297,8 @@ function CompanionPane({
   const reset = useCallback(async () => {
     if (!window.confirm('清空这本攻略簿？对话与状态卡都会删除。')) return;
     try {
-      await fetch(`${base}/api/companion/${game.id}`, {
-        method: 'DELETE',
-        headers: ybHeaders()
+      await ybFetch(`${base}/api/companion/${game.id}`, {
+        method: 'DELETE'
       });
       load();
     } catch (e) {
