@@ -52,6 +52,9 @@ node /opt/youban/repo/backend/scripts/seed-games.mjs   # 哈希比对幂等，�
 - [x] `youban-companion` 已上线（2026-09-16，独立于服务器既有 `youban-bff`）
 - [x] 服务器 `/opt/youban/bff`（Steam BFF）代码收进仓库（2026-09-16，`backend/steam-bff/`）
 - [x] `youban-bff` 骨架已立（`backend/bff/`，零依赖 Node，2026-09-09）——首批端点是**攻略簿 Companion AI**（`/api/companion/*`，SSE 流式 + 状态卡记忆），见 `backend/bff/README.md`
+- [x] **账号 + 跨端同步上线（2026-09-30）**：内测账号（账号名+密码+邀请码）、进度与攻略簿按账号互通；设计见 `docs/账号与数据永久化-设计.md`
+- [x] Tauri v2 Windows 桌面客户端出包（`tauri` 分支，2026-09-30）
+- [ ] **数据库自动备份（目前没有）**——库里已开始有真实用户数据，优先级最高
 - [ ] 截图提问（视觉模型 GLM-5V）——**推迟到未来版本**（2026-09-16 决定）
 - [ ] BFF 补 `/api/auth/wechat`、`/api/auth/steam/*`、`/api/steam/*`（复用 `src/services/steam/`）
 - [x] 服务器部署 companion（systemd + .env）+ 跑 `0002_companion.sql`（2026-09-16）；`GLM_API_KEY` 待王彪填

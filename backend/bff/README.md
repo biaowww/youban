@@ -1,8 +1,8 @@
-# youban-bff · 攻略簿（Companion AI）
+# youban-bff · 对外 API（账号 / 进度 / 攻略簿 / 内容）
 
 > 设计背景与取舍见 `docs/攻略簿-CompanionAI-设计.md`。本页是**怎么跑 + 接口速查**。
 
-零依赖 Node（≥ 22.9）。密钥只在这里；客户端永远只见 BFF。
+零依赖 Node（≥ 20）。密钥只在这里；客户端永远只见 BFF。账号与同步的设计见 `docs/账号与数据永久化-设计.md`，AI 部分见 `docs/AI-infra-gbot-设计.md`。
 
 ## 本地跑
 
@@ -16,12 +16,21 @@ npm run dev                   # http://127.0.0.1:8787（--watch 热重启）
 
 ## 接口
 
-身份：请求头 `x-yb-device: <客户端 uuid>`（内测期）；接真账号后改 `Authorization: Bearer <JWT>`，只动 `server.mjs` 的 `identityOf()`。
+身份：已登录带 `Authorization: Bearer <accessToken>`（→ user_id）；游客带 `x-yb-device: <客户端 uuid>`。带了 token 但无效 → 401（不会悄悄降级成设备身份）。
 
 | 方法 | 路径 | 说明 |
 |---|---|---|
 | GET | `/health` | provider / store / 游戏数 |
 | GET | `/api/games` | 可用游戏清单（id / short / platforms） |
+| POST | `/api/auth/signup` | `{account, password, invite, nickname?}` → 会话 |
+| POST | `/api/auth/login` | `{account, password}` → 会话 |
+| POST | `/api/auth/refresh` | `{refreshToken}` → 会话 |
+| GET | `/api/me` | 当前账号（须登录） |
+| GET | `/api/me/progress` | 我的全部进度 |
+| PUT | `/api/me/progress/:gameId` | `{pct, source?}` 写进度（后写为准，同时追加历史） |
+| POST | `/api/me/claim-device` | 认领本设备游客期间写的攻略簿 |
+| GET | `/api/content/manifest` | 游戏清单 + 内容哈希 |
+| GET | `/api/content/games/:id` | 单款游戏 JSON 全文 |
 | GET | `/api/companion/:gameId` | 这本簿：`{card, turns, messages(近 50)}` |
 | POST | `/api/companion/:gameId/chat` | `{message, pct, guard}` → **SSE** |
 | PATCH | `/api/companion/:gameId/profile` | 玩家手动记：`{build?, keyItems?, goals?, stuck?, decisions?, notes?}` |
@@ -43,11 +52,15 @@ lib/gameBrief.mjs     纯函数：游戏 JSON + pct + guard → 简报（防剧�
 lib/promptBuilder.mjs 纯函数：拼 messages
 lib/profile.mjs       状态卡 schema / merge / 解析 / 轻模型刷新
 lib/report.mjs        纯函数：战报 Markdown
+lib/auth.mjs          账号：注册 / 登录 / 续期 / 本地验签（底座 Supabase Auth）
+lib/jwt.mjs           HS256 验签（零依赖）
+lib/progress.mjs      玩家进度存取（supabase | memory）
+lib/quota.mjs         每身份每日对话轮数上限
 lib/providers/        glm（OpenAI 兼容流式）| mock；加厂商 = 加一个同形文件
 lib/store/            file（本地 JSON）| supabase（service_role 经 REST）
 ```
 
-纯函数都有单测：`cd src && npx vitest run test/companion.test.js`。
+纯函数都有单测：`cd src && npx vitest run test/companion.test.js test/account.test.js`。
 
 ## 上线（offcircle-cloud）
 

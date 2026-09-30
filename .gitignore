@@ -44,3 +44,7 @@ TASKS.md
 
 # youban-bff 本地簿数据（个人对话记录，勿入库）
 backend/bff/data/
+
+# 安装包产物（Tauri 构建后拷出，走 Drive / 网盘分发，不进 git）
+release/
+.claude/worktrees/
