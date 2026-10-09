@@ -6,6 +6,18 @@
 
 ---
 
+## 关联位置速查
+
+| 位置 | 路径 | 作用 |
+|---|---|---|
+| **工程代码（本仓库）** | `E:\claude_project\youban`（PC；MacBook 上为 clone 目标路径）；GitHub `biaowww/youban`（`electron` 主线 / `tauri` 发布线） | 全部源码 + AI 协作手册，git 管版本 |
+| **产品文档 canonical** | Google Drive `元艺极客和超元/游伴YouBan/` | PRD / 设计 / 技术 / 运营 / 发布 / 留档；改动先改这里 |
+| **团队镜像** | 飞书云盘 `超元master/游伴YouBan/` | 给团队的镜像，可与 Drive 分化 |
+| **中台总线** | Drive `biaoOS/domains/youban/`（AGENTS.md / memory.md / tasks.md） | 登记 / 记忆 / 任务清单，不存文档本体 |
+| **Web 内测 demo** | https://biaowww.github.io/youban/ | v10 内测入口 |
+
+---
+
 ## 当前支持游戏
 
 | 游戏 | 主线时长 | Boss 存档点 | 状态 |
@@ -60,11 +72,9 @@
 ```
 游戏进度陪伴器 Game Companion/
 ├── README.md
-├── logo.png
-├── docs/
-│   └── PRD.md                  ← 产品需求文档
-├── research/                   ← 游戏数据调研笔记
-├── prototype/                  ← 早期 HTML 原型
+├── AGENTS.md / CLAUDE.md       ← AI 协作手册
+├── logo.png                    ← 主 logo（Tauri 图标构建引用）
+├── backend/                    ← 对外 API（BFF / Supabase）
 └── src/                        ← Electron 应用源码
     ├── main.js                 ← 主进程（IPC 数据加载）
     ├── preload.js              ← contextBridge 安全桥接
@@ -82,6 +92,8 @@
         ├── styles.css
         └── fonts/              ← Noto Sans SC 本地字体
 ```
+
+> **产品文档 / 设计稿 / 调研笔记 / 安装包已于 2026-10-09 迁出本仓库**，统一存放于 Google Drive 文档库 `元艺极客和超元/游伴YouBan/`（canonical；飞书 `超元master/游伴YouBan/` 为团队镜像）。本仓库只保留工程代码与 AI 协作必需文件，历史版本可从 git 记录找回。
 
 ---
 

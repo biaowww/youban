@@ -1,6 +1,6 @@
-# CLAUDE.md — 游伴 YouBan
+# AGENTS.md — 游伴 YouBan
 
-给 Claude Code 的项目工作手册。开 Claude Code 时在**项目根目录**启动，它会自动读到本文件。
+给 Codex 的项目工作手册。开 Codex 时在**项目根目录**启动，它会自动读到本文件。
 
 ## 这是什么
 
